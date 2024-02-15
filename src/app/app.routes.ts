@@ -1,26 +1,25 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    
+
   {
-    path: 'dashboard',
-    loadComponent: () => import('./dashboard/dashboard.component'),
+    path: 'auth',
+    loadComponent: () => import('./auth/login.component'),
     children: [
       {
-        path: 'change-detection',
-        title: 'Change Detection',
-        loadComponent: () => import('./dashboard/pages/change-detection/change-detection.component'),
-      }, 
+        path: 'login',
+        title: 'Login',
+        loadComponent: () => import('./auth/login/login.component'),
+      },
+      {
+        path: '', redirectTo: 'login', pathMatch: 'full',
+      }
     ]
   },
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: 'auth/login',
     pathMatch: 'full'
   }
-
-
-
-
 
 ];
