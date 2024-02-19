@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
 
   ],
-  templateUrl: './Principal.component.html',
+  templateUrl: './principal.component.html',
   styles: ``
 })
 export default class PrincipalComponent  {
