@@ -1,4 +1,89 @@
-<p>dashboard works!</p>
+<div class="container-fluid">
+    <p-menubar>
+        <ng-template pTemplate="start">
+            <img (click)="sidebarVisible = true" src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40"
+                class="mr-2" />
+        </ng-template>
+    </p-menubar>
+
+    <p-divider></p-divider>
+
+    <p-sidebar [(visible)]="sidebarVisible">
+        <h3>Menu</h3>
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-user mr-2"></i>
+                <b>Accesos</b>
+            </div>
+        </p-divider>
+
+        <p-accordion [multiple]="true" [activeIndex]="[0]" *ngFor="let grupo of items">
+            <p-accordionTab header="{{ grupo[0].label }}">
+                <ul>
+                    <li *ngFor="let item of grupo[0].items">
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="navigateToUrl(item.url)">
+                            <i [class]="item.icon"></i> &nbsp; {{ item.label }}
+                        </button>
+                        <p-divider></p-divider>
+                    </li>
+                </ul>
+            </p-accordionTab>
+        </p-accordion>
+
+        <p-accordion>
+            <p-accordionTab header="Themes" [selected]="true">
+                   <ul>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('saga-blue')">
+                            Azul-Saga-Blanco
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('vela-blue')">
+                            Azul-Vela
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('arya-blue')">
+                            Azul-Vela-negro
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('md-light-indigo')">
+                            Indigo-blanco
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('md-dark-indigo')">
+                            Negro-Indigo
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('bootstrap4-light-purple')">
+                            Purpura-Blanco
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('bootstrap4-dark-purple')">
+                            Purpura-Negro
+                        </button>
+                    </li>
+                </ul>
+            </p-accordionTab>
+        </p-accordion>
+    </p-sidebar>
+    <router-outlet />
+</div>
 
 
-<router-outlet />
+
+
+

@@ -1,13 +1,50 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+
+
+import { AccordionModule } from 'primeng/accordion';
+import { DividerModule } from 'primeng/divider';
+import { MenubarModule } from 'primeng/menubar';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SidebarModule } from 'primeng/sidebar';
+import { HomeService } from './Services/Home.service';
 
 
 @Component({
   standalone: true,
-  imports: [ RouterModule ],
+  imports: [ 
+    RouterModule,
+    ReactiveFormsModule,
+    //---------------------------->
+    //modulos para vista principal
+    SidebarModule,
+    AccordionModule,
+    DividerModule,
+    MenubarModule
+
+  ],
   templateUrl: './dashboard.component.html',
   styles: ``
 })
 export default class DashboardComponent {
+
+
+  public items:   any | undefined;
+  public sidebarVisible: boolean = false;
+  public theme = localStorage.getItem("theme");
+  
+  constructor( private servicio: HomeService, private router: Router) {}
+
+ public changeTheme(theme: string) { localStorage.setItem('theme', theme); this.servicio.switchTheme(theme);}
+
+ public navigateToUrl(url: any) { this.router.navigate([url]);}
+
+ ngOnInit() {
+    this.servicio.lstOpciones().subscribe(resp => {
+      this.items   = resp.Detalle._app_menu_modulo;
+      let items2   = this.items.map(group => group.menu); 
+      this.items = items2;
+    });
+  }
 
 }

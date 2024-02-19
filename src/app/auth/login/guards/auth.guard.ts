@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Route, UrlSegment, RouterStateSnapshot, Router, CanMatch, CanActivate } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { LoginService } from '../services/login.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanMatch, CanActivate {
 
-    constructor(private authService: AuthService,private router: Router, ){ }
+    constructor(private authService: LoginService,private router: Router, ){ }
 
     private checkAuthStatus(): boolean | Observable<boolean> {
       let tokenJ: any = { "tokken": localStorage.getItem("token") }
