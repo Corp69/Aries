@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule
-
   ],
   templateUrl: './principal.component.html',
   styles: ``

@@ -1,0 +1,129 @@
+<h1 style="text-align: center;"> <b>Empleado</b></h1>
+<!-- Agregar Informcion del formulario -->
+<form [formGroup]="frmEmpleado" autocomplete="off">
+    <div class="row">
+        <div class="col-sm-3">
+            <label><b>Nombre:</b></label>
+            <input formControlName="nombre" type="text" class="form-control" placeholder="Ingrese Nombre">
+            
+            
+        </div>
+        <div class="col-sm-3">
+            <label><b>Apellido Paterno:</b></label>
+            <input formControlName="paterno" type="text" class="form-control" placeholder="Ingrese Apellido Paterno">
+            
+        </div>
+        <div class="col-sm-3">
+            <label><b>Apellido Materno:</b></label>
+            <input formControlName="materno" type="text" class="form-control" placeholder="Ingrese Apellido Materno">
+            
+
+        </div>
+        <div class="col-sm-3">
+            <label><b>RFC:</b></label>
+            <input formControlName="rfc" type="text" class="form-control" placeholder="Ingrese RFC XXX0X0X0X0">
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label><b>Numero Seguro Social:</b></label>
+            <input formControlName="nss" type="number" class="form-control" placeholder="Ingrese numero">
+        </div>
+        <div class="col-sm-3">
+            <label><b>CURP:</b></label>
+            <input formControlName="curp" type="text" class="form-control" placeholder="Ingrese Apellido CURP">
+        </div>
+        <div class="col-sm-3">
+            <label><b>Cuenta Bancaria:</b></label>
+            <input formControlName="cuenta_banco" type="text" class="form-control"
+                placeholder="Ingrese Cuenta de Banco">
+        </div>
+        <div class="col-sm-3">
+            <label><b>CLABE:</b></label>
+            <input formControlName="clabe" type="text" class="form-control" placeholder=" XXX0X0X0X0">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label><b>whatsapp:</b></label>
+            <input formControlName="whatsapp" type="text" class="form-control" placeholder="Ingrese Nombre">
+        </div>
+        <div class="col-sm-3">
+            <label><b>Codigo:</b></label>
+            <input formControlName="codigo" type="text" class="form-control" placeholder="Ingrese RFC XXX0X0X0X0">
+        </div>
+        <div class="col-sm-3">
+            <label><b>Correo:</b></label>
+            <input formControlName="correo" type="text" class="form-control" placeholder="Ingrese RFC XXX0X0X0X0">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <label><b>Persona/contacto1:</b></label>
+            <textarea formControlName="contacto1" type="text" class="form-control"
+                placeholder="Ingrese informacion de algun contacnto"></textarea>
+        </div>
+        <div class="col-sm-4">
+            <label><b>Persona/contacto1:</b></label>
+            <textarea formControlName="contacto2" type="text" class="form-control"
+                placeholder="Ingrese informacion de algun contacnto"></textarea>
+        </div>
+        <div class="col-sm-4">
+            <label><b>Obeservaciones:</b></label>
+            <textarea formControlName="observaciones" type="text" class="form-control"
+                placeholder="Observaciones "></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label><b>Grado Escolar:</b></label>
+            
+        </div>
+        <div class="col-sm-3">
+            <label><b>Clasificación:</b></label>
+            
+        </div>
+        <div class="col-sm-3">
+            <label><b>Departamento:</b></label>
+            
+        </div>
+        <div class="col-sm-3">
+            <label><b>Puesto:</b></label>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label><b>Estado:</b></label>
+            
+        </div>
+        <div class="col-sm-3">
+            <label><b>Sexo:</b></label>
+            
+        </div>
+        <div class="col-sm-3">
+            <label><b>Fecha Nacimiento:</b></label>
+            
+        </div>
+        <div class="col-sm-3">
+            <label><b>Fecha Ingreso:</b></label>
+            
+        </div>
+    </div>
+
+
+
+
+    <hr>
+    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <button type="button" (click)="NuevoProvedor()" title="Resetear Formulario" class="btn btn-outline-primary">
+            Nuevo
+        </button>
+
+        <button type="submit" (click)="Almacenar()" [disabled]="frmEmpleado.invalid" title="Guardar Formulario"
+            class="btn btn-outline-primary">
+            Guardar
+        </button>
+    </div>
+</form>

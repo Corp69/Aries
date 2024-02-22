@@ -14,7 +14,6 @@ import { HomeService } from './Services/Home.service';
   standalone: true,
   imports: [ 
     RouterModule,
-    ReactiveFormsModule,
     //---------------------------->
     //modulos para vista principal
     SidebarModule,
