@@ -17,11 +17,71 @@
             </div>
         </p-divider>
 
-        <p-accordion>
-            <p-accordionTab header="Themes" [selected]="true">
-                  
+
+        <p-accordion [multiple]="true" [activeIndex]="[0]" *ngFor="let grupo of items">
+            <p-accordionTab header="{{ grupo[0].label }}">
+                <ul>
+                    <li *ngFor="let item of grupo[0].items">
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="navigateToUrl(item.url)">
+                            <i [class]="item.icon"></i> &nbsp; {{ item.label }}
+                        </button>
+                        <p-divider></p-divider>
+                    </li>
+                </ul>
             </p-accordionTab>
         </p-accordion>
+
+        <p-accordion>
+            <p-accordionTab header="Themes" [selected]="true">
+                   <ul>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('saga-blue')">
+                            Azul-Saga-Blanco
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('vela-blue')">
+                            Azul-Vela
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('arya-blue')">
+                            Azul-Vela-negro
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('md-light-indigo')">
+                            Indigo-blanco
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('md-dark-indigo')">
+                            Negro-Indigo
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('bootstrap4-light-purple')">
+                            Purpura-Blanco
+                        </button>
+                    </li>
+                    <li>
+                        <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                            (click)="changeTheme('bootstrap4-dark-purple')">
+                            Purpura-Negro
+                        </button>
+                    </li>
+                </ul>
+            </p-accordionTab>
+        </p-accordion>
+
+      
     </p-sidebar>
     <router-outlet />
 </div>

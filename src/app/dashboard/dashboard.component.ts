@@ -8,19 +8,21 @@ import { MenubarModule } from 'primeng/menubar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidebarModule } from 'primeng/sidebar';
 import { HomeService } from './Services/Home.service';
-
+import { CommonModule } from '@angular/common';
+import {ButtonModule} from 'primeng/button';
 
 @Component({
   standalone: true,
   imports: [ 
     RouterModule,
+    CommonModule,
     //---------------------------->
     //modulos para vista principal
     SidebarModule,
     AccordionModule,
     DividerModule,
-    MenubarModule
-
+    MenubarModule,
+    ButtonModule
   ],
   templateUrl: './dashboard.component.html',
   styles: ``

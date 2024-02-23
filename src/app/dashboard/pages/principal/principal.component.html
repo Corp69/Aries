@@ -1,1 +1,30 @@
-<h4>Pagina principal v.2</h4>
+<p-card header="Estadisticas 2024">
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-chart-line"></i>&nbsp;
+            <b>Ingresos:</b>
+        </div>
+    </p-divider>
+    <p-chart type="line" [data]="data" [options]="options"></p-chart>
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-chart-pie"></i>&nbsp;
+            <b>Gastos:</b>
+        </div>
+    </p-divider>
+    <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-user"></i>&nbsp;
+            <b>Empleados:</b>
+        </div>
+    </p-divider>
+    <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-chart-line"></i>&nbsp;
+            <b>Estatus Proyectos Año:  2024</b>
+        </div>
+    </p-divider>
+    <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+</p-card>

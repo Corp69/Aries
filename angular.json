@@ -33,6 +33,7 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/primeng/resources/primeng.min.css",
               "src/styles.scss",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               {
                 "input": "src/assets/temas/theme-md-dark-indigo.scss",
                 "bundleName": "md-dark-indigo",
@@ -47,7 +48,7 @@
               {
                 "input": "src/assets/temas/theme-lara-dark.scss",
                 "bundleName": "lara-dark-blue",
-                "inject": true   
+                "inject": false   
               },
               {
                 "input": "src/assets/temas/theme-saga-blue.scss",
@@ -82,7 +83,7 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
-         
+              
             ],
             "server": "src/main.server.ts",
             "prerender": true,

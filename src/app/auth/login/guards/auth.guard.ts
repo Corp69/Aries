@@ -9,7 +9,7 @@ export class AuthGuard implements CanMatch, CanActivate {
 
     constructor(private authService: LoginService,private router: Router, ){ }
 
-    private checkAuthStatus(): boolean | Observable<boolean> {
+    private checkAuthStatus(): boolean | Observable<any> {
       let tokenJ: any = { "tokken": localStorage.getItem("token") }
         return this.authService.checkAuthentication(tokenJ)
           .pipe(
@@ -19,7 +19,6 @@ export class AuthGuard implements CanMatch, CanActivate {
               }
             }),
           )
-    
       }
   
   
