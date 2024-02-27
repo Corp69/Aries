@@ -1,73 +1,35 @@
-<p-card>
-  <ng-template pTemplate="header">
-    <p-divider align="center">
-      <span class="p-tag">Aries</span>
-  </p-divider>
-    <form [formGroup]="myForm" autocomplete="off">
-      <div class="p-fluid grid">
-        <div class="field col-12 md:col-3">
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <i class="pi pi-question"></i>
-            </span>
-            <span class="p-float-label">
-              <input disabled type="text" id="inputgroup" pInputText>
-              <label for="inputgroup">EMPRESA: DEVELOPER</label>
-            </span>
-          </div>
-        </div>
-        <div class="field col-12 md:col-3">
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <i class="pi pi-user"></i>
-            </span>
-            <span class="p-float-label">
-              <input formControlName="USUARIO" type="text" id="inputgroup" pInputText>
-              <label for="inputgroup">Usuario:</label>
-            </span>
-          </div>
-        </div>
-        <div class="field col-12 md:col-3">
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">
-              <i class="pi pi-key"></i>
-            </span>
-            <span class="p-float-label">
-              <input formControlName="PASSS" type="text" id="inputgroup" pInputText>
-              <label for="inputgroup">Pass:</label>
-            </span>
-          </div>
-        </div>
-        <div class="field col-12 md:col-3">
-          <p-button (click)="onSave()" label="Ingresar" icon="pi pi-user-plus" styleClass="p-button-success"></p-button>
-        </div>
-      </div>
-    </form>
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <div class="container">
-      <div class="left">
-        <div class="login">Aries App</div>
-        <div class="eula">
-          <span class="text-secondary font-weight-bold">DEVELOPER SA. de CV.</span>
-          <hr>
-          <small> ©2024 CopyRight</small>
-        </div>
-      </div>
+
+<section class="login-register login-sidebar"
+    style="background-image:url(../assets/images/background/login-register.jpg);">
+    <div class="login-box ">
+        <p-card header="Inicio de Sessión" [style]="{width: '400px'}" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <p-divider align="center">
+                    <span class="p-tag">Aries</span>
+                </p-divider>
+            </ng-template>
+                
+            <form [formGroup]="myForm" autocomplete="off">
+              <div class="row">
+                    <label>Usuario:</label>
+                    <div class="col-6-mb">
+                        <input formControlName="USUARIO" type="text" id="inputgroup" pInputText>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <label>Pass:</label>
+                    <div class="col-6-mb">
+                        <input formControlName="PASSS" type="text" id="inputgroup" pInputText>
+                    </div>
+                </div>
+              </form>
+            
+            <ng-template pTemplate="footer">
+                <p-button (click)="onSave()" label="Iniciar Session" icon="pi pi-check"></p-button>
+            </ng-template>
+        </p-card>
     </div>
-  </ng-template>
-</p-card>
-<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
-  <hr>
-  <div class="row">
-    <div class="col-mb-4">
-      <i class="fa-solid fa-triangle-exclamation fa-2xl" style=" color: #ff0000;"></i>
-      <b>{{Mensaje}}</b>
-    </div>
-    <div class="col-mb-4">
-      <b>{{Detalle}}</b>
-    </div>
-  </div>
-  <br>
-  <hr>
-</p-dialog>
+</section>
+
+

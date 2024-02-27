@@ -20,12 +20,12 @@ import { Router } from '@angular/router';
             CardModule
           ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.css'
 })
 
 export default class LoginComponent implements OnInit {
   
-  // ******************************************
+    // ******************************************
   // variable: modales
   public visible:  boolean = false;
   public Titulo:   String  = 'Inicio De Session' 
