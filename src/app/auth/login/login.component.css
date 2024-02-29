@@ -123,6 +123,16 @@ Login register and recover password Page
 @media only screen and (max-width: 350px) {
   form {
     width: 75%;
-    min-width: 237px;
+  }
+}
+@media only screen and (max-width: 300px) {
+  form {
+    width: 50%;
+  }
+  form input{
+    width: 100%;
+  }
+  form button{
+    font-size: 10px;
   }
 }
