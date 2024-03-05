@@ -1,13 +1,10 @@
 <div class="container-fluid">
-    <p-menubar>
+<p-menubar>
         <ng-template pTemplate="start">
             <img (click)="sidebarVisible = true" src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40"
                 class="mr-2" />
         </ng-template>
     </p-menubar>
-
-    <p-divider></p-divider>
-
     <p-sidebar [(visible)]="sidebarVisible">
         <h3>Menu</h3>
         <p-divider align="left">
@@ -34,7 +31,7 @@
 
         <p-accordion>
             <p-accordionTab header="Themes" [selected]="true">
-                   <ul>
+                <ul>
                     <li>
                         <button pButton pRipple type="button" class="p-button-raised p-button-text"
                             (click)="changeTheme('saga-blue')">
@@ -80,13 +77,6 @@
                 </ul>
             </p-accordionTab>
         </p-accordion>
-
-      
     </p-sidebar>
     <router-outlet />
 </div>
-
-
-
-
-

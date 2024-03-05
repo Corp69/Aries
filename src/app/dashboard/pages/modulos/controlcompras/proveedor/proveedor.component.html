@@ -1,1 +1,154 @@
-<p>proveedor works!</p>
+<hr>
+<p-card header="Proveedor">
+    <!-- Agregar Informcion del formulario -->
+    <form [formGroup]="frmProveedor" autocomplete="off">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Proveedor</label>
+                    <input pInputText pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
+                        tooltipPosition="bottom" type="text" formControlName="nombre" pInputText placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmProveedor.controls['nombre'].invalid">
+                    </p-message>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>RFC</label>
+                    <input pInputText pTooltip="Ingrese RFC Persona: Fisica o Moral " tooltipPosition="bottom"
+                        type="text" formControlName="rfc" pInputText placeholder="Vacio" />
+                    <small *ngIf="frmProveedor.controls['rfc'].invalid" style=" color: rgb(235, 56, 29);">
+                        * Campo Requerido
+                    </small>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CURP</label>
+                    <input pTooltip="Ingrese CURP Persona: Fisica" tooltipPosition="bottom" type="text"
+                        formControlName="curp" pInputText placeholder="Vacio" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CODIGO</label>
+                    <input pTooltip="Ingrese Codigo Para Identificar Al Proveedor" tooltipPosition="bottom" type="text"
+                        formControlName="codigo" pInputText placeholder="Vacio" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CORREO</label>
+                    <input pTooltip="Ingrese Correo Para Contactar Al Proveedor" tooltipPosition="bottom" type="text"
+                        formControlName="correo" pInputText placeholder="Vacio" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="flex flex-column gap-2">
+                    <label>Tipo:</label>
+                    <p-dropdown pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom" formControlName="id_app_tipo" [options]="lstProveedorTipo"
+                        optionValue="id" optionLabel="descripcion">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="flex flex-column gap-2">
+                    <label>Estatus:</label>
+                    <p-dropdown 
+                    pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
+                        tooltipPosition="bottom" formControlName="id_app_estatus" [options]="lstestatus"
+                        placeholder="Seleccione una Opcion" 
+                        value="id" optionValue="id" optionLabel="descripcion">
+                    </p-dropdown>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-user"> Sat Uso CFDI:</i>
+                    </span>
+                    <textarea rows="1" cols="50" pInputText
+                        pTooltip="Seleccione Un Uso CFDI Fiscal: Para Timbrar Facturas." pInputTextarea
+                        [disabled]="true" [value]="usoCFDI" placeholder="Sin Informcion"></textarea>
+                    <button type="button" (click)="showDialog()" pTooltip="Abrir USO CFDI Fiscal."
+                        tooltipPosition="bottom" class="btn btn-outline-primary">
+                        <i class="fa-solid fa-plus"></i> Agregar
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-user">Sat Regimen Fiscal:</i>
+                    </span>
+                    <textarea rows="1" cols="50" pTooltip="Seleccione Un Regimen Fiscal: Para Timbrar Facturas."
+                        tooltipPosition="bottom" pInputTextarea [disabled]="true" [value]="RegimenCFDI"
+                        placeholder="Sin Informcion"></textarea>
+
+                    <button type="button" (click)="dlgRegimen()" pTooltip="Abrir Regimen Fiscal."
+                        tooltipPosition="bottom" class="btn btn-outline-primary">
+                        <i class="fa-solid fa-plus"></i> Agregar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-user mr-2"></i>
+                <b>Funciones Usuario:</b>
+            </div>
+        </p-divider>
+        <button type="button" (click)="NuevoProvedor()" [disabled]="BtnSpinner"
+            pTooltip="Nuevo Formulario: Resetear Informcion." tooltipPosition="bottom" class="btn btn-outline-primary">
+            Nuevo
+        </button>
+        <button [disabled]="BtnSpinner" type="button" (click)="Almacenar()" [disabled]="frmProveedor.invalid"
+            pTooltip="Almacenar La Informcion Del Formulario." tooltipPosition="bottom" class="btn btn-outline-primary">
+            Guardar
+            <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+                fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+
+        </button>
+    </form>
+</p-card>
+
+
+
+<div class="card flex flex-column align-items-center gap-2">
+    <p-dialog header="DEVELOPER ©2024" [(visible)]="visibleMjs" position="top">
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="fas fa-info-circle"> Dev info.</i>
+            </div>
+        </p-divider>
+        <div class="row">
+            <div class="col-mb-4">
+                {{msjBody.titulo}}
+                <i *ngIf="msjBody.msjTipo == 1" class="fa-solid fa-check fa-2xl" style=" color: green;">
+                </i>
+                <i *ngIf="msjBody.msjTipo == 2" class="fa-solid fa-circle-exclamation fa-2xl"
+                    style=" color: orange;"></i>
+                <i *ngIf="msjBody.msjTipo == 3" class="fa-solid fa-triangle-exclamation fa-2xl"
+                    style=" color: red;"></i>
+                <br>
+                {{msjBody.mensaje}}
+            </div>
+            <div class="col-mb-4">
+                {{msjBody.detalle}}
+            </div>
+        </div>
+        <br>
+        <hr>
+    </p-dialog>
+</div>

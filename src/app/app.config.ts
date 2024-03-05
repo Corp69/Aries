@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { routes } from './app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 export const appConfig: ApplicationConfig = {
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
 
     importProvidersFrom(
       HttpClientModule,
+      BrowserModule,
       BrowserAnimationsModule,
       ReactiveFormsModule
     )

@@ -13,14 +13,7 @@ export class LoginService {
 
   private http = inject( HttpClient );
   private errores = inject(ErroresService);
-  /*
-  public inicioSesion3(modelo: MdlUser) : Observable<any> {
-    return this.http.get<any>(`${ this.baseUrl }`, modelo)
-      .pipe(
-        map( response => response.data ),
-        tap( console.log ),
-      );
-  }*/
+
 
   public checkAuthentication(body: JSON) : Observable<any> {
     return this.http
