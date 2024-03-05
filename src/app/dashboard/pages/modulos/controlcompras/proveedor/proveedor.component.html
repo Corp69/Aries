@@ -2,10 +2,17 @@
 <p-card header="Proveedor">
     <!-- Agregar Informcion del formulario -->
     <form [formGroup]="frmProveedor" autocomplete="off">
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"></i>
+                Informacion General:
+            </div>
+        </p-divider>
+
         <div class="row">
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>Proveedor</label>
+                    <label>Nombre</label>
                     <input pInputText pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
                         tooltipPosition="bottom" type="text" formControlName="nombre" pInputText placeholder="Vacio" />
                     <p-message severity="error" text="Campo Es Obligatorio "
@@ -18,9 +25,9 @@
                     <label>RFC</label>
                     <input pInputText pTooltip="Ingrese RFC Persona: Fisica o Moral " tooltipPosition="bottom"
                         type="text" formControlName="rfc" pInputText placeholder="Vacio" />
-                    <small *ngIf="frmProveedor.controls['rfc'].invalid" style=" color: rgb(235, 56, 29);">
-                        * Campo Requerido
-                    </small>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmProveedor.controls['rfc'].invalid">
+                </p-message>
                 </div>
             </div>
 
@@ -49,29 +56,78 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="flex flex-column gap-2">
-                    <label>Tipo:</label>
-                    <p-dropdown pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
-                        tooltipPosition="bottom" formControlName="id_app_tipo" [options]="lstProveedorTipo"
-                        optionValue="id" optionLabel="descripcion">
-                    </p-dropdown>
-                </div>
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"> </i>
+                configuraciones:
             </div>
-            <div class="col-sm-6">
-                <div class="flex flex-column gap-2">
-                    <label>Estatus:</label>
-                    <p-dropdown 
-                    pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
-                        tooltipPosition="bottom" formControlName="id_app_estatus" [options]="lstestatus"
-                        placeholder="Seleccione una Opcion" 
-                        value="id" optionValue="id" optionLabel="descripcion">
-                    </p-dropdown>
-                    
-                </div>
+        </p-divider>
+        <div class="flex flex-wrap gap-3">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-wrench"> Tipo:</i>
+                    </p-inputGroupAddon>
+                
+                    <select
+                    pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                    tooltipPosition="bottom"
+                    class="form-select" 
+                    formControlName="id_app_tipo" 
+                    placeholder="Seleccione Tipo de Proveedor"
+                    aria-label="Default select example">
+                    <option *ngFor="let item of lstProveedorTipo" [value]="item.id">{{item.descripcion}}
+                    </option>
+                    </select>
+                </p-inputGroup>
+                <!-- descomentar hasta la actualizacion a version 17 
+
+                
+
+                <p-dropdown placeholder="Seleccione una Opcion"
+                pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                tooltipPosition="bottom" formControlName="id" [options]="lstProveedorTipo" value="id" optionValue="id"
+                optionLabel="descripcion">
+                </p-dropdown>
+                -->
+
+
+            </div>
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon>
+                        <i class="pi pi-wrench"> Estatus:</i>
+                    </p-inputGroupAddon>
+                    <select
+                    pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                    tooltipPosition="bottom"
+                    class="form-select" 
+                    formControlName="id_app_estatus" 
+                    placeholder="Seleccione Tipo de Proveedor"
+                    aria-label="Default select example">
+                    <option *ngFor="let item of lstestatus" [value]="item.id">{{item.descripcion}}
+                    </option>
+                    </select>
+                </p-inputGroup>
+                <!-- descomentar hasta la actualizacion a version 17 
+                
+                <p-dropdown pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
+                tooltipPosition="bottom" 
+                formControlName="id_app_estatus" 
+                [options]="lstestatus" placeholder="Seleccione una Opcion" value="id_app_estatus"
+                optionValue="id_app_estatus"  optionLabel="descripcion">
+                </p-dropdown>
+                -->
+
+
             </div>
         </div>
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"></i>
+                SAT:
+            </div>
+        </p-divider>
         <div class="row">
             <div class="col-sm-6">
                 <div class="p-inputgroup">

@@ -14,12 +14,16 @@ import {DialogModule} from 'primeng/dialog';
 import {TooltipModule} from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+
 
 @Component({
   selector: 'app-proveedor',
   standalone: true,
   imports: [
-
+    InputGroupModule,
+    InputGroupAddonModule,
     CommonModule,
     ReactiveFormsModule,
     DividerModule,
@@ -74,10 +78,10 @@ export default class ProveedorComponent {
     nombre: [, [Validators.required, Validators.minLength(3)]],
     codigo: [],
     correo: [],
-    rfc: [],
+    rfc: [, [Validators.required, Validators.minLength(3)]],
     curp: [],
-    id_app_estatus: [3],
-    id_app_tipo: [3],
+    id_app_estatus: [],
+    id_app_tipo: [],
     id_rh_empleado: [],
     id_sat_usocfdi: [1],
     //id_sat_doc_cobro:           [1],
@@ -127,6 +131,7 @@ export default class ProveedorComponent {
 
 
   ngOnInit() {
+
     //=========================================================================================================================
     //carga listados
     this.servicio.listProveedorEstatus().subscribe(resp => { this.lstestatus = resp.Detalle; });
