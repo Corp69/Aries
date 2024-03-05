@@ -23,7 +23,7 @@ import {ButtonModule} from 'primeng/button';
     MenubarModule,
     ButtonModule
   ],
-  templateUrl: './aries.component.html',
+  templateUrl: './Aries.component.html',
   styles: ``
 })
 export default class AriesComponent {
