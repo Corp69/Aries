@@ -85,11 +85,11 @@ export default class ProveedorComponent {
     curp: [],
     id_app_estatus: [1],
     id_app_tipo: [1],
-    id_rh_empleado: [],
+    id_rh_empleado: [ parseInt(localStorage.getItem("id"))],
     id_sat_usocfdi: [1],
     //id_sat_doc_cobro:           [1],
     id_sat_regimenfiscal: [1],
-    imagen: []
+    imagen: [null]
   });
 
   constructor(
