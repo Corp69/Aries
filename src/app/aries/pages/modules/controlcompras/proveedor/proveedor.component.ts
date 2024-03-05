@@ -83,8 +83,8 @@ export default class ProveedorComponent {
     correo: [],
     rfc: [, [Validators.required, Validators.minLength(3)]],
     curp: [],
-    id_app_estatus: [],
-    id_app_tipo: [],
+    id_app_estatus: [1],
+    id_app_tipo: [1],
     id_rh_empleado: [],
     id_sat_usocfdi: [1],
     //id_sat_doc_cobro:           [1],
@@ -182,13 +182,10 @@ export default class ProveedorComponent {
     //===============================
   }
 
-
-
+  // metodo para agregar un nuevo proveedor
   public NuevoProvedor = () => {
     this.visibleMjs = false;
     this.frmProveedor.setValue(this.MdlProveedor);
-    this.frmProveedor.controls['id_rh_empleado'].setValue(parseInt(localStorage.getItem("id")));
-    this.frmProveedor.controls['id'].setValue(-1);
     this.usoCFDI = ''
     this.RegimenCFDI = ''
   }

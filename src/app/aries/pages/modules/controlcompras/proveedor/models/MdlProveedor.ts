@@ -10,7 +10,7 @@ public imagen: String = "";
 
 public id_app_estatus: number = 1;
 public id_app_tipo: number = 1;
-public id_rh_empleado: number = -1;
+public id_rh_empleado: number = parseInt(localStorage.getItem("id"));
 
 public id_sat_usocfdi: number = 1;
 public id_sat_regimenfiscal: number = 1;
