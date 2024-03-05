@@ -14,7 +14,7 @@
                 <div class="flex flex-column gap-2">
                     <label>Nombre</label>
                     <input 
-                        pKeyFilter="hex"
+                        pKeyFilter="alphanum"
                         pInputText 
                         pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
                         tooltipPosition="bottom" 
@@ -30,7 +30,7 @@
                 <div class="flex flex-column gap-2">
                     <label>RFC</label>
                     <input
-                        pKeyFilter="hex" 
+                        pKeyFilter="alphanum" 
                         pInputText 
                         pTooltip="Ingrese RFC Persona: Fisica o Moral " 
                         tooltipPosition="bottom"
@@ -47,7 +47,7 @@
                 <div class="flex flex-column gap-2">
                     <label>CURP</label>
                     <input
-                        pKeyFilter="hex" 
+                        pKeyFilter="alphanum" 
                         pTooltip="Ingrese CURP Persona: Fisica" 
                         tooltipPosition="bottom" 
                         formControlName="curp" 
@@ -60,7 +60,7 @@
                 <div class="flex flex-column gap-2">
                     <label>CODIGO</label>
                     <input
-                        pKeyFilter="hex" 
+                        pKeyFilter="alphanum" 
                         pTooltip="Ingrese Codigo Para Identificar Al Proveedor"
                         tooltipPosition="bottom" 
                         formControlName="codigo" 
@@ -73,10 +73,9 @@
                 <div class="flex flex-column gap-2">
                     <label>CORREO</label>
                     <input
-                        pKeyFilter="hex" 
+                        pKeyFilter="alphanum" 
                         pTooltip="Ingrese Correo Para Contactar Al Proveedor" 
                         tooltipPosition="bottom" 
-                        type="text"
                         formControlName="correo" 
                         pInputText 
                         placeholder="Vacio" />
@@ -241,7 +240,7 @@
     <p-dialog header="DEVELOPER ©2024" [(visible)]="visibleMjs" position="top">
         <p-divider align="left">
             <div class="inline-flex align-items-center">
-                <i class="fas fa-info-circle"> Dev info.</i>
+                <i class="fas fa-info-circle"> ARIES.</i>
             </div>
         </p-divider>
         <div class="row">

@@ -104,7 +104,6 @@ export default class ProveedorComponent {
         this.servicio.Datainfo(+params['id']).subscribe(resp => {
          // this.frmProveedor.setValue(resp.Detalle);
          // seteamos la informacion
-         console.log( resp.Detalle );
          this.frmProveedor.controls['id'].setValue(resp.Detalle.id);
          this.frmProveedor.controls['nombre'].setValue(resp.Detalle.nombre);
          this.frmProveedor.controls['rfc'].setValue(resp.Detalle.rfc);
@@ -115,10 +114,6 @@ export default class ProveedorComponent {
          this.frmProveedor.controls['id_app_estatus'].setValue(resp.Detalle.id_app_estatus);
          this.frmProveedor.controls['id_app_tipo'].setValue(resp.Detalle.id_app_tipo);
          this.frmProveedor.controls['id_rh_empleado'].setValue(parseInt(resp.Detalle.id_rh_empleado));
-
-         console.log( this.frmProveedor.value );
-
-
         });
         //CARGAMOS CFDI
         this.servicio.Datacfdi(+params['id']).subscribe(resp => {
@@ -152,38 +147,36 @@ export default class ProveedorComponent {
     this.BtnSpinner = true;
     //===============================
     this.servicio.AlmacenarProveedor(this.frmProveedor.value).subscribe(resp => {
+      console.log( resp )
       
-      console.log( this.frmProveedor.value )
-      console.log( resp.Detalle )
-      
-      switch (resp.Detalle) {
-        case null:
+      switch (resp.IdMensj) {
+        case 3:
           //============================================================
-          this.msjBody.msjTipo = 3;
-          this.msjBody.titulo = 'Modulo Servicio: Developer®';
-          this.msjBody.mensaje = 'La consulta de manera exitosa !';
-          this.msjBody.detalle = 'Web Service Esta Fallando';
+          this.msjBody.msjTipo = resp.IdMensj;
+          this.msjBody.titulo  = 'Aries: Info'; //resp.Titulo;
+          this.msjBody.mensaje = resp.Mensaje; 
+          this.msjBody.detalle = resp.Solucion; 
           break;
-        case undefined:
+        case 2:
           //============================================================
-          this.msjBody.msjTipo = 3;
-          this.msjBody.titulo = 'Modulo Servicio: Developer®';
-          this.msjBody.mensaje = 'La consulta de manera exitosa !';
-          this.msjBody.detalle = 'Web Service Esta Fallando';
+          this.msjBody.msjTipo = resp.IdMensj;
+          this.msjBody.titulo  = 'Aries: Info'; //resp.Titulo;
+          this.msjBody.mensaje = resp.Mensaje; 
+          this.msjBody.detalle = resp.Detalle; 
           break;
         default:
-          this.visibleMjs = true;
-          this.msjBody.msjTipo = 1;
+          console.log( resp.Titulo);
           //============================================================
-          this.msjBody.titulo = resp.Titulo;
-          this.msjBody.titulo = 'Modulo Servicio: Developer®';
-          this.msjBody.mensaje = resp.Mensaje;
-          this.msjBody.detalle = resp.Detalle;
+          this.msjBody.msjTipo = resp.IdMensj;
+          this.msjBody.titulo  = 'Aries: Info'; //resp.Titulo;
+          this.msjBody.mensaje = resp.Mensaje; 
+          this.msjBody.detalle = resp.Detalle; 
           //============================================================
           this.frmProveedor.setValue(this.frmProveedor.value);
           this.frmProveedor.controls['id'].setValue(parseInt(resp.Id));
           break;
       }
+      this.visibleMjs = true;
       this.BtnSpinner = false;
     });
     //===============================

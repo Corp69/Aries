@@ -19,7 +19,7 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'dashboard',
+    path: 'aries',
     loadComponent: () => import('./aries/Aries.component'),
     canActivate:[ AuthGuard ],
     canMatch:[ AuthGuard],
@@ -58,6 +58,35 @@ export const routes: Routes = [
         path:  'Proveedor/:id',
         title: 'proveedor',
         loadComponent: () => import('./aries/pages/modules/controlcompras/proveedor/proveedor.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      
+      //modulo: Inventarios
+      {
+        //path: 'auth/login', redirectTo: 'dashboard', pathMatch: 'full',
+        path: '**',redirectTo: 'principal'
+      }
+    ]
+  },
+  {
+    path: 'ControlRh',
+    loadComponent: () => import('./aries/Aries.component'),
+    canActivate:[ AuthGuard ],
+    canMatch:[ AuthGuard],
+    children: [
+      //modulo: Compras
+      {
+        path:  'Empleados',
+        title: 'Empleados',
+        loadComponent: () => import('./aries/pages/modules/controlrh/empleados/empleados.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Empleado/:id',
+        title: 'Empleado',
+        loadComponent: () => import('./aries/pages/modules/controlrh/empleado/empleado.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
