@@ -16,12 +16,15 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 
 @Component({
   selector: 'app-proveedor',
   standalone: true,
   imports: [
+    
+    KeyFilterModule,
     InputGroupModule,
     InputGroupAddonModule,
     CommonModule,

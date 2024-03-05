@@ -15,9 +15,7 @@ export class AuthService {
     private errores: ErroresService ) { }
 
 
-    logout() {
-      localStorage.clear();
-    }
+
 
     public checkAuthentication(body: JSON) : Observable<any> {
       return this.http

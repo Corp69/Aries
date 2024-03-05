@@ -5,7 +5,7 @@
         <p-divider align="left">
             <div class="inline-flex align-items-center">
                 <i class="pi pi-spin pi-cog"></i>
-                Informacion General:
+                &nbsp; Información General:
             </div>
         </p-divider>
 
@@ -13,8 +13,14 @@
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
                     <label>Nombre</label>
-                    <input pInputText pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
-                        tooltipPosition="bottom" type="text" formControlName="nombre" pInputText placeholder="Vacio" />
+                    <input 
+                        pKeyFilter="hex"
+                        pInputText 
+                        pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="nombre" 
+                        pInputText 
+                        placeholder="Vacio" />
                     <p-message severity="error" text="Campo Es Obligatorio "
                         *ngIf="frmProveedor.controls['nombre'].invalid">
                     </p-message>
@@ -23,8 +29,14 @@
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
                     <label>RFC</label>
-                    <input pInputText pTooltip="Ingrese RFC Persona: Fisica o Moral " tooltipPosition="bottom"
-                        type="text" formControlName="rfc" pInputText placeholder="Vacio" />
+                    <input
+                        pKeyFilter="hex" 
+                        pInputText 
+                        pTooltip="Ingrese RFC Persona: Fisica o Moral " 
+                        tooltipPosition="bottom"
+                        formControlName="rfc" 
+                        pInputText 
+                        placeholder="Vacio" />
                 <p-message severity="error" text="Campo Es Obligatorio "
                     *ngIf="frmProveedor.controls['rfc'].invalid">
                 </p-message>
@@ -34,16 +46,25 @@
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
                     <label>CURP</label>
-                    <input pTooltip="Ingrese CURP Persona: Fisica" tooltipPosition="bottom" type="text"
-                        formControlName="curp" pInputText placeholder="Vacio" />
+                    <input
+                        pKeyFilter="hex" 
+                        pTooltip="Ingrese CURP Persona: Fisica" 
+                        tooltipPosition="bottom" 
+                        formControlName="curp" 
+                        pInputText 
+                        placeholder="Vacio" />
                 </div>
             </div>
 
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
                     <label>CODIGO</label>
-                    <input pTooltip="Ingrese Codigo Para Identificar Al Proveedor" tooltipPosition="bottom" type="text"
-                        formControlName="codigo" pInputText placeholder="Vacio" />
+                    <input
+                        pKeyFilter="hex" 
+                        pTooltip="Ingrese Codigo Para Identificar Al Proveedor"
+                        tooltipPosition="bottom" 
+                        formControlName="codigo" 
+                        pInputText placeholder="Vacio" />
                 </div>
             </div>
         </div>
@@ -51,26 +72,33 @@
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
                     <label>CORREO</label>
-                    <input pTooltip="Ingrese Correo Para Contactar Al Proveedor" tooltipPosition="bottom" type="text"
-                        formControlName="correo" pInputText placeholder="Vacio" />
+                    <input
+                        pKeyFilter="hex" 
+                        pTooltip="Ingrese Correo Para Contactar Al Proveedor" 
+                        tooltipPosition="bottom" 
+                        type="text"
+                        formControlName="correo" 
+                        pInputText 
+                        placeholder="Vacio" />
                 </div>
             </div>
         </div>
         <p-divider align="left">
             <div class="inline-flex align-items-center">
                 <i class="pi pi-spin pi-cog"> </i>
-                configuraciones:
+                &nbsp; configuraciones:
             </div>
         </p-divider>
         <div class="flex flex-wrap gap-3">
             <div class="flex align-items-center">
                 <p-inputGroup>
-                    <p-inputGroupAddon>
-                        <i class="pi pi-wrench"> Tipo:</i>
+                    <p-inputGroupAddon pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Tipo:</i>
                     </p-inputGroupAddon>
                 
                     <select
-                    pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                    pTooltip="Seleccione Un Tipo De Proveedor: el cual es tipo nacional o extranjero."
                     tooltipPosition="bottom"
                     class="form-select" 
                     formControlName="id_app_tipo" 
@@ -95,15 +123,17 @@
             </div>
             <div class="flex align-items-center">
                 <p-inputGroup>
-                    <p-inputGroupAddon>
-                        <i class="pi pi-wrench"> Estatus:</i>
+                    <p-inputGroupAddon 
+                    pTooltip="Seleccione Un Estatus De Proveedor: con ello haremos haras visible en busquedas, documentos etc. "
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Estatus:</i>
                     </p-inputGroupAddon>
                     <select
-                    pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                    pTooltip="Seleccione Un Estatus De Proveedor: con ello haremos haras visible en busquedas, documentos etc. "
                     tooltipPosition="bottom"
                     class="form-select" 
                     formControlName="id_app_estatus" 
-                    placeholder="Seleccione Tipo de Proveedor"
+                    placeholder="Seleccione Estado De Proveedor"
                     aria-label="Default select example">
                     <option *ngFor="let item of lstestatus" [value]="item.id">{{item.descripcion}}
                     </option>
@@ -118,14 +148,12 @@
                 optionValue="id_app_estatus"  optionLabel="descripcion">
                 </p-dropdown>
                 -->
-
-
             </div>
         </div>
         <p-divider align="left">
             <div class="inline-flex align-items-center">
                 <i class="pi pi-spin pi-cog"></i>
-                SAT:
+                &nbsp; SAT:
             </div>
         </p-divider>
         <div class="row">
@@ -137,10 +165,18 @@
                     <textarea rows="1" cols="50" pInputText
                         pTooltip="Seleccione Un Uso CFDI Fiscal: Para Timbrar Facturas." pInputTextarea
                         [disabled]="true" [value]="usoCFDI" placeholder="Sin Informcion"></textarea>
-                    <button type="button" (click)="showDialog()" pTooltip="Abrir USO CFDI Fiscal."
-                        tooltipPosition="bottom" class="btn btn-outline-primary">
-                        <i class="fa-solid fa-plus"></i> Agregar
-                    </button>
+
+                    <p-button
+                    (click)="showDialog()" 
+                    pTooltip="Abrir USO CFDI Fiscal."
+                    severity="info"
+                    icon="pi pi-plus"
+                    label="Agregar" 
+                    tooltipPosition="bottom"
+                    >
+                    </p-button>
+
+
                 </div>
             </div>
             <div class="col-sm-6">
@@ -150,12 +186,20 @@
                     </span>
                     <textarea rows="1" cols="50" pTooltip="Seleccione Un Regimen Fiscal: Para Timbrar Facturas."
                         tooltipPosition="bottom" pInputTextarea [disabled]="true" [value]="RegimenCFDI"
-                        placeholder="Sin Informcion"></textarea>
+                        placeholder="Sin Informcion">
+                    </textarea>
 
-                    <button type="button" (click)="dlgRegimen()" pTooltip="Abrir Regimen Fiscal."
-                        tooltipPosition="bottom" class="btn btn-outline-primary">
-                        <i class="fa-solid fa-plus"></i> Agregar
-                    </button>
+                    <p-button
+                    (click)="dlgRegimen()"
+                    pTooltip="Abrir Regimen Fiscal."
+                    severity="info"
+                    icon="pi pi-plus"
+                    label="Agregar" 
+                    tooltipPosition="bottom"
+                    >
+                    </p-button>
+                
+                
                 </div>
             </div>
         </div>
@@ -165,17 +209,29 @@
                 <b>Funciones Usuario:</b>
             </div>
         </p-divider>
-        <button type="button" (click)="NuevoProvedor()" [disabled]="BtnSpinner"
-            pTooltip="Nuevo Formulario: Resetear Informcion." tooltipPosition="bottom" class="btn btn-outline-primary">
-            Nuevo
-        </button>
-        <button [disabled]="BtnSpinner" type="button" (click)="Almacenar()" [disabled]="frmProveedor.invalid"
-            pTooltip="Almacenar La Informcion Del Formulario." tooltipPosition="bottom" class="btn btn-outline-primary">
-            Guardar
+        
+        <p-button
+        icon="pi pi-plus"
+        label="Nuevo" 
+        (click)="NuevoProvedor()"
+        pTooltip="Almacenar: Proveedor Informcion." 
+        tooltipPosition="bottom"
+        severity="success"
+        >
+        </p-button>
+        &nbsp;
+        <p-button 
+            icon="pi pi-pencil"
+            pTooltip="Almacenar: Proveedor Informcion." 
+            tooltipPosition="bottom"
+            (click)="Almacenar()" 
+            [disabled]="frmProveedor.invalid" 
+            label="Guardar" 
+             
+            severity="info">
             <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
                 fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-
-        </button>
+        </p-button>
     </form>
 </p-card>
 

@@ -9,27 +9,41 @@
                 <div class="row">
                     <label>Usuario:</label>
                     <div class="col-4-mb">
-                        <input formControlName="USUARIO" type="text" id="inputgroup" pInputText>
+                        <input
+                            pTooltip="Ingrese Usuario: tu usuario debe estar activo y tener permisos."
+                            tooltipPosition="bottom" 
+                            formControlName="USUARIO" 
+                            pInputText 
+                            class="ng-invalid ng-dirty" 
+                            pKeyFilter="hex" />
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <label>Pass:</label>
                     <div class="col-4-mb">
-                        <input formControlName="PASSS" type="text" id="inputgroup" pInputText>
+                        <p-password 
+                        pTooltip="Ingrese Pass: tu pass debe estar activa."
+                        tooltipPosition="bottom"
+                        pKeyFilter="hex" 
+                        formControlName="PASSS" [toggleMask]="true"></p-password>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-4-mb">
-                        <button (click)="onSave()" class="btn btn-primary">Iniciar Session</button>
+                        <p-button
+                        (click)="onSave()" 
+                        pTooltip="Ingresar Al Portal Aries."
+                        severity="info"
+                        icon="pi pi-plus"
+                        label="Ingresar" 
+                        tooltipPosition="bottom"
+                        >
+                        </p-button>    
                     </div>
                 </div>
             </form>
         </div>
-
-
-       
-
     </div>
 </section>

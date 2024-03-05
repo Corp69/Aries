@@ -6,13 +6,19 @@ import { CalendarModule } from "primeng/calendar";
 import { DividerModule} from 'primeng/divider';
 import { LoginService } from './services/login.service';
 import { Router } from '@angular/router';
-
-
+import { PasswordModule } from 'primeng/password';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { InputTextModule } from 'primeng/inputtext';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ 
+  imports: [
+            TooltipModule,
+            InputTextModule,
+            KeyFilterModule,
+            PasswordModule,
             DividerModule,
             ReactiveFormsModule,
             DialogModule,

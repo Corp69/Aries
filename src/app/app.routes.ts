@@ -20,14 +20,14 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./dashboard/dashboard.component'),
+    loadComponent: () => import('./aries/Aries.component'),
     canActivate:[ AuthGuard ],
     canMatch:[ AuthGuard],
     children: [
       {
         path:  'principal',
         title: 'principal',
-        loadComponent: () => import('./dashboard/pages/principal/principal.component'),
+        loadComponent: () => import('./aries/pages/principal/principal.component'),
       },
       {
         //path: 'auth/login', redirectTo: 'dashboard', pathMatch: 'full',
@@ -42,7 +42,7 @@ export const routes: Routes = [
   },
   {
     path: 'ControlCompras',
-    loadComponent: () => import('./dashboard/dashboard.component'),
+    loadComponent: () => import('./aries/Aries.component'),
     canActivate:[ AuthGuard ],
     canMatch:[ AuthGuard],
     children: [
@@ -50,14 +50,14 @@ export const routes: Routes = [
       {
         path:  'proveedores',
         title: 'proveedores',
-        loadComponent: () => import('./dashboard/pages/modulos/controlcompras/proveedores/proveedores.component'),
+        loadComponent: () => import('./aries/pages/modules/controlcompras/proveedores/proveedores.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
       {
         path:  'Proveedor/:id',
         title: 'proveedor',
-        loadComponent: () => import('./dashboard/pages/modulos/controlcompras/proveedor/proveedor.component'),
+        loadComponent: () => import('./aries/pages/modules/controlcompras/proveedor/proveedor.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
