@@ -10,9 +10,15 @@ import { HomeService } from './Services/Home.service';
 import { CommonModule } from '@angular/common';
 import {ButtonModule} from 'primeng/button';
 
+import {CardModule} from 'primeng/card';
+import { FirmaComponent } from '@shared/pages/firma/firma.component';
+
+
 @Component({
   standalone: true,
   imports: [ 
+    FirmaComponent,
+    CardModule,
     RouterModule,
     CommonModule,
     //---------------------------->

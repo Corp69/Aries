@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
-import { ErroresService } from '../../../shared/errores.service';
+
 import { environment } from '../../../../environments/environment';
 import { MdlUser } from '../Models/MdlUser';
+import { ErroresService } from '@shared/errores.service';
 
 
 @Injectable({

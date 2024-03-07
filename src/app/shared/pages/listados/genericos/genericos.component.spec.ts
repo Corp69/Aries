@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BusquedaFechaComponent } from './busqueda-fecha.component';
+import { GenericosComponent } from './genericos.component';
 
-describe('BusquedaFechaComponent', () => {
-  let component: BusquedaFechaComponent;
-  let fixture: ComponentFixture<BusquedaFechaComponent>;
+describe('GenericosComponent', () => {
+  let component: GenericosComponent;
+  let fixture: ComponentFixture<GenericosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BusquedaFechaComponent]
+      imports: [GenericosComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(BusquedaFechaComponent);
+    fixture = TestBed.createComponent(GenericosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

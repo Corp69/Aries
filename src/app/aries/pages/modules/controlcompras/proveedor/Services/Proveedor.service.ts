@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MdlProveedor } from '../models/MdlProveedor';
-import { ErroresService } from '../../../../../../shared/errores.service';
 import { environment } from '../../../../../../../environments/environment';
+import { ErroresService } from '@shared/errores.service';
 
 @Injectable({
   providedIn: 'root',
