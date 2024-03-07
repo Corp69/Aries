@@ -6,6 +6,9 @@
     "paths": {
       "@shared/*":[
         "./src/app/shared/*"
+      ],
+      "@environments/*":[
+        "../../../../../../environments/*"
       ]
     },
 

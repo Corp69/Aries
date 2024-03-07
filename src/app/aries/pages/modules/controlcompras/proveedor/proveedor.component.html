@@ -263,3 +263,23 @@
         <hr>
     </p-dialog>
 </div>
+
+<!-- ========================================================================================================================================================================================= -->
+<!-- DIALOGOS SAT --->
+<!-- ========================================================================================================================================================================================= -->
+<p-dialog header="" position="top" [(visible)]="visible" [modal]="true" [style]="{ width: '90vw' }" [draggable]="false"
+    [resizable]="false">
+    <app-generica tabla={{tabalaSat1}} (JsonSat)="SatUsoCfedi($event)"></app-generica>
+</p-dialog>
+<!-- SAT  --->
+
+<p-dialog header="" position="top" [(visible)]="dlgRegimenvisible" [modal]="true" [style]="{ width: '90vw' }"
+    [draggable]="false" [resizable]="false">
+    <app-generica tabla={{tabalaSat2}} (JsonSat)="SatRegimen($event)"></app-generica>
+</p-dialog>
+
+<!-- SAT DOC COBRO  --->
+<p-dialog header="Header" position="top" [(visible)]="dlgDocCbrovisible" [modal]="true" [style]="{ width: '90vw' }"
+    [draggable]="false" [resizable]="false">
+    <app-generica tabla={{tabalaSat1}} (JsonSat)="SatCobro($event)"></app-generica>
+</p-dialog>

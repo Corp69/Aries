@@ -17,6 +17,7 @@ import { RippleModule } from 'primeng/ripple';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { GenericaComponent } from '@shared/pages/busquedas/generica/generica.component';
 
 
 @Component({
@@ -24,6 +25,8 @@ import { KeyFilterModule } from 'primeng/keyfilter';
   standalone: true,
   imports: [
     
+    GenericaComponent,
+
     KeyFilterModule,
     InputGroupModule,
     InputGroupAddonModule,
