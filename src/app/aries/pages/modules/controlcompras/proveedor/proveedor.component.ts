@@ -81,10 +81,10 @@ export default class ProveedorComponent {
   //Formularios del app:
   public frmProveedor: FormGroup = this.fb.group({
     id: [-1],
-    nombre: [, [Validators.required, Validators.minLength(3)]],
+    nombre: [, [Validators.required, Validators.maxLength(13)]],
     codigo: [],
     correo: [],
-    rfc: [, [Validators.required, Validators.minLength(3)]],
+    rfc: [, [Validators.required, Validators.maxLength(13)]],
     curp: [],
     id_app_estatus: [1],
     id_app_tipo: [1],
