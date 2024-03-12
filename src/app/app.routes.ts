@@ -18,6 +18,7 @@ export const routes: Routes = [
       }
     ]
   },
+  //aries
   {
     path: 'aries',
     loadComponent: () => import('./aries/Aries.component'),
@@ -40,6 +41,7 @@ export const routes: Routes = [
     redirectTo: 'auth/login',
     pathMatch: 'full'
   },
+  //contabilidad
   {
     path: 'ControlContable',
     loadComponent: () => import('./aries/Aries.component'),
@@ -104,6 +106,7 @@ export const routes: Routes = [
       }
     ]
   },
+  //compras
   {
     path: 'ControlCompras',
     loadComponent: () => import('./aries/Aries.component'),
@@ -147,8 +150,9 @@ export const routes: Routes = [
       }
     ]
   },
+  //ventas
   {
-    path: 'ControlVenta',
+    path: 'ControlVentas',
     loadComponent: () => import('./aries/Aries.component'),
     canActivate:[ AuthGuard ],
     canMatch:[ AuthGuard],
@@ -216,6 +220,83 @@ export const routes: Routes = [
       }
     ]
   },
+  //inventarios
+  {
+    path: 'ControlInventarios',
+    loadComponent: () => import('./aries/Aries.component'),
+    canActivate:[ AuthGuard ],
+    canMatch:[ AuthGuard],
+    children: [
+      {
+        path:  'Almacenes',
+        title: 'Almacenes',
+        loadComponent: () => import('./aries/pages/modules/controlinventarios/almacenes/almacenes.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Almacen/:id',
+        title: 'Almacen',
+        loadComponent: () => import('./aries/pages/modules/controlinventarios/almacen/almacen.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Bitacora/:id',
+        title: 'Bitacora',
+        loadComponent: () => import('./aries/pages/modules/controlinventarios/bitacora/bitacora.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Documentos',
+        title: 'Documentos',
+        loadComponent: () => import('./aries/pages/modules/controlinventarios/invdocumentos/invdocumentos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Documento/:id',
+        title: 'Documento',
+        loadComponent: () => import('./aries/pages/modules/controlinventarios/invdocumento/invdocumento.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Recepcion/:id',
+        title: 'Recepcion',
+        loadComponent: () => import('./aries/pages/modules/controlinventarios/recepcion/recepcion.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'productos',
+        title: 'Productos',
+        loadComponent: () => import('./aries/pages/modules/controlinventarios/serviciosproductos/serviciosproductos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'producto/:id',
+        title: 'producto',
+        loadComponent: () => import('./aries/pages/modules/controlinventarios/serviciosproducto/serviciosproducto.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'impuestos/:id',
+        title: 'impuestos',
+        loadComponent: () => import('./aries/pages/modules/controlinventarios/impuestos/impuestos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        //path: 'auth/login', redirectTo: 'dashboard', pathMatch: 'full',
+        path: '**',redirectTo: 'principal'
+      }
+    ]
+  },
+  //rh
   {
     path: 'ControlRh',
     loadComponent: () => import('./aries/Aries.component'),
@@ -231,9 +312,51 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       {
-        path:  'Empleado/:id',
-        title: 'Empleado',
+        path:  'empleado/:id',
+        title: 'empleado',
         loadComponent: () => import('./aries/pages/modules/controlrh/empleado/empleado.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Departamentos',
+        title: 'Departamentos',
+        loadComponent: () => import('./aries/pages/modules/controlrh/departamentos/departamentos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Departamento/:id',
+        title: 'Departamento',
+        loadComponent: () => import('./aries/pages/modules/controlrh/departamento/departamento.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Puestos',
+        title: 'Puestos',
+        loadComponent: () => import('./aries/pages/modules/controlrh/puestos/puestos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Puesto/:id',
+        title: 'Puesto',
+        loadComponent: () => import('./aries/pages/modules/controlrh/puesto/puesto.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Documentos',
+        title: 'Documentos',
+        loadComponent: () => import('./aries/pages/modules/controlrh/departamentos/departamentos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Documento/:id',
+        title: 'Puesto',
+        loadComponent: () => import('./aries/pages/modules/controlrh/departamento/departamento.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },

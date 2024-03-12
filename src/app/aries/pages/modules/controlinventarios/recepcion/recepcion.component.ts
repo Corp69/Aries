@@ -20,6 +20,6 @@ import { CardModule } from 'primeng/card';
   templateUrl: './recepcion.component.html',
   styleUrl: './recepcion.component.scss'
 })
-export class RecepcionComponent {
+export default class RecepcionComponent {
 
 }

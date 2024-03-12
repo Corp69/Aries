@@ -20,6 +20,6 @@ import { CardModule } from 'primeng/card';
   templateUrl: './invdocumentos.component.html',
   styleUrl: './invdocumentos.component.scss'
 })
-export class InvdocumentosComponent {
+export default class InvdocumentosComponent {
 
 }

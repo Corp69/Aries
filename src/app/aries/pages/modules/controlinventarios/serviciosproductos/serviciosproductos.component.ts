@@ -22,6 +22,6 @@ import { CardModule } from 'primeng/card';
   templateUrl: './serviciosproductos.component.html',
   styleUrl: './serviciosproductos.component.scss'
 })
-export class ServiciosproductosComponent {
+export default class ServiciosproductosComponent {
 
 }

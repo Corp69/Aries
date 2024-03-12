@@ -17,6 +17,6 @@ import { CardModule } from 'primeng/card';
   templateUrl: './rhdocumentos.component.html',
   styleUrl: './rhdocumentos.component.scss'
 })
-export class RhdocumentosComponent {
+export default class RhdocumentosComponent {
 
 }

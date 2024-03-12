@@ -22,6 +22,6 @@ import { CardModule } from 'primeng/card';
   templateUrl: './bitacora.component.html',
   styleUrl: './bitacora.component.scss'
 })
-export class BitacoraComponent {
+export default class BitacoraComponent {
 
 }
