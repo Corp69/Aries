@@ -1,1 +1,18 @@
-<p>departamento works!</p>
+<div style="text-align: center; max-width: 500px; margin: 0 auto;">
+    <p-card header="Aries Info." subheader=" Departamento TI." [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+        <p>
+            En este Momento Nos Encontramos dando unos latigasos a nuestro desarrollador,
+            debido a que se encuentran desarrollando muy lento cada clic es un latigaso.
+
+        </p>
+        <ng-template pTemplate="footer">
+            <p-button label="Dar Latigaso + 1 " icon="pi pi-check"></p-button>
+        </ng-template>
+    </p-card>
+</div>
+
+<p-progressBar mode="indeterminate" [style]="{ height: '30px' }"></p-progressBar>

@@ -14,9 +14,8 @@ export const appConfig: ApplicationConfig = {
       routes,
       withViewTransitions({
         skipInitialTransition: true,
-        // onViewTransitionCreated( transitionInfo ) {
-        //   console.log({transitionInfo});
-        // },
+         onViewTransitionCreated( transitionInfo ) {
+         },
       }),
     ),
 
