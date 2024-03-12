@@ -16,12 +16,23 @@ export class LoginService {
   //modelos:
   public MdlUser: MdlUser = new MdlUser();
 
-  private http = inject( HttpClient );
+  private http = inject(HttpClient);
   private errores = inject(ErroresService);
 
+  public inicioSesion3(modelo: MdlUser): Observable<any> {
+    return this.http
+      .post(`${environment.baseUrl}auth/login`, modelo)
+      .pipe(
+        catchError(error => {
+          return throwError(this.errores.getErrores(error));
+        })
+      );
+  }
 
-  checkAuthentication(): Observable<boolean> {
-    const token = this.MdlUser.tokken;
+  
+  public checkAuthentication(): Observable<boolean> {
+    this.MdlUser.set_tokken(localStorage.getItem('token') !== null ? localStorage.getItem('token') : "");
+    const token = this.MdlUser.get_tokken();
     if (!token) return of(false);
     const tokenObject = { "tokken": token };
     return this.http.post(`${environment.baseUrl}auth/Tokken`, tokenObject).pipe(
@@ -29,19 +40,5 @@ export class LoginService {
       catchError(err => of(false))
     );
   }
-
-
-
-
-
-public inicioSesion3(modelo: MdlUser) : Observable<any> {
-  return this.http
-    .post(`${environment.baseUrl}auth/login`, modelo)
-    .pipe(
-      catchError(error => {
-         return throwError(this.errores.getErrores(error));
-      })
-    );
-}
 
 }

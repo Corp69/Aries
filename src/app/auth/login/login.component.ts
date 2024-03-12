@@ -53,7 +53,6 @@ export default class LoginComponent implements OnInit {
   public onSave() {
    console.log( this.myForm.value );
     this.servicio.inicioSesion3(this.myForm.value).subscribe(resp => {
-      console.log( resp );
       switch (resp.data) {
         case undefined:
           this.Titulo = resp.Ttitulo;
@@ -65,6 +64,7 @@ export default class LoginComponent implements OnInit {
           localStorage.setItem('id', resp.data.user.id!);
           localStorage.setItem('Usuario', resp.data.user.usuario!);
           localStorage.setItem('token', resp.data.token!);
+          console.log( resp );
           this.router.navigate(['/aries/principal']);
           break;
       }
