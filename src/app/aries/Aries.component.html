@@ -1,11 +1,48 @@
 <p-menubar>
     <ng-template pTemplate="start">
-        <img (click)="sidebarVisible = true" src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40"
+
+        <!-- 
+
+            <img (click)="sidebarVisible = true" src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40"
             class="mr-2" />
+    
+
+        -->
+
+        <p-button 
+            label="Menu" 
+            (click)="sidebarVisible = true"
+            icon="pi pi-list" 
+            badgeClass="p-badge-danger"
+            [outlined]="true">
+        </p-button>
+
+
+    </ng-template>
+    <ng-template pTemplate="end">
+
+        <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 1rem" value="2"></i>
+        &nbsp;
+        <i class="pi pi-calendar mr-4 p-text-secondary" pBadge style="font-size: 1rem" value="10+"
+            severity="danger"></i>
+        &nbsp;
+        <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 1rem" severity="danger" value="2"></i>
+        &nbsp;
+        <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge"></p-avatar>
     </ng-template>
 </p-menubar>
 <p-sidebar [(visible)]="sidebarVisible">
     <h3>Menu</h3>
+
+    <p-button 
+        (click)="CerrraSesion()"
+        label="Cerrar Session" 
+        icon="pi pi-power-off" 
+        badgeClass="p-badge-danger" 
+        [outlined]="true"
+    >
+    </p-button>
+
     <p-divider align="left">
         <div class="inline-flex align-items-center">
             <i class="pi pi-user mr-2"></i>

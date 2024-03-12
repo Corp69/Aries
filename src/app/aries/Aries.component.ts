@@ -13,6 +13,9 @@ import {ButtonModule} from 'primeng/button';
 import {CardModule} from 'primeng/card';
 import { FirmaComponent } from '@shared/pages/firma/firma.component';
 
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   standalone: true,
@@ -21,6 +24,10 @@ import { FirmaComponent } from '@shared/pages/firma/firma.component';
     CardModule,
     RouterModule,
     CommonModule,
+    //------ navbar
+    AvatarModule,
+    BadgeModule,
+    AvatarGroupModule,
     //---------------------------->
     //modulos para vista principal
     SidebarModule,
@@ -56,5 +63,16 @@ export default class AriesComponent {
     });
     this.servicio.switchTheme(localStorage.getItem("theme"));
   }
+
+
+  /**
+   * cerrar session
+   */
+  public CerrraSesion = () =>{
+    localStorage.clear();
+    debugger;
+    this.router.navigate(['/auth/login']);
+  } 
+
 
 }
