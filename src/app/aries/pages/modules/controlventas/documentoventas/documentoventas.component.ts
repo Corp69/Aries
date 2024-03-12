@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './documentoventas.component.html',
   styleUrl: './documentoventas.component.scss'
 })
-export class DocumentoventasComponent {
+export default class DocumentoventasComponent {
 
 }

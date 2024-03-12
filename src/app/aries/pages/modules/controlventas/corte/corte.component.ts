@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './corte.component.html',
   styleUrl: './corte.component.scss'
 })
-export class CorteComponent {
+export default class CorteComponent {
 
 }

@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './cajas.component.html',
   styleUrl: './cajas.component.scss'
 })
-export class CajasComponent {
+export default class CajasComponent {
 
 }
