@@ -1,20 +1,25 @@
 <section class="login-register login-sidebar"
     style="background-image:url(../assets/images/background/login-register.jpg);background-position: bottom;">
+    <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
     <div class="login-box d-flex w-100 align-items-center justify-content-center">
-
         <div class="d-flex align-items-center flex-column">
             <!-- <img style="width: 50px;height: 50px;" src="assets/images/background/logo.jpg" class="mb-5"> -->
-            <img class="mb-5" width="80" height="80" src="https://img.icons8.com/dotty/80/circled-a.png" alt="circled-a"/>
-            <form [formGroup]="myForm" autocomplete="off" class="text-center" style="background: #f5f5f591;padding: 23px;box-shadow: black 0px 2px 10px 0px;">
+            @if( Ariesblocked == true  ) {
+            <app-carga />
+            }
+            <img class="mb-5" width="80" height="80" src="https://img.icons8.com/dotty/80/circled-a.png"
+                alt="circled-a" />
+            <form [formGroup]="myForm" autocomplete="off" class="text-center"
+                style="background: #f5f5f591;padding: 23px;box-shadow: black 0px 2px 10px 0px;">
                 <div class="row">
                     <label>Usuario:</label>
                     <div class="col-4-mb">
-                        <input
+                        <input 
                             pTooltip="Ingrese Usuario: tu usuario debe estar activo y tener permisos."
                             tooltipPosition="bottom" 
                             formControlName="USUARIO" 
                             pInputText 
-                            class="ng-invalid ng-dirty" 
+                            class="ng-invalid ng-dirty"
                             pKeyFilter="alphanum" />
                     </div>
                 </div>
@@ -23,27 +28,27 @@
                     <label>Pass:</label>
                     <div class="col-4-mb">
                         <p-password 
-                        pTooltip="Ingrese Pass: tu pass debe estar activa."
-                        tooltipPosition="bottom"
-                        pKeyFilter="alphanum" 
-                        formControlName="PASSS" [toggleMask]="true"></p-password>
+                            pTooltip="Ingrese Pass: tu pass debe estar activa." 
+                            tooltipPosition="bottom"
+                            pKeyFilter="alphanum" 
+                            formControlName="PASSS" 
+                            [toggleMask]="true">
+                        </p-password>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-4-mb">
-                        <p-button
-                        (click)="onSave()" 
-                        pTooltip="Ingresar Al Portal Aries."
-                        severity="info"
-                        icon="pi pi-plus"
-                        label="Ingresar" 
-                        tooltipPosition="bottom"
-                        >
-                        </p-button>    
+                        <p-button (click)="onSave()" pTooltip="Ingresar Al Portal Aries." severity="info"
+                            icon="pi pi-plus" label="Ingresar" tooltipPosition="bottom">
+                        </p-button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </section>
+
+@if( ConfirmacionMdl == true  ) {
+<confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}
