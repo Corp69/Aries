@@ -1,4 +1,5 @@
 <hr>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
 <p-card header="Proveedor">
     <!-- Agregar Informcion del formulario -->
     <form [formGroup]="frmProveedor" autocomplete="off">
@@ -95,30 +96,17 @@
                     tooltipPosition="bottom" >
                         <i class="pi pi-wrench">&nbsp; Tipo:</i>
                     </p-inputGroupAddon>
-                
-                    <select
-                    pTooltip="Seleccione Un Tipo De Proveedor: el cual es tipo nacional o extranjero."
-                    tooltipPosition="bottom"
-                    class="form-select" 
-                    formControlName="id_app_tipo" 
-                    placeholder="Seleccione Tipo de Proveedor"
-                    aria-label="Default select example">
-                    <option *ngFor="let item of lstProveedorTipo" [value]="item.id">{{item.descripcion}}
-                    </option>
-                    </select>
                 </p-inputGroup>
-                <!-- descomentar hasta la actualizacion a version 17 
+                <p-dropdown 
 
-                
-
-                <p-dropdown placeholder="Seleccione una Opcion"
-                pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
-                tooltipPosition="bottom" formControlName="id" [options]="lstProveedorTipo" value="id" optionValue="id"
-                optionLabel="descripcion">
+                    pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                    tooltipPosition="bottom" 
+                    formControlName="id_app_tipo" 
+                    value="id_app_tipo"
+                    [options]="lstProveedorTipo"
+                    optionValue="id" optionLabel="descripcion"
+                    >
                 </p-dropdown>
-                -->
-
-
             </div>
             <div class="flex align-items-center">
                 <p-inputGroup>
@@ -127,26 +115,20 @@
                     tooltipPosition="bottom" >
                         <i class="pi pi-wrench">&nbsp; Estatus:</i>
                     </p-inputGroupAddon>
-                    <select
-                    pTooltip="Seleccione Un Estatus De Proveedor: con ello haremos haras visible en busquedas, documentos etc. "
-                    tooltipPosition="bottom"
-                    class="form-select" 
-                    formControlName="id_app_estatus" 
-                    placeholder="Seleccione Estado De Proveedor"
-                    aria-label="Default select example">
-                    <option *ngFor="let item of lstestatus" [value]="item.id">{{item.descripcion}}
-                    </option>
-                    </select>
                 </p-inputGroup>
-                <!-- descomentar hasta la actualizacion a version 17 
+                <p-dropdown 
                 
-                <p-dropdown pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
-                tooltipPosition="bottom" 
-                formControlName="id_app_estatus" 
-                [options]="lstestatus" placeholder="Seleccione una Opcion" value="id_app_estatus"
-                optionValue="id_app_estatus"  optionLabel="descripcion">
-                </p-dropdown>
-                -->
+                    pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
+                    tooltipPosition="bottom" 
+                    value="id_app_estatus"
+                    formControlName="id_app_estatus" 
+                    [options]="lstestatus"
+                    optionValue="id"
+                    optionLabel="descripcion"
+                
+                >
+            </p-dropdown>
+
             </div>
             
         </div>
@@ -237,34 +219,6 @@
 
 
 
-<div class="card flex flex-column align-items-center gap-2">
-    <p-dialog header="DEVELOPER ©2024" [(visible)]="visibleMjs" position="top">
-        <p-divider align="left">
-            <div class="inline-flex align-items-center">
-                <i class="fas fa-info-circle"> ARIES.</i>
-            </div>
-        </p-divider>
-        <div class="row">
-            <div class="col-mb-4">
-                {{msjBody.titulo}}
-                <i *ngIf="msjBody.msjTipo == 1" class="fa-solid fa-check fa-2xl" style=" color: green;">
-                </i>
-                <i *ngIf="msjBody.msjTipo == 2" class="fa-solid fa-circle-exclamation fa-2xl"
-                    style=" color: orange;"></i>
-                <i *ngIf="msjBody.msjTipo == 3" class="fa-solid fa-triangle-exclamation fa-2xl"
-                    style=" color: red;"></i>
-                <br>
-                {{msjBody.mensaje}}
-            </div>
-            <div class="col-mb-4">
-                {{msjBody.detalle}}
-            </div>
-        </div>
-        <br>
-        <hr>
-    </p-dialog>
-</div>
-
 <!-- ========================================================================================================================================================================================= -->
 <!-- DIALOGOS SAT --->
 <!-- ========================================================================================================================================================================================= -->
@@ -284,3 +238,7 @@
     [draggable]="false" [resizable]="false">
     <app-generica tabla={{tabalaSat1}} (JsonSat)="SatCobro($event)"></app-generica>
 </p-dialog>
+
+@if( ConfirmacionMdl == true  ) {
+    <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}

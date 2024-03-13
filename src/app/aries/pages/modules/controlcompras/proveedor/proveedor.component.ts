@@ -1,60 +1,78 @@
-import { Component } from '@angular/core';
-import { MdlProveedor } from './models/MdlProveedor';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ProveedorService } from './Services/Proveedor.service';
-import { DividerModule } from 'primeng/divider';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
-import {DropdownModule} from 'primeng/dropdown';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
-import {CardModule} from 'primeng/card';
-import {DialogModule} from 'primeng/dialog';
-import {TooltipModule} from 'primeng/tooltip';
+// modelos
+import { MdlProveedor } from './models/MdlProveedor';
+// shared 
+import { CargaComponent } from '@shared/pages/modales/carga/carga.component';
+import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
+// servicios 
+import { ProveedorService } from './Services/Proveedor.service';
+//Interface
+import { ConfirmacionMensaje, listados } from './interface/proveedor';
+// prime NG 
+import { DividerModule } from 'primeng/divider';
+import { MessagesModule} from 'primeng/messages';
+import { MessageModule} from 'primeng/message';
+import { ProgressSpinnerModule} from 'primeng/progressspinner';
+import { CardModule} from 'primeng/card';
+import { DialogModule} from 'primeng/dialog';
+import { TooltipModule} from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { GenericaComponent } from '@shared/pages/busquedas/generica/generica.component';
+import { BlockUIModule } from 'primeng/blockui';
+import { DropdownModule } from 'primeng/dropdown';
+
 
 
 @Component({
   selector: 'app-proveedor',
   standalone: true,
   imports: [
-    
-    GenericaComponent,
 
+    //angular
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    //shared
+    GenericaComponent,
+    CargaComponent,
+    ConfirmacionComponent,
+    //prime NG 
     KeyFilterModule,
     InputGroupModule,
     InputGroupAddonModule,
-    CommonModule,
-    ReactiveFormsModule,
     DividerModule,
     MessagesModule,
     MessageModule,
-    DropdownModule,
+    DropdownModule, 
     CardModule,
     ProgressSpinnerModule,
     DialogModule,
     TooltipModule,
     ButtonModule,
     RippleModule,
+    BlockUIModule,
     DividerModule
   ],
   templateUrl: './proveedor.component.html',
   styleUrl: './proveedor.component.scss'
 })
-export default class ProveedorComponent {
-
-   //==============================================================================================================
-  // Modal: mensaje Confirmacion 
-  public visibleMjs: boolean = false;
+export default class ProveedorComponent implements OnInit, AfterViewInit  {
+  //==============================================================================================================
+  // Modal: mensaje Confirmacion falso para no cargar la modal
+  public ConfirmacionMdl: boolean = false;
   // variables para mensaje actualizar guardar 
-  public msjBody: any = { msjTipo: 1, titulo: '', mensaje: '', detalle: '' };
-
+  public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: '', mensaje: '', detalle: '' };
+  // variable que bloquea la vista
+  public Ariesblocked: boolean  = false;
+  //=============================================================================================================
+  // satMDL 
   public tabalaSat1: String = 'sat_usocfdi';
   public usoCFDI = ''
 
@@ -69,43 +87,61 @@ export default class ProveedorComponent {
   public SatCobroCFDI = ''
   //==============================================================================================================
   // Listados:
-  public lstestatus: any;
-  public lstProveedorTipo: any;
+  public lstestatus:        listados[] = [];
+  public lstProveedorTipo:  listados[] = [];
     
   //public lstProveedorClasificacion: any;
   //  public lstProovedorOperacion: any;
   //==============================================================================================================
   //modelos:
   public MdlProveedor: MdlProveedor = new MdlProveedor();
+
   //==============================================================================================================
   //Formularios del app:
   public frmProveedor: FormGroup = this.fb.group({
-    id: [-1],
+    id:     [-1],
     nombre: [, [Validators.required, Validators.minLength(3)]],
     codigo: [],
     correo: [],
-    rfc: [, [Validators.required, Validators.minLength(3)]],
-    curp: [],
+    rfc:    [, [Validators.required, Validators.minLength(3)]],
+    curp:   [],
     id_app_estatus: [1],
-    id_app_tipo: [1],
-    id_rh_empleado: [ parseInt(localStorage.getItem("id"))],
+    id_app_tipo:    [1],
+    id_rh_empleado: [parseInt(localStorage.getItem("id"))],
     id_sat_usocfdi: [1],
     //id_sat_doc_cobro:           [1],
     id_sat_regimenfiscal: [1],
     imagen: [null]
   });
 
-  constructor(
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private servicio: ProveedorService
+  /**
+   * 
+   * @param route 
+   * @param fb 
+   * @param servicio
+   * 
     //private datePipe: DatePipe,
-  ) {
+   *  
+   */
+  constructor( private route: ActivatedRoute, private fb: FormBuilder, private servicio: ProveedorService ) {}
+
+  // una vez carga el componente
+  ngOnInit(): void {
+    //=========================================================================================================================
+    //carga listados
+    this.servicio.listProveedorEstatus().subscribe(resp => { this.lstestatus       = resp.Detalle; });
+    this.servicio.listProveedorTipo().subscribe(resp =>    { this.lstProveedorTipo = resp.Detalle; });
+  }
+
+  /**
+   * cargamos la data del proveedor una vez cargado todo los componentes
+   */
+  ngAfterViewInit(): void {
     this.route.params.subscribe(params => {
       if (+params['id'] > -1) {
         // AGREGAMOS LA INFORMACION AL FORMULARIO
         this.servicio.Datainfo(+params['id']).subscribe(resp => {
-         // this.frmProveedor.setValue(resp.Detalle);
+         //this.frmProveedor.setValue(resp.Detalle);
          // seteamos la informacion
          this.frmProveedor.controls['id'].setValue(resp.Detalle.id);
          this.frmProveedor.controls['nombre'].setValue(resp.Detalle.nombre);
@@ -114,8 +150,9 @@ export default class ProveedorComponent {
          this.frmProveedor.controls['curp'].setValue(resp.Detalle.curp);
          this.frmProveedor.controls['correo'].setValue(resp.Detalle.correo);
          this.frmProveedor.controls['imagen'].setValue(resp.Detalle.imagen);
-         this.frmProveedor.controls['id_app_estatus'].setValue(resp.Detalle.id_app_estatus);
-         this.frmProveedor.controls['id_app_tipo'].setValue(resp.Detalle.id_app_tipo);
+         // asignamos el valor String debido a que no es int los parsearemos a String 
+         this.frmProveedor.controls['id_app_estatus'].setValue(resp.Detalle.id_app_estatus.toString());
+         this.frmProveedor.controls['id_app_tipo'].setValue(resp.Detalle.id_app_tipo.toString());
          this.frmProveedor.controls['id_rh_empleado'].setValue(parseInt(resp.Detalle.id_rh_empleado));
         });
         //CARGAMOS CFDI
@@ -128,72 +165,81 @@ export default class ProveedorComponent {
         });
       }
     });
+
   }
 
 
-  ngOnInit() {
-
-    //=========================================================================================================================
-    //carga listados
-    this.servicio.listProveedorEstatus().subscribe(resp => { this.lstestatus = resp.Detalle; });
-    this.servicio.listProveedorTipo().subscribe(resp => { this.lstProveedorTipo = resp.Detalle; });
-    //this.servicio.listProveedorOperacion().subscribe(resp => {this.lstProovedorOperacion = resp.Detalle;});
-    //this.servicio.listProveedorClasificacion().subscribe(resp => {this.lstProveedorClasificacion = resp.Detalle;});
-    //=========================================================================================================================
-  }
-
-
-
- //==============================================================================================================
+  //==============================================================================================================
   // Crud Para Proveedores:
   Almacenar = () => {
-    this.BtnSpinner = true;
+    // ?=========================================================================
+    this.frmProveedor.controls['id_app_estatus'].setValue(parseInt(this.frmProveedor.value.id_app_estatus ));
+    this.frmProveedor.controls['id_app_tipo'].setValue(parseInt(   this.frmProveedor.value.id_app_tipo    ));
+    //validamos que no este el mensaje en pantalla
+    this.ConfirmacionMdl  = false;
+    // bloqueamos el boton
+    this.BtnSpinner   = true;
+    // bloqueamos pantalla 
+    this.Ariesblocked = true;
     //===============================
     this.servicio.AlmacenarProveedor(this.frmProveedor.value).subscribe(resp => {
       console.log( resp )
-      
       switch (resp.IdMensj) {
         case 3:
           //============================================================
-          this.msjBody.msjTipo = resp.IdMensj;
-          this.msjBody.titulo  = 'Aries: Info'; //resp.Titulo;
-          this.msjBody.mensaje = resp.Mensaje; 
-          this.msjBody.detalle = resp.Solucion; 
+          this.ConfirmacionMsjMdl.msjTipo = 2; //resp.IdMensj;
+          this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
+          this.ConfirmacionMsjMdl.mensaje = resp.Mensaje; 
+          this.ConfirmacionMsjMdl.detalle = resp.Solucion; 
+          this.ConfirmacionMdl = true;
+          // desbloqueamos la pantalla
+          this.Ariesblocked = false;
           break;
         case 2:
           //============================================================
-          this.msjBody.msjTipo = resp.IdMensj;
-          this.msjBody.titulo  = 'Aries: Info'; //resp.Titulo;
-          this.msjBody.mensaje = resp.Mensaje; 
-          this.msjBody.detalle = resp.Detalle; 
+          this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
+          this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
+          this.ConfirmacionMsjMdl.mensaje = resp.Mensaje; 
+          this.ConfirmacionMsjMdl.detalle = resp.Detalle;
+           // mostramos el resultado de la informacion  
+           this.ConfirmacionMdl  = true;  
+          // desbloqueamos la pantalla
+          this.Ariesblocked = false; 
           break;
         default:
-          console.log( resp.Titulo);
           //============================================================
-          this.msjBody.msjTipo = resp.IdMensj;
-          this.msjBody.titulo  = 'Aries: Info'; //resp.Titulo;
-          this.msjBody.mensaje = resp.Mensaje; 
-          this.msjBody.detalle = resp.Detalle; 
+          this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
+          this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
+          this.ConfirmacionMsjMdl.mensaje = resp.Mensaje; 
+          this.ConfirmacionMsjMdl.detalle = resp.Detalle; 
           //============================================================
+          // instanciamos elmismo formulario para actualizar 
           this.frmProveedor.setValue(this.frmProveedor.value);
+          // agregamos el ID para generar la actualizacion
           this.frmProveedor.controls['id'].setValue(parseInt(resp.Id));
+          // mostramos el resultado de la informacion  
+          this.ConfirmacionMdl  = true;  
+          // desbloqueamos la pantalla
+          this.Ariesblocked     = false;
           break;
       }
-      this.visibleMjs = true;
       this.BtnSpinner = false;
     });
-    //===============================
   }
 
   // metodo para agregar un nuevo proveedor
   public NuevoProvedor = () => {
-    this.visibleMjs = false;
+    // reiniciamos el formulario 
     this.frmProveedor.setValue(this.MdlProveedor);
+    // prime trabaja con String lo pasamos a String el valor numerico
+    this.frmProveedor.controls['id_app_estatus'].setValue("1");
+    this.frmProveedor.controls['id_app_tipo'].setValue("1");
+    // solo reiniciamos las variables visuales
     this.usoCFDI = ''
     this.RegimenCFDI = ''
   }
 
-   //==============================================================================================================
+  //==============================================================================================================
   //Modales:
   public visible: boolean = false;
   public dlgRegimenvisible: boolean = false;

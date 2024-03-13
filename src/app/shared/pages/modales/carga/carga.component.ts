@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
+// primeNG 
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DividerModule } from 'primeng/divider';
 import { CardModule } from 'primeng/card';
@@ -13,6 +14,7 @@ import { DialogModule } from 'primeng/dialog';
   selector: 'app-carga',
   standalone: true,
   imports: [
+    // prime NG 
     BreadcrumbModule,
     ChipModule,
     CardModule,
@@ -27,7 +29,6 @@ import { DialogModule } from 'primeng/dialog';
 })
 export class CargaComponent {
 
-  //=================================================================================================================
   // variables entre componentes
   public Visible: boolean = true;
   
