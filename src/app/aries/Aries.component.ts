@@ -57,7 +57,7 @@ export default class AriesComponent {
 
  ngOnInit() {
     this.servicio.lstOpciones().subscribe(resp => {
-      this.items   = resp.Detalle._app_menu_modulo;
+      this.items   = resp.Detalle._app_menu_x_empleado;
       let items2   = this.items.map(group => group.menu); 
       this.items = items2;
     });

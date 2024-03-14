@@ -76,10 +76,6 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   // variables para enviar a modal enviar y realizar busqueda 
   public bcnombreDataMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: '', mensaje: '', detalle: '' };
 
-
-
-
-
   // variable que bloquea la vista
   public Ariesblocked: boolean  = false;
   //=============================================================================================================
@@ -116,8 +112,8 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     correo: [],
     rfc:    [, [Validators.required, Validators.minLength(3)]],
     curp:   [],
-    id_app_estatus: [null],
-    id_app_tipo:    [null],
+    id_estatus: [null],
+    id_tipo:    [null],
     id_rh_empleado: [parseInt(localStorage.getItem("id"))],
     id_sat_usocfdi: [1],
     //id_sat_doc_cobro:           [1],
@@ -162,8 +158,8 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
          this.frmProveedor.controls['correo'].setValue(resp.Detalle.correo);
          this.frmProveedor.controls['imagen'].setValue(resp.Detalle.imagen);
          // asignamos el valor String debido a que no es int los parsearemos a String 
-         this.frmProveedor.controls['id_app_estatus'].setValue(resp.Detalle.id_app_estatus.toString());
-         this.frmProveedor.controls['id_app_tipo'].setValue(resp.Detalle.id_app_tipo.toString());
+         this.frmProveedor.controls['id_estatus'].setValue(resp.Detalle.id_estatus.toString());
+         this.frmProveedor.controls['id_tipo'].setValue(resp.Detalle.id_tipo.toString());
          this.frmProveedor.controls['id_rh_empleado'].setValue(parseInt(resp.Detalle.id_rh_empleado));
         });
         //CARGAMOS CFDI
@@ -183,8 +179,8 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   // Crud Para Proveedores:
   Almacenar = () => {
     // ?=========================================================================
-    this.frmProveedor.controls['id_app_estatus'].setValue(parseInt(this.frmProveedor.value.id_app_estatus ));
-    this.frmProveedor.controls['id_app_tipo'].setValue(parseInt(   this.frmProveedor.value.id_app_tipo    ));
+    this.frmProveedor.controls['id_estatus'].setValue(parseInt(this.frmProveedor.value.id_estatus !== null ? this.frmProveedor.value.id_estatus : 1 ));
+    this.frmProveedor.controls['id_tipo'].setValue(parseInt( this.frmProveedor.value.id_tipo !== null ? this.frmProveedor.value.id_tipo : 1 ));
     //validamos que no este el mensaje en pantalla
     this.ConfirmacionMdl  = false;
     // bloqueamos el boton
@@ -241,8 +237,8 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     // reiniciamos el formulario 
     this.frmProveedor.setValue(this.MdlProveedor);
     // prime trabaja con String lo pasamos a String el valor numerico
-    this.frmProveedor.controls['id_app_estatus'].setValue("1");
-    this.frmProveedor.controls['id_app_tipo'].setValue("1");
+    this.frmProveedor.controls['id_estatus'].setValue("1");
+    this.frmProveedor.controls['id_tipo'].setValue("1");
     // solo reiniciamos las variables visuales
     this.usoCFDI = ''
     this.RegimenCFDI = ''
