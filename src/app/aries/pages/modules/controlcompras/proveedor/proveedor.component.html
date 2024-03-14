@@ -101,7 +101,8 @@
 
                     pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
                     tooltipPosition="bottom" 
-                    formControlName="id_app_tipo" 
+                    formControlName="id_app_tipo"
+                    placeholder="seleccione una opcion" 
                     value="id_app_tipo"
                     [options]="lstProveedorTipo"
                     optionValue="id" optionLabel="descripcion"
@@ -121,6 +122,7 @@
                     pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
                     tooltipPosition="bottom" 
                     value="id_app_estatus"
+                    placeholder="seleccione una opcion"
                     formControlName="id_app_estatus" 
                     [options]="lstestatus"
                     optionValue="id"
@@ -209,7 +211,6 @@
             (click)="Almacenar()" 
             [disabled]="frmProveedor.invalid" 
             label="Guardar" 
-             
             severity="info">
             <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
                 fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
@@ -242,3 +243,5 @@
 @if( ConfirmacionMdl == true  ) {
     <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
 }
+
+<bc-nombresMDL />

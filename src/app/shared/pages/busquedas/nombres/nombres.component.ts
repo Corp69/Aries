@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-nombres',
+  selector: 'bc-nombresMDL',
   standalone: true,
-  imports: [],
+  imports: [
+
+    
+  ],
   templateUrl: './nombres.component.html',
   styleUrl: './nombres.component.scss'
 })

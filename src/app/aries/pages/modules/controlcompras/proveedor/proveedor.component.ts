@@ -7,6 +7,7 @@ import { MdlProveedor } from './models/MdlProveedor';
 // shared 
 import { CargaComponent } from '@shared/pages/modales/carga/carga.component';
 import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
+import { NombresComponent } from '@shared/pages/busquedas/nombres/nombres.component';
 // servicios 
 import { ProveedorService } from './Services/Proveedor.service';
 //Interface
@@ -28,8 +29,6 @@ import { GenericaComponent } from '@shared/pages/busquedas/generica/generica.com
 import { BlockUIModule } from 'primeng/blockui';
 import { DropdownModule } from 'primeng/dropdown';
 
-
-
 @Component({
   selector: 'app-proveedor',
   standalone: true,
@@ -43,6 +42,7 @@ import { DropdownModule } from 'primeng/dropdown';
     GenericaComponent,
     CargaComponent,
     ConfirmacionComponent,
+    NombresComponent,
     //prime NG 
     KeyFilterModule,
     InputGroupModule,
@@ -69,6 +69,17 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   public ConfirmacionMdl: boolean = false;
   // variables para mensaje actualizar guardar 
   public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: '', mensaje: '', detalle: '' };
+
+  //==============================================================================================================
+  // Modal: mensaje bc-nombreMdl falso para no mostrar la modal true para mostrar
+  public bcNombreMdl: boolean = false;
+  // variables para enviar a modal enviar y realizar busqueda 
+  public bcnombreDataMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: '', mensaje: '', detalle: '' };
+
+
+
+
+
   // variable que bloquea la vista
   public Ariesblocked: boolean  = false;
   //=============================================================================================================
@@ -105,8 +116,8 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     correo: [],
     rfc:    [, [Validators.required, Validators.minLength(3)]],
     curp:   [],
-    id_app_estatus: [1],
-    id_app_tipo:    [1],
+    id_app_estatus: [null],
+    id_app_tipo:    [null],
     id_rh_empleado: [parseInt(localStorage.getItem("id"))],
     id_sat_usocfdi: [1],
     //id_sat_doc_cobro:           [1],
@@ -165,7 +176,6 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
         });
       }
     });
-
   }
 
 
@@ -183,7 +193,6 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     this.Ariesblocked = true;
     //===============================
     this.servicio.AlmacenarProveedor(this.frmProveedor.value).subscribe(resp => {
-      console.log( resp )
       switch (resp.IdMensj) {
         case 3:
           //============================================================
@@ -245,9 +254,9 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   public dlgRegimenvisible: boolean = false;
   public dlgDocCbrovisible: boolean = false;
   //==============================================================================================================
-  public showDialog = () => { this.visible = true; }
-  public dlgRegimen = () => { this.dlgRegimenvisible = true; }
-  public dlgDocCbro = () => { this.dlgDocCbrovisible = true; }
+  public showDialog =  () => { this.visible = true; }
+  public dlgRegimen =  () => { this.dlgRegimenvisible = true; }
+  public dlgDocCbro =  () => { this.dlgDocCbrovisible = true; }
   public closeDialog = () => { this.visible = false; }
   //==============================================================================================================
   public SatUsoCfedi(jsonSatUsoCFDI: any) {
