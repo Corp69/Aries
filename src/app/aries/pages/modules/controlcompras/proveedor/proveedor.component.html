@@ -151,7 +151,7 @@
                         [disabled]="true" [value]="usoCFDI" placeholder="Sin Informcion"></textarea>
 
                     <p-button
-                    (click)="showDialog()" 
+                    (click)="dlgUsocfdi()" 
                     pTooltip="Abrir USO CFDI Fiscal."
                     severity="info"
                     icon="pi pi-plus"
@@ -211,9 +211,21 @@
             (click)="Almacenar()" 
             [disabled]="frmProveedor.invalid" 
             label="Guardar" 
-            severity="info">
+            severity="success">
             <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
                 fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+        </p-button>
+        &nbsp;
+        <p-button 
+        
+            icon="pi pi-search"
+            pTooltip="Buscar: Un Proveedor." 
+            tooltipPosition="bottom"
+            (click)="dlgBuscar()" 
+            label="Buscar" 
+            severity="info"
+
+            >
         </p-button>
     </form>
 </p-card>
@@ -225,23 +237,27 @@
 <!-- ========================================================================================================================================================================================= -->
 <p-dialog header="" position="top" [(visible)]="visible" [modal]="true" [style]="{ width: '90vw' }" [draggable]="false"
     [resizable]="false">
-    <app-generica tabla={{tabalaSat1}} (JsonSat)="SatUsoCfedi($event)"></app-generica>
+    <app-generica [tabla]="GenericaTB" (BusqedaJson)="SatUsoCfedi($event)"></app-generica>
 </p-dialog>
 <!-- SAT  --->
 
 <p-dialog header="" position="top" [(visible)]="dlgRegimenvisible" [modal]="true" [style]="{ width: '90vw' }"
     [draggable]="false" [resizable]="false">
-    <app-generica tabla={{tabalaSat2}} (JsonSat)="SatRegimen($event)"></app-generica>
+    <app-generica [tabla]="GenericaTB" (BusqedaJson)="SatRegimen($event)"></app-generica>
 </p-dialog>
 
-<!-- SAT DOC COBRO  --->
+<!-- SAT DOC COBRO  
 <p-dialog header="Header" position="top" [(visible)]="dlgDocCbrovisible" [modal]="true" [style]="{ width: '90vw' }"
     [draggable]="false" [resizable]="false">
-    <app-generica tabla={{tabalaSat1}} (JsonSat)="SatCobro($event)"></app-generica>
+    <app-generica [tabla]="GenericaTB" (JsonSat)="SatCobro($event)"></app-generica>
 </p-dialog>
+--->
 
 @if( ConfirmacionMdl == true  ) {
     <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
 }
 
-<bc-nombresMDL />
+<p-dialog header="Header" position="top" [(visible)]="dlgbuscar" [modal]="true" [style]="{ width: '90vw' }"
+[draggable]="false" [resizable]="false">
+<nombresMDL [tabla]="GenericaTB" (BusqedaJson)="Busqueda($event)"></nombresMDL>
+</p-dialog>
