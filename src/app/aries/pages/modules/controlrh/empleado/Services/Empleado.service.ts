@@ -12,6 +12,50 @@ import { environment } from '../../../../../../../environments/environment';
 })
 export class EmpleadoService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
+
+
+   // ? ==================================================================================
+  // resolver obtnemos informacion del registro
+  public Datainfo(id: number): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/ctr/buscar/id/${id}`,
+      {
+        Qtabla: 'empleado',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+
+  public Datacfdi(id: number): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
+      {
+        "ExSchema": "compras",
+        "funcion": "empleadoCfdi",
+        "data": {
+          "_id_": id
+        }
+      }
+      ,
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+  // ? ==================================================================================
+
+
+
   //==================================================================================================
   //guardar
   public AlmacenarProveedor( modelo: MdlEmpleado ): Observable<any> {
@@ -54,19 +98,45 @@ export class EmpleadoService {
 
   /**
    * 
-   * @returns Json array con los estatus del empleado
+   * @returns Json Array Estatus de proveedor
    */
-  public listEstatus(): Observable<any> {
+  public listEmpleadoEstatus(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
-    return this.http.post(`${environment.baseUrl}clientes`,
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
       {
-        Qtabla: 'rh_estatus',
+        Qtabla: 'app_estatus',
       },
       { headers: headers }
-    ).pipe(catchError((error) => {return throwError(this.errores.getErrores(error));}));
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
   }
+
+
+  /**
+   * 
+   * @returns Json Array Tipo  de proveedor
+   */
+  public listEmpleadoTipo(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'app_tipo',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+  
 
   /**
    * 
