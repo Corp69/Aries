@@ -1,35 +1,8 @@
-<div style="text-align: center; max-width: 500px; margin: 0 auto;">
-    <p-card header="Aries Info." subheader=" Departamento TI." [style]="{ width: '360px' }">
-        <ng-template pTemplate="header">
-            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
-        </ng-template>
-        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
-        <p>
-            En este Momento Nos Encontramos dando unos latigasos a nuestro desarrollador,
-            debido a que se encuentran desarrollando muy lento cada clic es un latigaso.
-
-        </p>
-        <ng-template pTemplate="footer">
-            <p-button label="Dar Latigaso + 1 " icon="pi pi-check"></p-button>
-        </ng-template>
-    </p-card>
-</div>
-
-<p-progressBar mode="indeterminate" [style]="{ height: '30px' }"></p-progressBar>
-
-
-
-
-
-
-
-
-
 <hr>
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
-<p-card header="Proveedor">
+<p-card header="Cliente">
     <!-- Agregar Informcion del formulario -->
-    <form [formGroup]="frmProveedor" autocomplete="off">
+    <form [formGroup]="frmCliente" autocomplete="off">
         <p-divider align="left">
             <div class="inline-flex align-items-center">
                 <i class="pi pi-spin pi-cog"></i>
@@ -50,10 +23,45 @@
                         pInputText 
                         placeholder="Vacio" />
                     <p-message severity="error" text="Campo Es Obligatorio "
-                        *ngIf="frmProveedor.controls['nombre'].invalid">
+                        *ngIf="frmCliente.controls['nombre'].invalid">
                     </p-message>
                 </div>
             </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Primer Apellido</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Primer Apellido Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="primerapellido" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['primerapellido'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Segundo Apellido</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Segundo Apellido Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="segundoapellido" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['segundoapellido'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
                     <label>RFC</label>
@@ -66,7 +74,7 @@
                         pInputText 
                         placeholder="Vacio" />
                 <p-message severity="error" text="Campo Es Obligatorio "
-                    *ngIf="frmProveedor.controls['rfc'].invalid">
+                    *ngIf="frmCliente.controls['rfc'].invalid">
                 </p-message>
                 </div>
             </div>
@@ -89,27 +97,95 @@
                     <label>CODIGO</label>
                     <input
                         pKeyFilter="alphanum"  maxlength="13"
-                        pTooltip="Ingrese Codigo Para Identificar Al Proveedor"
+                        pTooltip="Ingrese Codigo Para Identificar Al Cliente"
                         tooltipPosition="bottom" 
                         formControlName="codigo" 
                         pInputText placeholder="Vacio" />
                 </div>
             </div>
-        </div>
-        <div class="row">
+
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
                     <label>CORREO</label>
                     <input
                         
-                        pTooltip="Ingrese Correo Para Contactar Al Proveedor" 
+                        pTooltip="Ingrese Correo Para Contactar Al Cliente" 
                         tooltipPosition="bottom" 
                         formControlName="correo" 
                         pInputText 
                         placeholder="Vacio" />
                 </div>
             </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Numero Seguro Social</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Numero Seguro Social Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="nss" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['nss'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Cuenta Bancaria</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Cuenta Bancaria Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="cuenta_banco" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['cuenta_banco'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CLABE</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese CLABE Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="clabe" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['clabe'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>banco</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese banco Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="banco" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['banco'].invalid">
+                    </p-message>
+                </div>
+            </div>
         </div>
+        
         <p-divider align="left">
             <div class="inline-flex align-items-center">
                 <i class="pi pi-spin pi-cog"> </i>
@@ -119,19 +195,19 @@
         <div class="flex flex-wrap gap-3">
             <div class="flex align-items-center">
                 <p-inputGroup>
-                    <p-inputGroupAddon pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                    <p-inputGroupAddon pTooltip="Seleccione Un Tipo De Empleado: con ello haremos futuras configuraciones"
                     tooltipPosition="bottom" >
                         <i class="pi pi-wrench">&nbsp; Tipo:</i>
                     </p-inputGroupAddon>
                 </p-inputGroup>
                 <p-dropdown 
 
-                    pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                    pTooltip="Seleccione Un Tipo De Empleado: con ello haremos futuras configuraciones"
                     tooltipPosition="bottom" 
                     formControlName="id_tipo"
                     placeholder="seleccione una opcion" 
                     value="id_tipo"
-                    [options]="lstProveedorTipo"
+                    [options]="listClienteTipo"
                     optionValue="id" optionLabel="descripcion"
                     >
                 </p-dropdown>
@@ -139,7 +215,7 @@
             <div class="flex align-items-center">
                 <p-inputGroup>
                     <p-inputGroupAddon 
-                    pTooltip="Seleccione Un Estatus De Proveedor: con ello haremos haras visible en busquedas, documentos etc. "
+                    pTooltip="Seleccione Un Estatus De Empleado: con ello haremos haras visible en busquedas, documentos etc. "
                     tooltipPosition="bottom" >
                         <i class="pi pi-wrench">&nbsp; Estatus:</i>
                     </p-inputGroupAddon>
@@ -224,8 +300,8 @@
         <p-button
         icon="pi pi-plus"
         label="Nuevo" 
-        (click)="NuevoProvedor()"
-        pTooltip="Almacenar: Proveedor Informcion." 
+        (click)="NuevoCliente()"
+        pTooltip="Almacenar: Empleado Informcion." 
         tooltipPosition="bottom"
         severity="success"
         >
@@ -233,10 +309,10 @@
         &nbsp;
         <p-button 
             icon="pi pi-pencil"
-            pTooltip="Almacenar: Proveedor Informcion." 
+            pTooltip="Almacenar: Empleado Informcion." 
             tooltipPosition="bottom"
             (click)="Almacenar()" 
-            [disabled]="frmProveedor.invalid" 
+            [disabled]="frmCliente.invalid" 
             label="Guardar" 
             severity="info">
             <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
