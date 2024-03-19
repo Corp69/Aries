@@ -5,7 +5,7 @@
     </div>
 </p-divider>
 <!-- Agregar Informcion del formulario -->
-<form [formGroup]="frmSat" autocomplete="off">
+<form [formGroup]="frm" autocomplete="off">
     <div class="row">
         <div class="col-sm-3">
             <div class="flex flex-column gap-2">
@@ -19,22 +19,28 @@
                 <label>Descripcion / Codigo:</label>
                 <input pInputText
                     pTooltip="Escribir Codigo O Descripcion 3 Caracteres Minimo Para Buscar" tooltipPosition="bottom"
-                    formControlName="descripcion" type="text" [value]="tabla" pInputText placeholder="Vacio" />
+                    formControlName="descripcion" type="text"  
+                    pInputText placeholder="Vacio" />
                 <p-message severity="error" text="Campo Es Obligatorio "
-                    *ngIf="frmSat.controls['descripcion'].invalid">
+                    *ngIf="frm.controls['descripcion'].invalid">
                 </p-message>
             </div>
         </div>
         <div class="col-sm-3">
             <label>Realizar Busqueda</label>
             <br>
-            <button type="submit" 
-                pTooltip="Realizar Busqeda." tooltipPosition="bottom"
-                (click)="buscarinfo()" 
-                [disabled]="frmSat.invalid" 
-                class="btn btn-outline-primary">
-                <i class="fa-sharp fa-solid fa-magnifying-glass"></i> Buscar
-            </button>
+            <p-button 
+            [disabled]="frm.invalid" 
+            (click)="buscarinfo()" 
+            pTooltip="Realizar Busqeda." 
+            severity="info"
+            icon="pi pi-plus" 
+            label="Ingresar" 
+            tooltipPosition="bottom">
+        </p-button>
+
+
+
         </div>
     </div>
 </form>

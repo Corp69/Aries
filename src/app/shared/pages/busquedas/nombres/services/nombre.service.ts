@@ -8,16 +8,15 @@ import { environment } from '../../../../../../environments/environment';
 @Injectable({
     providedIn: 'root'
 })
-export class GenericoService {
+export class NombreService {
 
     constructor(private http: HttpClient, private errores: ErroresService) { }
 
     public Buscar(_tabla: String, _item: String): Observable<any> {
         let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-        return this.http.post(`${environment.baseUrl}clientes/ctr/buscar`,
+        return this.http.post(`${environment.baseUrl}clientes/ctr/buscar/nombre`,
             { "Qtabla": _tabla, "_busqueda": _item },
             { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
     }
-    
     //===================================================================================================
 }

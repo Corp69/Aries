@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { NombresComponent } from '@shared/pages/busquedas/nombres/nombres.compon
 // servicios 
 import { ProveedorService } from './Services/Proveedor.service';
 //Interface
-import { ConfirmacionMensaje, listados } from './interface/proveedor';
+import { ConfirmacionMensaje, DataNombreMDL, listados } from './interface/proveedor';
 // prime NG 
 import { DividerModule } from 'primeng/divider';
 import { MessagesModule} from 'primeng/messages';
@@ -68,11 +68,12 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   // Modal: mensaje Confirmacion falso para no cargar la modal
   public ConfirmacionMdl: boolean = false;
   // variables para mensaje actualizar guardar 
-  public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: '', mensaje: '', detalle: '' };
+  public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
+
 
   //==============================================================================================================
   // Modal: mensaje bc-nombreMdl falso para no mostrar la modal true para mostrar
-  public bcNombreMdl: boolean = false;
+  public nombreMDL: boolean = false;
   // variables para enviar a modal enviar y realizar busqueda 
   public bcnombreDataMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: '', mensaje: '', detalle: '' };
 
@@ -80,10 +81,9 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   public Ariesblocked: boolean  = false;
   //=============================================================================================================
   // satMDL 
-  public tabalaSat1: String = 'sat_usocfdi';
+  public GenericaTB: String = "";
   public usoCFDI = ''
 
-  public tabalaSat2: String = 'sat_regimenfiscal';
   public RegimenCFDI = ''
 
   //==============================================================================================================
@@ -130,7 +130,12 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     //private datePipe: DatePipe,
    *  
    */
-  constructor( private route: ActivatedRoute, private fb: FormBuilder, private servicio: ProveedorService ) {}
+  constructor( 
+    private router: Router,
+    private route: ActivatedRoute, 
+    private fb: FormBuilder, 
+    private servicio: ProveedorService ) 
+    {}
 
   // una vez carga el componente
   ngOnInit(): void {
@@ -244,33 +249,45 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     this.RegimenCFDI = ''
   }
 
+  // metodo para buscar un nuevo proveedor
+  public Buscar = () => {
+   this.nombreMDL = true;
+  }
+
   //==============================================================================================================
   //Modales:
   public visible: boolean = false;
   public dlgRegimenvisible: boolean = false;
-  public dlgDocCbrovisible: boolean = false;
+  public dlgbuscar: boolean = false;
   //==============================================================================================================
-  public showDialog =  () => { this.visible = true; }
-  public dlgRegimen =  () => { this.dlgRegimenvisible = true; }
-  public dlgDocCbro =  () => { this.dlgDocCbrovisible = true; }
-  public closeDialog = () => { this.visible = false; }
+  // uso cfdi
+  public dlgUsocfdi =  () => { this.visible = true; this.GenericaTB = "sat_usocfdi" }
+  // regimen
+  public dlgRegimen =  () => { this.dlgRegimenvisible = true; this.GenericaTB = "sat_regimenfiscal" }
+  // Busqueda generica.
+  public dlgBuscar =  () => { this.dlgbuscar = true; this.GenericaTB = "proveedor" }
+  //public dlgDocCbro =  () => { this.dlgDocCbrovisible = true; this.GenericaTB = "sat_regimenfiscal"}
   //==============================================================================================================
-  public SatUsoCfedi(jsonSatUsoCFDI: any) {
-    this.usoCFDI = jsonSatUsoCFDI.descripcion;
-    this.frmProveedor.controls['id_sat_usocfdi'].setValue(parseInt(jsonSatUsoCFDI.id));
+  // metodo para asignar el valor buscado
+  public SatUsoCfedi( response: any) {
+    this.usoCFDI = response.descripcion;
+    this.frmProveedor.controls['id_sat_usocfdi'].setValue(parseInt(response.id));
     this.visible = false;
   }
   //==============================================================================================================
-  public SatRegimen(jsonRegimenCFDI: any) {
-    this.RegimenCFDI = jsonRegimenCFDI.descripcion;
-    this.frmProveedor.controls['id_sat_regimenfiscal'].setValue(parseInt(jsonRegimenCFDI.id));
+  // metodo para asignar el valor buscado
+  public SatRegimen( response: any) {
+    this.RegimenCFDI = response.descripcion;
+    this.frmProveedor.controls['id_sat_regimenfiscal'].setValue(parseInt(response.id));
     this.dlgRegimenvisible = false;
   }
-  //==============================================================================================================
-  public SatCobro(jsonSatCobroCFDI: any) {
-    this.SatCobroCFDI = jsonSatCobroCFDI.descripcion;
-    this.frmProveedor.controls['id_sat_doc_cobro'].setValue(parseInt(jsonSatCobroCFDI.id));
-    this.dlgDocCbrovisible = false;
-  }
 
+  //==============================================================================================================
+  // metodo generico de busqueda...
+  public Busqueda( response: any) {
+    // cargamos al objeto a buscar 
+    this.dlgbuscar = false;
+    this.router.navigate(['/ControlCompras/Proveedor/' + parseInt(response.id)]);
+    
+  }
 }
