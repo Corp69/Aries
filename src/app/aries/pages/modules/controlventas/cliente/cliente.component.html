@@ -142,11 +142,11 @@
                         pInputText 
                         pTooltip="Ingrese Cuenta Bancaria Persona: Fisica o Moral "
                         tooltipPosition="bottom" 
-                        formControlName="cuenta_banco" 
+                        formControlName="cuenta" 
                         pInputText 
                         placeholder="Vacio" />
                     <p-message severity="error" text="Campo Es Obligatorio "
-                        *ngIf="frmCliente.controls['cuenta_banco'].invalid">
+                        *ngIf="frmCliente.controls['cuenta'].invalid">
                     </p-message>
                 </div>
             </div>
@@ -170,11 +170,11 @@
 
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>banco</label>
+                    <label>Banco</label>
                     <input 
                         
                         pInputText 
-                        pTooltip="Ingrese banco Persona: Fisica o Moral "
+                        pTooltip="Ingrese Banco Persona: Fisica o Moral "
                         tooltipPosition="bottom" 
                         formControlName="banco" 
                         pInputText 
@@ -184,6 +184,41 @@
                     </p-message>
                 </div>
             </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Imagen</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Imagen Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="imagen" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['imagen'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Fecha Registro</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Fecha de Registro Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="fecharegistro" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['fecharegistro'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
         </div>
         
         <p-divider align="left">
@@ -195,14 +230,14 @@
         <div class="flex flex-wrap gap-3">
             <div class="flex align-items-center">
                 <p-inputGroup>
-                    <p-inputGroupAddon pTooltip="Seleccione Un Tipo De Empleado: con ello haremos futuras configuraciones"
+                    <p-inputGroupAddon pTooltip="Seleccione Un Tipo De Cliente: con ello haremos futuras configuraciones"
                     tooltipPosition="bottom" >
                         <i class="pi pi-wrench">&nbsp; Tipo:</i>
                     </p-inputGroupAddon>
                 </p-inputGroup>
                 <p-dropdown 
 
-                    pTooltip="Seleccione Un Tipo De Empleado: con ello haremos futuras configuraciones"
+                    pTooltip="Seleccione Un Tipo De Cliente con ello haremos futuras configuraciones"
                     tooltipPosition="bottom" 
                     formControlName="id_tipo"
                     placeholder="seleccione una opcion" 
@@ -215,7 +250,7 @@
             <div class="flex align-items-center">
                 <p-inputGroup>
                     <p-inputGroupAddon 
-                    pTooltip="Seleccione Un Estatus De Empleado: con ello haremos haras visible en busquedas, documentos etc. "
+                    pTooltip="Seleccione Un Estatus De Cliente con ello haremos haras visible en busquedas, documentos etc. "
                     tooltipPosition="bottom" >
                         <i class="pi pi-wrench">&nbsp; Estatus:</i>
                     </p-inputGroupAddon>
@@ -289,6 +324,7 @@
                 
                 </div>
             </div>
+
         </div>
         <p-divider align="left">
             <div class="inline-flex align-items-center">
@@ -301,7 +337,7 @@
         icon="pi pi-plus"
         label="Nuevo" 
         (click)="NuevoCliente()"
-        pTooltip="Almacenar: Empleado Informcion." 
+        pTooltip="Almacenar: Cliente Informcion." 
         tooltipPosition="bottom"
         severity="success"
         >
@@ -309,7 +345,7 @@
         &nbsp;
         <p-button 
             icon="pi pi-pencil"
-            pTooltip="Almacenar: Empleado Informcion." 
+            pTooltip="Almacenar: Cliente Informcion." 
             tooltipPosition="bottom"
             (click)="Almacenar()" 
             [disabled]="frmCliente.invalid" 
