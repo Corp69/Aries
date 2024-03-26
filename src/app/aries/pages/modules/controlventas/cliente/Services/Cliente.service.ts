@@ -200,7 +200,7 @@ export class ClienteService {
     });
     return this.http.post(`${environment.baseUrl}clientes`,
       {
-        Qtabla: 'rh_grado',
+        Qtabla: 'cliente',
       },
       { headers: headers }
     ).pipe(catchError((error) => {return throwError(this.errores.getErrores(error));}));
