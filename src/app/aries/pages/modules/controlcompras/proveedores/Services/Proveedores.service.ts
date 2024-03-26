@@ -9,7 +9,7 @@ import { environment } from '../../../../../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class ProveedorService {
+export class ProveedoresService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
 
@@ -77,9 +77,9 @@ export class ProveedorService {
   }
 
   //===================================================================================================
-  //?       Listados: Proveedor 
+  //?       Listados: Proveedor
   /**
-   * 
+   *
    * @returns  Json Array clasificacion de proveedor
    */
   public listProveedorClasificacion(): Observable<any> {
@@ -99,7 +99,7 @@ export class ProveedorService {
   }
 
   /**
-   * 
+   *
    * @returns Json Array Estatus de proveedor
    */
   public listProveedorEstatus(): Observable<any> {
@@ -119,7 +119,7 @@ export class ProveedorService {
   }
 
   /**
-   * 
+   *
    * @returns Json Array Operacion de proveedor
    */
   public listProveedorOperacion(): Observable<any> {
@@ -139,7 +139,7 @@ export class ProveedorService {
   }
 
   /**
-   * 
+   *
    * @returns Json Array Tipo  de proveedor
    */
   public listProveedorTipo(): Observable<any> {
