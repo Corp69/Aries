@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { MdlEmpleado } from '../models/MdlEmpleado';
+import { MdlCliente } from '../models/MdlCliente';
 import { ErroresService } from '../../../../../../shared/errores.service';
 import { environment } from '../../../../../../../environments/environment';
 
@@ -10,7 +10,7 @@ import { environment } from '../../../../../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class EmpleadoService {
+export class ClienteService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
 
@@ -22,7 +22,7 @@ export class EmpleadoService {
     });
     return this.http.post(`${environment.baseUrl}clientes/ctr/buscar/id/${id}`,
       {
-        Qtabla: 'empleado',
+        Qtabla: 'cliente',
       },
       { headers: headers }
     ).pipe(
@@ -38,8 +38,8 @@ export class EmpleadoService {
     });
     return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
       {
-        "ExSchema": "compras",
-        "funcion": "empleadoCfdi",
+        "ExSchema": "Cliente",
+        "funcion": "clienteCfdi",
         "data": {
           "_id_": id
         }
@@ -58,7 +58,7 @@ export class EmpleadoService {
 
   //==================================================================================================
   //guardar
-  public AlmacenarProveedor( modelo: MdlEmpleado ): Observable<any> {
+  public AlmacenarCliente( modelo: MdlCliente ): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
@@ -66,7 +66,7 @@ export class EmpleadoService {
       .post(
         `${environment.baseUrl}clientes/ctr/agregar`,
         {
-          Qtabla: 'rh_empleado',
+          Qtabla: 'cliente',
           Datos: modelo,
         },
         { headers: headers }
@@ -100,7 +100,7 @@ export class EmpleadoService {
    * 
    * @returns Json Array Estatus de proveedor
    */
-  public listEmpleadoEstatus(): Observable<any> {
+  public listClienteEstatus(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
@@ -121,7 +121,7 @@ export class EmpleadoService {
    * 
    * @returns Json Array Tipo  de proveedor
    */
-  public listEmpleadoTipo(): Observable<any> {
+  public listClienteTipo(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });

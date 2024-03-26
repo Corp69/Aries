@@ -1,18 +1,385 @@
-<div style="text-align: center; max-width: 500px; margin: 0 auto;">
-    <p-card header="Aries Info." subheader=" Departamento TI." [style]="{ width: '360px' }">
-        <ng-template pTemplate="header">
-            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
-        </ng-template>
-        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
-        <p>
-            En este Momento Nos Encontramos dando unos latigasos a nuestro desarrollador,
-            debido a que se encuentran desarrollando muy lento cada clic es un latigaso.
+<hr>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<p-card header="Cliente">
+    <!-- Agregar Informcion del formulario -->
+    <form [formGroup]="frmCliente" autocomplete="off">
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"></i>
+                &nbsp; Información General:
+            </div>
+        </p-divider>
 
-        </p>
-        <ng-template pTemplate="footer">
-            <p-button label="Dar Latigaso + 1 " icon="pi pi-check"></p-button>
-        </ng-template>
-    </p-card>
-</div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Nombre</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="nombre" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['nombre'].invalid">
+                    </p-message>
+                </div>
+            </div>
 
-<p-progressBar mode="indeterminate" [style]="{ height: '30px' }"></p-progressBar>
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Primer Apellido</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Primer Apellido Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="primerapellido" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['primerapellido'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Segundo Apellido</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Segundo Apellido Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="segundoapellido" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['segundoapellido'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>RFC</label>
+                    <input
+                        pKeyFilter="alphanum" maxlength="13"
+                        pInputText 
+                        pTooltip="Ingrese RFC Persona: Fisica o Moral " 
+                        tooltipPosition="bottom"
+                        formControlName="rfc" 
+                        pInputText 
+                        placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmCliente.controls['rfc'].invalid">
+                </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CURP</label>
+                    <input
+                        pKeyFilter="alphanum"  maxlength="13"
+                        pTooltip="Ingrese CURP Persona: Fisica" 
+                        tooltipPosition="bottom" 
+                        formControlName="curp" 
+                        pInputText 
+                        placeholder="Vacio" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CODIGO</label>
+                    <input
+                        pKeyFilter="alphanum"  maxlength="13"
+                        pTooltip="Ingrese Codigo Para Identificar Al Cliente"
+                        tooltipPosition="bottom" 
+                        formControlName="codigo" 
+                        pInputText placeholder="Vacio" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CORREO</label>
+                    <input
+                        
+                        pTooltip="Ingrese Correo Para Contactar Al Cliente" 
+                        tooltipPosition="bottom" 
+                        formControlName="correo" 
+                        pInputText 
+                        placeholder="Vacio" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Numero Seguro Social</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Numero Seguro Social Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="nss" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['nss'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Cuenta Bancaria</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Cuenta Bancaria Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="cuenta" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['cuenta'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CLABE</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese CLABE Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="clabe" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['clabe'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Banco</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Banco Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="banco" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['banco'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Imagen</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Imagen Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="imagen" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['imagen'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Fecha Registro</label>
+                    <input 
+                        
+                        pInputText 
+                        pTooltip="Ingrese Fecha de Registro Persona: Fisica o Moral "
+                        tooltipPosition="bottom" 
+                        formControlName="fecharegistro" 
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmCliente.controls['fecharegistro'].invalid">
+                    </p-message>
+                </div>
+            </div>
+
+        </div>
+        
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"> </i>
+                &nbsp; configuraciones:
+            </div>
+        </p-divider>
+        <div class="flex flex-wrap gap-3">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione Un Tipo De Cliente: con ello haremos futuras configuraciones"
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Tipo:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown 
+
+                    pTooltip="Seleccione Un Tipo De Cliente con ello haremos futuras configuraciones"
+                    tooltipPosition="bottom" 
+                    formControlName="id_tipo"
+                    placeholder="seleccione una opcion" 
+                    value="id_tipo"
+                    [options]="listClienteTipo"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon 
+                    pTooltip="Seleccione Un Estatus De Cliente con ello haremos haras visible en busquedas, documentos etc. "
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Estatus:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown 
+                
+                    pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
+                    tooltipPosition="bottom" 
+                    value="id_estatus"
+                    placeholder="seleccione una opcion"
+                    formControlName="id_estatus" 
+                    [options]="lstestatus"
+                    optionValue="id"
+                    optionLabel="descripcion"
+                
+                >
+            </p-dropdown>
+
+            </div>
+            
+        </div>
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"></i>
+                &nbsp; SAT:
+            </div>
+        </p-divider>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-user"> Sat Uso CFDI:</i>
+                    </span>
+                    <textarea rows="1" cols="50" pInputText
+                        pTooltip="Seleccione Un Uso CFDI Fiscal: Para Timbrar Facturas." pInputTextarea
+                        [disabled]="true" [value]="usoCFDI" placeholder="Sin Informcion"></textarea>
+
+                    <p-button
+                    (click)="showDialog()" 
+                    pTooltip="Abrir USO CFDI Fiscal."
+                    severity="info"
+                    icon="pi pi-plus"
+                    label="Agregar" 
+                    tooltipPosition="bottom"
+                    >
+                    </p-button>
+
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-user">Sat Regimen Fiscal:</i>
+                    </span>
+                    <textarea rows="1" cols="50" pTooltip="Seleccione Un Regimen Fiscal: Para Timbrar Facturas."
+                        tooltipPosition="bottom" pInputTextarea [disabled]="true" [value]="RegimenCFDI"
+                        placeholder="Sin Informcion">
+                    </textarea>
+
+                    <p-button
+                    (click)="dlgRegimen()"
+                    pTooltip="Abrir Regimen Fiscal."
+                    severity="info"
+                    icon="pi pi-plus"
+                    label="Agregar" 
+                    tooltipPosition="bottom"
+                    >
+                    </p-button>
+                
+                
+                </div>
+            </div>
+
+        </div>
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-user mr-2"></i>
+                <b>Funciones Usuario:</b>
+            </div>
+        </p-divider>
+        
+        <p-button
+        icon="pi pi-plus"
+        label="Nuevo" 
+        (click)="NuevoCliente()"
+        pTooltip="Almacenar: Cliente Informcion." 
+        tooltipPosition="bottom"
+        severity="success"
+        >
+        </p-button>
+        &nbsp;
+        <p-button 
+            icon="pi pi-pencil"
+            pTooltip="Almacenar: Cliente Informcion." 
+            tooltipPosition="bottom"
+            (click)="Almacenar()" 
+            [disabled]="frmCliente.invalid" 
+            label="Guardar" 
+            severity="info">
+            <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+                fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+        </p-button>
+    </form>
+</p-card>
+
+
+
+<!-- ========================================================================================================================================================================================= -->
+<!-- DIALOGOS SAT --->
+<!-- ========================================================================================================================================================================================= -->
+<p-dialog header="" position="top" [(visible)]="visible" [modal]="true" [style]="{ width: '90vw' }" [draggable]="false"
+    [resizable]="false">
+    <app-generica tabla={{tabalaSat1}} (JsonSat)="SatUsoCfedi($event)"></app-generica>
+</p-dialog>
+<!-- SAT  --->
+
+<p-dialog header="" position="top" [(visible)]="dlgRegimenvisible" [modal]="true" [style]="{ width: '90vw' }"
+    [draggable]="false" [resizable]="false">
+    <app-generica tabla={{tabalaSat2}} (JsonSat)="SatRegimen($event)"></app-generica>
+</p-dialog>
+
+<!-- SAT DOC COBRO  --->
+<p-dialog header="Header" position="top" [(visible)]="dlgDocCbrovisible" [modal]="true" [style]="{ width: '90vw' }"
+    [draggable]="false" [resizable]="false">
+    <app-generica tabla={{tabalaSat1}} (JsonSat)="SatCobro($event)"></app-generica>
+</p-dialog>
+
+@if( ConfirmacionMdl == true  ) {
+    <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}
+
