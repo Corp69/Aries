@@ -17,7 +17,11 @@
               <td>
                   <p-tableCheckbox [value]="DataSource"></p-tableCheckbox>
               </td>
-              <td *ngFor="let value of Obtenervalor(DataSource)">{{ value }}</td>
+              
+              <td *ngFor="let value of Obtenervalor(DataSource)">
+                <div [innerHTML]="value"></div>
+              </td>
+
           </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">

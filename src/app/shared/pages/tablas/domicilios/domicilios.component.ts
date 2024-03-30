@@ -1,8 +1,5 @@
-import { Component } from '@angular/core';
-
-
+import { Component, OnInit } from '@angular/core';
 //prime ng
-//prime
 import { DividerModule } from 'primeng/divider';
 import { TableModule } from 'primeng/table';
 import { MessageModule } from 'primeng/message';
@@ -16,10 +13,8 @@ import { TablaDomicilioService } from './services/Tabladomicilio.service';
   selector: 'aries-tabla-domicilios',
   standalone: true,
   imports: [
-
     //angular
     CommonModule,
-
     // prime ng
     DividerModule,
     TableModule,
@@ -32,7 +27,7 @@ import { TablaDomicilioService } from './services/Tabladomicilio.service';
   templateUrl: './domicilios.component.html',
   styleUrl: './domicilios.component.scss'
 })
-export  default class TabalaDomiciliosComponent {
+export  default class TabalaDomiciliosComponent implements OnInit  {
 
    //tabla
  public DataSource: any;
@@ -41,10 +36,21 @@ export  default class TabalaDomiciliosComponent {
  // constructor
  constructor(  private servicio: TablaDomicilioService) { }
 
+
+  ngOnInit(): void {
+   
+    this.servicio.Buscar( "proveedor_domicilio", "em" ).subscribe(resp => {
+      this.DataSource = resp.Detalle._proveedor_domicilio._domicilio;
+      this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+    });
+
+
+  }
+
   //metodo que realiza la busqueda
   public buscarinfo = () => {
     //=======================================================================================
-    this.servicio.Buscar().subscribe(resp => {
+    this.servicio.Buscar( "proveedor_domicilio", "em" ).subscribe(resp => {
       switch (resp.Detalle.length) {
         //=======================================================================================
         case 0:
@@ -70,10 +76,6 @@ export  default class TabalaDomiciliosComponent {
       }
     });
   }
-
-
-
-
 
   //==============================================================================================================
  // funcionalidad de la tabla:

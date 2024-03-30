@@ -31,12 +31,18 @@ export class TablaDomicilioService {
     );
   }
 
-  public Buscar(): Observable<any> {
+  public Buscar(_tabla: String, _item: String): Observable<any> {
     let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-    return this.http.post(`${environment.baseUrl}clientes/ctr/buscar/nombre`,
-        //{ "Qtabla": _tabla, "_busqueda": _item },
-        { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
-}
-
+    return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
+    {
+      "ExSchema": "config",
+      "funcion": "_proveedor_domicilio",
+      "data": {
+            "_id_proveedor":     1
+    
+        }
+    },
+      { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
+  }
 
 }

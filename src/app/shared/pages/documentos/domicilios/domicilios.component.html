@@ -57,9 +57,10 @@
           <div class="flex flex-column gap-2">
               <label>Codigo Postal</label>
               <input
-                  pKeyFilter="alphanum"  maxlength="13"
+                  pKeyFilter="alphanum"  maxlength="5"
                   pTooltip="Ingrese Codigo Postal"
                   tooltipPosition="bottom"
+                  (ngModelChange)="onCp($event)"
                   formControlName="cp"
                   pInputText placeholder="vacio"
                 />
@@ -87,13 +88,11 @@
               </p-inputGroupAddon>
           </p-inputGroup>
           <p-dropdown
-
-              pTooltip="Seleccione Estado: filtrar la direccion por estado."
-              tooltipPosition="bottom"
               formControlName="id_estado"
               placeholder="Seleccione Estado"
               value="id_estado"
-
+              [options]="lstEstados"
+              (onChange)="onEstado($event)"
               optionValue="id" optionLabel="descripcion"
               >
           </p-dropdown>
@@ -107,9 +106,7 @@
               </p-inputGroupAddon>
           </p-inputGroup>
           <p-dropdown
-
-              pTooltip="Seleccione Municipio: para filtrar la direccion del estado."
-              tooltipPosition="bottom"
+              [options]="lstMunicipio"
               value="id_municipio"
               placeholder="seleccione un municipio"
               formControlName="id_municipio"
@@ -128,10 +125,9 @@
               </p-inputGroupAddon>
           </p-inputGroup>
           <p-dropdown
-              pTooltip="Seleccione localidad: para filtrar la direccion de municipio."
-              tooltipPosition="bottom"
+              [options]="lstLocalidad"
               value="id_localidad"
-              placeholder="seleccione un municipio"
+              placeholder="seleccione una localidad"
               formControlName="id_localidad"
               optionValue="id"
               optionLabel="descripcion"
@@ -149,8 +145,7 @@
               </p-inputGroupAddon>
           </p-inputGroup>
           <p-dropdown
-              pTooltip="Seleccione Colonia: para filtrar la CP con Colonia"
-              tooltipPosition="bottom"
+              [options]="lstColonia"
               value="id_colonia"
               placeholder="seleccione Colonia"
               formControlName="id_colonia"
@@ -178,7 +173,7 @@
       (click)="Almacenar()"
       [disabled]="frmDomicilio.invalid"
       label="Guardar"
-      severity="success">
+      severity="info">
       <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
           fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
   </p-button>

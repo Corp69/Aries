@@ -12,7 +12,6 @@ import { MdlDomicilio } from '../models/MdlDomicilio';
 export class DomicilioService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
-
   // ? ==================================================================================
   // resolver obtnemos informacion del registro
   public Datainfo(id: number): Observable<any> {
@@ -31,29 +30,78 @@ export class DomicilioService {
     );
   }
 
-  public Datacfdi(id: number): Observable<any> {
+  /**
+   * 
+   * @returns retorna el listado de estados filtrado por el pais 146 mexico.
+   */
+  public lstEstado(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
-    return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
-      {
-        "ExSchema": "compras",
-        "funcion": "proveedorCfdi",
-        "data": {
-          "_id_": id
-        }
-      }
-      ,
-      { headers: headers }
+    return this.http.post(`${environment.baseUrl}clientes/ctr/filtroIDs`,
+    {
+      "Qtabla":"estado",
+      "_columna": "id_pais",
+      "_orderBY": "descripcion",
+      "Datos": {"ids": [146]}
+    },
+    { headers: headers }
     ).pipe(
       catchError((error) => {
         return throwError(this.errores.getErrores(error));
       })
     );
   }
-  // ? ==================================================================================
+  
+  /**
+   * 
+   * @param _domicilio  pasamos la lst a filtrar puede ser municipio o localidad unicamente
+   * @param _id_estado  _id_estado el estado seleccionado
+   * @returns 
+   */
+  public lstDomicilios( _domicilio: String = "", _id_estado: number = 0 ): Observable<any> {   
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/ctr/filtroIDs`,
+    {
+      "Qtabla":   _domicilio,
+      "_columna": "id_estado",
+      "_orderBY": "descripcion",
+      "Datos": {"ids": [ _id_estado ]}
+    },
+    { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
 
-
+  /**
+   * 
+   * @param _domicilio hace referencia al codigo postal a filtrar en el listado.
+   * @returns 
+   */
+  public lstCodigoPostal( _domicilio: String = "" ): Observable<any> {    
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/ctr/columna/buscar`,
+    {
+      "Qtabla":   "colonia",
+      "_Columna": "codigopostal",
+      "_OrderBY": "descripcion",
+      "_busqueda": _domicilio
+    },
+    { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+  
   //==================================================================================================
   //guardar
   public almacenar(tabla: String,  modelo: MdlDomicilio ): Observable<any> {
@@ -75,90 +123,5 @@ export class DomicilioService {
         })
       );
   }
-
-  //===================================================================================================
-  //?       Listados: Proveedor
-  /**
-   *
-   * @returns  Json Array clasificacion de proveedor
-   */
-  public listProveedorClasificacion(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
-      {
-        Qtabla: 'proveedor_clasificacion',
-      },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
-  }
-
-  /**
-   *
-   * @returns Json Array Estatus de proveedor
-   */
-  public listProveedorEstatus(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
-      {
-        Qtabla: 'app_estatus',
-      },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
-  }
-
-  /**
-   *
-   * @returns Json Array Operacion de proveedor
-   */
-  public listProveedorOperacion(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
-      {
-        Qtabla: 'proveedor_operacion',
-      },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
-  }
-
-  /**
-   *
-   * @returns Json Array Tipo  de proveedor
-   */
-  public listProveedorTipo(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
-      {
-        Qtabla: 'app_tipo',
-      },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
-  }
-  //===================================================================================================
-
-
 
 }
