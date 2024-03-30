@@ -56,7 +56,7 @@ export class DomicilioService {
 
   //==================================================================================================
   //guardar
-  public almacenar(modelo: MdlDomicilio ): Observable<any> {
+  public almacenar(tabla: String,  modelo: MdlDomicilio ): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
@@ -64,7 +64,7 @@ export class DomicilioService {
       .post(
         `${environment.baseUrl}clientes/ctr/agregar`,
         {
-          Qtabla: 'proveedor',
+          Qtabla: tabla,
           Datos: modelo,
         },
         { headers: headers }

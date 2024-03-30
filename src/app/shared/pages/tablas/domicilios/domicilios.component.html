@@ -1,0 +1,29 @@
+<p-card *ngIf="DataSource != null " header="Resultados">
+  <p-table [value]="DataSource" dataKey="id"
+       [tableStyle]="{ 'min-width': '75rem' }"
+      (selectionChange)="onSelectionChange($event)"
+       (selectAllChange)="onSelectAllChange($event)" [paginator]="true"
+      [rows]="10" [rowsPerPageOptions]="[5,10,25]" [paginator]="true">
+      <ng-template pTemplate="header">
+          <tr>
+              <th style="width: 4rem"></th>
+              <th *ngFor="let column of DataSourceColumnas"
+              pSortableColumn="{{column}}">{{column}}<p-sortIcon
+                      field="{{column}}"></p-sortIcon></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-DataSource>
+          <tr>
+              <td>
+                  <p-tableCheckbox [value]="DataSource"></p-tableCheckbox>
+              </td>
+              <td *ngFor="let value of Obtenervalor(DataSource)">{{ value }}</td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+          <tr>
+              <td colspan="8">No se encontraron registros.</td>
+          </tr>
+      </ng-template>
+  </p-table>
+</p-card>

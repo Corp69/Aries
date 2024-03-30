@@ -1,3 +1,4 @@
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
 <form [formGroup]="frmDomicilio" autocomplete="off">
   <p-divider align="left">
       <div class="inline-flex align-items-center">
@@ -11,7 +12,6 @@
           <div class="flex flex-column gap-2">
               <label>Calle:</label>
               <input
-
                   pInputText
                   pTooltip="Ingrese Calle "
                   tooltipPosition="bottom"
@@ -184,3 +184,7 @@
   </p-button>
   &nbsp;
 </form>
+
+@if( ConfirmacionMdl == true  ) {
+  <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}
