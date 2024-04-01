@@ -70,6 +70,8 @@ export default class AppDomiciliosComponent implements OnInit {
   // variables para mensaje actualizar guardar
   public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
 
+  public mdltabla: boolean = false;
+
   // listados
   public lstEstados:   list[] = [];
   public lstMunicipio: list[] = [];
@@ -115,11 +117,12 @@ export default class AppDomiciliosComponent implements OnInit {
    * cargamos los estados disponibles al pais 146 mexico
    */
   public ngOnInit(): void {
+    this.mdltabla = true;
     this.servicio.lstEstado().subscribe(resp => { this.lstEstados = resp.Detalle });
   }
 
   /**
-   * 
+   *
    * @param args filtra por estado seleccionado filtra municipio y localidad
    */
   public onEstado( args: any){
@@ -130,12 +133,12 @@ export default class AppDomiciliosComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * @param args filtra por el codigo postal a la colonia
    */
   public onCp( value: number | String){
     switch ( value.toString().length ) {
-      case 5: 
+      case 5:
       this.servicio.lstCodigoPostal( value.toString()).subscribe(resp => { this.lstColonia = resp.Detalle;});
       break;
       default:
@@ -147,13 +150,42 @@ export default class AppDomiciliosComponent implements OnInit {
 
   // nuevo registro resetea formulario
   public Nuevo(){
+    this.lstMunicipio = [];
+    this.lstLocalidad = [];
+    this.lstColonia   = [];
         // reiniciamos el formulario
         this.frmDomicilio.setValue(this.MdlDomicilio);
+        this.frmDomicilio.controls['id_proveedor'].setValue( 1 );
+
+  }
+
+  // cargamos la data del formulario
+  public Modificar( arg: any){
+    console.log( arg );
+
+    this.frmDomicilio.controls['id'].setValue( arg.id );
+    this.frmDomicilio.controls['id_proveedor'].setValue( arg.id_proveedor );
+    this.frmDomicilio.controls['calle'].setValue( arg.calle );
+    this.frmDomicilio.controls['cp'].setValue( arg.cp );
+    this.frmDomicilio.controls['num_ext'].setValue( arg.num_ext );
+    this.frmDomicilio.controls['num_int'].setValue( arg.num_int );
+    this.frmDomicilio.controls['id_estado'].setValue( 32 ) //arg.id_municipio );
+
+    this.servicio.lstDomicilios( "localidad", 32 ).subscribe(resp => { this.lstLocalidad = resp.Detalle });
+
+    this.servicio.lstDomicilios( "municipio", 32 ).subscribe(resp => { this.lstMunicipio = resp.Detalle });
+
+    this.servicio.lstCodigoPostal( arg.cp).subscribe(resp => { this.lstColonia = resp.Detalle;});
+
+    this.frmDomicilio.controls['activo'].setValue( arg.activo );
+
+      this.frmDomicilio.controls['id_localidad'].setValue( 204 )
+      this.frmDomicilio.controls['id_municipio'].setValue( 2395 )
+      this.frmDomicilio.controls['id_colonia'].setValue( 41195 )
   }
 
   //almacena informacion
   public Almacenar = () => {
-      console.log(this.frmDomicilio.value);
       // ?=========================================================================
       //this.frmDomicilio.controls['id_estatus'].setValue(parseInt(this.frmDomicilio.value.id_estatus !== null ? this.frmDomicilio.value.id_estatus : 1 ));
       //this.frmDomicilio.controls['id_tipo'].setValue(parseInt( this.frmDomicilio.value.id_tipo !== null ? this.frmDomicilio.value.id_tipo : 1 ));
@@ -188,6 +220,8 @@ export default class AppDomiciliosComponent implements OnInit {
             this.Ariesblocked = false;
             break;
           default:
+            this.mdltabla = false;
+            this.mdltabla = true;
             //============================================================
             this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
             this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;

@@ -183,3 +183,7 @@
 @if( ConfirmacionMdl == true  ) {
   <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
 }
+
+@if( mdltabla == true  ) {
+<aries-tabla-domicilios  (_frm)="Modificar($event)" />
+}
