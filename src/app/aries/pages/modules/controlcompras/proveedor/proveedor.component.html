@@ -1,4 +1,5 @@
 <hr>
+<p-toast position="top-center" key="tc"></p-toast>
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
 <p-card header="Proveedor">
     <!-- Agregar Informcion del formulario -->
@@ -14,13 +15,13 @@
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
                     <label>Nombre</label>
-                    <input 
-                        
-                        pInputText 
+                    <input
+
+                        pInputText
                         pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
-                        tooltipPosition="bottom" 
-                        formControlName="nombre" 
-                        pInputText 
+                        tooltipPosition="bottom"
+                        formControlName="nombre"
+                        pInputText
                         placeholder="Vacio" />
                     <p-message severity="error" text="Campo Es Obligatorio "
                         *ngIf="frmProveedor.controls['nombre'].invalid">
@@ -32,11 +33,11 @@
                     <label>RFC</label>
                     <input
                         pKeyFilter="alphanum" maxlength="13"
-                        pInputText 
-                        pTooltip="Ingrese RFC Persona: Fisica o Moral " 
+                        pInputText
+                        pTooltip="Ingrese RFC Persona: Fisica o Moral "
                         tooltipPosition="bottom"
-                        formControlName="rfc" 
-                        pInputText 
+                        formControlName="rfc"
+                        pInputText
                         placeholder="Vacio" />
                 <p-message severity="error" text="Campo Es Obligatorio "
                     *ngIf="frmProveedor.controls['rfc'].invalid">
@@ -49,10 +50,10 @@
                     <label>CURP</label>
                     <input
                         pKeyFilter="alphanum"  maxlength="13"
-                        pTooltip="Ingrese CURP Persona: Fisica" 
-                        tooltipPosition="bottom" 
-                        formControlName="curp" 
-                        pInputText 
+                        pTooltip="Ingrese CURP Persona: Fisica"
+                        tooltipPosition="bottom"
+                        formControlName="curp"
+                        pInputText
                         placeholder="Vacio" />
                 </div>
             </div>
@@ -63,8 +64,8 @@
                     <input
                         pKeyFilter="alphanum"  maxlength="13"
                         pTooltip="Ingrese Codigo Para Identificar Al Proveedor"
-                        tooltipPosition="bottom" 
-                        formControlName="codigo" 
+                        tooltipPosition="bottom"
+                        formControlName="codigo"
                         pInputText placeholder="Vacio" />
                 </div>
             </div>
@@ -74,11 +75,11 @@
                 <div class="flex flex-column gap-2">
                     <label>CORREO</label>
                     <input
-                        
-                        pTooltip="Ingrese Correo Para Contactar Al Proveedor" 
-                        tooltipPosition="bottom" 
-                        formControlName="correo" 
-                        pInputText 
+
+                        pTooltip="Ingrese Correo Para Contactar Al Proveedor"
+                        tooltipPosition="bottom"
+                        formControlName="correo"
+                        pInputText
                         placeholder="Vacio" />
                 </div>
             </div>
@@ -97,12 +98,12 @@
                         <i class="pi pi-wrench">&nbsp; Tipo:</i>
                     </p-inputGroupAddon>
                 </p-inputGroup>
-                <p-dropdown 
+                <p-dropdown
 
                     pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
-                    tooltipPosition="bottom" 
+                    tooltipPosition="bottom"
                     formControlName="id_tipo"
-                    placeholder="seleccione una opcion" 
+                    placeholder="seleccione una opcion"
                     value="id_tipo"
                     [options]="lstProveedorTipo"
                     optionValue="id" optionLabel="descripcion"
@@ -111,28 +112,28 @@
             </div>
             <div class="flex align-items-center">
                 <p-inputGroup>
-                    <p-inputGroupAddon 
+                    <p-inputGroupAddon
                     pTooltip="Seleccione Un Estatus De Proveedor: con ello haremos haras visible en busquedas, documentos etc. "
                     tooltipPosition="bottom" >
                         <i class="pi pi-wrench">&nbsp; Estatus:</i>
                     </p-inputGroupAddon>
                 </p-inputGroup>
-                <p-dropdown 
-                
+                <p-dropdown
+
                     pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
-                    tooltipPosition="bottom" 
+                    tooltipPosition="bottom"
                     value="id_estatus"
                     placeholder="seleccione una opcion"
-                    formControlName="id_estatus" 
+                    formControlName="id_estatus"
                     [options]="lstestatus"
                     optionValue="id"
                     optionLabel="descripcion"
-                
+
                 >
             </p-dropdown>
 
             </div>
-            
+
         </div>
         <p-divider align="left">
             <div class="inline-flex align-items-center">
@@ -151,11 +152,11 @@
                         [disabled]="true" [value]="usoCFDI" placeholder="Sin Informcion"></textarea>
 
                     <p-button
-                    (click)="dlgUsocfdi()" 
+                    (click)="dlgUsocfdi()"
                     pTooltip="Abrir USO CFDI Fiscal."
                     severity="info"
                     icon="pi pi-plus"
-                    label="Agregar" 
+                    label="Agregar"
                     tooltipPosition="bottom"
                     >
                     </p-button>
@@ -178,12 +179,12 @@
                     pTooltip="Abrir Regimen Fiscal."
                     severity="info"
                     icon="pi pi-plus"
-                    label="Agregar" 
+                    label="Agregar"
                     tooltipPosition="bottom"
                     >
                     </p-button>
-                
-                
+
+
                 </div>
             </div>
         </div>
@@ -193,36 +194,45 @@
                 <b>Funciones Usuario:</b>
             </div>
         </p-divider>
-        
+
         <p-button
         icon="pi pi-plus"
-        label="Nuevo" 
+        label="Nuevo"
         (click)="NuevoProvedor()"
-        pTooltip="Almacenar: Proveedor Informcion." 
+        pTooltip="Reinicia Formulario Del Proveedor."
         tooltipPosition="bottom"
-        severity="success"
+        severity="primary"
         >
         </p-button>
         &nbsp;
-        <p-button 
+        <p-button
             icon="pi pi-pencil"
-            pTooltip="Almacenar: Proveedor Informcion." 
+            pTooltip="Almacenar: Proveedor Informcion."
             tooltipPosition="bottom"
-            (click)="Almacenar()" 
-            [disabled]="frmProveedor.invalid" 
-            label="Guardar" 
+            (click)="Almacenar()"
+            [disabled]="frmProveedor.invalid"
+            label="Guardar"
             severity="success">
             <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
                 fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
         </p-button>
         &nbsp;
-        <p-button 
-        
-            icon="pi pi-search"
-            pTooltip="Buscar: Un Proveedor." 
+        <p-button
+            icon="pi pi-map-marker"
+            pTooltip="Gestion: Realizar una configuracion de domicilio ayuda a timbrar documentos"
             tooltipPosition="bottom"
-            (click)="dlgBuscar()" 
-            label="Buscar" 
+            (click)="Domicilios()"
+            label="Domicilios"
+            severity="info">
+        </p-button>
+        &nbsp;
+        <p-button
+
+            icon="pi pi-search"
+            pTooltip="Buscar: Un Proveedor."
+            tooltipPosition="bottom"
+            (click)="dlgBuscar()"
+            label="Buscar"
             severity="info"
 
             >
@@ -246,7 +256,7 @@
     <app-generica [tabla]="GenericaTB" (BusqedaJson)="SatRegimen($event)"></app-generica>
 </p-dialog>
 
-<!-- SAT DOC COBRO  
+<!-- SAT DOC COBRO
 <p-dialog header="Header" position="top" [(visible)]="dlgDocCbrovisible" [modal]="true" [style]="{ width: '90vw' }"
     [draggable]="false" [resizable]="false">
     <app-generica [tabla]="GenericaTB" (JsonSat)="SatCobro($event)"></app-generica>

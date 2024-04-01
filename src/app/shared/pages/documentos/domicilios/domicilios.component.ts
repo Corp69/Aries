@@ -1,6 +1,15 @@
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component,  Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+// shared
+
+import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
+import { MdlDomicilio } from './models/MdlDomicilio';
+import { DomicilioService } from './services/domicilio.service';
+import { ConfirmacionMensaje } from './interface/Domicilio';
+import { list } from '@shared/interfaces/Aries';
+import { TbdomiciliosComponent } from '@shared/pages/tablas/tbdomicilios/tbdomicilios.component';
 // prime NG
 import { DividerModule } from 'primeng/divider';
 import { MessagesModule} from 'primeng/messages';
@@ -16,15 +25,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { BlockUIModule } from 'primeng/blockui';
 import { DropdownModule } from 'primeng/dropdown';
-import { MdlDomicilio } from './models/MdlDomicilio';
-import { DomicilioService } from './services/domicilio.service';
-import { ConfirmacionMensaje } from './interface/Domicilio';
-import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
-import { list } from '@shared/interfaces/Aries';
-import { TbdomiciliosComponent } from '@shared/pages/tablas/tbdomicilios/tbdomicilios.component';
-import { ActivatedRoute } from '@angular/router';
-
-
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'aries-domicilios',
@@ -53,8 +55,10 @@ import { ActivatedRoute } from '@angular/router';
     ButtonModule,
     RippleModule,
     BlockUIModule,
+    ToastModule,
     DividerModule
   ],
+  providers: [MessageService],
   templateUrl: './domicilios.component.html',
   styleUrl: './domicilios.component.scss'
 })
@@ -63,7 +67,7 @@ export default class AppDomiciliosComponent implements OnInit {
   // variables entre componentes
   @Input()
   public tabla: String = "";
-  
+
   @Input()
   public tablaCampo: string = "";
   public _id: number = -1;
@@ -109,10 +113,11 @@ export default class AppDomiciliosComponent implements OnInit {
     activo:                     [true],
   });
 
-  constructor( 
-      private fb: FormBuilder, 
+  constructor(
+      private fb: FormBuilder,
       private servicio: DomicilioService,
-      private route: ActivatedRoute ) 
+      private messageService: MessageService,
+      private route: ActivatedRoute )
   {
     this.route.params.subscribe(params => {
       if (+params['id'] > -1) {
@@ -164,12 +169,20 @@ export default class AppDomiciliosComponent implements OnInit {
     this.lstColonia   = [];
         // reiniciamos el formulario
         this.frmDomicilio.setValue(this.MdlDomicilio);
-        this.frmDomicilio.controls[this.tablaCampo].setValue( 1 );
+        this.frmDomicilio.controls[this.tablaCampo].setValue( this._id );
+
+    // mensaje para verificar la captura de la direccion del sat
+    this.messageService.add({key: 'tc', severity:'success', summary: 'Success', detail: 'Ingresa Domicilio.'});
+
+
   }
 
   // cargamos la data del formulario
   public Modificar( arg: any){
- 
+
+    // mensaje para verificar la captura de la direccion del sat
+    this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Confirma Dirección SAT'});
+
     this.frmDomicilio.controls['id'].setValue( arg.id );
     this.frmDomicilio.controls[this.tablaCampo].setValue( this._id );
     this.frmDomicilio.controls['calle'].setValue(        arg.calle );
@@ -181,7 +194,6 @@ export default class AppDomiciliosComponent implements OnInit {
     this.lstColonia    = [];
     this.lstLocalidad  = [];
     this.lstMunicipio  = [];
-
   }
 
   //almacena informacion

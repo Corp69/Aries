@@ -1,22 +1,14 @@
 <p-dialog
-  header="Title"
   [(visible)]="mdleliminar"
   [closeOnEscape] ="false"
   [closable] ="false"
   >
-  <ng-template pTemplate="header">
-    <i  class="fa-solid fa-triangle-exclamation fa-2xl"
-                  style=" color: red;"></i>
-              <br>      &nbsp;
-            ¿ Estas Seguro De Eliminar El Registro ?
-</ng-template>
+  <i  class="fa-solid fa-triangle-exclamation" style=" color: red;"></i> &nbsp;¿ Estas seguro, se perdera la informacion ?
 <ng-template pTemplate="footer">
   <span class="p-buttonset">
     <button
-
      pTooltip="Confirma la Eliminacion."
      tooltipPosition="bottom"
-
       pButton
       type="button"
       (click)="OnEliminar()"

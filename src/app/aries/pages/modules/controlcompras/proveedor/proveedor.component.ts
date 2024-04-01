@@ -28,6 +28,8 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { GenericaComponent } from '@shared/pages/busquedas/generica/generica.component';
 import { BlockUIModule } from 'primeng/blockui';
 import { DropdownModule } from 'primeng/dropdown';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-proveedor',
@@ -58,12 +60,20 @@ import { DropdownModule } from 'primeng/dropdown';
     ButtonModule,
     RippleModule,
     BlockUIModule,
-    DividerModule
+    DividerModule,
+    ToastModule,
+
   ],
+  providers: [MessageService],
   templateUrl: './proveedor.component.html',
   styleUrl: './proveedor.component.scss'
 })
 export default class ProveedorComponent implements OnInit, AfterViewInit  {
+
+  // variable para ver el id del proveedor
+  public _id: number = -1;
+
+
   //==============================================================================================================
   // Modal: mensaje Confirmacion falso para no cargar la modal
   public ConfirmacionMdl: boolean = false;
@@ -134,6 +144,7 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
+    private messageService: MessageService,
     private servicio: ProveedorService )
     {}
 
@@ -148,9 +159,10 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   /**
    * cargamos la data del proveedor una vez cargado todo los componentes
    */
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.route.params.subscribe(params => {
       if (+params['id'] > -1) {
+        this._id = +params['id'];
         // AGREGAMOS LA INFORMACION AL FORMULARIO
         this.servicio.Datainfo(+params['id']).subscribe(resp => {
          //this.frmProveedor.setValue(resp.Detalle);
@@ -182,7 +194,7 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
 
   //==============================================================================================================
   // Crud Para Proveedores:
-  Almacenar = () => {
+ public Almacenar = () => {
     // ?=========================================================================
     this.frmProveedor.controls['id_estatus'].setValue(parseInt(this.frmProveedor.value.id_estatus !== null ? this.frmProveedor.value.id_estatus : 1 ));
     this.frmProveedor.controls['id_tipo'].setValue(parseInt( this.frmProveedor.value.id_tipo !== null ? this.frmProveedor.value.id_tipo : 1 ));
@@ -227,6 +239,7 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
           this.frmProveedor.setValue(this.frmProveedor.value);
           // agregamos el ID para generar la actualizacion
           this.frmProveedor.controls['id'].setValue(parseInt(resp.Id));
+          this._id = parseInt(resp.Id);
           // mostramos el resultado de la informacion
           this.ConfirmacionMdl  = true;
           // desbloqueamos la pantalla
@@ -245,13 +258,28 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     this.frmProveedor.controls['id_estatus'].setValue("1");
     this.frmProveedor.controls['id_tipo'].setValue("1");
     // solo reiniciamos las variables visuales
-    this.usoCFDI = ''
-    this.RegimenCFDI = ''
+    this.usoCFDI = "";
+    this.RegimenCFDI = "";
+    this._id =-1;
+     // mensaje para verificar la captura de la direccion del sat
+     this.messageService.add({key: 'tc', severity:'success', summary: 'success', detail: 'Formulario listo: Agregue información.'});
+
   }
 
   // metodo para buscar un nuevo proveedor
   public Buscar = () => {
    this.nombreMDL = true;
+  }
+
+  public Domicilios = () => {
+   switch (this._id) {
+    case -1:
+      this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No Hay Un Proveedor Seleccionado.'});
+      break;
+    default:
+      this.router.navigate([ `/ControlCompras/Domicilio/${this._id}`]);
+      break;
+   }
   }
 
   //==============================================================================================================
