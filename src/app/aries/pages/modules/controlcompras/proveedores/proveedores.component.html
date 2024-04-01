@@ -1,1 +1,8 @@
-<h1>listados </h1>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<p-card header="Proveedores">
+        <nombresMDL
+          [tabla]="GenericaTB"
+          (BusqedaJson)="Busqueda($event)">
+        </nombresMDL>
+        &nbsp;
+</p-card>

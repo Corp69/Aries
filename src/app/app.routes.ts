@@ -98,7 +98,7 @@ export const routes: Routes = [
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
-      
+
       //modulo: Inventarios
       {
         //path: 'auth/login', redirectTo: 'dashboard', pathMatch: 'full',
@@ -142,7 +142,14 @@ export const routes: Routes = [
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
-      
+      {
+        path:  'Domicilio/:id',
+        title: 'Domicilio',
+        loadComponent: () => import('./aries/pages/modules/controlcompras/domicilios/domicilios.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+
       //modulo: Inventarios
       {
         //path: 'auth/login', redirectTo: 'dashboard', pathMatch: 'full',
@@ -360,7 +367,7 @@ export const routes: Routes = [
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
-      
+
       //modulo: Inventarios
       {
         //path: 'auth/login', redirectTo: 'dashboard', pathMatch: 'full',

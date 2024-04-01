@@ -7,8 +7,8 @@
       "@shared/*":[
         "./src/app/shared/*"
       ],
-      "@environments/*":[
-        "../../../../../../environments/*"
+      "@environments":[
+        "../../../../../../environments/environment.ts"
       ]
     },
 

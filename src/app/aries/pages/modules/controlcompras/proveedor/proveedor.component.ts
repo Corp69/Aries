@@ -4,15 +4,15 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // modelos
 import { MdlProveedor } from './models/MdlProveedor';
-// shared 
+// shared
 import { CargaComponent } from '@shared/pages/modales/carga/carga.component';
 import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
 import { NombresComponent } from '@shared/pages/busquedas/nombres/nombres.component';
-// servicios 
+// servicios
 import { ProveedorService } from './Services/Proveedor.service';
 //Interface
-import { ConfirmacionMensaje, DataNombreMDL, listados } from './interface/proveedor';
-// prime NG 
+import { ConfirmacionMensaje, listados } from './interface/proveedor';
+// prime NG
 import { DividerModule } from 'primeng/divider';
 import { MessagesModule} from 'primeng/messages';
 import { MessageModule} from 'primeng/message';
@@ -43,14 +43,14 @@ import { DropdownModule } from 'primeng/dropdown';
     CargaComponent,
     ConfirmacionComponent,
     NombresComponent,
-    //prime NG 
+    //prime NG
     KeyFilterModule,
     InputGroupModule,
     InputGroupAddonModule,
     DividerModule,
     MessagesModule,
     MessageModule,
-    DropdownModule, 
+    DropdownModule,
     CardModule,
     ProgressSpinnerModule,
     DialogModule,
@@ -67,20 +67,20 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   //==============================================================================================================
   // Modal: mensaje Confirmacion falso para no cargar la modal
   public ConfirmacionMdl: boolean = false;
-  // variables para mensaje actualizar guardar 
+  // variables para mensaje actualizar guardar
   public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
 
 
   //==============================================================================================================
   // Modal: mensaje bc-nombreMdl falso para no mostrar la modal true para mostrar
   public nombreMDL: boolean = false;
-  // variables para enviar a modal enviar y realizar busqueda 
+  // variables para enviar a modal enviar y realizar busqueda
   public bcnombreDataMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: '', mensaje: '', detalle: '' };
 
   // variable que bloquea la vista
   public Ariesblocked: boolean  = false;
   //=============================================================================================================
-  // satMDL 
+  // satMDL
   public GenericaTB: String = "";
   public usoCFDI = ''
 
@@ -96,7 +96,7 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   // Listados:
   public lstestatus:        listados[] = [];
   public lstProveedorTipo:  listados[] = [];
-    
+
   //public lstProveedorClasificacion: any;
   //  public lstProovedorOperacion: any;
   //==============================================================================================================
@@ -122,19 +122,19 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   });
 
   /**
-   * 
-   * @param route 
-   * @param fb 
+   *
+   * @param route
+   * @param fb
    * @param servicio
-   * 
+   *
     //private datePipe: DatePipe,
-   *  
+   *
    */
-  constructor( 
+  constructor(
     private router: Router,
-    private route: ActivatedRoute, 
-    private fb: FormBuilder, 
-    private servicio: ProveedorService ) 
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private servicio: ProveedorService )
     {}
 
   // una vez carga el componente
@@ -162,14 +162,14 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
          this.frmProveedor.controls['curp'].setValue(resp.Detalle.curp);
          this.frmProveedor.controls['correo'].setValue(resp.Detalle.correo);
          this.frmProveedor.controls['imagen'].setValue(resp.Detalle.imagen);
-         // asignamos el valor String debido a que no es int los parsearemos a String 
+         // asignamos el valor String debido a que no es int los parsearemos a String
          this.frmProveedor.controls['id_estatus'].setValue(resp.Detalle.id_estatus.toString());
          this.frmProveedor.controls['id_tipo'].setValue(resp.Detalle.id_tipo.toString());
          this.frmProveedor.controls['id_rh_empleado'].setValue(parseInt(resp.Detalle.id_rh_empleado));
         });
         //CARGAMOS CFDI
         this.servicio.Datacfdi(+params['id']).subscribe(resp => {
-          // rellenamos los campos de CFDI EN UNA CONSULTA APARTE  
+          // rellenamos los campos de CFDI EN UNA CONSULTA APARTE
           this.frmProveedor.controls['id_sat_regimenfiscal'].setValue(parseInt(resp.Detalle.proveedorcfdi.id_sat_regimenfiscal));
           this.frmProveedor.controls['id_sat_regimenfiscal'].setValue(parseInt(resp.Detalle.proveedorcfdi.id_sat_usocfdi));
           this.usoCFDI = resp.Detalle.proveedorcfdi.usocfdi;
@@ -190,7 +190,7 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     this.ConfirmacionMdl  = false;
     // bloqueamos el boton
     this.BtnSpinner   = true;
-    // bloqueamos pantalla 
+    // bloqueamos pantalla
     this.Ariesblocked = true;
     //===============================
     this.servicio.AlmacenarProveedor(this.frmProveedor.value).subscribe(resp => {
@@ -199,8 +199,8 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
           //============================================================
           this.ConfirmacionMsjMdl.msjTipo = 2; //resp.IdMensj;
           this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
-          this.ConfirmacionMsjMdl.mensaje = resp.Mensaje; 
-          this.ConfirmacionMsjMdl.detalle = resp.Solucion; 
+          this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+          this.ConfirmacionMsjMdl.detalle = resp.Solucion;
           this.ConfirmacionMdl = true;
           // desbloqueamos la pantalla
           this.Ariesblocked = false;
@@ -209,26 +209,26 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
           //============================================================
           this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
           this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
-          this.ConfirmacionMsjMdl.mensaje = resp.Mensaje; 
+          this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
           this.ConfirmacionMsjMdl.detalle = resp.Detalle;
-           // mostramos el resultado de la informacion  
-           this.ConfirmacionMdl  = true;  
+           // mostramos el resultado de la informacion
+           this.ConfirmacionMdl  = true;
           // desbloqueamos la pantalla
-          this.Ariesblocked = false; 
+          this.Ariesblocked = false;
           break;
         default:
           //============================================================
           this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
           this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
-          this.ConfirmacionMsjMdl.mensaje = resp.Mensaje; 
-          this.ConfirmacionMsjMdl.detalle = resp.Detalle; 
+          this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+          this.ConfirmacionMsjMdl.detalle = resp.Detalle;
           //============================================================
-          // instanciamos elmismo formulario para actualizar 
+          // instanciamos elmismo formulario para actualizar
           this.frmProveedor.setValue(this.frmProveedor.value);
           // agregamos el ID para generar la actualizacion
           this.frmProveedor.controls['id'].setValue(parseInt(resp.Id));
-          // mostramos el resultado de la informacion  
-          this.ConfirmacionMdl  = true;  
+          // mostramos el resultado de la informacion
+          this.ConfirmacionMdl  = true;
           // desbloqueamos la pantalla
           this.Ariesblocked     = false;
           break;
@@ -239,7 +239,7 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
 
   // metodo para agregar un nuevo proveedor
   public NuevoProvedor = () => {
-    // reiniciamos el formulario 
+    // reiniciamos el formulario
     this.frmProveedor.setValue(this.MdlProveedor);
     // prime trabaja con String lo pasamos a String el valor numerico
     this.frmProveedor.controls['id_estatus'].setValue("1");
@@ -285,9 +285,9 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   //==============================================================================================================
   // metodo generico de busqueda...
   public Busqueda( response: any) {
-    // cargamos al objeto a buscar 
+    // cargamos al objeto a buscar
     this.dlgbuscar = false;
     this.router.navigate(['/ControlCompras/Proveedor/' + parseInt(response.id)]);
-    
+
   }
 }
