@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 //shared
 import { DialogModule } from 'primeng/dialog';
@@ -21,7 +21,7 @@ import { TooltipModule } from 'primeng/tooltip';
   templateUrl: './mdleliminar.component.html',
   styleUrl: './mdleliminar.component.scss'
 })
-export class MdleliminarComponent implements OnInit {
+export class MdleliminarComponent {
 
   @Input()
   public mdleliminar: boolean = false;
@@ -39,18 +39,12 @@ export class MdleliminarComponent implements OnInit {
 // constructor
  constructor( private servicio: MdlEliminarService) { }
 
-  ngOnInit(): void {
-
-  }
-
   //eliminamo
   public OnEliminar(){
     this.servicio.Eliminar( this._tabla, this._id ).subscribe(resp => {
-
       this._tabla = "";
       this._id    = -1;
       this.mdleliminar = false;
-
       this._rowconfirmacion.emit(true);
     })
   }

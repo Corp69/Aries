@@ -1,6 +1,5 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component,  Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // prime NG
 import { DividerModule } from 'primeng/divider';
@@ -22,7 +21,8 @@ import { DomicilioService } from './services/domicilio.service';
 import { ConfirmacionMensaje } from './interface/Domicilio';
 import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
 import { list } from '@shared/interfaces/Aries';
-import TabalaDomiciliosComponent from '@shared/pages/tablas/domicilios/domicilios.component';
+import { TbdomiciliosComponent } from '@shared/pages/tablas/tbdomicilios/tbdomicilios.component';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -37,7 +37,7 @@ import TabalaDomiciliosComponent from '@shared/pages/tablas/domicilios/domicilio
     FormsModule,
     //shared
     ConfirmacionComponent,
-    TabalaDomiciliosComponent,
+    TbdomiciliosComponent,
     //prime NG
     KeyFilterModule,
     InputGroupModule,
@@ -63,14 +63,19 @@ export default class AppDomiciliosComponent implements OnInit {
   // variables entre componentes
   @Input()
   public tabla: String = "";
+  
+  @Input()
+  public tablaCampo: string = "";
+  public _id: number = -1;
+
+
+  public reloadTrigger: boolean = false;
 
   //==============================================================================================================
   // Modal: mensaje Confirmacion falso para no cargar la modal
   public ConfirmacionMdl: boolean = false;
   // variables para mensaje actualizar guardar
   public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
-
-  public mdltabla: boolean = false;
 
   // listados
   public lstEstados:   list[] = [];
@@ -92,33 +97,37 @@ export default class AppDomiciliosComponent implements OnInit {
   //Formularios del app:
   public frmDomicilio: FormGroup = this.fb.group({
     id:           [-1],
-    id_proveedor: [1],
     calle:   [, [Validators.required, Validators.minLength(3)]],
-    num_ext: [, [Validators.required, Validators.minLength(3)]],
+    num_ext: [, [Validators.required, Validators.minLength(1)]],
     num_int: [, ],
-    cp:      [, [Validators.required, Validators.minLength(3)]],
+    cp:      [, [Validators.required, Validators.minLength(5)]],
 
-    id_estado:                  [null],
-    id_municipio:               [null],
-    id_localidad:               [null],
-    id_colonia:                 [null],
+    id_estado:                  [null,[Validators.required, Validators.minLength(1)]],
+    id_municipio:               [null,[Validators.required, Validators.minLength(1)]],
+    id_localidad:               [null,[Validators.required, Validators.minLength(1)]],
+    id_colonia:                 [null,[Validators.required, Validators.minLength(1)]],
     activo:                     [true],
   });
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private servicio: DomicilioService
-    )
-    {}
+  constructor( 
+      private fb: FormBuilder, 
+      private servicio: DomicilioService,
+      private route: ActivatedRoute ) 
+  {
+    this.route.params.subscribe(params => {
+      if (+params['id'] > -1) {
+        this._id = +params['id'];
+      }
+    });
+  }
 
   /**
    * cargamos los estados disponibles al pais 146 mexico
    */
   public ngOnInit(): void {
-    this.mdltabla = true;
     this.servicio.lstEstado().subscribe(resp => { this.lstEstados = resp.Detalle });
+    //inyectamos el campo por la columna
+    this.frmDomicilio.addControl( this.tablaCampo, this.fb.control( this._id));
   }
 
   /**
@@ -155,41 +164,30 @@ export default class AppDomiciliosComponent implements OnInit {
     this.lstColonia   = [];
         // reiniciamos el formulario
         this.frmDomicilio.setValue(this.MdlDomicilio);
-        this.frmDomicilio.controls['id_proveedor'].setValue( 1 );
-
+        this.frmDomicilio.controls[this.tablaCampo].setValue( 1 );
   }
 
   // cargamos la data del formulario
   public Modificar( arg: any){
-    console.log( arg );
-
+ 
     this.frmDomicilio.controls['id'].setValue( arg.id );
-    this.frmDomicilio.controls['id_proveedor'].setValue( arg.id_proveedor );
-    this.frmDomicilio.controls['calle'].setValue( arg.calle );
-    this.frmDomicilio.controls['cp'].setValue( arg.cp );
-    this.frmDomicilio.controls['num_ext'].setValue( arg.num_ext );
-    this.frmDomicilio.controls['num_int'].setValue( arg.num_int );
-    this.frmDomicilio.controls['id_estado'].setValue( 32 ) //arg.id_municipio );
+    this.frmDomicilio.controls[this.tablaCampo].setValue( this._id );
+    this.frmDomicilio.controls['calle'].setValue(        arg.calle );
+    this.frmDomicilio.controls['cp'].setValue(           arg.cp );
+    this.frmDomicilio.controls['num_ext'].setValue(      arg.num_ext );
+    this.frmDomicilio.controls['num_int'].setValue(      arg.num_int );
+    this.frmDomicilio.controls['activo'].setValue(       true );
+    // reseteamos los listados de SAT
+    this.lstColonia    = [];
+    this.lstLocalidad  = [];
+    this.lstMunicipio  = [];
 
-    this.servicio.lstDomicilios( "localidad", 32 ).subscribe(resp => { this.lstLocalidad = resp.Detalle });
-
-    this.servicio.lstDomicilios( "municipio", 32 ).subscribe(resp => { this.lstMunicipio = resp.Detalle });
-
-    this.servicio.lstCodigoPostal( arg.cp).subscribe(resp => { this.lstColonia = resp.Detalle;});
-
-    this.frmDomicilio.controls['activo'].setValue( arg.activo );
-
-      this.frmDomicilio.controls['id_localidad'].setValue( 204 )
-      this.frmDomicilio.controls['id_municipio'].setValue( 2395 )
-      this.frmDomicilio.controls['id_colonia'].setValue( 41195 )
   }
 
   //almacena informacion
   public Almacenar = () => {
       // ?=========================================================================
-      //this.frmDomicilio.controls['id_estatus'].setValue(parseInt(this.frmDomicilio.value.id_estatus !== null ? this.frmDomicilio.value.id_estatus : 1 ));
-      //this.frmDomicilio.controls['id_tipo'].setValue(parseInt( this.frmDomicilio.value.id_tipo !== null ? this.frmDomicilio.value.id_tipo : 1 ));
-      //validamos que no este el mensaje en pantalla
+       //validamos que no este el mensaje en pantalla
       this.ConfirmacionMdl  = false;
       // bloqueamos el boton
       this.BtnSpinner   = true;
@@ -220,8 +218,7 @@ export default class AppDomiciliosComponent implements OnInit {
             this.Ariesblocked = false;
             break;
           default:
-            this.mdltabla = false;
-            this.mdltabla = true;
+            this.reloadTrigger = true;
             //============================================================
             this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
             this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
@@ -238,8 +235,9 @@ export default class AppDomiciliosComponent implements OnInit {
             this.Ariesblocked     = false;
             break;
         }
-        this.BtnSpinner = false;
+        this.BtnSpinner    = false;
       });
+      this.reloadTrigger   = false;
   }
 
 }

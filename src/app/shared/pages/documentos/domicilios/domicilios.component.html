@@ -97,6 +97,9 @@
               >
           </p-dropdown>
       </div>
+      <p-message severity="error" text="Campo Es Obligatorio "
+      *ngIf="frmDomicilio.controls['id_estado'].invalid">
+   </p-message>
       <div class="flex align-items-center">
           <p-inputGroup>
               <p-inputGroupAddon
@@ -115,7 +118,9 @@
           >
       </p-dropdown>
       </div>
-
+      <p-message severity="error" text="Campo Es Obligatorio "
+      *ngIf="frmDomicilio.controls['id_municipio'].invalid">
+      </p-message>
       <div class="flex align-items-center">
           <p-inputGroup>
               <p-inputGroupAddon
@@ -133,9 +138,10 @@
               optionLabel="descripcion"
           >
       </p-dropdown>
-
       </div>
-
+      <p-message severity="error" text="Campo Es Obligatorio "
+      *ngIf="frmDomicilio.controls['id_localidad'].invalid">
+      </p-message>
       <div class="flex align-items-center">
           <p-inputGroup>
               <p-inputGroupAddon
@@ -154,6 +160,9 @@
           >
       </p-dropdown>
       </div>
+      <p-message severity="error" text="Campo Es Obligatorio "
+      *ngIf="frmDomicilio.controls['id_colonia'].invalid">
+      </p-message>
   </div>
   <br>
   <p-button
@@ -184,6 +193,5 @@
   <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
 }
 
-@if( mdltabla == true  ) {
-<aries-tabla-domicilios  (_frm)="Modificar($event)" />
-}
+<aries-table-domicilios  [reloadTrigger]="reloadTrigger"  [_tabla]="tabla"  (_frm)="Modificar($event)" />
+

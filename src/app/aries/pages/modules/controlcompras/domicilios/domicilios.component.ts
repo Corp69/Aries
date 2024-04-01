@@ -22,6 +22,7 @@ import { CardModule} from 'primeng/card';
 export default class DomiciliosComponent {
 
   // Tabla a insertar.
-  public _tabla: String = "proveedor_domicilio";
+  public _tabla:       String = "proveedor_domicilio";
+  public _tabla_campo: string = "id_proveedor";
 
 }
