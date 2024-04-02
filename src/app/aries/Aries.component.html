@@ -20,7 +20,6 @@
 
     </ng-template>
     <ng-template pTemplate="end">
-
         <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
         &nbsp;
         <i class="pi pi-calendar mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="10+"
@@ -28,14 +27,12 @@
         &nbsp;
         <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger" value="2"></i>
         &nbsp;
-        <p-avatar  shape="circle" size="xlarge">
 
-          <img [src]="imagen"/>
 
-        </p-avatar>
     </ng-template>
 </p-menubar>
 <p-sidebar [(visible)]="sidebarVisible">
+
     <h3>Menu</h3>
 
     <p-button
@@ -66,54 +63,10 @@
             </ul>
         </p-accordionTab>
     </p-accordion>
-    <p-accordion>
-        <p-accordionTab header="Themes" [selected]="true">
-            <ul>
-                <li>
-                    <button pButton pRipple type="button" class="p-button-raised p-button-text"
-                        (click)="changeTheme('saga-blue')">
-                        Azul-Saga-Blanco
-                    </button>
-                </li>
-                <li>
-                    <button pButton pRipple type="button" class="p-button-raised p-button-text"
-                        (click)="changeTheme('vela-blue')">
-                        Azul-Vela
-                    </button>
-                </li>
-                <li>
-                    <button pButton pRipple type="button" class="p-button-raised p-button-text"
-                        (click)="changeTheme('arya-blue')">
-                        Azul-Vela-negro
-                    </button>
-                </li>
-                <li>
-                    <button pButton pRipple type="button" class="p-button-raised p-button-text"
-                        (click)="changeTheme('md-light-indigo')">
-                        Indigo-blanco
-                    </button>
-                </li>
-                <li>
-                    <button pButton pRipple type="button" class="p-button-raised p-button-text"
-                        (click)="changeTheme('md-dark-indigo')">
-                        Negro-Indigo
-                    </button>
-                </li>
-                <li>
-                    <button pButton pRipple type="button" class="p-button-raised p-button-text"
-                        (click)="changeTheme('bootstrap4-light-purple')">
-                        Purpura-Blanco
-                    </button>
-                </li>
-                <li>
-                    <button pButton pRipple type="button" class="p-button-raised p-button-text"
-                        (click)="changeTheme('bootstrap4-dark-purple')">
-                        Purpura-Negro
-                    </button>
-                </li>
-            </ul>
-        </p-accordionTab>
-    </p-accordion>
+
+    <p-splitButton icon="pi pi-moon" label="Temas" [model]="this.items3" styleClass="p-button-outlined p-button-info mr-2 mb-2" ></p-splitButton>
+
+
 </p-sidebar>
 
 <router-outlet />
