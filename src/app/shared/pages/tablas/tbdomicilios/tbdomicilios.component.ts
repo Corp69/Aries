@@ -13,7 +13,8 @@ import { ButtonModule } from 'primeng/button';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { CommonModule } from '@angular/common';
 import { BlockUIModule } from 'primeng/blockui';
-
+import {MessageService} from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'aries-table-domicilios',
@@ -30,8 +31,10 @@ import { BlockUIModule } from 'primeng/blockui';
       CardModule,
       ButtonModule,
       BlockUIModule,
+      ToastModule,
       KeyFilterModule
   ],
+  providers: [MessageService],
   templateUrl: './tbdomicilios.component.html',
   styleUrl: './tbdomicilios.component.scss'
 })
@@ -46,23 +49,22 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
    @Input()
    public _tabla: String = "";
    public _id:    number = -1;
- 
+
    @Input() reloadTrigger: boolean = false;
- 
- 
+
+
    // retorna la busqueda del servicio
    @Output() _frm = new EventEmitter<any>();
- 
- 
+
+
   //tabla
   public DataSource: any;
   public DataSourceColumnas: any;
- 
+
  // constructor
- constructor(private servicio: TbDomicilioService,  private route: ActivatedRoute ){ }
- 
+ constructor(private servicio: TbDomicilioService,  private route: ActivatedRoute,  private messageService: MessageService, ){ }
+
  public ngOnChanges(changes: SimpleChanges): void {
- 
      if (this.reloadTrigger == true) {
        this.route.params.subscribe(params => {
          if (+params['id'] > -1) {
@@ -80,14 +82,14 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
      }
      this.reloadTrigger = false;
  }
- 
+
  public ngOnInit(): void {
      this.route.params.subscribe(params => {
        if (+params['id'] > -1) {
          this._id = +params['id'];
          this.servicio.Buscar( this._tabla, this._id ).subscribe(resp => {
            this.DataSource = resp.Detalle._proveedor_domicilio._domicilio;
-           this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+           //this.DataSourceColumnas = Object.keys(this.DataSource[0]);
          });
        }
        else{
@@ -96,19 +98,19 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
        }
      });
  }
- 
+
  //public Obtenervalor = (obj: any): any[] => { return Object.values(obj); }
- 
+
  public  ModificarRow( args: any ){
    this._frm.emit( args );
  }
- 
+
  public eliminarRow( args: any ){
    this._id = args.id;
    this.mdleliminar = true;
    this.Ariesblocked = true;
  }
- 
+
  //==============================================================================================================
  // metodo generico de busqueda...
  public eliminacion( response: any) {
@@ -124,9 +126,11 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
        this.route.params.subscribe(params => {
          if (+params['id'] > -1) {
            this._id = +params['id'];
+           this.messageService.add({key: 'tc', severity:'success', summary: 'Success', detail: 'Eliminación correcta !'});
            this.servicio.Buscar( this._tabla, this._id ).subscribe(resp => {
+
              this.DataSource = resp.Detalle._proveedor_domicilio._domicilio;
-             this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+             //this.DataSourceColumnas = Object.keys(this.DataSource[0]);
            });
          }
          else{
@@ -138,6 +142,5 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
    }
    this.Ariesblocked = false;
  }
- 
+
  }
- 

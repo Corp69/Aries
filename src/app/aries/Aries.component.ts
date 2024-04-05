@@ -16,10 +16,11 @@ import { FirmaComponent } from '@shared/pages/firma/firma.component';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { BadgeModule } from 'primeng/badge';
+import {SplitButtonModule} from 'primeng/splitbutton';
 
 @Component({
   standalone: true,
-  imports: [ 
+  imports: [
     FirmaComponent,
     CardModule,
     RouterModule,
@@ -34,7 +35,8 @@ import { BadgeModule } from 'primeng/badge';
     AccordionModule,
     DividerModule,
     MenubarModule,
-    ButtonModule
+    ButtonModule,
+    SplitButtonModule
   ],
   templateUrl: './Aries.component.html',
   styles: ``
@@ -45,23 +47,37 @@ export default class AriesComponent {
   public items:   any | undefined;
   public sidebarVisible: boolean = false;
   public theme = localStorage.getItem("theme");
- 
+
+  public items3: any ;
+
   constructor( private servicio: HomeService, private router: Router) {
-    
+
   }
 
  public changeTheme(theme: string) { localStorage.setItem('theme', theme); this.servicio.switchTheme(theme);}
 
- 
+
  public navigateToUrl(url: any) { this.router.navigate([url]);}
 
  ngOnInit() {
     this.servicio.lstOpciones().subscribe(resp => {
       this.items   = resp.Detalle._app_menu_x_empleado;
-      let items2   = this.items.map(group => group.menu); 
+      let items2   = this.items.map(group => group.menu);
       this.items = items2;
     });
     this.servicio.switchTheme(localStorage.getItem("theme"));
+
+  //cambio de colores
+  this.items3 = [
+      { label: 'saga-blue', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('saga-blue');  }},
+      { label: 'vela-blue', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('vela-blue');  }},
+      { label: 'arya-blue', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('arya-blue');  }},
+      { label: 'md-light-indigo', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('md-light-indigo');  }},
+      { label: 'md-dark-indigo', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('md-dark-indigo');  }},
+      { label: 'bootstrap4-light-purple', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('bootstrap4-light-purple');  }},
+      { label: 'bootstrap4-dark-purple', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('bootstrap4-dark-purple');  }},
+  ];
+
   }
 
 
@@ -72,7 +88,7 @@ export default class AriesComponent {
     localStorage.clear();
     debugger;
     this.router.navigate(['/auth/login']);
-  } 
+  }
 
 
 }
