@@ -15,13 +15,10 @@ export class MdlEmpleado
 	public whatsapp: number = 0;
 	public codigo: String = '';
 	public observaciones: String = '';
-	public contacto1: String = '';
-	public contacto2: String = '';
 
 	public id_sexo: number = -1;
 	public id_estatus: number = -1;
 	public id_rh_clasificacion: number = -1;
 	public id_rh_grado: number = -1;
-	public id_rh_puesto: number = -1;
 }
 

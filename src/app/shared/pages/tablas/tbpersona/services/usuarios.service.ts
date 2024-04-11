@@ -8,18 +8,15 @@ import { environment } from '../../../../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class TbDomicilioService {
+export class UsuariosService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
-  public Buscar(_tabla: String, _id: number ): Observable<any> {
+  public Buscar(): Observable<any> {
     let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-    return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
+    return this.http.post(`${environment.baseUrl}clientes/conf/funciones`,
     {
       "ExSchema": "config",
-      "funcion": "_proveedor_domicilio",
-      "data": {
-            "_id_proveedor":     _id
-        }
+      "funcion": "_app_tb_empleados"
     },
       { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
   }

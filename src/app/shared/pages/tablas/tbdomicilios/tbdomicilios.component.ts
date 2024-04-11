@@ -100,7 +100,6 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
  }
 
  //public Obtenervalor = (obj: any): any[] => { return Object.values(obj); }
-
  public  ModificarRow( args: any ){
    this._frm.emit( args );
  }

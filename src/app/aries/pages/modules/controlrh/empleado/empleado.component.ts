@@ -118,8 +118,6 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     clabe: [, [Validators.required, Validators.minLength(3)]],
     whatsapp: [, [Validators.required, Validators.minLength(3)]],
     observaciones: [, [Validators.required, Validators.minLength(3)]],
-    contacto1: [, [Validators.required, Validators.minLength(3)]],
-    contacto2: [, [Validators.required, Validators.minLength(3)]],
     nss: [, [Validators.required, Validators.minLength(3)]],
     imagen: [null],
     id_estatus: [null],
@@ -130,7 +128,6 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     id_sat_regimenfiscal: [1],
     fecha_nacimiento: [ new Date()],
     fecha_ingreso: [ new Date()],
-    id_rh_puesto: [-1, [Validators.required, Validators.min(0)]],
     id_sexo: [-1, [Validators.required, Validators.min(0)]],
     id_rh_grado: [-1, [Validators.required, Validators.min(0)]],
     id_rh_clasificacion: [-1, [Validators.required, Validators.min(0)]]
@@ -179,8 +176,6 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
          this.frmEmpleado.controls['clabe'].setValue(resp.Detalle.clabe);
          this.frmEmpleado.controls['whatsapp'].setValue(resp.Detalle.whatsapp);
          this.frmEmpleado.controls['observaciones'].setValue(resp.Detalle.observaciones);
-         this.frmEmpleado.controls['contacto1'].setValue(resp.Detalle.contacto1);
-         this.frmEmpleado.controls['contacto2'].setValue(resp.Detalle.contacto2);
          this.frmEmpleado.controls['nss'].setValue(resp.Detalle.nss);
          this.frmEmpleado.controls['imagen'].setValue(resp.Detalle.imagen);
          // asignamos el valor String debido a que no es int los parsearemos a String
@@ -189,7 +184,6 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
          this.frmEmpleado.controls['id_rh_empleado'].setValue(parseInt(resp.Detalle.id_rh_empleado));
          this.frmEmpleado.controls['fecha_nacimiento'].setValue(resp.Detalle.fecha_nacimiento.toString());
          this.frmEmpleado.controls['fecha_ingreso'].setValue(resp.Detalle.fecha_ingreso.toString());
-         this.frmEmpleado.controls['id_rh_puesto'].setValue(parseInt(resp.Detalle.id_rh_empleado));
          this.frmEmpleado.controls['id_sexo'].setValue(resp.Detalle.id_estatus.toString());
          this.frmEmpleado.controls['id_rh_grado'].setValue(resp.Detalle.id_tipo.toString());
          this.frmEmpleado.controls['id_rh_clasificacion'].setValue(parseInt(resp.Detalle.id_rh_empleado));

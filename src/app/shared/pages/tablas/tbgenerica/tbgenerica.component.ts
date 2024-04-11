@@ -113,6 +113,10 @@ export class TbgenericaComponent implements OnInit, OnChanges  {
  // metodo generico de busqueda...
  public eliminacion( response: any) {
      // cargamos al objeto a buscar
+
+     console.log( response );
+
+
    this.mdleliminar  = false;
    // recargamos la data
    switch ( response ) {
