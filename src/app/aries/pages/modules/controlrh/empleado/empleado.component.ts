@@ -108,29 +108,26 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   public frmEmpleado: FormGroup = this.fb.group({
     id:     [-1],
     nombre: [, [Validators.required, Validators.minLength(3)]],
-    apellidoP: [, [Validators.required, Validators.minLength(3)]],
-    apellidoM: [, [Validators.required, Validators.minLength(3)]],
+    apellidoP: [ null ],
+    apellidoM: [ null ],
     codigo: [],
     correo: [],
-    rfc:    [, [Validators.required, Validators.minLength(3)]],
-    curp:   [],
-    cuenta_banco: [, [Validators.required, Validators.minLength(3)]],
-    clabe: [, [Validators.required, Validators.minLength(3)]],
-    whatsapp: [, [Validators.required, Validators.minLength(3)]],
-    observaciones: [, [Validators.required, Validators.minLength(3)]],
     nss: [, [Validators.required, Validators.minLength(3)]],
-    imagen: [null],
+    rfc:    [, [Validators.required, Validators.minLength(3)]],
+    curp:   [, [Validators.required, Validators.minLength(3)]],
+    cuenta_banco: [ null ],
+    clabe: [null ],
+    whatsapp: [null ],
+    observaciones: [null ],
     id_estatus: [null],
-    id_tipo:    [null],
-    id_rh_empleado: [parseInt(localStorage.getItem("id"))],
-    id_sat_usocfdi: [1],
+    id_sat_usocfdi: [ null],
     //id_sat_doc_cobro:           [1],
-    id_sat_regimenfiscal: [1],
-    fecha_nacimiento: [ new Date()],
-    fecha_ingreso: [ new Date()],
+    id_sat_regimenfiscal: [null],
+    fecha_nacimiento: [ null ],
+    fecha_ingreso: [ null ],
     id_sexo: [-1, [Validators.required, Validators.min(0)]],
-    id_rh_grado: [-1, [Validators.required, Validators.min(0)]],
-    id_rh_clasificacion: [-1, [Validators.required, Validators.min(0)]]
+    id_rh_grado: [ null ],
+    id_rh_clasificacion: [ null ]
 
   });
 
@@ -171,30 +168,26 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
          this.frmEmpleado.controls['codigo'].setValue(resp.Detalle.codigo);
          this.frmEmpleado.controls['curp'].setValue(resp.Detalle.curp);
          this.frmEmpleado.controls['correo'].setValue(resp.Detalle.correo);
-         this.frmEmpleado.controls['imagen'].setValue(resp.Detalle.imagen);
          this.frmEmpleado.controls['cuenta_banco'].setValue(resp.Detalle.cuenta_banco);
          this.frmEmpleado.controls['clabe'].setValue(resp.Detalle.clabe);
          this.frmEmpleado.controls['whatsapp'].setValue(resp.Detalle.whatsapp);
          this.frmEmpleado.controls['observaciones'].setValue(resp.Detalle.observaciones);
          this.frmEmpleado.controls['nss'].setValue(resp.Detalle.nss);
-         this.frmEmpleado.controls['imagen'].setValue(resp.Detalle.imagen);
          // asignamos el valor String debido a que no es int los parsearemos a String
          this.frmEmpleado.controls['id_estatus'].setValue(resp.Detalle.id_estatus.toString());
-         this.frmEmpleado.controls['id_tipo'].setValue(resp.Detalle.id_tipo.toString());
-         this.frmEmpleado.controls['id_rh_empleado'].setValue(parseInt(resp.Detalle.id_rh_empleado));
-         this.frmEmpleado.controls['fecha_nacimiento'].setValue(resp.Detalle.fecha_nacimiento.toString());
-         this.frmEmpleado.controls['fecha_ingreso'].setValue(resp.Detalle.fecha_ingreso.toString());
-         this.frmEmpleado.controls['id_sexo'].setValue(resp.Detalle.id_estatus.toString());
-         this.frmEmpleado.controls['id_rh_grado'].setValue(resp.Detalle.id_tipo.toString());
+         this.frmEmpleado.controls['fecha_nacimiento'].setValue(resp.Detalle.fecha_nacimiento);
+         this.frmEmpleado.controls['fecha_ingreso'].setValue(resp.Detalle.fecha_ingreso);
+         this.frmEmpleado.controls['id_sexo'].setValue(resp.Detalle.id_estatus);
+         this.frmEmpleado.controls['id_rh_grado'].setValue(resp.Detalle.id_rh_grado);
          this.frmEmpleado.controls['id_rh_clasificacion'].setValue(parseInt(resp.Detalle.id_rh_empleado));
         });
         //CARGAMOS CFDI
         this.servicio.Datacfdi(+params['id']).subscribe(resp => {
           // rellenamos los campos de CFDI EN UNA CONSULTA APARTE
-          this.frmEmpleado.controls['id_sat_regimenfiscal'].setValue(parseInt(resp.Detalle.proveedorcfdi.id_sat_regimenfiscal));
-          this.frmEmpleado.controls['id_sat_regimenfiscal'].setValue(parseInt(resp.Detalle.proveedorcfdi.id_sat_usocfdi));
-          this.usoCFDI = resp.Detalle.proveedorcfdi.usocfdi;
-          this.RegimenCFDI = resp.Detalle.proveedorcfdi.regimen;
+          this.frmEmpleado.controls['id_sat_regimenfiscal'].setValue(parseInt(resp.Detalle._app_empleadocfdi.id_sat_regimenfiscal !== null ? resp.Detalle._app_empleadocfdi.id_sat_regimenfiscal : null));
+          this.frmEmpleado.controls['id_sat_regimenfiscal'].setValue(parseInt(resp.Detalle._app_empleadocfdi.id_sat_usocfdi !== null ? resp.Detalle._app_empleadocfdi.id_sat_usocfdi : null));
+          this.usoCFDI = resp.Detalle._app_empleadocfdi.usocfdi;
+          this.RegimenCFDI = resp.Detalle._app_empleadocfdi.regimen;
         });
       }
     });
@@ -206,7 +199,6 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   Almacenar = () => {
     // ?=========================================================================
     this.frmEmpleado.controls['id_estatus'].setValue(parseInt(this.frmEmpleado.value.id_estatus !== null ? this.frmEmpleado.value.id_estatus : 1 ));
-    this.frmEmpleado.controls['id_tipo'].setValue(parseInt( this.frmEmpleado.value.id_tipo !== null ? this.frmEmpleado.value.id_tipo : 1 ));
     //validamos que no este el mensaje en pantalla
     this.ConfirmacionMdl  = false;
     // bloqueamos el boton
@@ -214,7 +206,7 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     // bloqueamos pantalla
     this.Ariesblocked = true;
     //===============================
-    this.servicio.AlmacenarProveedor(this.frmEmpleado.value).subscribe(resp => {
+    this.servicio.Almacenar(this.frmEmpleado.value).subscribe(resp => {
       switch (resp.IdMensj) {
         case 3:
           //============================================================
@@ -264,7 +256,6 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     this.frmEmpleado.setValue(this.MdlEmpleado);
     // prime trabaja con String lo pasamos a String el valor numerico
     this.frmEmpleado.controls['id_estatus'].setValue("1");
-    this.frmEmpleado.controls['id_tipo'].setValue("1");
     // solo reiniciamos las variables visuales
     this.usoCFDI = ''
     this.RegimenCFDI = ''

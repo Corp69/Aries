@@ -22,7 +22,7 @@ export class EmpleadoService {
     });
     return this.http.post(`${environment.baseUrl}clientes/ctr/buscar/id/${id}`,
       {
-        Qtabla: 'empleado',
+        Qtabla: 'rh_empleado',
       },
       { headers: headers }
     ).pipe(
@@ -38,8 +38,8 @@ export class EmpleadoService {
     });
     return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
       {
-        "ExSchema": "compras",
-        "funcion": "empleadoCfdi",
+        "ExSchema": "config",
+        "funcion": "_app_empleadocfdi",
         "data": {
           "_id_": id
         }
@@ -58,7 +58,7 @@ export class EmpleadoService {
 
   //==================================================================================================
   //guardar
-  public AlmacenarProveedor( modelo: MdlEmpleado ): Observable<any> {
+  public Almacenar( modelo: MdlEmpleado ): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
