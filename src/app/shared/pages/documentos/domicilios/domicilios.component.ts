@@ -70,6 +70,13 @@ export default class AppDomiciliosComponent implements OnInit {
 
   @Input()
   public tablaCampo: string = "";
+  
+  @Input()
+  public fn:  string = "";
+
+  @Input()
+  public sc:  string = "";
+
   public _id: number = -1;
 
 

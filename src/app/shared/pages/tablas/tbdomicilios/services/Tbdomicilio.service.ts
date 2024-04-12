@@ -11,17 +11,16 @@ import { environment } from '../../../../../../environments/environment';
 export class TbDomicilioService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
-  public Buscar(_tabla: String, _id: number ): Observable<any> {
+  public Buscar(_sc: String, _fn: String, _id: number ): Observable<any> {
     let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
     return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
     {
-      "ExSchema": "config",
-      "funcion": "_proveedor_domicilio",
+      "ExSchema": _sc,
+      "funcion": _fn,
       "data": {
-            "_id_proveedor":     _id
+            "_id_persona":     _id
         }
     },
       { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
   }
-
 }

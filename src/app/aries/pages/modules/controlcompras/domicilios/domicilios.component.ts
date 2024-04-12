@@ -24,5 +24,7 @@ export default class DomiciliosComponent {
   // Tabla a insertar.
   public _tabla:       String = "proveedor_domicilio";
   public _tabla_campo: string = "id_proveedor";
+  public _sc:          string = "compras";
+  public _fn:          string = "_app_domicilio";
 
 }

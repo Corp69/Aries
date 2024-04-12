@@ -54,7 +54,7 @@ export class MdleliminarComponent {
     this._tabla = "";
     this._id    = -1;
     this.mdleliminar = false;
-    this._rowconfirmacion.emit(true);
+    this._rowconfirmacion.emit( true );
   }
 
 }
