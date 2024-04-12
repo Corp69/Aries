@@ -28,12 +28,14 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { GenericaComponent } from '@shared/pages/busquedas/generica/generica.component';
 import { BlockUIModule } from 'primeng/blockui';
 import { DropdownModule } from 'primeng/dropdown';
+import { ToastModule } from 'primeng/toast';
+//proveedors prime ng 
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-empleado',
   standalone: true,
   imports: [
-
     //angular
     CommonModule,
     ReactiveFormsModule,
@@ -58,8 +60,9 @@ import { DropdownModule } from 'primeng/dropdown';
     ButtonModule,
     RippleModule,
     BlockUIModule,
-    DividerModule
+    ToastModule
   ],
+  providers: [MessageService],
   templateUrl: './empleado.component.html',
   styleUrl: './empleado.component.scss'
 })
@@ -94,8 +97,8 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   public SatCobroCFDI = ''
   //==============================================================================================================
   // Listados:
-  public lstestatus:        listados[] = [];
-  public listEmpleadoTipo:  listados[] = [];
+  public lstestatus: listados[] = [];
+  public listSexo:   listados[] = [];
 
   //public lstProveedorClasificacion: any;
   //  public lstProovedorOperacion: any;
@@ -108,8 +111,8 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   public frmEmpleado: FormGroup = this.fb.group({
     id:     [-1],
     nombre: [, [Validators.required, Validators.minLength(3)]],
-    apellidoP: [ null ],
-    apellidoM: [ null ],
+    apellidop: [ null ],
+    apellidom: [ null ],
     codigo: [],
     correo: [],
     nss: [, [Validators.required, Validators.minLength(3)]],
@@ -125,10 +128,7 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     id_sat_regimenfiscal: [null],
     fecha_nacimiento: [ null ],
     fecha_ingreso: [ null ],
-    id_sexo: [-1, [Validators.required, Validators.min(0)]],
-    id_rh_grado: [ null ],
-    id_rh_clasificacion: [ null ]
-
+    id_sexo: [ 1 ]
   });
 
   /**
@@ -140,20 +140,24 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     //private datePipe: DatePipe,
    *
    */
-  constructor( private route: ActivatedRoute, private fb: FormBuilder, private servicio: EmpleadoService ) {}
+  constructor( 
+       private route: ActivatedRoute,
+       private fb: FormBuilder, 
+       private servicio: EmpleadoService,
+       private messageService: MessageService ) {}
 
   // una vez carga el componente
   ngOnInit(): void {
     //=========================================================================================================================
     //carga listados
-    this.servicio.listEmpleadoEstatus().subscribe(resp => { this.lstestatus       = resp.Detalle; });
-    this.servicio.listEmpleadoTipo().subscribe(resp =>    { this.listEmpleadoTipo = resp.Detalle; });
+    this.servicio.listEstatus().subscribe(resp => { this.lstestatus  = resp.Detalle; });
+    this.servicio.listSexo().subscribe(resp =>    { this.listSexo    = resp.Detalle; });
   }
 
   /**
    * cargamos la data del proveedor una vez cargado todo los componentes
    */
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.route.params.subscribe(params => {
       if (+params['id'] > -1) {
         // AGREGAMOS LA INFORMACION AL FORMULARIO
@@ -162,8 +166,8 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
          // seteamos la informacion
          this.frmEmpleado.controls['id'].setValue(resp.Detalle.id);
          this.frmEmpleado.controls['nombre'].setValue(resp.Detalle.nombre);
-         this.frmEmpleado.controls['apellidoP'].setValue(resp.Detalle.apellidoP);
-         this.frmEmpleado.controls['apellidoM'].setValue(resp.Detalle.apellidoM);
+         this.frmEmpleado.controls['apellidop'].setValue(resp.Detalle.apellidop);
+         this.frmEmpleado.controls['apellidom'].setValue(resp.Detalle.apellidom);
          this.frmEmpleado.controls['rfc'].setValue(resp.Detalle.rfc);
          this.frmEmpleado.controls['codigo'].setValue(resp.Detalle.codigo);
          this.frmEmpleado.controls['curp'].setValue(resp.Detalle.curp);
@@ -177,9 +181,8 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
          this.frmEmpleado.controls['id_estatus'].setValue(resp.Detalle.id_estatus.toString());
          this.frmEmpleado.controls['fecha_nacimiento'].setValue(resp.Detalle.fecha_nacimiento);
          this.frmEmpleado.controls['fecha_ingreso'].setValue(resp.Detalle.fecha_ingreso);
-         this.frmEmpleado.controls['id_sexo'].setValue(resp.Detalle.id_estatus);
-         this.frmEmpleado.controls['id_rh_grado'].setValue(resp.Detalle.id_rh_grado);
-         this.frmEmpleado.controls['id_rh_clasificacion'].setValue(parseInt(resp.Detalle.id_rh_empleado));
+         this.frmEmpleado.controls['id_sexo'].setValue(resp.Detalle.id_estatus.toString());
+
         });
         //CARGAMOS CFDI
         this.servicio.Datacfdi(+params['id']).subscribe(resp => {
@@ -196,9 +199,10 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
 
   //==============================================================================================================
   // Crud Para Proveedores:
-  Almacenar = () => {
+  public Almacenar = () => {
     // ?=========================================================================
     this.frmEmpleado.controls['id_estatus'].setValue(parseInt(this.frmEmpleado.value.id_estatus !== null ? this.frmEmpleado.value.id_estatus : 1 ));
+    this.frmEmpleado.controls['id_sexo'].setValue(parseInt(this.frmEmpleado.value.id_sexo !== null ? this.frmEmpleado.value.id_sexo : 1 ));
     //validamos que no este el mensaje en pantalla
     this.ConfirmacionMdl  = false;
     // bloqueamos el boton
@@ -256,9 +260,13 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     this.frmEmpleado.setValue(this.MdlEmpleado);
     // prime trabaja con String lo pasamos a String el valor numerico
     this.frmEmpleado.controls['id_estatus'].setValue("1");
+    this.frmEmpleado.controls['id_estatus'].setValue("1");
     // solo reiniciamos las variables visuales
-    this.usoCFDI = ''
-    this.RegimenCFDI = ''
+    this.usoCFDI = "";
+    this.RegimenCFDI = "";
+     // mensaje para decir que esta OK el formulario
+     this.messageService.add({key: 'tc', severity:'success', summary: 'success', detail: 'Formulario listo: Agregue información.'});
+
   }
 
   //==============================================================================================================

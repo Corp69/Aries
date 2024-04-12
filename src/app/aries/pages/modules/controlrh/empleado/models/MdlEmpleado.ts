@@ -2,8 +2,8 @@ export class MdlEmpleado
 {
 	public id: number = -1;
 	public nombre: String = '';
-	public apellidoP: String = '';
-	public apellidoM: String = '';
+	public apellidop: String = '';
+	public apellidom: String = '';
 	public correo: String = '';
 	public nss: String = '';
 	public rfc: String = '';
@@ -16,9 +16,9 @@ export class MdlEmpleado
 	public codigo: String = '';
 	public observaciones: String = '';
 
-	public id_sexo: number = -1;
-	public id_estatus: number = -1;
-	public id_rh_clasificacion: number = -1;
-	public id_rh_grado: number = -1;
+	public id_sexo: number = 1;
+	public id_estatus: number = 1;
+	public id_sat_regimenfiscal: number = null;
+	public id_sat_usocfdi: number = null;
 }
 

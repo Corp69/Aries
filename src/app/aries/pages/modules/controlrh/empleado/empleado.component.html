@@ -34,7 +34,7 @@
                         pInputText
                         pTooltip="Ingrese primer apellido"
                         tooltipPosition="bottom"
-                        formControlName="apellidoP"
+                        formControlName="apellidop"
                         pInputText
                         placeholder="Vacio" />
                 </div>
@@ -47,7 +47,7 @@
                         pInputText
                         pTooltip="Ingrese segundo apellido. "
                         tooltipPosition="bottom"
-                        formControlName="apellidoM"
+                        formControlName="apellidom"
                         pInputText
                         placeholder="Vacio" />
                 </div>
@@ -150,19 +150,23 @@
         <div class="flex flex-wrap gap-3">
             <div class="flex align-items-center">
                 <p-inputGroup>
-                    <p-inputGroupAddon pTooltip="Seleccione Un Tipo De Empleado: con ello haremos futuras configuraciones"
+                    <p-inputGroupAddon
+                    pTooltip="Seleccione Un Estatus De Empleado: con ello haremos haras visible en busquedas, documentos etc. "
                     tooltipPosition="bottom" >
-                        <i class="pi pi-wrench">&nbsp; Tipo:</i>
+                        <i class="pi pi-wrench">&nbsp; Sexo:</i>
                     </p-inputGroupAddon>
                 </p-inputGroup>
                 <p-dropdown
+                    value="id_sexo"
                     placeholder="seleccione una opcion"
-                    value="id_tipo"
-                    [options]="listEmpleadoTipo"
-                    optionValue="id" optionLabel="descripcion"
-                    >
+                    formControlName="id_sexo"
+                    [options]="listSexo"
+                    optionValue="id"
+                    optionLabel="descripcion"
+                >
                 </p-dropdown>
             </div>
+            
             <div class="flex align-items-center">
                 <p-inputGroup>
                     <p-inputGroupAddon
@@ -179,9 +183,8 @@
                     optionValue="id"
                     optionLabel="descripcion"
                 >
-            </p-dropdown>
+                </p-dropdown>
             </div>
-
         </div>
         <p-divider align="left">
             <div class="inline-flex align-items-center">
