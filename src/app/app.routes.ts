@@ -333,6 +333,13 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       {
+        path:  'Domicilio/:id',
+        title: 'CH:Domicilio',
+        loadComponent: () => import('./aries/pages/modules/controlrh/domicilios/domicilios.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
         path:  'Departamento/:id',
         title: 'Departamento',
         loadComponent: () => import('./aries/pages/modules/controlrh/departamento/departamento.component'),

@@ -1,4 +1,5 @@
 <hr>
+<p-toast position="top-center" key="tc"></p-toast>
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
 <p-card header="Empleado">
     <!-- Agregar Informcion del formulario -->
@@ -252,7 +253,7 @@
         (click)="NuevoEmpleado()"
         pTooltip="Almacenar: Empleado Informcion."
         tooltipPosition="bottom"
-        severity="success"
+        severity="primary"
         >
         </p-button>
         &nbsp;
@@ -263,9 +264,38 @@
             (click)="Almacenar()"
             [disabled]="frmEmpleado.invalid"
             label="Guardar"
-            severity="info">
+            severity="success">
             <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
                 fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-map-marker"
+            pTooltip="Gestion: Realizar una configuracion de domicilio ayuda a timbrar documentos"
+            tooltipPosition="bottom"
+            (click)="Domicilios()"
+            label="Domicilios"
+            severity="help">
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-search"
+            pTooltip="Buscar: Un Empleado."
+            tooltipPosition="bottom"
+            (click)="dlgBuscar()"
+            label="Buscar"
+            severity="info"
+            >
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-file-edit"
+            pTooltip="Revisar el Historial Nomina."
+            tooltipPosition="bottom"
+            (click)="dlgBuscar()"
+            label="Historial Nominas"
+            severity="warning"
+            >
         </p-button>
     </form>
 </p-card>

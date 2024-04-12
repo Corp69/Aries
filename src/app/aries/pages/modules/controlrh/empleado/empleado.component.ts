@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -105,6 +105,8 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   //==============================================================================================================
   //modelos:
   public MdlEmpleado: MdlEmpleado = new MdlEmpleado();
+  //id empleado:
+  public _id: number = -1;
 
   //==============================================================================================================
   //Formularios del app:
@@ -141,6 +143,7 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
    *
    */
   constructor( 
+       private router: Router,
        private route: ActivatedRoute,
        private fb: FormBuilder, 
        private servicio: EmpleadoService,
@@ -160,6 +163,8 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   public ngAfterViewInit(): void {
     this.route.params.subscribe(params => {
       if (+params['id'] > -1) {
+        //agregamos valor del id persona
+        this._id = +params['id'];
         // AGREGAMOS LA INFORMACION AL FORMULARIO
         this.servicio.Datainfo(+params['id']).subscribe(resp => {
          //this.frmEmpleado.setValue(resp.Detalle);
@@ -269,6 +274,21 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
 
   }
 
+  public Domicilios = () => {
+    switch (this._id) {
+     case -1:
+       this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No Hay Un Proveedor Seleccionado.'});
+       break;
+     default:
+       this.router.navigate([ `/ControlRh/Domicilio/${this._id}`]);
+       break;
+    }
+   }
+
+   public dlgBuscar = () => {
+    this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'Esta en desarrollo.'});
+   }
+
   //==============================================================================================================
   //Modales:
   public visible: boolean = false;
@@ -297,5 +317,7 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     this.frmEmpleado.controls['id_sat_doc_cobro'].setValue(parseInt(jsonSatCobroCFDI.id));
     this.dlgDocCbrovisible = false;
   }
+
+
 
 }
