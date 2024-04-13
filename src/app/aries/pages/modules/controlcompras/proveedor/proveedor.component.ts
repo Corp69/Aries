@@ -131,15 +131,6 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     imagen: [null]
   });
 
-  /**
-   *
-   * @param route
-   * @param fb
-   * @param servicio
-   *
-    //private datePipe: DatePipe,
-   *
-   */
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -262,7 +253,7 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     this.RegimenCFDI = "";
     this._id =-1;
      // mensaje para verificar la captura de la direccion del sat
-     this.messageService.add({key: 'tc', severity:'success', summary: 'success', detail: 'Formulario listo: Agregue información.'});
+     this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue información.'});
 
   }
 

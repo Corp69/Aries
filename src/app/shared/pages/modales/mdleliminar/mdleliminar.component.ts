@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 //shared
 import { DialogModule } from 'primeng/dialog';
-import {ButtonModule} from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import { MdlEliminarService } from './Services/MdlEliminar.service';
 import { TooltipModule } from 'primeng/tooltip';
 
@@ -54,7 +54,7 @@ export class MdleliminarComponent {
     this._tabla = "";
     this._id    = -1;
     this.mdleliminar = false;
-    this._rowconfirmacion.emit(true);
+    this._rowconfirmacion.emit( true );
   }
 
 }

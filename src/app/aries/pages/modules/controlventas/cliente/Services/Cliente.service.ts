@@ -38,8 +38,8 @@ export class ClienteService {
     });
     return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
       {
-        "ExSchema": "Cliente",
-        "funcion": "clienteCfdi",
+        "ExSchema": "venta",
+        "funcion": "_app_cliente_cfdi",
         "data": {
           "_id_": id
         }
@@ -58,7 +58,7 @@ export class ClienteService {
 
   //==================================================================================================
   //guardar
-  public AlmacenarCliente( modelo: MdlCliente ): Observable<any> {
+  public Almacenar( modelo: MdlCliente ): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
@@ -78,29 +78,12 @@ export class ClienteService {
       );
   }
 
-  //===================================================================================================
-  //?       Listados: Proveedor 
-  /**
-   * 
-   * @returns  Json Array sexo de empleado
-   */
-  public listSexo(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes`,
-      {
-        Qtabla: 'cg_sexo',
-      },
-      { headers: headers }
-    ).pipe(catchError((error) => {return throwError(this.errores.getErrores(error));}));
-  }
 
   /**
    * 
    * @returns Json Array Estatus de proveedor
    */
-  public listClienteEstatus(): Observable<any> {
+  public listEstatus(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
@@ -115,13 +98,30 @@ export class ClienteService {
       })
     );
   }
+  
+
+  public listMoneda(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'app_moneda',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
 
 
   /**
    * 
    * @returns Json Array Tipo  de proveedor
    */
-  public listClienteTipo(): Observable<any> {
+  public listTipo(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
@@ -136,74 +136,5 @@ export class ClienteService {
       })
     );
   }
-  
-
-  /**
-   * 
-   * @returns JsonArray clasificacion de empleados 
-   */
-  public listClasificacion(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes`,
-      {
-        Qtabla: 'rh_clasificacion',
-      },
-      { headers: headers }
-    ).pipe(catchError((error) => {return throwError(this.errores.getErrores(error));}));
-  }
-  /**
-   * 
-   * @returns JsonArray Departamentos RH. 
-   */
-  public listDepartamentos(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes`,
-      {
-        Qtabla: 'rh_clasificacion',
-      },
-      { headers: headers }
-    ).pipe(catchError((error) => {return throwError(this.errores.getErrores(error));}));
-  }
-  /**
-   * 
-   * @returns JsonArray puestos RH. 
-   */
-  public listPuestos( id: Number ): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes`,
-      {
-        
-          "Qtabla":"rh_puesto",
-          "_columna": "id",
-          "_orderBY": "descripcion",
-          "Datos": {
-              "ids": [ id ]
-          }
-      
-      },
-      { headers: headers }
-    ).pipe(catchError((error) => {return throwError(this.errores.getErrores(error));}));
-  }
-  /**
-   * 
-   * @returns jasonArray de grados escolares o nivel academico
-   */
-  public listGrado(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes`,
-      {
-        Qtabla: 'cliente',
-      },
-      { headers: headers }
-    ).pipe(catchError((error) => {return throwError(this.errores.getErrores(error));}));
-  }
-  //===================================================================================================
+    //===================================================================================================
 }

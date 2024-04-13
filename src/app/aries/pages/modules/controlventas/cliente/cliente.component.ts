@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -28,6 +28,9 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { GenericaComponent } from '@shared/pages/busquedas/generica/generica.component';
 import { BlockUIModule } from 'primeng/blockui';
 import { DropdownModule } from 'primeng/dropdown';
+import {CalendarModule} from 'primeng/calendar';
+import { ToastModule } from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-cliente',
@@ -58,12 +61,20 @@ import { DropdownModule } from 'primeng/dropdown';
     ButtonModule,
     RippleModule,
     BlockUIModule,
-    DividerModule
+    DividerModule,
+    CalendarModule,
+    ToastModule
   ],
+  providers: [MessageService],
   templateUrl: './cliente.component.html',
   styleUrl: './cliente.component.scss'
 })
+
+
 export default class ClienteComponent implements OnInit, AfterViewInit  {
+  // variable para ver el id del cliente
+  public _id: number = -1;
+  
   //==============================================================================================================
   // Modal: mensaje Confirmacion falso para no cargar la modal
   public ConfirmacionMdl: boolean = false;
@@ -81,21 +92,22 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
   //=============================================================================================================
   // satMDL 
   public tabalaSat1: String = 'sat_usocfdi';
-  public usoCFDI = ''
+  public usoCFDI = '';
 
   public tabalaSat2: String = 'sat_regimenfiscal';
-  public RegimenCFDI = ''
+  public RegimenCFDI = '';
 
   //==============================================================================================================
   //Config. de la app: Bloqueo de botones
   public BtnSpinner: boolean = false;
 
   public tablaSat3: String = 'sat_doc_cobro';
-  public SatCobroCFDI = ''
+  public SatCobroCFDI = '';
   //==============================================================================================================
   // Listados:
   public lstestatus:        listados[] = [];
-  public listClienteTipo:  listados[] = [];
+  public listTipo:          listados[] = [];
+  public lisMoneda:         listados[] = [];
     
   //public lstProveedorClasificacion: any;
   //  public lstProovedorOperacion: any;
@@ -107,94 +119,81 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
   //Formularios del app:
   public frmCliente: FormGroup = this.fb.group({
     id:     [-1],
-    nombre: [, [Validators.required, Validators.minLength(3)]],
-    primerapellido: [, [Validators.required, Validators.minLength(3)]],
-    segundoapellido: [, [Validators.required, Validators.minLength(3)]],
-    codigo: [],
-    correo: [],
-    rfc:    [, [Validators.required, Validators.minLength(3)]],
-    curp:   [],
-    banco: [, [Validators.required, Validators.minLength(3)]],
-    clabe: [, [Validators.required, Validators.minLength(3)]],
-    cuenta: [, [Validators.required, Validators.minLength(3)]],
-    nss: [, [Validators.required, Validators.minLength(3)]],
-    imagen: [null],
+    nombre: [null, [Validators.required, Validators.minLength(3)]],
+    rfc:    [null, [Validators.required, Validators.minLength(3)]],
+    curp:   [null],
+    codigo: [null],
+    correo: [null],
     fecharegistro: [ new Date()],
-    id_rh_estatus: [null],
-    id_tipo:    [null],
-    id_rh_empleado: [parseInt(localStorage.getItem("id"))],
-    id_sat_usocfdi: [1],
-    //id_sat_doc_cobro:           [1],
-    id_sat_regimenfiscal: [1],
     
-    fecha_ingreso: [ new Date()],
-    id_moneda: [-1, [Validators.required, Validators.min(0)]],
-    id_cliente_domicilio: [-1, [Validators.required, Validators.min(0)]],
-    id_tipo_documento: [-1, [Validators.required, Validators.min(0)]]
-
+    id_moneda: [ null, [Validators.required, Validators.min(0)]],
+    id_rh_empleado: [null],
+    id_sat_usocfdi: [null],
+    id_sat_regimenfiscal: [null],
+    id_estatus: [null],
+    id_tipo:    [null]
+    //id_sat_doc_cobro:           [1],
   });
 
-  /**
-   * 
-   * @param route 
-   * @param fb 
-   * @param servicio
-   * 
-    //private datePipe: DatePipe,
-   *  
-   */
-  constructor( private route: ActivatedRoute, private fb: FormBuilder, private servicio: ClienteService ) {}
+  constructor( 
+    private router: Router,
+    private route: ActivatedRoute, 
+    private fb: FormBuilder, 
+    private servicio: ClienteService, 
+    private messageService: MessageService 
+  
+  ) {}
 
   // una vez carga el componente
-  ngOnInit(): void {
+  public ngOnInit(): void {
     //=========================================================================================================================
     //carga listados
-    this.servicio.listClienteEstatus().subscribe(resp => { this.lstestatus       = resp.Detalle; });
-    this.servicio.listClienteTipo().subscribe(resp =>    { this.listClienteTipo = resp.Detalle; });
+    this.servicio.listEstatus().subscribe(resp => { this.lstestatus   = resp.Detalle; });
+    this.servicio.listTipo().subscribe(resp    => { this.listTipo     = resp.Detalle; });
+    this.servicio.listMoneda().subscribe(resp  => { this.lisMoneda    = resp.Detalle; });
   }
 
   /**
    * cargamos la data del proveedor una vez cargado todo los componentes
    */
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     this.route.params.subscribe(params => {
       if (+params['id'] > -1) {
+        //cargamos el id de cliente
+        this._id = +params['id'];
         // AGREGAMOS LA INFORMACION AL FORMULARIO
         this.servicio.Datainfo(+params['id']).subscribe(resp => {
          //this.frmCliente.setValue(resp.Detalle);
          // seteamos la informacion
          this.frmCliente.controls['id'].setValue(resp.Detalle.id);
          this.frmCliente.controls['nombre'].setValue(resp.Detalle.nombre);
-         this.frmCliente.controls['primerapellido'].setValue(resp.Detalle.paterno);
-         this.frmCliente.controls['segundoapellido'].setValue(resp.Detalle.materno);
          this.frmCliente.controls['rfc'].setValue(resp.Detalle.rfc);
          this.frmCliente.controls['codigo'].setValue(resp.Detalle.codigo);
          this.frmCliente.controls['curp'].setValue(resp.Detalle.curp);
          this.frmCliente.controls['correo'].setValue(resp.Detalle.correo);
-         this.frmCliente.controls['imagen'].setValue(resp.Detalle.imagen);
-         this.frmCliente.controls['cuenta'].setValue(resp.Detalle.cuenta_banco);
-         this.frmCliente.controls['clabe'].setValue(resp.Detalle.clabe);
-         this.frmCliente.controls['banco'].setValue(resp.Detalle.whatsapp);
-         this.frmCliente.controls['nss'].setValue(resp.Detalle.nss);
-         this.frmCliente.controls['imagen'].setValue(resp.Detalle.imagen);
          // asignamos el valor String debido a que no es int los parsearemos a String 
-         this.frmCliente.controls['id_rh_estatus'].setValue(resp.Detalle.id_estatus.toString());
+         this.frmCliente.controls['id_estatus'].setValue(resp.Detalle.id_estatus.toString());
          this.frmCliente.controls['id_tipo'].setValue(resp.Detalle.id_tipo.toString());
          this.frmCliente.controls['id_rh_empleado'].setValue(parseInt(resp.Detalle.id_rh_cliente));
-         this.frmCliente.controls['fecharegistro'].setValue(resp.Detalle.fecha_nacimiento.toString());
-         this.frmCliente.controls['id_sat_regimenfiscal'].setValue(resp.Detalle.fecha_ingreso.toString());
-         this.frmCliente.controls['id_sat_usocfdi'].setValue(parseInt(resp.Detalle.id_rh_cliente));
-         this.frmCliente.controls['id_moneda'].setValue(resp.Detalle.id_estatus.toString());
-         this.frmCliente.controls['id_tipo_documento'].setValue(resp.Detalle.id_tipo.toString());
-         this.frmCliente.controls['id_cliente_domicilio'].setValue(parseInt(resp.Detalle.id_rh_cliente));
+         this.frmCliente.controls['fecharegistro'].setValue(resp.Detalle.fecharegistro.toString());
+         this.frmCliente.controls['id_sat_regimenfiscal'].setValue(resp.Detalle.id_sat_regimenfiscal !== null ? resp.Detalle.id_sat_regimenfiscal : null);
+         this.frmCliente.controls['id_sat_usocfdi'].setValue( resp.Detalle.id_sat_usocfdi !== null ? resp.Detalle.id_sat_usocfdi : null );
+         this.frmCliente.controls['id_moneda'].setValue(  resp.Detalle.id_moneda !== null ? resp.Detalle.id_moneda.toString() : null );
         });
         //CARGAMOS CFDI
         this.servicio.Datacfdi(+params['id']).subscribe(resp => {
-          // rellenamos los campos de CFDI EN UNA CONSULTA APARTE  
-          this.frmCliente.controls['id_sat_regimenfiscal'].setValue(parseInt(resp.Detalle.proveedorcfdi.id_sat_regimenfiscal));
-          this.frmCliente.controls['id_sat_regimenfiscal'].setValue(parseInt(resp.Detalle.proveedorcfdi.id_sat_usocfdi));
-          this.usoCFDI = resp.Detalle.proveedorcfdi.usocfdi;
-          this.RegimenCFDI = resp.Detalle.proveedorcfdi.regimen;
+          switch ( resp.Detalle._app_cliente_cfdi ) {
+            case null:
+               true    
+              break;
+            default:
+                // rellenamos los campos de CFDI EN UNA CONSULTA APARTE  
+                this.frmCliente.controls['id_sat_regimenfiscal'].setValue(resp.Detalle._app_cliente_cfdi.id_sat_regimenfiscal !== null ? resp.Detalle._app_cliente_cfdi.id_sat_regimenfiscal : null);
+                this.frmCliente.controls['id_sat_regimenfiscal'].setValue(resp.Detalle._app_cliente_cfdi.id_sat_usocfdi !== null ? resp.Detalle._app_cliente_cfdi.id_sat_usocfdi : null);
+                this.usoCFDI = resp.Detalle._app_cliente_cfdi.usocfdi;
+                this.RegimenCFDI = resp.Detalle._app_cliente_cfdi.regimen;
+             break;
+          }
         });
       }
     });
@@ -203,10 +202,11 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
 
   //==============================================================================================================
   // Crud Para Clientes:
-  Almacenar = () => {
+  public Almacenar = () => {
     // ?=========================================================================
     this.frmCliente.controls['id_estatus'].setValue(parseInt(this.frmCliente.value.id_estatus !== null ? this.frmCliente.value.id_estatus : 1 ));
-    this.frmCliente.controls['id_tipo'].setValue(parseInt( this.frmCliente.value.id_tipo !== null ? this.frmCliente.value.id_tipo : 1 ));
+    this.frmCliente.controls['id_tipo'].setValue(parseInt( this.frmCliente.value.id_tipo !== null ? this.frmCliente.value.id_tipo : null ));
+    this.frmCliente.controls['id_moneda'].setValue(parseInt( this.frmCliente.value.id_moneda !== null ? this.frmCliente.value.id_moneda : 1 ));
     //validamos que no este el mensaje en pantalla
     this.ConfirmacionMdl  = false;
     // bloqueamos el boton
@@ -214,7 +214,7 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
     // bloqueamos pantalla 
     this.Ariesblocked = true;
     //===============================
-    this.servicio.AlmacenarCliente(this.frmCliente.value).subscribe(resp => {
+    this.servicio.Almacenar(this.frmCliente.value).subscribe(resp => {
       switch (resp.IdMensj) {
         case 3:
           //============================================================
@@ -260,15 +260,39 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
 
   // metodo para agregar un nuevo proveedor
   public NuevoCliente = () => {
+    // mensaje para verificar la captura de la direccion del sat
+    this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue información.'});
+
     // reiniciamos el formulario 
     this.frmCliente.setValue(this.MdlCliente);
     // prime trabaja con String lo pasamos a String el valor numerico
     this.frmCliente.controls['id_estatus'].setValue("1");
     this.frmCliente.controls['id_tipo'].setValue("1");
+    this.frmCliente.controls['id_moneda'].setValue("1");
     // solo reiniciamos las variables visuales
     this.usoCFDI = ''
     this.RegimenCFDI = ''
+ }
+
+ public Domicilios = () => {
+  switch (this._id) {
+   case -1:
+     this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No Hay Un Proveedor Seleccionado.'});
+     break;
+   default:
+     this.router.navigate([ `/ControlVentas/Domicilio/${this._id}`]);
+     break;
   }
+ }
+
+  public dlgBuscar(){
+  
+    this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'Esta en desarrollo.'});
+   
+  }
+
+
+
 
   //==============================================================================================================
   //Modales:

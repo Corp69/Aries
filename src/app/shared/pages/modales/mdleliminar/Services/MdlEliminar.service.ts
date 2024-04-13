@@ -11,9 +11,7 @@ import { environment } from '../../../../../../environments/environment';
 })
 export class MdlEliminarService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
-
-
-
+  // metodo que elimina 
   public Eliminar(_Table: String, id: number): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -32,6 +30,5 @@ export class MdlEliminarService {
       })
     );
   }
-
 
 }

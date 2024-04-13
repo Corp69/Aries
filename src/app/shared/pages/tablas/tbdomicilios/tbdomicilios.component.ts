@@ -48,14 +48,19 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
    // variables entre componentes
    @Input()
    public _tabla: String = "";
+   
+   @Input()
+   public fn:     String = "";
+  
+   @Input()
+   public sc:     String = "";
+   
    public _id:    number = -1;
 
    @Input() reloadTrigger: boolean = false;
 
-
    // retorna la busqueda del servicio
    @Output() _frm = new EventEmitter<any>();
-
 
   //tabla
   public DataSource: any;
@@ -69,8 +74,8 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
        this.route.params.subscribe(params => {
          if (+params['id'] > -1) {
            this._id = +params['id'];
-           this.servicio.Buscar( this._tabla, this._id ).subscribe(resp => {
-             this.DataSource = resp.Detalle._proveedor_domicilio._domicilio;
+           this.servicio.Buscar( this.sc , this.fn, this._id ).subscribe(resp => {
+            this.DataSource = resp.Detalle._app_domicilio;
              //this.DataSourceColumnas = Object.keys(this.DataSource[0]);
            });
          }
@@ -87,8 +92,8 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
      this.route.params.subscribe(params => {
        if (+params['id'] > -1) {
          this._id = +params['id'];
-         this.servicio.Buscar( this._tabla, this._id ).subscribe(resp => {
-           this.DataSource = resp.Detalle._proveedor_domicilio._domicilio;
+         this.servicio.Buscar( this.sc , this.fn, this._id ).subscribe(resp => {
+          this.DataSource = resp.Detalle._app_domicilio;
            //this.DataSourceColumnas = Object.keys(this.DataSource[0]);
          });
        }
@@ -100,7 +105,6 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
  }
 
  //public Obtenervalor = (obj: any): any[] => { return Object.values(obj); }
-
  public  ModificarRow( args: any ){
    this._frm.emit( args );
  }
@@ -126,10 +130,9 @@ export class TbdomiciliosComponent implements OnInit, OnChanges  {
        this.route.params.subscribe(params => {
          if (+params['id'] > -1) {
            this._id = +params['id'];
-           this.messageService.add({key: 'tc', severity:'success', summary: 'Success', detail: 'Eliminación correcta !'});
-           this.servicio.Buscar( this._tabla, this._id ).subscribe(resp => {
-
-             this.DataSource = resp.Detalle._proveedor_domicilio._domicilio;
+           this.messageService.add({key: 'tc', severity:'info', summary: 'Info', detail: 'Acción: correcta !'});
+           this.servicio.Buscar( this.sc, this.fn, this._id ).subscribe(resp => {
+             this.DataSource = resp.Detalle._app_domicilio;
              //this.DataSourceColumnas = Object.keys(this.DataSource[0]);
            });
          }

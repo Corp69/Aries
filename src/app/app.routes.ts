@@ -194,6 +194,13 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       {
+        path:  'Domicilio/:id',
+        title: 'CV: Domicilios',
+        loadComponent: () => import('./aries/pages/modules/controlventas/domicilios/domicilios.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
         path:  'Cortes',
         title: 'Cortes',
         loadComponent: () => import('./aries/pages/modules/controlventas/cortes/cortes.component'),
@@ -329,6 +336,13 @@ export const routes: Routes = [
         path:  'Departamentos',
         title: 'Departamentos',
         loadComponent: () => import('./aries/pages/modules/controlrh/departamentos/departamentos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Domicilio/:id',
+        title: 'CH:Domicilio',
+        loadComponent: () => import('./aries/pages/modules/controlrh/domicilios/domicilios.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },

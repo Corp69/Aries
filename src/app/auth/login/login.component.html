@@ -14,24 +14,25 @@
                 <div class="row">
                     <label>Usuario:</label>
                     <div class="col-4-mb">
-                        <input 
-                            pTooltip="Ingrese Usuario: tu usuario debe estar activo y tener permisos."
-                            tooltipPosition="bottom" 
-                            formControlName="USUARIO" 
-                            pInputText 
-                            class="ng-invalid ng-dirty"
-                            pKeyFilter="alphanum" />
+                        <input type="text"
+                        pTooltip="Ingrese Usuario: tu usuario debe estar activo y tener permisos."
+                        tooltipPosition="bottom"
+                        formControlName="USUARIO"
+                        pInputText
+                        class="p-inputtext-lg"
+                        pKeyFilter="alphanum"
+                        pInputText placeholder="Search" />
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <label>Pass:</label>
                     <div class="col-4-mb">
-                        <p-password 
-                            pTooltip="Ingrese Pass: tu pass debe estar activa." 
+                        <p-password
+                            pTooltip="Ingrese Pass: tu pass debe estar activa."
                             tooltipPosition="bottom"
-                            pKeyFilter="alphanum" 
-                            formControlName="PASSS" 
+                            pKeyFilter="alphanum"
+                            formControlName="PASSS"
                             [toggleMask]="true">
                         </p-password>
                     </div>
