@@ -159,6 +159,8 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
   public ngAfterViewInit(): void {
     this.route.params.subscribe(params => {
       if (+params['id'] > -1) {
+        //cargamos el id de cliente
+        this._id = +params['id'];
         // AGREGAMOS LA INFORMACION AL FORMULARIO
         this.servicio.Datainfo(+params['id']).subscribe(resp => {
          //this.frmCliente.setValue(resp.Detalle);
@@ -278,7 +280,7 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
      this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No Hay Un Proveedor Seleccionado.'});
      break;
    default:
-     this.router.navigate([ `/ControlCompras/Domicilio/${this._id}`]);
+     this.router.navigate([ `/ControlVentas/Domicilio/${this._id}`]);
      break;
   }
  }
