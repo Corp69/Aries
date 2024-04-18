@@ -41,6 +41,31 @@ export const routes: Routes = [
     redirectTo: 'auth/login',
     pathMatch: 'full'
   },
+  
+  // aplicacion 
+  {
+    path: 'ControlEmpresa',
+    loadComponent: () => import('./aries/Aries.component'),
+    canActivate:[ AuthGuard ],
+    canMatch:[ AuthGuard],
+    children: [
+      //modulo: Compras
+      {
+        path:  'Empresa/:id',
+        title: 'APP: Empresa',
+        loadComponent: () => import('./aries/pages/modules/controlapp/general/general.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Sucursal/:id',
+        title: 'App: Sucursales',
+        loadComponent: () => import('./aries/pages/modules/controlapp/extensiones/extension.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      }
+    ]
+  },
   //contabilidad
   {
     path: 'ControlContable',
