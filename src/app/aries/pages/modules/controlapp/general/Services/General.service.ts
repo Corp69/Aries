@@ -9,6 +9,15 @@ import { ErroresService } from '@shared/errores.service';
   providedIn: 'root',
 })
 export class GeneralService {
+  listProveedorTipo() {
+    throw new Error('Method not implemented.');
+  }
+  listProveedorEstatus() {
+    throw new Error('Method not implemented.');
+  }
+  AlmacenarEmpresa(value: any) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
 
