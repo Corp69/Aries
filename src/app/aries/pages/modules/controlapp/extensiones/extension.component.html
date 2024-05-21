@@ -1,1 +1,80 @@
-<p>extension works!</p>
+<hr>
+<p-toast position="top-center" key="tc"></p-toast>
+<!-- <p-blockUI [blocked]="Ariesblocked"></p-blockUI> -->
+<p-card header="Proveedor">
+<!-- Agregar Informcion del formulario -->
+<form [formGroup]="frmExtension" autocomplete="off">
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-spin pi-cog"></i>
+            &nbsp; Información Extension
+        </div>
+    </p-divider>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="flex flex-column gap-2">
+                <label>descripcion</label>
+                <input
+                    pInputText
+                    pTooltip="Ingrese descripcion Completo Persona: Fisica o Moral "
+                    tooltipPosition="bottom"
+                    formControlName="descripcion"
+                    pInputText
+                    placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmExtension.controls['descripcion'].invalid">
+                </p-message>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="flex flex-column gap-2">
+                <label>activo</label>
+                <input
+                    pKeyFilter="alphanum" maxlength="13"
+                    pInputText
+                    pTooltip="Ingrese activo Persona: Fisica o Moral "
+                    tooltipPosition="bottom"
+                    formControlName="activo"
+                    pInputText
+                    placeholder="Vacio" />
+            <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frmExtension.controls['activo'].invalid">
+            </p-message>
+            </div>
+        </div>
+
+    </div>
+    
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-user mr-2"></i>
+            <b>Funciones Usuario:</b>
+        </div>
+    </p-divider>
+
+    <p-button
+    icon="pi pi-plus"
+    label="Nuevo"
+    (click)="NuevoExtension()"
+    pTooltip="Reinicia Formulario De Extension"
+    tooltipPosition="bottom"
+    severity="primary"
+    >
+    </p-button>
+    &nbsp;
+    <p-button
+        icon="pi pi-pencil"
+        pTooltip="Almacenar: Extension Informcion."
+        tooltipPosition="bottom"
+        (click)="Almacenar()"
+        [disabled]="frmExtension.invalid"
+        label="Guardar"
+        severity="success">
+        <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+            fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+    </p-button>
+    
+</form>
+
+</p-card>
