@@ -3,6 +3,7 @@ import { AuthGuard } from './auth/login/guards/auth.guard';
 
 export const routes: Routes = [
 
+  //Authenticacion
   {
     path: 'auth',
     loadComponent: () => import('./auth/login.component'),
@@ -18,6 +19,22 @@ export const routes: Routes = [
       }
     ]
   },
+  //Publico
+  {
+    path: 'publico',
+    loadComponent: () => import('./public/factura/Factura.component'),
+    children: [
+      {
+        path:  'factura',
+        title: 'factura',
+        loadComponent: () => import('./public/factura/Factura.component'),
+      },
+      {
+        path: '**', redirectTo: 'factura', pathMatch: 'full',
+        //path: '**',redirectTo: 'publico'
+      }
+    ]
+  },  
   //aries
   {
     path: 'aries',
@@ -35,13 +52,7 @@ export const routes: Routes = [
         path: '**',redirectTo: 'principal'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: 'auth/login',
-    pathMatch: 'full'
-  },
-  
+  },  
   // aplicacion 
   {
     path: 'ControlEmpresa',
