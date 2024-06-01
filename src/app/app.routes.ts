@@ -22,12 +22,27 @@ export const routes: Routes = [
   //Publico
   {
     path: 'publico',
-    loadComponent: () => import('./public/factura/Factura.component'),
+    loadComponent: () => import('./public/principal.component'),
     children: [
       {
         path:  'factura',
         title: 'factura',
-        loadComponent: () => import('./public/factura/Factura.component'),
+        loadComponent: () => import('./public/factura/index/index.component'),
+      },
+      {
+        path:  'descarga',
+        title: 'Descargas XML',
+        loadComponent: () => import('./public/factura/descargas/descarga.component'),
+      },
+      {
+        path:  'nueva',
+        title: 'Nueva Factura',
+        loadComponent: () => import('./public/factura/nueva/nueva.component'),
+      },
+      {
+        path:  'recuperapdf',
+        title: 'Recuperar PDF',
+        loadComponent: () => import('./public/factura/recuperaPdf/recupera.component'),
       },
       {
         path: '**', redirectTo: 'factura', pathMatch: 'full',

@@ -1,0 +1,43 @@
+<div class="cards-container">
+   <p-card header="Cheess Pizza." subheader=" Departamento TI." [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+        <h4>
+           NUEVA FACTURA
+        </h4>
+        <ng-template pTemplate="footer">
+            <p-button (click)="irNueva()" label="Navegar " icon="pi pi-check"></p-button>
+        </ng-template>
+    </p-card>
+
+    <p-card header="Cheess Pizza." subheader=" Departamento TI." [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+        <h4>
+           DESCARGAR XML
+        </h4>
+        <ng-template pTemplate="footer">
+            <p-button (click)="irDescarga()" label="Navegar " icon="pi pi-check"></p-button>
+        </ng-template>
+    </p-card>
+    <p-card header="Cheess Pizza." subheader=" Departamento TI." [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </ng-template>
+        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+        <h4>
+           RECUPERAR PDF
+        </h4>
+        <ng-template pTemplate="footer">
+            <p-button (click)="irRecuperaPDF()" label="Navegar " icon="pi pi-check"></p-button>
+        </ng-template>
+    </p-card>
+
+</div>
+<!-- @if( ConfirmacionMdl == true  ) {
+<confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+} -->

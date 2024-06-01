@@ -10,7 +10,7 @@ import { ErroresService } from '@shared/errores.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class IndexFacturaService {
 
   //==============================================================================================================
   //modelos:

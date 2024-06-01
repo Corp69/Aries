@@ -7,7 +7,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
-
+import { BlockUIModule } from 'primeng/blockui';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -20,13 +21,20 @@ import { CommonModule } from '@angular/common';
            ProgressSpinnerModule,
            CardModule,
            ButtonModule,
-           ToastModule
+           ToastModule,
+          BlockUIModule 
+
+
           ],
-  templateUrl: './factura.component.html',
-  styleUrl: './factura.component.css'
+          providers: [MessageService],
+  templateUrl: './descarga.component.html',
+  styleUrl: './descarga.component.css'
 })
 
-export default class LoginComponent   {
+export default class DescargaComponent   {
 
+
+      // bloqueamos pantalla
+      public Ariesblocked: boolean = false;
 
 }

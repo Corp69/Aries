@@ -1,4 +1,4 @@
-export interface ConfirmacionMensaje {
+export interface factura {
     msjTipo: number;
     titulo:  String;
     mensaje: String;
