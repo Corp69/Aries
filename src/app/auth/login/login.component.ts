@@ -66,12 +66,28 @@ export default class LoginComponent implements OnInit {
     // iniciamos session al servicio
     this.servicio.inicioSesion3(this.myForm.value).subscribe(resp => {
       // validamos con un switch
-      switch (resp.data.user.id) {
+      switch (resp.IdMensj) {
+        case null:
+          this.ConfirmacionMsjMdl.msjTipo = 3; //resp.IdMensj;
+          this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
+          this.ConfirmacionMsjMdl.mensaje = "Fuera de servicio." //resp.Mensaje; 
+          this.ConfirmacionMsjMdl.detalle = "el servicio está en mantenimiento." //resp.Solucion; 
+          this.Ariesblocked = false;
+          this.ConfirmacionMdl = true;
+        break;
         case undefined:
+          this.ConfirmacionMsjMdl.msjTipo = 3; //resp.IdMensj;
+          this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
+          this.ConfirmacionMsjMdl.mensaje = "Fuera de servicio." //resp.Mensaje; 
+          this.ConfirmacionMsjMdl.detalle = "el servicio está en mantenimiento." //resp.Solucion; 
+          this.Ariesblocked = false;
+          this.ConfirmacionMdl = true;
+        break;
+        case 2:
           this.ConfirmacionMsjMdl.msjTipo = 2; //resp.IdMensj;
           this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
           this.ConfirmacionMsjMdl.mensaje = "Verifica Tu Pago, Verifica tu Usario activo, Igualforma Envia un Correo." //resp.Mensaje; 
-          this.ConfirmacionMsjMdl.detalle = "OrionWS: Comunica Verifica La licencia. O Comunicar a Departamento TI. La licencia." //resp.Solucion; 
+          this.ConfirmacionMsjMdl.detalle = "Adicional: Comunica Verifica La licencia. O Comunicar a Departamento TI. La licencia." //resp.Solucion; 
           this.Ariesblocked = false;
           this.ConfirmacionMdl = true;
           break;
@@ -85,6 +101,7 @@ export default class LoginComponent implements OnInit {
           break;
       }
     });
+    this.ConfirmacionMdl = false;
   }
 
   //inicializamos los valores del formulario

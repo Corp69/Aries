@@ -179,7 +179,7 @@ export default class AppDomiciliosComponent implements OnInit {
         this.frmDomicilio.controls[this.tablaCampo].setValue( this._id );
 
     // mensaje para verificar la captura de la direccion del sat
-    this.messageService.add({key: 'tc', severity:'success', summary: 'Success', detail: 'Ingresa Domicilio.'});
+    this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Carga lista, por favor ingresa un domicilio nuevo.'});
 
 
   }
@@ -188,7 +188,7 @@ export default class AppDomiciliosComponent implements OnInit {
   public Modificar( arg: any){
 
     // mensaje para verificar la captura de la direccion del sat
-    this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Confirma Dirección SAT'});
+    this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Confirma dirección para enviarla al SAT'});
 
     this.frmDomicilio.controls['id'].setValue( arg.id );
     this.frmDomicilio.controls[this.tablaCampo].setValue( this._id );
