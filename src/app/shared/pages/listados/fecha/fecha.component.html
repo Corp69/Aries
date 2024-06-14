@@ -1,1 +1,86 @@
-<p>fecha works!</p>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<form [formGroup]="frm" autocomplete="off">
+  <p-divider align="left">
+      <div class="inline-flex align-items-center">
+          <i class="pi pi-spin pi-cog"></i>
+          &nbsp; Información General:
+      </div>
+  </p-divider>
+
+
+  <div class="row">
+    <div class="col-sm-4">
+        <div class="flex flex-column gap-2">
+            <i class="pi pi-exclamation-circle"
+            >&nbsp; Estado:</i>
+            <p-dropdown
+              formControlName="_id_"
+              placeholder="Seleccione Estatus"
+              value="id_estado"
+              [options]="lstEstus"
+              optionValue="id" optionLabel="descripcion"
+              >
+          </p-dropdown>
+            <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frm.controls['_id_'].invalid">
+             </p-message>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="flex flex-column gap-2">
+            <i class="pi pi-exclamation-circle">&nbsp; Fecha Inicial:</i>
+            <p-calendar 
+            formControlName="_fecha_inicio"
+            [showIcon]="true" 
+            [readonlyInput]="true" 
+            [showOnFocus]="false" 
+            inputId="buttondisplay" />
+            <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frm.controls['_fecha_inicio'].invalid">
+             </p-message>
+        </div>
+    </div>
+    
+    <div class="col-sm-4">
+        <div class="flex flex-column gap-2">
+            <i class="pi pi-exclamation-circle">&nbsp; Fecha Final:</i>
+            <p-calendar 
+            formControlName="_fecha_final"
+            [showIcon]="true" 
+            [readonlyInput]="true" 
+            [showOnFocus]="false" 
+            inputId="buttondisplay" />
+            <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frm.controls['_fecha_final'].invalid">
+             </p-message>
+        </div>
+    </div>
+</div>
+
+  <br>
+  <p-button
+  icon="pi pi-plus"
+  label="Nuevo"
+  (click)="Nuevo()"
+  pTooltip="Reiniciar la busqueda."
+  tooltipPosition="bottom"
+  severity="success"
+  >
+  </p-button>
+  &nbsp;
+  <p-button
+      icon="pi pi-pencil"
+      pTooltip="Realizar busqueda."
+      tooltipPosition="bottom"
+      (click)="buscar()"
+      [disabled]="frm.invalid"
+      label="Guardar"
+      severity="info">
+      <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+          fill="var(--surface-ground)" animationDuration=".5s">
+      </p-progressSpinner>
+  </p-button>
+  &nbsp;
+</form>
+
+

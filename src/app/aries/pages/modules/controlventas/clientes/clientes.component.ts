@@ -5,17 +5,32 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
+
+//shared
+import FechaComponent from '@shared/pages/listados/fecha/fecha.component';
+
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [    ProgressBarModule,
+  imports: [    
+
+    ProgressBarModule,
     ProgressSpinnerModule,
     CardModule,
     ButtonModule,
-    ToastModule],
+    ToastModule,
+  
+    //shared 
+    FechaComponent
+  
+  
+  ],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.scss'
 })
 export default class ClientesComponent {
+ // Tabla a insertar.
+ public _sc:          string = "venta";
+ public _fn:          string = "_app_lst_cliente";
 
 }
