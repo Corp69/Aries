@@ -113,7 +113,6 @@ export default class FechaComponent implements OnInit {
   // variables para mensaje actualizar guardar
   public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
 
-
   //Formularios del app:
   public frm: FormGroup = this.fb.group({
     _fecha_inicio: [ null,[Validators.required, Validators.minLength(1)]],
@@ -154,10 +153,7 @@ export default class FechaComponent implements OnInit {
     this.BtnSpinner   = true;
     // bloqueamos pantalla
     this.Ariesblocked = true;
-    console.log( this.frm.value );
             this.servicio.Buscar( this.sc, this.fn, this.frm.value ).subscribe(resp => {
-              console.log( resp.Detalle._app_lst_persona._lst.length  )
-              console.log( resp )
               switch ( resp.IdMensj ) {
                 case 3:
                   //============================================================
@@ -193,6 +189,10 @@ export default class FechaComponent implements OnInit {
                         summary: 'info',
                         detail: 'Busqueda realizada, no hay registros.'
                       });
+                      //registros dejamos en vacio 
+                      this.DataSource         = [];
+                      this.DataSourceColumnas = [];
+
                   }
                   else{
                     this.DataSource         = resp.Detalle._app_lst_persona._lst;
@@ -230,19 +230,62 @@ export default class FechaComponent implements OnInit {
       // cargamos al objeto a buscar
       this.mdleliminar  = false;
       // recargamos la data
-      console.log( response );
       switch ( response ) {
         case false:
-          this.DataSource = [];
-          this.DataSourceColumnas = [];
-          break;
-        default:
           this.messageService.add(
             {
               key: 'tc', 
               severity:'info', 
               summary: 'info',
-              detail: 'Operación, cancelada'
+              detail: 'Eliminación, Cancelada'
+            });
+          break;
+        default:
+          this.messageService.add(
+            {
+              key: 'tc', 
+              severity:'success', 
+              summary: 'Registro',
+              detail:  'Eliminado: Correctamente!'
+            });
+            this.servicio.RecargarBuscar( this.sc, this.fn ).subscribe(resp => {
+              switch ( resp.IdMensj ) {
+                case 3:
+                  //============================================================
+                  this.ConfirmacionMsjMdl.msjTipo = 2; //resp.IdMensj;
+                  this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
+                  this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+                  this.ConfirmacionMsjMdl.detalle = resp.Solucion;
+                  this.ConfirmacionMdl = true;
+                  break;
+                case 2:
+                  //============================================================
+                  this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
+                  this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
+                  this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+                  this.ConfirmacionMsjMdl.detalle = resp.Detalle;
+                   // mostramos el resultado de la informacion
+                   this.ConfirmacionMdl  = true;
+                  break;
+                default:
+                  //============================================================
+                  //validamos que no venga vacio
+                  if ( resp.Detalle._app_lst_persona._lst.length == 0 ) {
+                       // mensaje para verificar la captura de la direccion del sat
+                    this.messageService.add(
+                      {
+                        key: 'tc', 
+                        severity:'info', 
+                        summary: 'info',
+                        detail: 'Busqueda realizada, no hay registros.'
+                      });
+                  }
+                  else{
+                    this.DataSource         = resp.Detalle._app_lst_persona._lst;
+                    this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+                  }
+                  break;
+              }
             });
         break;
       }
@@ -259,15 +302,9 @@ public  ModificarRow( args: any ){
 }
  
  public eliminarRow( args: any ){
-  console.log( args ); 
   this._id = args.Numero;
   this.mdleliminar = true;
   this.Ariesblocked = true;
 }
-
-
-
-
-
 
 }

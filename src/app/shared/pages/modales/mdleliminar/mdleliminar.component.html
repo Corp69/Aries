@@ -3,7 +3,7 @@
   [closeOnEscape] ="false"
   [closable] ="false"
   >
-  <i  class="fa-solid fa-triangle-exclamation" style=" color: red;"></i> &nbsp;¿ Estas seguro, se perdera la informacion ?
+  <i  class="fa-solid fa-triangle-exclamation" style=" color: red;"></i> &nbsp;¿ éstas seguro, se perderá la información ?
 <ng-template pTemplate="footer">
   <span class="p-buttonset">
     <button
@@ -29,3 +29,7 @@
 </span>
 </ng-template>
 </p-dialog>
+
+@if( ConfirmacionMdl == true  ) {
+  <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}

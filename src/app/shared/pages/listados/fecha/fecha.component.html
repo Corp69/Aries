@@ -77,19 +77,19 @@
   icon="pi pi-plus"
   label="Nuevo"
   (click)="Nuevo()"
-  pTooltip="Reiniciar la busqueda."
+  pTooltip="Generar una busqueda nueva."
   tooltipPosition="bottom"
   severity="success"
   >
   </p-button>
   &nbsp;
   <p-button
-      icon="pi pi-pencil"
+      icon="pi pi-search"
       pTooltip="Realizar busqueda."
       tooltipPosition="bottom"
       (click)="buscar()"
       [disabled]="frm.invalid"
-      label="Guardar"
+      label="Buscar"
       severity="info">
       <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
           fill="var(--surface-ground)" animationDuration=".5s">
