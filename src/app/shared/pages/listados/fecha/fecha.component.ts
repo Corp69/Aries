@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // prime NG
 import { DividerModule } from 'primeng/divider';
@@ -19,10 +19,6 @@ import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { KeyFilterModule } from 'primeng/keyfilter';
 import { BlockUIModule } from 'primeng/blockui';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
@@ -32,6 +28,9 @@ import { CalendarModule } from 'primeng/calendar';
 //servicio
 import { LstFechaService } from './services/lstfecha.service';
 import { ConfirmacionMensaje, list } from '@shared/interfaces/Aries';
+import { MdleliminarComponent } from '@shared/pages/modales/mdleliminar/mdleliminar.component';
+import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
+import { TableModule } from 'primeng/table';
 
 
 
@@ -45,9 +44,6 @@ import { ConfirmacionMensaje, list } from '@shared/interfaces/Aries';
     FormsModule,
 
     //prime NG
-    KeyFilterModule,
-    InputGroupModule,
-    InputGroupAddonModule,
     DividerModule,
     MessagesModule,
     MessageModule,
@@ -57,12 +53,14 @@ import { ConfirmacionMensaje, list } from '@shared/interfaces/Aries';
     DialogModule,
     TooltipModule,
     ButtonModule,
-    RippleModule,
     BlockUIModule,
     ToastModule,
     CalendarModule,
-
+    TableModule,
+    
     //shared
+    MdleliminarComponent,
+    ConfirmacionComponent,
   ],
   providers: [
   
@@ -79,6 +77,25 @@ export default class FechaComponent implements OnInit {
   public fn: string = '';
   @Input()
   public sc: string = '';
+  @Input()
+  public tabla: string = '';
+  
+  // Redirect de la busqueda 
+  @Input()
+  public routeM: string = '';
+  @Input()
+  public routeL: string = '';
+
+
+  // busqueda
+  public busqueda: string = "";
+
+  //el id del registro a eliminar
+  public _id: number = -1;
+
+  //==============================================================================================================
+  // Modal: mensaje Confirmacion falso para no cargar la modal
+  public mdleliminar: boolean = false;
 
   // listados
   public lstEstus: list[] = [];
@@ -99,9 +116,8 @@ export default class FechaComponent implements OnInit {
 
   //Formularios del app:
   public frm: FormGroup = this.fb.group({
- 
-    _fecha_inicio: [null,[Validators.required, Validators.minLength(1)]],
-    _fecha_final: [null,[Validators.required, Validators.minLength(1)]],
+    _fecha_inicio: [ null,[Validators.required, Validators.minLength(1)]],
+    _fecha_final:  [ null,[Validators.required, Validators.minLength(1)]],
     _id_: [ null,[Validators.required, Validators.minLength(1)] ]
   });
 
@@ -110,7 +126,7 @@ export default class FechaComponent implements OnInit {
     private servicio: LstFechaService,
     private DatePipe: DatePipe,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private router: Router
   ) {}
   public ngOnInit(): void {
     //listado 
@@ -118,27 +134,31 @@ export default class FechaComponent implements OnInit {
   }
 
   //btn nuevo
-  public Nuevo() {}
+  public Nuevo() {
+   
+    this.frm.controls['_fecha_inicio'].setValue( new Date() );
+    this.frm.controls['_fecha_final'].setValue(  new Date());
+    this.frm.controls['_id_'].setValue(null);
+
+  }
+
 
   //btn nuevo
-  public buscar() {
-
-    this.frm.controls['_fecha_inicio'].setValue(this.DatePipe.transform( this.frm.value._fecha_inicio, 'dd/MM/YYYY'));
-    this.frm.controls['_fecha_final'].setValue(this.DatePipe.transform(  this.frm.value._fecha_final,  'dd/MM/YYYY'));
+  public  buscar() {
+    //=======================================================================================
+    //conversion de fecha
+    this.frm.controls['_fecha_inicio'].setValue(this.DatePipe.transform( this.frm.value._fecha_inicio, "dd/MM/yyyy"));
+    this.frm.controls['_fecha_final'].setValue(this.DatePipe.transform(  this.frm.value._fecha_final, "dd/MM/yyyy"));
     this.frm.controls['_id_'].setValue(parseInt(this.frm.value._id_));
-
-       // bloqueamos el boton
-       this.BtnSpinner   = true;
-       // bloqueamos pantalla
-       this.Ariesblocked = true;
-       //===============================
-       
-       console.log( this.frm.value );
-            this.servicio.Buscar( this.frm.value).subscribe(resp => {
-            
-              console.log( resp );
-
-              switch (resp.IdMensj) {
+    // bloqueamos el boton
+    this.BtnSpinner   = true;
+    // bloqueamos pantalla
+    this.Ariesblocked = true;
+    console.log( this.frm.value );
+            this.servicio.Buscar( this.sc, this.fn, this.frm.value ).subscribe(resp => {
+              console.log( resp.Detalle._app_lst_persona._lst.length  )
+              console.log( resp )
+              switch ( resp.IdMensj ) {
                 case 3:
                   //============================================================
                   this.ConfirmacionMsjMdl.msjTipo = 2; //resp.IdMensj;
@@ -163,17 +183,21 @@ export default class FechaComponent implements OnInit {
                 default:
                   this.reloadTrigger = true;
                   //============================================================
-                  this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
-                  this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
-                  this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
-                  this.ConfirmacionMsjMdl.detalle = resp.Detalle;
-                  //============================================================
-                  // instanciamos elmismo formulario para actualizar
-                  this.frm.setValue(this.frm.value);
-                  // agregamos el ID para generar la actualizacion
-                  this.frm.controls['id'].setValue(parseInt(resp.Id));
-                  // mostramos el resultado de la informacion
-                  this.ConfirmacionMdl  = true;
+                  //validamos que no venga vacio
+                  if ( resp.Detalle._app_lst_persona._lst.length == 0 ) {
+                       // mensaje para verificar la captura de la direccion del sat
+                    this.messageService.add(
+                      {
+                        key: 'tc', 
+                        severity:'info', 
+                        summary: 'info',
+                        detail: 'Busqueda realizada, no hay registros.'
+                      });
+                  }
+                  else{
+                    this.DataSource         = resp.Detalle._app_lst_persona._lst;
+                    this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+                  }
                   // desbloqueamos la pantalla
                   this.Ariesblocked     = false;
                   break;
@@ -181,5 +205,69 @@ export default class FechaComponent implements OnInit {
               this.BtnSpinner    = false;
             });
        this.reloadTrigger   = false;
+       //=============================
+       // busqueda 
+       this.busqueda = " Busqueda realizada: " +  this.frm.value._fecha_inicio + " al " +  this.frm.value._fecha_final;
+       //===========================================
+       // reiniciamos el formulario 
+       this.frm.controls['_id_'].setValue( null );
+       this.frm.controls['_fecha_inicio'].setValue( null );
+       this.frm.controls['_fecha_final'].setValue(  null );
+
   }
+
+  //======================================
+  // variables de tabla
+    //tabla
+    public DataSource: any;
+    public DataSourceColumnas: any;
+
+    public Obtenervalor = (obj: any): any[] => { return Object.values(obj); }
+
+  //=======================================
+ // metodo generico de busqueda...
+ public eliminacion( response: any) {
+      // cargamos al objeto a buscar
+      this.mdleliminar  = false;
+      // recargamos la data
+      console.log( response );
+      switch ( response ) {
+        case false:
+          this.DataSource = [];
+          this.DataSourceColumnas = [];
+          break;
+        default:
+          this.messageService.add(
+            {
+              key: 'tc', 
+              severity:'info', 
+              summary: 'info',
+              detail: 'Operación, cancelada'
+            });
+        break;
+      }
+      // cancelamos el stop 
+      this.Ariesblocked = false;
+      // reiniciamos el id del registro que se elimino
+      this._id = -1;
+}
+
+
+
+public  ModificarRow( args: any ){
+  this.router.navigate([ `/${this.routeM}/${ this.routeL}/${ args.Numero }`]);
+}
+ 
+ public eliminarRow( args: any ){
+  console.log( args ); 
+  this._id = args.Numero;
+  this.mdleliminar = true;
+  this.Ariesblocked = true;
+}
+
+
+
+
+
+
 }

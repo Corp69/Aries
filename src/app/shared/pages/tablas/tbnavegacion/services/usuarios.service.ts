@@ -4,49 +4,28 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErroresService } from '@shared/errores.service';
 import { environment } from '../../../../../../environments/environment';
-import { Mdllst } from '../models/Mdllst';
+import { Mdllst } from '../models copy/Mdllst';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LstFechaService {
+export class UsuariosService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
-
-  
-
-  public Lstestatus(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
-      {
-        Qtabla: 'app_estatus',
-      },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
-  }
-
-
-  public Buscar( exc: String, fun: String,  data: Mdllst ): Observable<any> {
+  public Buscar(  ): Observable<any> {
     let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
      return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
       {
-        "ExSchema": exc,
-        "funcion":  fun,
+        "ExSchema":"venta",
+        "funcion":"_app_lst_persona",
         "data": 
         {
-        "_fecha_inicio": data._fecha_inicio,
-        "_fecha_final":  data._fecha_final,
-        "_id_":          data._id_
+        "_fecha_inicio": "01/06/2024",
+        "_fecha_final":  "30/06/2024",
+        "_id_": 1
         }
     },
       { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
   }
-
 
 }

@@ -1,4 +1,21 @@
+
+@if( mdleliminar == true  ) {
+    <app-mdleliminar
+      [mdleliminar]="mdleliminar"
+      [_tabla]="tabla"
+      [_id]="_id"
+      (_rowconfirmacion)="eliminacion($event)"
+      />
+  }
+
+  @if( ConfirmacionMdl == true  ) {
+    <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+  }
+
+<p-toast position="top-center" key="tc"></p-toast>
+
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+
 <form [formGroup]="frm" autocomplete="off">
   <p-divider align="left">
       <div class="inline-flex align-items-center">
@@ -6,8 +23,6 @@
           &nbsp; Información General:
       </div>
   </p-divider>
-
-
   <div class="row">
     <div class="col-sm-4">
         <div class="flex flex-column gap-2">
@@ -32,6 +47,7 @@
             <p-calendar 
             formControlName="_fecha_inicio"
             [showIcon]="true" 
+            dateFormat="dd/mm/yy"
             [readonlyInput]="true" 
             [showOnFocus]="false" 
             inputId="buttondisplay" />
@@ -40,13 +56,13 @@
              </p-message>
         </div>
     </div>
-    
     <div class="col-sm-4">
         <div class="flex flex-column gap-2">
             <i class="pi pi-exclamation-circle">&nbsp; Fecha Final:</i>
             <p-calendar 
             formControlName="_fecha_final"
             [showIcon]="true" 
+            dateFormat="dd/mm/yy"
             [readonlyInput]="true" 
             [showOnFocus]="false" 
             inputId="buttondisplay" />
@@ -56,7 +72,6 @@
         </div>
     </div>
 </div>
-
   <br>
   <p-button
   icon="pi pi-plus"
@@ -82,5 +97,59 @@
   </p-button>
   &nbsp;
 </form>
+<p-divider></p-divider>
+@if( busqueda != ""  ) {
+<h6>{{ busqueda }} </h6> 
+}
 
-
+<p-divider></p-divider>
+  <p-table [value]="DataSource" dataKey="id"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[5,10,25]"
+      [paginator]="true">
+      <ng-template pTemplate="header">
+          <tr>
+              <th style="width: 4rem"></th>
+              <th style="width: 4rem"></th>
+              <th *ngFor="let column of DataSourceColumnas"
+              pSortableColumn="{{column}}">{{column}}<p-sortIcon
+                      field="{{column}}"></p-sortIcon></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-DataSource>
+          <tr>
+              <td>
+                <button
+                pTooltip="Modificar: Registro."
+                tooltipPosition="top"
+                (click)="ModificarRow(DataSource)"
+                pButton
+                icon="pi pi-file-edit"
+                type="button"
+                class="p-button-Info">
+              </button>
+              </td>
+              <td>
+                <button
+                  pTooltip="Eliminar: Registro."
+                  tooltipPosition="top"
+                  (click)="eliminarRow(DataSource)"
+                  pButton
+                  icon="pi pi-trash"
+                  type="button"
+                  class="p-button-danger">
+                </button>
+              </td>
+              <td *ngFor="let value of Obtenervalor(DataSource)">
+                <div [innerHTML]="value"></div>
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+          <tr>
+              <td colspan="8">No se encontraron registros.</td>
+          </tr>
+      </ng-template>
+  </p-table>

@@ -29,8 +29,15 @@ import FechaComponent from '@shared/pages/listados/fecha/fecha.component';
   styleUrl: './clientes.component.scss'
 })
 export default class ClientesComponent {
- // Tabla a insertar.
+ 
+  //redireccion variables
+  public _routerM: string = "ControlVentas";
+  public _routerL: string = "Cliente";
+ 
+  // Tabla a eliminar
+ public _tabla: string = "cliente";
+ // eschema y funcion a ejecutar 
  public _sc:          string = "venta";
- public _fn:          string = "_app_lst_cliente";
+ public _fn:          string = "_app_lst_persona";
 
 }

@@ -1,13 +1,5 @@
 <hr>
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
 <p-card header="Empleados">
-
-
-<app-tbpersona 
-     [tabla]="_tabla"
-     (BusqedaJson)="Busqueda($event)"  
-/>
-
-
-        &nbsp;
+<app-tbpersona  [tabla]="_tabla" (BusqedaJson)="Busqueda($event)" />&nbsp;
 </p-card>

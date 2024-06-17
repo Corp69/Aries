@@ -1,8 +1,12 @@
-<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
-<p-card header="Proveedores">
-        <nombresMDL
-          [tabla]="GenericaTB"
-          (BusqedaJson)="Busqueda($event)">
-        </nombresMDL>
-        &nbsp;
-</p-card>
+<hr>
+<p-card header="Buscar Clientes">
+    <app-list-fecha  
+    
+    [routeM]="_routerM"    
+    [routeL]="_routerL"  
+
+    [tabla]="_tabla" 
+    [fn]="_fn"
+    [sc]="_sc"/>
+
+</p-card> 
