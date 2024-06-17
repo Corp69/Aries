@@ -2,13 +2,12 @@
 import {
   FormBuilder,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 // prime NG
 import { DividerModule } from 'primeng/divider';
@@ -41,7 +40,6 @@ import { TableModule } from 'primeng/table';
     //angular
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,
 
     //prime NG
     DividerModule,
@@ -297,7 +295,7 @@ export default class FechaComponent implements OnInit {
 
 
 
-public  ModificarRow( args: any ){
+public  selectRow( args: any ){
   this.router.navigate([ `/${this.routeM}/${ this.routeL}/${ args.Numero }`]);
 }
  
@@ -306,5 +304,54 @@ public  ModificarRow( args: any ){
   this.mdleliminar = true;
   this.Ariesblocked = true;
 }
+
+
+
+public exportExcel() {
+  if ( this.DataSource.length == 0 ) {
+    // mensaje para verificar la captura de la direccion del sat
+     this.messageService.add(
+       {
+         key: 'tc', 
+         severity:'info', 
+         summary: 'Advertencia:',
+         detail: 'No se pudo generar un excel, no hay registros'
+       });
+    }
+else
+   {  
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet( this.DataSource );
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "products");
+      });
+    }
+}
+
+
+
+
+public saveAsExcelFile(buffer: any, fileName: string): void {
+  import("file-saver").then(FileSaver => {
+    let EXCEL_TYPE =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    let EXCEL_EXTENSION = ".xlsx";
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(
+      data,
+      fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+    );
+  });
+}
+
+
+
+
+
+
+
 
 }

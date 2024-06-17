@@ -29,6 +29,8 @@
             <i class="pi pi-exclamation-circle"
             >&nbsp; Estado:</i>
             <p-dropdown
+              pTooltip="Selecciona: estatus a filtrar."
+              tooltipPosition="top"
               formControlName="_id_"
               placeholder="Seleccione Estatus"
               value="id_estado"
@@ -45,6 +47,8 @@
         <div class="flex flex-column gap-2">
             <i class="pi pi-exclamation-circle">&nbsp; Fecha Inicial:</i>
             <p-calendar 
+            pTooltip="selecciona fecha a filtrar."
+            tooltipPosition="top"
             formControlName="_fecha_inicio"
             [showIcon]="true" 
             dateFormat="dd/mm/yy"
@@ -60,6 +64,8 @@
         <div class="flex flex-column gap-2">
             <i class="pi pi-exclamation-circle">&nbsp; Fecha Final:</i>
             <p-calendar 
+            pTooltip="selecciona una fecha a filtrar."
+            tooltipPosition="top"
             formControlName="_fecha_final"
             [showIcon]="true" 
             dateFormat="dd/mm/yy"
@@ -98,8 +104,27 @@
   &nbsp;
 </form>
 <p-divider></p-divider>
+
 @if( busqueda != ""  ) {
-<h6>{{ busqueda }} </h6> 
+<div class="row">
+  <div class="col-sm-4">
+   
+  </div>
+  <div class="col-sm-4">
+    <h6>{{ busqueda }} </h6> 
+  </div>
+  <div class="col-sm-4">
+    <p-button
+    icon="pi pi-file-excel"
+    label="Excel"
+    (click)="exportExcel()"
+    pTooltip="Exportar Excel."
+    tooltipPosition="bottom"
+    severity="success"
+    >
+    </p-button>
+  </div>
+</div>
 }
 
 <p-divider></p-divider>
@@ -124,7 +149,7 @@
                 <button
                 pTooltip="Modificar: Registro."
                 tooltipPosition="top"
-                (click)="ModificarRow(DataSource)"
+                (click)="selectRow(DataSource)"
                 pButton
                 icon="pi pi-file-edit"
                 type="button"

@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErroresService } from '@shared/errores.service';
 import { environment } from '../../../../../../environments/environment';
-import { Mdllst } from '../models copy/Mdllst';
+import { Mdllst } from '../models/Mdllst';
 
 @Injectable({
   providedIn: 'root',
