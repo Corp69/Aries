@@ -229,7 +229,7 @@
             icon="pi pi-search"
             pTooltip="Buscar: Un Proveedor."
             tooltipPosition="bottom"
-            (click)="dlgBuscar()"
+            (click)="lstProveedores()"
             label="Buscar"
             severity="info"
             >
@@ -264,7 +264,3 @@
     <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
 }
 
-<p-dialog header="Header" position="top" [(visible)]="dlgbuscar" [modal]="true" [style]="{ width: '90vw' }"
-[draggable]="false" [resizable]="false">
-<nombresMDL [tabla]="GenericaTB" (BusqedaJson)="Busqueda($event)"></nombresMDL>
-</p-dialog>

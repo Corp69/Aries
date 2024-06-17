@@ -255,7 +255,7 @@
         &nbsp;
         <p-button
             icon="pi pi-search"
-            pTooltip="Buscar: Un Empleado."
+            pTooltip="Buscar: un cliente."
             tooltipPosition="bottom"
             (click)="dlgBuscar()"
             label="Buscar"
@@ -263,7 +263,7 @@
             >
         </p-button>
         &nbsp;
-        <p-button
+        <!-- <p-button
             icon="pi pi-file-edit"
             pTooltip="Revisar el Historial Venta."
             tooltipPosition="bottom"
@@ -271,7 +271,7 @@
             label="Historial Venta"
             severity="warning"
             >
-        </p-button>
+        </p-button> -->
 
     </form>
 </p-card>
@@ -283,19 +283,19 @@
 <!-- ========================================================================================================================================================================================= -->
 <p-dialog header="" position="top" [(visible)]="visible" [modal]="true" [style]="{ width: '90vw' }" [draggable]="false"
     [resizable]="false">
-    <app-generica tabla={{tabalaSat1}} (JsonSat)="SatUsoCfedi($event)"></app-generica>
+    <app-generica tabla={{tabalaSat1}} (BusqedaJson)="SatUsoCfedi($event)"></app-generica>
 </p-dialog>
 <!-- SAT  --->
 
 <p-dialog header="" position="top" [(visible)]="dlgRegimenvisible" [modal]="true" [style]="{ width: '90vw' }"
     [draggable]="false" [resizable]="false">
-    <app-generica tabla={{tabalaSat2}} (JsonSat)="SatRegimen($event)"></app-generica>
+    <app-generica tabla={{tabalaSat2}} (BusqedaJson)="SatRegimen($event)"></app-generica>
 </p-dialog>
 
 <!-- SAT DOC COBRO  --->
 <p-dialog header="Header" position="top" [(visible)]="dlgDocCbrovisible" [modal]="true" [style]="{ width: '90vw' }"
     [draggable]="false" [resizable]="false">
-    <app-generica tabla={{tabalaSat1}} (JsonSat)="SatCobro($event)"></app-generica>
+    <app-generica tabla={{tabalaSat1}} (BusqedaJson)="SatCobro($event)"></app-generica>
 </p-dialog>
 
 @if( ConfirmacionMdl == true  ) {

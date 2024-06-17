@@ -130,7 +130,7 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     id_sat_regimenfiscal: [null],
     fecha_nacimiento: [ null ],
     fecha_ingreso: [ null ],
-    id_sexo: [ 1 ]
+    id_sexo: [ null ]
   });
 
   /**
@@ -269,15 +269,15 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     // solo reiniciamos las variables visuales
     this.usoCFDI = "";
     this.RegimenCFDI = "";
-     // mensaje para decir que esta OK el formulario
-     this.messageService.add({key: 'tc', severity:'success', summary: 'success', detail: 'Formulario listo: Agregue información.'});
+    // mensaje para decir que esta OK el formulario
+    this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue datos del empleado y guarde su información.'});
 
   }
 
   public Domicilios = () => {
     switch (this._id) {
      case -1:
-       this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No Hay Un Proveedor Seleccionado.'});
+      this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No hay un proveedor, seleccionado.'});
        break;
      default:
        this.router.navigate([ `/ControlRh/Domicilio/${this._id}`]);
@@ -286,7 +286,7 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
    }
 
    public dlgBuscar = () => {
-    this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'Esta en desarrollo.'});
+    this.router.navigate([ `/ControlRh/Empleados`]);
    }
 
   //==============================================================================================================
@@ -307,6 +307,8 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   }
   //==============================================================================================================
   public SatRegimen(jsonRegimenCFDI: any) {
+    
+    
     this.RegimenCFDI = jsonRegimenCFDI.descripcion;
     this.frmEmpleado.controls['id_sat_regimenfiscal'].setValue(parseInt(jsonRegimenCFDI.id));
     this.dlgRegimenvisible = false;

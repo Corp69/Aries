@@ -261,7 +261,7 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
   // metodo para agregar un nuevo proveedor
   public NuevoCliente = () => {
     // mensaje para verificar la captura de la direccion del sat
-    this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue información.'});
+    this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue datos del cliente y guarde su información.'});
 
     // reiniciamos el formulario 
     this.frmCliente.setValue(this.MdlCliente);
@@ -277,7 +277,7 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
  public Domicilios = () => {
   switch (this._id) {
    case -1:
-     this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No Hay Un Proveedor Seleccionado.'});
+     this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No hay un cliente, seleccionado.'});
      break;
    default:
      this.router.navigate([ `/ControlVentas/Domicilio/${this._id}`]);
@@ -287,7 +287,7 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
 
   public dlgBuscar(){
   
-    this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'Esta en desarrollo.'});
+    this.router.navigate([ `/ControlVentas/Clientes`]);
    
   }
 

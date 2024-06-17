@@ -7,7 +7,6 @@ import { MdlProveedor } from './models/MdlProveedor';
 // shared
 import { CargaComponent } from '@shared/pages/modales/carga/carga.component';
 import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
-import { NombresComponent } from '@shared/pages/busquedas/nombres/nombres.component';
 // servicios
 import { ProveedorService } from './Services/Proveedor.service';
 //Interface
@@ -44,7 +43,6 @@ import {MessageService} from 'primeng/api';
     GenericaComponent,
     CargaComponent,
     ConfirmacionComponent,
-    NombresComponent,
     //prime NG
     KeyFilterModule,
     InputGroupModule,
@@ -80,10 +78,6 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   // variables para mensaje actualizar guardar
   public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
 
-
-  //==============================================================================================================
-  // Modal: mensaje bc-nombreMdl falso para no mostrar la modal true para mostrar
-  public nombreMDL: boolean = false;
   // variables para enviar a modal enviar y realizar busqueda
   public bcnombreDataMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: '', mensaje: '', detalle: '' };
 
@@ -253,13 +247,13 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     this.RegimenCFDI = "";
     this._id =-1;
      // mensaje para verificar la captura de la direccion del sat
-     this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue información.'});
+     this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue datos del proveedor y guarde su información.'});
 
   }
 
   // metodo para buscar un nuevo proveedor
   public Buscar = () => {
-   this.nombreMDL = true;
+   this.router.navigate([ `/ControlCompras/Domicilio/${this._id}`]);
   }
 
   public Domicilios = () => {
@@ -277,14 +271,11 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   //Modales:
   public visible: boolean = false;
   public dlgRegimenvisible: boolean = false;
-  public dlgbuscar: boolean = false;
   //==============================================================================================================
   // uso cfdi
   public dlgUsocfdi =  () => { this.visible = true; this.GenericaTB = "sat_usocfdi" }
   // regimen
   public dlgRegimen =  () => { this.dlgRegimenvisible = true; this.GenericaTB = "sat_regimenfiscal" }
-  // Busqueda generica.
-  public dlgBuscar =  () => { this.dlgbuscar = true; this.GenericaTB = "proveedor" }
   //public dlgDocCbro =  () => { this.dlgDocCbrovisible = true; this.GenericaTB = "sat_regimenfiscal"}
   //==============================================================================================================
   // metodo para asignar el valor buscado
@@ -301,12 +292,8 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
     this.dlgRegimenvisible = false;
   }
 
-  //==============================================================================================================
-  // metodo generico de busqueda...
-  public Busqueda( response: any) {
-    // cargamos al objeto a buscar
-    this.dlgbuscar = false;
-    this.router.navigate(['/ControlCompras/Proveedor/' + parseInt(response.id)]);
-
+  public lstProveedores (){
+    this.router.navigate([ `/ControlCompras/proveedores`]);
   }
+
 }
