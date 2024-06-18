@@ -301,7 +301,7 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   public closeDialog = () => { this.visible = false; }
   //==============================================================================================================
   public SatUsoCfedi(jsonSatUsoCFDI: any) {
-    this.usoCFDI = jsonSatUsoCFDI.descripcion;
+    this.usoCFDI = jsonSatUsoCFDI.Descripcion;
     this.frmEmpleado.controls['id_sat_usocfdi'].setValue(parseInt(jsonSatUsoCFDI.id));
     this.visible = false;
   }
@@ -309,13 +309,13 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   public SatRegimen(jsonRegimenCFDI: any) {
     
     
-    this.RegimenCFDI = jsonRegimenCFDI.descripcion;
+    this.RegimenCFDI = jsonRegimenCFDI.Descripcion;
     this.frmEmpleado.controls['id_sat_regimenfiscal'].setValue(parseInt(jsonRegimenCFDI.id));
     this.dlgRegimenvisible = false;
   }
   //==============================================================================================================
   public SatCobro(jsonSatCobroCFDI: any) {
-    this.SatCobroCFDI = jsonSatCobroCFDI.descripcion;
+    this.SatCobroCFDI = jsonSatCobroCFDI.Descripcion;
     this.frmEmpleado.controls['id_sat_doc_cobro'].setValue(parseInt(jsonSatCobroCFDI.id));
     this.dlgDocCbrovisible = false;
   }

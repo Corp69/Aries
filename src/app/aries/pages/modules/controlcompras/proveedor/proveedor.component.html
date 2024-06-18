@@ -89,6 +89,7 @@
                 &nbsp; configuraciones:
             </div>
         </p-divider>
+
         <div class="flex flex-wrap gap-3">
             <div class="flex align-items-center">
                 <p-inputGroup>
@@ -98,7 +99,6 @@
                     </p-inputGroupAddon>
                 </p-inputGroup>
                 <p-dropdown
-
                     pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
                     tooltipPosition="bottom"
                     formControlName="id_tipo"
@@ -118,7 +118,6 @@
                     </p-inputGroupAddon>
                 </p-inputGroup>
                 <p-dropdown
-
                     pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
                     tooltipPosition="bottom"
                     value="id_estatus"
@@ -127,7 +126,6 @@
                     [options]="lstestatus"
                     optionValue="id"
                     optionLabel="descripcion"
-
                 >
             </p-dropdown>
 
@@ -144,7 +142,7 @@
             <div class="col-sm-6">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon">
-                        <i class="pi pi-user"> Sat Uso CFDI:</i>
+                        <i class="pi pi-user">Uso CFDI:</i>
                     </span>
                     <textarea rows="1" cols="50" pInputText
                         pTooltip="Seleccione Un Uso CFDI Fiscal: Para Timbrar Facturas." pInputTextarea
@@ -166,7 +164,7 @@
             <div class="col-sm-6">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon">
-                        <i class="pi pi-user">Sat Regimen Fiscal:</i>
+                        <i class="pi pi-user">Regimen Fiscal:</i>
                     </span>
                     <textarea rows="1" cols="50" pTooltip="Seleccione Un Regimen Fiscal: Para Timbrar Facturas."
                         tooltipPosition="bottom" pInputTextarea [disabled]="true" [value]="RegimenCFDI"
@@ -193,47 +191,50 @@
                 <b>Funciones Usuario:</b>
             </div>
         </p-divider>
-
-        <p-button
-        icon="pi pi-plus"
-        label="Nuevo"
-        (click)="NuevoProvedor()"
-        pTooltip="Reinicia Formulario Del Proveedor."
-        tooltipPosition="bottom"
-        severity="primary"
-        >
-        </p-button>
-        &nbsp;
-        <p-button
-            icon="pi pi-pencil"
-            pTooltip="Almacenar: Proveedor Informcion."
+        
+        <span class="p-buttonset">
+            <p-button
+            icon="pi pi-plus"
+            label="Nuevo"
+            (click)="NuevoProvedor()"
+            pTooltip="Reinicia Formulario Del Proveedor."
             tooltipPosition="bottom"
-            (click)="Almacenar()"
-            [disabled]="frmProveedor.invalid"
-            label="Guardar"
-            severity="success">
-            <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
-                fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-        </p-button>
-        &nbsp;
-        <p-button
-            icon="pi pi-map-marker"
-            pTooltip="Gestion: Realizar una configuracion de domicilio ayuda a timbrar documentos"
-            tooltipPosition="bottom"
-            (click)="Domicilios()"
-            label="Domicilios"
-            severity="help">
-        </p-button>
-        &nbsp;
-        <p-button
-            icon="pi pi-search"
-            pTooltip="Buscar: Un Proveedor."
-            tooltipPosition="bottom"
-            (click)="lstProveedores()"
-            label="Buscar"
-            severity="info"
+            severity="primary"
             >
-        </p-button>
+            </p-button>
+            &nbsp;
+            <p-button
+                icon="pi pi-pencil"
+                pTooltip="Almacenar: Proveedor Informcion."
+                tooltipPosition="bottom"
+                (click)="Almacenar()"
+                [disabled]="frmProveedor.invalid"
+                label="Guardar"
+                severity="success">
+                <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+                    fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </p-button>
+            &nbsp;
+            <p-button
+                icon="pi pi-map-marker"
+                pTooltip="Gestion: Realizar una configuracion de domicilio ayuda a timbrar documentos"
+                tooltipPosition="bottom"
+                (click)="Domicilios()"
+                label="Domicilios"
+                class="p-button-warning"
+                severity="warning">
+            </p-button>
+            &nbsp;
+            <p-button
+                icon="pi pi-search"
+                pTooltip="Buscar: Un Proveedor."
+                tooltipPosition="bottom"
+                (click)="lstProveedores()"
+                label="Buscar"
+                severity="info"
+            >
+             </p-button>
+        </span>
     </form>
 </p-card>
 
@@ -248,7 +249,8 @@
 </p-dialog>
 <!-- SAT  --->
 
-<p-dialog header="" position="top" [(visible)]="dlgRegimenvisible" [modal]="true" [style]="{ width: '90vw' }"
+<p-dialog 
+    header="" position="top" [(visible)]="dlgRegimenvisible" [modal]="true" [style]="{ width: '90vw' }"
     [draggable]="false" [resizable]="false">
     <app-generica [tabla]="GenericaTB" (BusqedaJson)="SatRegimen($event)"></app-generica>
 </p-dialog>

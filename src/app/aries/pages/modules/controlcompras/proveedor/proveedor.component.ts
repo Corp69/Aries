@@ -280,14 +280,14 @@ export default class ProveedorComponent implements OnInit, AfterViewInit  {
   //==============================================================================================================
   // metodo para asignar el valor buscado
   public SatUsoCfedi( response: any) {
-    this.usoCFDI = response.descripcion;
+    this.usoCFDI = response.Descripcion;
     this.frmProveedor.controls['id_sat_usocfdi'].setValue(parseInt(response.id));
     this.visible = false;
   }
   //==============================================================================================================
   // metodo para asignar el valor buscado
   public SatRegimen( response: any) {
-    this.RegimenCFDI = response.descripcion;
+    this.RegimenCFDI = response.Descripcion;
     this.frmProveedor.controls['id_sat_regimenfiscal'].setValue(parseInt(response.id));
     this.dlgRegimenvisible = false;
   }

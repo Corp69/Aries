@@ -12,12 +12,41 @@ export class GenericoService {
 
     constructor(private http: HttpClient, private errores: ErroresService) { }
 
-    public Buscar(_tabla: String, _item: String): Observable<any> {
+    public Buscar( _tabla: String, _item: String): Observable<any> {
         let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-        return this.http.post(`${environment.baseUrl}clientes/ctr/buscar`,
-            { "Qtabla": _tabla, "_busqueda": _item },
-            { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
-    }
-    
+        switch (_tabla) {
+            case "sat_usocfdi":
+                return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
+                    {
+                        "ExSchema": "config",
+                        "funcion":  "_app_cfdi_uso_X_regimen",
+                        "data": 
+                        {
+                            "_uso":     true,
+                            "_codigo": _item
+                        }
+                    },
+                    { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));        
+                break;
+            case "sat_regimenfiscal":
+                return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
+                    {
+                        "ExSchema": "config",
+                        "funcion":  "_app_cfdi_uso_X_regimen",
+                        "data": 
+                        {    
+                            "_uso":     false,
+                            "_codigo": _item
+                        }
+                    },
+                    { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));        
+                break;
+            default:
+            return this.http.post(`${environment.baseUrl}clientes/ctr/buscar`,
+                { "Qtabla": _tabla, "_busqueda": _item },
+                { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
+            break;
+            }        
+        }
     //===================================================================================================
 }

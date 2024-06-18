@@ -247,56 +247,60 @@
             </div>
         </p-divider>
 
-        <p-button
-        icon="pi pi-plus"
-        label="Nuevo"
-        (click)="NuevoEmpleado()"
-        pTooltip="Almacenar: Empleado Informcion."
-        tooltipPosition="bottom"
-        severity="primary"
-        >
-        </p-button>
-        &nbsp;
-        <p-button
-            icon="pi pi-pencil"
-            pTooltip="Almacenar: Empleado Informcion."
-            tooltipPosition="bottom"
-            (click)="Almacenar()"
-            [disabled]="frmEmpleado.invalid"
-            label="Guardar"
-            severity="success">
-            <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
-                fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-        </p-button>
-        &nbsp;
-        <p-button
-            icon="pi pi-map-marker"
-            pTooltip="Gestion: Realizar una configuracion de domicilio ayuda a timbrar documentos"
-            tooltipPosition="bottom"
-            (click)="Domicilios()"
-            label="Domicilios"
-            severity="help">
-        </p-button>
-        &nbsp;
-        <p-button
-            icon="pi pi-search"
-            pTooltip="Buscar: Un Empleado."
-            tooltipPosition="bottom"
-            (click)="dlgBuscar()"
-            label="Buscar"
-            severity="info"
-            >
-        </p-button>
-        &nbsp;
-        <p-button
-            icon="pi pi-file-edit"
-            pTooltip="Revisar el Historial Nomina."
-            tooltipPosition="bottom"
-            (click)="dlgBuscar()"
-            label="Historial Nominas"
-            severity="warning"
-            >
-        </p-button>
+
+
+        <span class="p-buttonset">
+                <p-button
+                icon="pi pi-plus"
+                label="Nuevo"
+                (click)="NuevoEmpleado()"
+                pTooltip="Almacenar: Empleado Informcion."
+                tooltipPosition="bottom"
+                severity="primary"
+                >
+                </p-button>
+                &nbsp;
+                <p-button
+                    icon="pi pi-pencil"
+                    pTooltip="Almacenar: Empleado Informcion."
+                    tooltipPosition="bottom"
+                    (click)="Almacenar()"
+                    [disabled]="frmEmpleado.invalid"
+                    label="Guardar"
+                    severity="success">
+                    <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+                        fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+                </p-button>
+                &nbsp;
+                <p-button
+                    icon="pi pi-map-marker"
+                    pTooltip="Gestion: Realizar una configuracion de domicilio ayuda a timbrar documentos"
+                    tooltipPosition="bottom"
+                    (click)="Domicilios()"
+                    label="Domicilios"
+                    severity="warning">
+                </p-button>
+                &nbsp;
+                <p-button
+                    icon="pi pi-search"
+                    pTooltip="Buscar: Un Empleado."
+                    tooltipPosition="bottom"
+                    (click)="dlgBuscar()"
+                    label="Buscar"
+                    severity="info"
+                    >
+                </p-button>
+                &nbsp;
+                <!-- <p-button
+                    icon="pi pi-file-edit"
+                    pTooltip="Revisar el Historial Nomina."
+                    tooltipPosition="bottom"
+                    (click)="dlgBuscar()"
+                    label="Historial Nominas"
+                    severity="warning"
+                    >
+                </p-button> -->
+        </span>
     </form>
 </p-card>
 

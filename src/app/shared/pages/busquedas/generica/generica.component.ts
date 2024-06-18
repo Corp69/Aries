@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 // servicios
 import { GenericoService } from './services/generico.service';
@@ -10,6 +10,10 @@ import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { TooltipModule } from 'primeng/tooltip';
+import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-generica',
@@ -24,14 +28,20 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     TableModule,
     ButtonModule,
     KeyFilterModule,
-    MessageModule
+    MessageModule,
+    TooltipModule,
+    MessagesModule,
+    ToastModule,
+  ],
+  providers: [
+    MessageService,
   ],
   templateUrl: './generica.component.html',
   styleUrl: './generica.component.scss'
 })
-export class GenericaComponent {
+export class GenericaComponent implements OnInit {
   // formulario
-  public frm: FormGroup = this.fb.group({ descripcion: [, [Validators.required, Validators.minLength(3)]] });
+  public frm: FormGroup = this.fb.group({ descripcion: [, [Validators.required, Validators.minLength(1)]] });
   //tabla   
   public DataSource: any;
   public DataSourceColumnas: any;
@@ -42,20 +52,31 @@ export class GenericaComponent {
   // retorna la busqueda del servicio
   @Output() BusqedaJson = new EventEmitter<any>();
   //=================================================================================================================
-  constructor( private fb: FormBuilder, private servicio: GenericoService) { }
+  constructor(
+    
+      private messageService: MessageService, 
+      private fb: FormBuilder, 
+      private servicio: GenericoService) { }
+ 
+ 
+   public ngOnInit(): void {
+    
+    this.DataSource = null;
+    this.DataSourceColumnas = null;
+
+  }
   //metodo que realiza la busqueda
   public buscarinfo = () => {
     //=======================================================================================
     this.servicio.Buscar(this.tabla, this.frm.value.descripcion).subscribe(resp => {
-      console.log(resp);
-      switch (resp.Detalle.length) {
+      switch ( resp.IdMensj ) {
         //=======================================================================================
-        case 0:
+        case 3:
           this.DataSource = [];
           this.DataSourceColumnas = [];
           break;
         //=======================================================================================
-        case null:
+        case 2:
           this.DataSource = [];
           this.DataSourceColumnas = [];
           break;
@@ -66,8 +87,8 @@ export class GenericaComponent {
           break;
         //=======================================================================================
         default:
-          this.DataSource = resp.Detalle;
-          this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+              this.DataSource         = resp.Detalle._app_cfdi_uso_x_regimen._lst;
+              this.DataSourceColumnas = Object.keys(this.DataSource[0]);
           this.frm.setValue(this.frm.value);
           break;
         //=======================================================================================
@@ -77,7 +98,7 @@ export class GenericaComponent {
   //==============================================================================================================
   // funcionalidad de la tabla:
   public onSelectionChange(args: any) {
-    this.BusqedaJson.emit(args[0]);
+    this.BusqedaJson.emit(args);
     this.DataSource = null;
     this.frm.controls['descripcion'].setValue('');
   }
