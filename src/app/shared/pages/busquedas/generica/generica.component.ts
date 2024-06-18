@@ -11,9 +11,6 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { TooltipModule } from 'primeng/tooltip';
-import { MessageService } from 'primeng/api';
-import { MessagesModule } from 'primeng/messages';
-import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-generica',
@@ -29,12 +26,7 @@ import { ToastModule } from 'primeng/toast';
     ButtonModule,
     KeyFilterModule,
     MessageModule,
-    TooltipModule,
-    MessagesModule,
-    ToastModule,
-  ],
-  providers: [
-    MessageService,
+    TooltipModule
   ],
   templateUrl: './generica.component.html',
   styleUrl: './generica.component.scss'
@@ -53,8 +45,7 @@ export class GenericaComponent implements OnInit {
   @Output() BusqedaJson = new EventEmitter<any>();
   //=================================================================================================================
   constructor(
-    
-      private messageService: MessageService, 
+  
       private fb: FormBuilder, 
       private servicio: GenericoService) { }
  

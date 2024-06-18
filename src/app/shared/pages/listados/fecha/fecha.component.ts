@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 
 // prime NG
 import { DividerModule } from 'primeng/divider';
-import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CardModule } from 'primeng/card';
@@ -43,7 +42,6 @@ import { TableModule } from 'primeng/table';
 
     //prime NG
     DividerModule,
-    MessagesModule,
     MessageModule,
     DropdownModule,
     CardModule,

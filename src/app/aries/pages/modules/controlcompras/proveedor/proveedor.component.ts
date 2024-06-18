@@ -13,7 +13,6 @@ import { ProveedorService } from './Services/Proveedor.service';
 import { ConfirmacionMensaje, listados } from './interface/proveedor';
 // prime NG
 import { DividerModule } from 'primeng/divider';
-import { MessagesModule} from 'primeng/messages';
 import { MessageModule} from 'primeng/message';
 import { ProgressSpinnerModule} from 'primeng/progressspinner';
 import { CardModule} from 'primeng/card';
@@ -48,7 +47,6 @@ import {MessageService} from 'primeng/api';
     InputGroupModule,
     InputGroupAddonModule,
     DividerModule,
-    MessagesModule,
     MessageModule,
     DropdownModule,
     CardModule,
