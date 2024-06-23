@@ -440,6 +440,50 @@ export const routes: Routes = [
       }
     ]
   },
+  //PMI
+  {
+    path: 'ControlPMI',
+    loadComponent: () => import('./aries/Aries.component'),
+    canActivate:[ AuthGuard ],
+    canMatch:[ AuthGuard],
+    children: [
+      //modulo: Compras
+      {
+        path:  'Equipos/:id',
+        title: 'PMI - Equipos',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/equipos/equipos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      //modulo: Compras
+      {
+        path:  'EquiposRHempleado/:id',
+        title: 'PMI - Equipos - Empleados',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/equipoRhempleado/equiposRh.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Cronograma/:id',
+        title: ' PMI- Cronograma ',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/cronograma/cronograma.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Activiadad/:id',
+        title: 'PMI - Activiadad',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/actividades/actividad.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      //modulo: Inventarios
+      {
+        //path: 'auth/login', redirectTo: 'dashboard', pathMatch: 'full',
+        path: '**',redirectTo: 'principal'
+      }
+    ]
+  },
   {
     path: '',
     redirectTo: 'auth/login',
