@@ -456,6 +456,13 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       {
+        path:  'Proyectos',
+        title: 'PMI - Proyectos',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/listado/listado.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
         path:  'Proyecto/:id',
         title: 'PMI - Proyecto',
         loadComponent: () => import('./aries/pages/modules/controlpmi/proyectos/proyecto.component'),
