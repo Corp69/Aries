@@ -24,6 +24,7 @@ import { ActividadService } from './Services/actividad.service';
 import { MdlActividades } from './models/MdlActividades';
 import { ConfirmacionMensaje, list } from '@shared/interfaces/Aries';
 import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 //servicio 
 
 
@@ -57,6 +58,7 @@ import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confir
         BlockUIModule,
         DividerModule,
         ToastModule,
+        InputNumberModule
 
  ],
  providers: [
@@ -95,8 +97,8 @@ export default class ActividadComponent implements OnInit {
     nombre:            [null, [Validators.required, Validators.minLength(5)]],
     objetivo:          [null, [Validators.required, Validators.minLength(5)]],
     detalle:           [""],
-    tiempo_estimado:   [0, [Validators.required, Validators.minLength(1)]],
-    tiempo_real:       [0, [Validators.required, Validators.minLength(1)]],
+    tiempo_estimado:   [null, [Validators.required, Validators.min(0)]],
+    tiempo_real:       [null, [Validators.required, Validators.min(0)]],
     comentarios:       [""]
   });
 

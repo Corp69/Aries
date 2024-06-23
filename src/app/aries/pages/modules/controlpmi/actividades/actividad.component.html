@@ -73,27 +73,46 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="flex flex-column gap-2">
-                    <label>Objetivo:</label>
-                    <input
-                        pTooltip="Ingrese objetivo"
+                    <label>Tiempo Estimado:</label>
+                        <p-inputNumber  
+                        pTooltip="Ingrese Horas estimadas a la actividad."
                         tooltipPosition="bottom"
-                        formControlName="objetivo"
-                        pInputText
-                        placeholder="Vacio" />
+                        formControlName="tiempo_estimado"
+                        pInputText placeholder="Vacio" 
+                        [showButtons]="true" 
+                        buttonLayout="vertical" 
+                        spinnerMode="vertical" 
+                        inputId="vertical"
+                        decrementButtonClass="p-button-secondary"
+                         incrementButtonClass="p-button-secondary" 
+                         incrementButtonIcon="pi pi-plus"
+                          decrementButtonIcon="pi pi-minus">
+                        </p-inputNumber>
                 <p-message severity="error" text="Campo Es Obligatorio "
-                    *ngIf="frm.controls['objetivo'].invalid">
+                    *ngIf="frm.controls['tiempo_estimado'].invalid">
                 </p-message>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="flex flex-column gap-2">
-                    <label>Detalles:</label>
-                    <input
-                        pTooltip="Ingrese Una descripción adicional a la actividad."
-                        tooltipPosition="bottom"
-                        formControlName="detalle"
-                        pInputText
-                        placeholder="Vacio" />
+                    <label>Tiempo Real:</label>
+                    <p-inputNumber  
+                    pTooltip="Ingrese Horas reales a la actividad."
+                    tooltipPosition="bottom"
+                    formControlName="tiempo_real"
+                    pInputText placeholder="Vacio" 
+                    [showButtons]="true" 
+                    buttonLayout="vertical" 
+                    spinnerMode="vertical" 
+                    inputId="vertical"
+                    decrementButtonClass="p-button-secondary"
+                     incrementButtonClass="p-button-secondary" 
+                     incrementButtonIcon="pi pi-plus"
+                      decrementButtonIcon="pi pi-minus">
+                    </p-inputNumber>
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frm.controls['tiempo_real'].invalid">
+                    </p-message>
                 </div>
             </div>
         </div>
@@ -135,7 +154,7 @@
             icon="pi pi-plus"
             label="Nuevo"
             (click)="Nuevo()"
-            pTooltip="Reinicia Formulario Del Proveedor."
+            pTooltip="Reinicia Formulario Del Actividad."
             tooltipPosition="bottom"
             severity="primary"
             >
@@ -143,7 +162,7 @@
             &nbsp;
             <p-button
                 icon="pi pi-pencil"
-                pTooltip="Almacenar: Proveedor Informcion."
+                pTooltip="Almacenar: Actividad."
                 tooltipPosition="bottom"
                 (click)="Almacenar()"
                 [disabled]="frm.invalid"
@@ -165,7 +184,7 @@
             &nbsp;
             <p-button
                 icon="pi pi-search"
-                pTooltip="Buscar: Un Proveedor."
+                pTooltip="Buscar: Una Actividad."
                 tooltipPosition="bottom"
                 (click)="lst()"
                 label="Buscar"
