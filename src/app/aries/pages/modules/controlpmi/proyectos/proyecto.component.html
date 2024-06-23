@@ -15,10 +15,10 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>Nombre</label>
+                    <label>Proyecto:</label>
                     <input
-                        pInputText
-                        pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
+                        pKeyFilter="alphanum"
+                        pTooltip="Ingrese nombre del proyecto"
                         tooltipPosition="bottom"
                         formControlName="nombre"
                         pInputText
@@ -30,46 +30,80 @@
             </div>
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>RFC</label>
+                    <label>Problematica:</label>
                     <input
-                        pKeyFilter="alphanum" maxlength="13"
-                        pInputText
-                        pTooltip="Ingrese RFC Persona: Fisica o Moral "
+                        pKeyFilter="alphanum"
+                        pTooltip="Ingrese problematica del proyecto"
                         tooltipPosition="bottom"
-                        formControlName="rfc"
+                        formControlName="problematica"
                         pInputText
                         placeholder="Vacio" />
                 <p-message severity="error" text="Campo Es Obligatorio "
-                    *ngIf="frm.controls['rfc'].invalid">
+                    *ngIf="frm.controls['problematica'].invalid">
                 </p-message>
                 </div>
             </div>
 
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>CURP</label>
+                    <label>Objetivo:</label>
                     <input
-                        pKeyFilter="alphanum"  maxlength="13"
-                        pTooltip="Ingrese CURP Persona: Fisica"
+                        pKeyFilter="alphanum" 
+                        pTooltip="Ingrese objetivos del proyecto."
                         tooltipPosition="bottom"
-                        formControlName="curp"
+                        formControlName="objetivo"
                         pInputText
                         placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frm.controls['objetivo'].invalid">
+                    </p-message>
                 </div>
             </div>
 
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>CODIGO</label>
+                    <label>alcance</label>
                     <input
                         pKeyFilter="alphanum"  maxlength="13"
-                        pTooltip="Ingrese Codigo Para Identificar Al Proveedor"
+                        pTooltip="Ingrese alcance del proyecto."
                         tooltipPosition="bottom"
-                        formControlName="codigo"
-                        pInputText placeholder="Vacio" />
+                        formControlName="alcance"
+                        pInputText 
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frm.controls['alcance'].invalid">
+                    </p-message>
                 </div>
             </div>
         </div>
+
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"> </i>
+                &nbsp; configuraciones:
+            </div>
+        </p-divider>
+
+        <div class="flex flex-wrap gap-3">
+            <div class="flex align-items-center">
+                <label><i class="pi pi-wrench">&nbsp; Estado: &nbsp;</i></label>
+                <p-dropdown
+                    pTooltip="Seleccione un estado del proyecto."
+                    tooltipPosition="bottom"
+                    formControlName="id_estatus"
+                    placeholder="seleccione una opcion"
+                    value="id_estatus"
+                    [options]="lstestatus"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+            <p-message severity="error" text="Campo Es Obligatorio "
+            *ngIf="frm.controls['id_estatus'].invalid">
+        </p-message>
+        </div>
+
+
 
         <p-divider align="left">
             <div class="inline-flex align-items-center">
@@ -125,3 +159,6 @@
 </p-card>
 
 
+@if( ConfirmacionMdl == true  ) {
+    <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}

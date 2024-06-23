@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../../environments/environment';
 import { ErroresService } from '@shared/errores.service';
+import { MdlEquipo } from '../models/MdlEquipo';
 
 @Injectable({
   providedIn: 'root',
@@ -51,6 +52,49 @@ export class EquiposService {
     );
   }
 
+
+  /**
+   * 
+   * @returns Json Array Estatus 
+   */
+  public lstEstatus(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'app_estatus',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+
+  
+  //==================================================================================================
+  //guardar
+  public Almacenar(modelo: MdlEquipo): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http
+      .post(
+        `${environment.baseUrl}clientes/ctr/agregar`,
+        {
+          Qtabla: 'pmi_equipos',
+          Datos:  modelo,
+        },
+        { headers: headers }
+      )
+      .pipe(
+        catchError((error) => {
+          return throwError(this.errores.getErrores(error));
+        })
+      );
+  }
 
 
 
