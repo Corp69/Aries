@@ -447,11 +447,18 @@ export const routes: Routes = [
     canActivate:[ AuthGuard ],
     canMatch:[ AuthGuard],
     children: [
-      //modulo: Compras
+      //modulo: PMI
       {
         path:  'Equipos/:id',
         title: 'PMI - Equipos',
         loadComponent: () => import('./aries/pages/modules/controlpmi/equipos/equipos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Proyecto/:id',
+        title: 'PMI - Proyecto',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/proyectos/proyecto.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
