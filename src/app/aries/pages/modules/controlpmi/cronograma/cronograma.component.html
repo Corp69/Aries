@@ -1,1 +1,127 @@
-<p>extension works!</p>
+<hr>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<p-card header="PMI - Cronograma">
+    <!-- Agregar Informcion del formulario -->
+       <!-- Agregar Informcion del formulario -->
+       <form [formGroup]="frm" autocomplete="off">
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"></i>
+                &nbsp; Información General:
+            </div>
+        </p-divider>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Nombre</label>
+                    <input
+                        pInputText
+                        pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
+                        tooltipPosition="bottom"
+                        formControlName="nombre"
+                        pInputText
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frm.controls['nombre'].invalid">
+                    </p-message>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>RFC</label>
+                    <input
+                        pKeyFilter="alphanum" maxlength="13"
+                        pInputText
+                        pTooltip="Ingrese RFC Persona: Fisica o Moral "
+                        tooltipPosition="bottom"
+                        formControlName="rfc"
+                        pInputText
+                        placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frm.controls['rfc'].invalid">
+                </p-message>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CURP</label>
+                    <input
+                        pKeyFilter="alphanum"  maxlength="13"
+                        pTooltip="Ingrese CURP Persona: Fisica"
+                        tooltipPosition="bottom"
+                        formControlName="curp"
+                        pInputText
+                        placeholder="Vacio" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>CODIGO</label>
+                    <input
+                        pKeyFilter="alphanum"  maxlength="13"
+                        pTooltip="Ingrese Codigo Para Identificar Al Proveedor"
+                        tooltipPosition="bottom"
+                        formControlName="codigo"
+                        pInputText placeholder="Vacio" />
+                </div>
+            </div>
+        </div>
+
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-user mr-2"></i>
+                <b>Funciones Usuario:</b>
+            </div>
+        </p-divider>
+        
+        <span class="p-buttonset">
+            <p-button
+            icon="pi pi-plus"
+            label="Nuevo"
+            (click)="Nuevo()"
+            pTooltip="Reinicia Formulario Del Proveedor."
+            tooltipPosition="bottom"
+            severity="primary"
+            >
+            </p-button>
+            &nbsp;
+            <p-button
+                icon="pi pi-pencil"
+                pTooltip="Almacenar: Proveedor Informcion."
+                tooltipPosition="bottom"
+                (click)="Almacenar()"
+                [disabled]="frm.invalid"
+                label="Guardar"
+                severity="success">
+                <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+                    fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </p-button>
+            &nbsp;
+            <!-- <p-button
+                icon="pi pi-map-marker"
+                pTooltip="Gestion: Realizar una configuracion de domicilio ayuda a timbrar documentos"
+                tooltipPosition="bottom"
+                (click)="Domicilios()"
+                label="Domicilios"
+                class="p-button-warning"
+                severity="warning">
+            </p-button> -->
+            &nbsp;
+            <p-button
+                icon="pi pi-search"
+                pTooltip="Buscar: Un Proveedor."
+                tooltipPosition="bottom"
+                (click)="lst()"
+                label="Buscar"
+                severity="info"
+            >
+             </p-button>
+        </span>
+    </form>
+</p-card>
+
+
