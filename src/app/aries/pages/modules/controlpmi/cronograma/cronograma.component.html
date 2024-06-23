@@ -15,62 +15,127 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>Nombre</label>
+                    <label>Titulo:</label>
                     <input
-                        pInputText
-                        pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
+                        pTooltip="Ingrese un titulo al cronograma de actividades."
                         tooltipPosition="bottom"
-                        formControlName="nombre"
+                        formControlName="titulo"
                         pInputText
                         placeholder="Vacio" />
                     <p-message severity="error" text="Campo Es Obligatorio "
-                        *ngIf="frm.controls['nombre'].invalid">
+                        *ngIf="frm.controls['titulo'].invalid">
                     </p-message>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>RFC</label>
+                    <label>Objetivo:</label>
                     <input
-                        pKeyFilter="alphanum" maxlength="13"
-                        pInputText
-                        pTooltip="Ingrese RFC Persona: Fisica o Moral "
+                        pTooltip="Ingrese objetivo"
                         tooltipPosition="bottom"
-                        formControlName="rfc"
+                        formControlName="objetivo"
                         pInputText
                         placeholder="Vacio" />
                 <p-message severity="error" text="Campo Es Obligatorio "
-                    *ngIf="frm.controls['rfc'].invalid">
+                    *ngIf="frm.controls['objetivo'].invalid">
                 </p-message>
                 </div>
             </div>
-
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>CURP</label>
+                    <label>Observaciones:</label>
                     <input
-                        pKeyFilter="alphanum"  maxlength="13"
-                        pTooltip="Ingrese CURP Persona: Fisica"
+                        pTooltip="Ingrese observaciones."
                         tooltipPosition="bottom"
-                        formControlName="curp"
+                        formControlName="observaciones"
                         pInputText
                         placeholder="Vacio" />
                 </div>
             </div>
-
             <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
-                    <label>CODIGO</label>
+                    <label>Comentarios:</label>
                     <input
-                        pKeyFilter="alphanum"  maxlength="13"
-                        pTooltip="Ingrese Codigo Para Identificar Al Proveedor"
+                        pTooltip="Ingrese comentarios."
                         tooltipPosition="bottom"
-                        formControlName="codigo"
+                        formControlName="comentarios"
                         pInputText placeholder="Vacio" />
                 </div>
             </div>
         </div>
 
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"> </i>
+                &nbsp; Configuraciones:
+            </div>
+        </p-divider>
+
+        <div class="flex flex-wrap gap-3">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon
+                    pTooltip="Seleccione un estado del proyecto."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Estado:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    pTooltip="Seleccione un estado del proyecto."
+                    tooltipPosition="bottom"
+                    formControlName="id_estatus"
+                    placeholder="seleccione una opcion"
+                    value="id_estatus"
+                    [options]="lstestatus"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+        </div>
+        <p-message severity="error" text="Campo Es Obligatorio "
+             *ngIf="frm.controls['id_estatus'].invalid">
+        </p-message>
+        <hr>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="flex flex-column gap-2">
+                    <i class="pi pi-exclamation-circle">&nbsp; Fecha Inicial:</i>
+                    <p-calendar 
+                    pTooltip="selecciona fecha a filtrar."
+                    tooltipPosition="top"
+                    formControlName="fecha_inicio"
+                    [showIcon]="true" 
+                    dateFormat="dd/mm/yy"
+                    [readonlyInput]="true" 
+                    [showOnFocus]="false" 
+                    inputId="buttondisplay" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frm.controls['fecha_inicio'].invalid">
+                     </p-message>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="flex flex-column gap-2">
+                    <i class="pi pi-exclamation-circle">&nbsp; Fecha Final:</i>
+                    <p-calendar 
+                    pTooltip="selecciona una fecha a filtrar."
+                    tooltipPosition="top"
+                    formControlName="fecha_fin"
+                    [showIcon]="true" 
+                    dateFormat="dd/mm/yy"
+                    [readonlyInput]="true" 
+                    [showOnFocus]="false" 
+                    inputId="buttondisplay" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frm.controls['fecha_fin'].invalid">
+                     </p-message>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- / botones funcion usuario / -->
         <p-divider align="left">
             <div class="inline-flex align-items-center">
                 <i class="pi pi-user mr-2"></i>
@@ -125,3 +190,6 @@
 </p-card>
 
 
+@if( ConfirmacionMdl == true  ) {
+    <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}
