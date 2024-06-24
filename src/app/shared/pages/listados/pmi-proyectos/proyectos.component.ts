@@ -188,7 +188,7 @@ export default class ProyectosComponent implements OnInit {
                   this.reloadTrigger = true;
                   //============================================================
                   //validamos que no venga vacio
-                  if ( resp.Detalle._app_lst_cliente.length == 0 ) {
+                  if ( resp.Detalle._app_lst_cliente.lst.length == 0 ) {
                        // mensaje para verificar la captura de la direccion del sat
                     this.messageService.add(
                       {
@@ -202,7 +202,7 @@ export default class ProyectosComponent implements OnInit {
                     
                   }
                   else{
-                    this.DataSource    = resp.Detalle._app_lst_cliente;
+                    this.DataSource    = resp.Detalle._app_lst_cliente.lst;
                    
                   }
                   // desbloqueamos la pantalla
@@ -226,7 +226,7 @@ export default class ProyectosComponent implements OnInit {
   //======================================
   // variables de tabla
     //tabla
-    public DataSource: any;
+    public DataSource: any = [];
   //=======================================
  // metodo generico de busqueda...
  public eliminacion( response: any) {
@@ -273,7 +273,7 @@ export default class ProyectosComponent implements OnInit {
                 default:
                   //============================================================
                   //validamos que no venga vacio
-                  if ( resp.Detalle._app_lst_cliente.length == 0 ) {
+                  if ( resp.Detalle._app_lst_cliente.lst.length == 0 ) {
                        // mensaje para verificar la captura de la direccion del sat
                     this.messageService.add(
                       {
@@ -284,7 +284,7 @@ export default class ProyectosComponent implements OnInit {
                       });
                   }
                   else{
-                    this.DataSource         = resp.Detalle._app_lst_cliente;
+                    this.DataSource         = resp.Detalle._app_lst_cliente.lst;
                   }
                   break;
               }

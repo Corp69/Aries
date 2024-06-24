@@ -82,6 +82,11 @@ export default class ProyectoComponent implements OnInit {
   // Listados:
   public lstestatus: list[] = [];
 
+
+    // variable para ver el id del proyecto
+    public _id: number = -1;
+
+
   //==============================================================================================================
   //Formularios del app:
   public frm: FormGroup = this.fb.group({
@@ -107,6 +112,32 @@ export default class ProyectoComponent implements OnInit {
       //carga listados
       this.servicio.lstEstatus().subscribe(resp => { this.lstestatus  = resp.Detalle; });
     }
+
+      /**
+   * cargamos la data del proveedor una vez cargado todo los componentes
+   */
+  public ngAfterViewInit(): void {
+    this.route.params.subscribe(params => {
+      if (+params['id'] > -1) {
+        this._id = +params['id'];
+        // AGREGAMOS LA INFORMACION AL FORMULARIO
+        this.servicio.Datainfo(+params['id']).subscribe(resp => {
+         //this.frm.setValue(resp.Detalle);
+         // seteamos la informacion
+
+         
+         this.frm.controls['id'].setValue(resp.Detalle.id);
+         this.frm.controls['nombre'].setValue(resp.Detalle.nombre);
+         this.frm.controls['problematica'].setValue(resp.Detalle.problematica);
+         this.frm.controls['objetivo'].setValue(resp.Detalle.objetivo);
+         this.frm.controls['alcance'].setValue(resp.Detalle.alcance);
+         // asignamos el valor String debido a que no es int los parsearemos a String
+         this.frm.controls['id_estatus'].setValue(resp.Detalle.id_estatus.toString());
+        });
+      }
+    });
+  }
+
 
     public Nuevo(){
        // reiniciamos el formulario

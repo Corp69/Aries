@@ -129,142 +129,148 @@
 
 <p-divider></p-divider>
 
-<p-table 
-    [value]="DataSource" dataKey="id"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    [paginator]="true"
-    [rows]="10"
-    [rowsPerPageOptions]="[5,10,25]"
-    [paginator]="true">
-    <ng-template pTemplate="header">
-      <tr>
-          <th></th>
-          <th></th>
-          <th 
-            pSortableColumn="PROYECTO">PROYECTO<p-sortIcon field="PROYECTO"></p-sortIcon>
-          </th>
-          <th 
-            pSortableColumn="OBJETIVO">OBJETIVO<p-sortIcon field="OBJETIVO"></p-sortIcon>
-          </th>
-          <th  
-            pSortableColumn="Fecha">FECHA<p-sortIcon field="Fecha"></p-sortIcon>
-          </th>
-          <th 
-            pSortableColumn="Activo">ESTADO<p-sortIcon field="Activo"></p-sortIcon>
-          </th>
-      </tr>
-    </ng-template>
-  <ng-template pTemplate="body" let-DataSource let-expanded="expanded">
-    <tr>
-      <td>
-        <button 
-          type="button" 
-          pButton pRipple 
-          [pRowToggler]="DataSource" 
-          class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-      </td>
-      <td>
-        <button
-        pTooltip="Modificar: Registro."
-        tooltipPosition="top"
-        (click)="selectRowProyectos(DataSource.id)"
-        pButton
-        icon="pi pi-file-edit"
-        type="button"
-        class="p-button-Info">
-      </button>
-      <td>
-        <div [innerHTML]="DataSource.proyecto"></div>
-      </td>
-      <td>
-        <div [innerHTML]="DataSource.objetivo"></div>
-      </td>
-      <td>
-        <div [innerHTML]="DataSource.fecha"></div>
-      </td>
-      <td>
-        <div [innerHTML]="DataSource.estado"></div>
-      </td>
-  </tr>
-  </ng-template>
-  <ng-template pTemplate="rowexpansion" let-DataSource>
-      <tr>
-          <td colspan="7">
-              <div class="p-3">
-                  <p-table [value]="DataSource.cronograma" dataKey="id">
-                      <ng-template pTemplate="header">
-                        <tr>
-                          <th></th>
-                          <th></th>
-                          <th 
-                            pSortableColumn="Cronograma">Cronograma<p-sortIcon field="Cronograma"></p-sortIcon>
-                          </th>
-                          <th 
-                            pSortableColumn="Objetivo">Objetivo<p-sortIcon field="Objetivo"></p-sortIcon>
-                          </th>
-                          <th  
-                            pSortableColumn="Fecha Inicio">Fecha Inicio<p-sortIcon field="Fecha Inicio"></p-sortIcon>
-                          </th>
-                          <th  
-                            pSortableColumn="Fecha Termino">Fecha Termino<p-sortIcon field="Fecha Termino"></p-sortIcon>
-                          </th>
-                          <th 
-                            pSortableColumn="Estado">Estado<p-sortIcon field="Estado"></p-sortIcon>
-                          </th>
-                      </tr>
-                      </ng-template>
-                      <ng-template pTemplate="body" let-cronograma>
-                        <tr>
-                          <td>
-                            <button
-                            pTooltip="Modificar: Registro."
-                            tooltipPosition="top"
-                            (click)="selectRowCronograma( cronograma.id )"
-                            pButton
-                            icon="pi pi-file-edit"
-                            type="button"
-                            class="p-button-Info">
-                          </button>
-                          </td>
-                          <td>
-                            <button
-                            pTooltip="Eliminar: Registro."
-                            tooltipPosition="top"
-                            (click)="eliminarRow( cronograma.id)"
-                            pButton
-                            icon="pi pi-trash"
-                            type="button"
-                            class="p-button-danger">
-                          </button>
-                          </td>
-                          <td>
-                            <div [innerHTML]="cronograma.titulo"></div>
-                          </td>
-                          <td>
-                            <div [innerHTML]="cronograma.objetivo"></div>
-                          </td>
-                          <td>
-                            <div [innerHTML]="cronograma.fecha_inicio"></div>
-                          </td>
-                          <td>
-                            <div [innerHTML]="cronograma.fecha_fin"></div>
-                          </td>
-                          <td>
-                            <div [innerHTML]="cronograma.estado"></div>
-                          </td>
-                      </tr>
-                      </ng-template>
-                      <ng-template pTemplate="emptymessage">
-                          <tr>
-                              <td colspan="6">There are no order for this product yet.</td>
-                          </tr>
-                      </ng-template>
-                  </p-table>
-              </div>
+    <p-table *ngIf=" DataSource.length != 0 "
+        [value]="DataSource" dataKey="id"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [paginator]="true"
+        [rows]="10"
+        [rowsPerPageOptions]="[5,10,25]"
+        [paginator]="true">
+        <ng-template pTemplate="header">
+          <tr>
+              <th></th>
+              <th></th>
+              <th 
+                pSortableColumn="proyecto">PROYECTO<p-sortIcon field="proyecto"></p-sortIcon>
+              </th>
+              <th 
+                pSortableColumn="objetivo">OBJETIVO<p-sortIcon field="objetivo"></p-sortIcon>
+              </th>
+              <th  
+                pSortableColumn="fecharegistro">FECHA REGISTRO<p-sortIcon field="fecharegistro"></p-sortIcon>
+              </th>
+              <th  
+                pSortableColumn="fecha">CRONOGRAMA<p-sortIcon field="fecha"></p-sortIcon>
+              </th>
+              <th 
+                pSortableColumn="estado">ESTADO<p-sortIcon field="estado"></p-sortIcon>
+              </th>
+          </tr>
+        </ng-template>
+      <ng-template pTemplate="body" let-DataSource let-expanded="expanded">
+        <tr>
+          <td>
+            <button 
+              type="button" 
+              pButton pRipple 
+              [pRowToggler]="DataSource" 
+              class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+          </td>
+          <td>
+            <button
+            pTooltip="Modificar: Registro."
+            tooltipPosition="top"
+            (click)="selectRowProyectos(DataSource.id)"
+            pButton
+            icon="pi pi-file-edit"
+            type="button"
+            class="p-button-Info">
+          </button>
+          <td>
+            <div [innerHTML]="DataSource.proyecto"></div>
+          </td>
+          <td>
+            <div [innerHTML]="DataSource.objetivo"></div>
+          </td>
+          <td>
+            <div [innerHTML]="DataSource.fecharegistro"></div>
+          </td>
+          <td>
+            <div [innerHTML]="DataSource.fecha"></div>
+          </td>
+          <td>
+            <div [innerHTML]="DataSource.estado"></div>
           </td>
       </tr>
-  </ng-template>
-</p-table>
+      </ng-template>
+      <ng-template pTemplate="rowexpansion" let-DataSource>
+          <tr>
+              <td colspan="7">
+                  <div class="p-3">
+                      <p-table [value]="DataSource.cronograma" dataKey="id">
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th></th>
+                              <th></th>
+                              <th 
+                                pSortableColumn="titulo">Cronograma<p-sortIcon field="titulo"></p-sortIcon>
+                              </th>
+                              <th 
+                                pSortableColumn="objetivo">Objetivo<p-sortIcon field="objetivo"></p-sortIcon>
+                              </th>
+                              <th  
+                                pSortableColumn="fecha_inicio">Fecha Inicio<p-sortIcon field="fecha_inicio"></p-sortIcon>
+                              </th>
+                              <th  
+                                pSortableColumn="fecha_fin">Fecha Termino<p-sortIcon field="fecha_fin"></p-sortIcon>
+                              </th>
+                              <th 
+                                pSortableColumn="estado">Estado<p-sortIcon field="estado"></p-sortIcon>
+                              </th>
+                          </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-cronograma>
+                            <tr>
+                              <td>
+                                <button
+                                pTooltip="Modificar: Registro."
+                                tooltipPosition="top"
+                                (click)="selectRowCronograma( cronograma.id )"
+                                pButton
+                                icon="pi pi-file-edit"
+                                type="button"
+                                class="p-button-Info">
+                              </button>
+                              </td>
+                              <td>
+                                <button
+                                pTooltip="Eliminar: Registro."
+                                tooltipPosition="top"
+                                (click)="eliminarRow( cronograma.id)"
+                                pButton
+                                icon="pi pi-trash"
+                                type="button"
+                                class="p-button-danger">
+                              </button>
+                              </td>
+                              <td>
+                                <div [innerHTML]="cronograma.titulo"></div>
+                              </td>
+                              <td>
+                                <div [innerHTML]="cronograma.objetivo"></div>
+                              </td>
+                              <td>
+                                <div [innerHTML]="cronograma.fecha_inicio"></div>
+                              </td>
+                              <td>
+                                <div [innerHTML]="cronograma.fecha_fin"></div>
+                              </td>
+                              <td>
+                                <div [innerHTML]="cronograma.estado"></div>
+                              </td>
+                          </tr>
+                          </ng-template>
+                          <ng-template pTemplate="emptymessage">
+                              <tr>
+                                  <td colspan="6">There are no order for this product yet.</td>
+                              </tr>
+                          </ng-template>
+                      </p-table>
+                  </div>
+              </td>
+          </tr>
+      </ng-template>
+    </p-table>
 
 
 
