@@ -88,12 +88,6 @@ export default class ProyectosComponent implements OnInit {
   @Input()
   public tabla: string = '';
   
-  // Redirect de la busqueda 
-  @Input()
-  public routeM: string = '';
-  @Input()
-  public routeL: string = '';
-
 
   // busqueda
   public busqueda: string = "";
@@ -168,9 +162,6 @@ export default class ProyectosComponent implements OnInit {
     // bloqueamos pantalla
     this.Ariesblocked = true;
             this.servicio.Buscar( this.sc, this.fn, this.frm.value ).subscribe(resp => {
-
-              console.log( resp.Detalle._app_lst_cliente );
-
               switch ( resp.IdMensj ) {
                 case 3:
                   //============================================================
@@ -207,13 +198,12 @@ export default class ProyectosComponent implements OnInit {
                         detail: 'Busqueda realizada, no hay registros.'
                       });
                       //registros dejamos en vacio 
-                      this.DataSource         = [];
-                      this.DataSourceColumnas = [];
-
+                      this.DataSource   = [];
+                    
                   }
                   else{
-                    this.DataSource         = resp.Detalle._app_lst_cliente;
-                    this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+                    this.DataSource    = resp.Detalle._app_lst_cliente;
+                   
                   }
                   // desbloqueamos la pantalla
                   this.Ariesblocked     = false;
@@ -237,13 +227,6 @@ export default class ProyectosComponent implements OnInit {
   // variables de tabla
     //tabla
     public DataSource: any;
-
-    public Cronograma: any;
-
-    public DataSourceColumnas: any;
-
-    public Obtenervalor = (obj: any): any[] => { return Object.values(obj); }
-
   //=======================================
  // metodo generico de busqueda...
  public eliminacion( response: any) {
@@ -290,7 +273,7 @@ export default class ProyectosComponent implements OnInit {
                 default:
                   //============================================================
                   //validamos que no venga vacio
-                  if ( resp.Detalle._app_lst_cliente._lst.length == 0 ) {
+                  if ( resp.Detalle._app_lst_cliente.length == 0 ) {
                        // mensaje para verificar la captura de la direccion del sat
                     this.messageService.add(
                       {
@@ -301,10 +284,7 @@ export default class ProyectosComponent implements OnInit {
                       });
                   }
                   else{
-                    this.DataSource         = resp.Detalle._app_lst_cliente._lst;
-                    this.Cronograma         = resp.Detalle._app_lst_cliente._lst.Cronograma;
-                    console.log( this.Cronograma );
-                    this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+                    this.DataSource         = resp.Detalle._app_lst_cliente;
                   }
                   break;
               }
@@ -316,15 +296,9 @@ export default class ProyectosComponent implements OnInit {
       // reiniciamos el id del registro que se elimino
       this._id = -1;
 }
-
-
-
-public  selectRow( args: any ){
-  this.router.navigate([ `/${this.routeM}/${ this.routeL}/${ args.Numero }`]);
-}
  
- public eliminarRow( args: any ){
-  this._id = args.Numero;
+ public eliminarRow( id: number ){
+  this._id = id;
   this.mdleliminar = true;
   this.Ariesblocked = true;
 }
@@ -354,8 +328,6 @@ else
 }
 
 
-
-
 public saveAsExcelFile(buffer: any, fileName: string): void {
   import("file-saver").then(FileSaver => {
     let EXCEL_TYPE =
@@ -370,6 +342,21 @@ public saveAsExcelFile(buffer: any, fileName: string): void {
     );
   });
 }
+
+
+
+
+public selectRowProyectos( id: number ){
+  this.router.navigate([ `/ControlPMI/Proyecto/${ id }`]);
+}
+
+
+public selectRowCronograma( id: number ){
+  this.router.navigate([ `/ControlPMI/Cronograma/${ id }`]);
+}
+
+
+
 
 
 

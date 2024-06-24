@@ -8,7 +8,6 @@ import { MdlEliminarService } from './Services/MdlEliminar.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmacionMensaje } from '@shared/interfaces/Aries';
 import { ConfirmacionComponent } from '../confirmacion/confirmacion.component';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-mdleliminar',
@@ -90,7 +89,7 @@ export class MdleliminarComponent {
     this._tabla = "";
     this._id    = -1;
     this.mdleliminar = false;
-    //this._rowconfirmacion.emit( false );
+    this._rowconfirmacion.emit( false );
   }
 
 }

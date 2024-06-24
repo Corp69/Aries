@@ -22,14 +22,9 @@ import { CardModule } from 'primeng/card';
 export default class ListadoComponent {
   
    // Tabla a eliminar
-   public _tabla: string = "pmi_proyectos";
+   public _tabla: string = "pmi_cronograma";
    // eschema y funcion a ejecutar 
    public _sc:          string = "pmi";
    public _fn:          string = "_app_lst_cliente";
  
-   //redireccion variables
-   public _routerM: string = "ControlPMI";
-   public _routerL: string = "Proyecto";
-
-
 }

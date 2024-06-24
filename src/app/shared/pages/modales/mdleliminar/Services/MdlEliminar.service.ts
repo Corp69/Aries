@@ -15,16 +15,6 @@ export class MdlEliminarService {
 
   // metodo que elimina 
   public Eliminar(_Table: String, id: number): Observable<any> {
-
-
-    console.log(  {
-      "Qtabla": _Table,
-      "Datos": {
-          "ids": [id]
-      }
-  });
-
-
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
