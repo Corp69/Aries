@@ -485,6 +485,13 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       {
+        path:  'lstCronograma/:id',
+        title: ' PMI- Cronograma ',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/listcronograma/listcronograma.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
         path:  'Activiadad/:id',
         title: 'PMI - Activiadad',
         loadComponent: () => import('./aries/pages/modules/controlpmi/actividades/actividad.component'),
