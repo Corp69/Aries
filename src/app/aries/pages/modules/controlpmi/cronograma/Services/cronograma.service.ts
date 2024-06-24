@@ -21,7 +21,7 @@ export class CronogramaService {
     });
     return this.http.post(`${environment.baseUrl}clientes/ctr/buscar/id/${id}`,
       {
-        Qtabla: 'proveedor',
+        Qtabla: 'pmi_cronograma',
       },
       { headers: headers }
     ).pipe(
@@ -30,28 +30,6 @@ export class CronogramaService {
       })
     );
   }
-
-  public Datacfdi(id: number): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
-      {
-        "ExSchema": "compras",
-        "funcion": "proveedorCfdi",
-        "data": {
-          "_id_": id
-        }
-      }
-      ,
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
-  }
-
 
   //==================================================================================================
   //guardar

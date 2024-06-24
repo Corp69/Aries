@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 // prime NG
 import { DividerModule } from 'primeng/divider';
@@ -60,7 +60,8 @@ import { CalendarModule } from 'primeng/calendar';
 
  ],
  providers: [
-   MessageService
+   MessageService,
+   DatePipe
  ],
   templateUrl: './cronograma.component.html',
   styleUrl: './cronograma.component.scss'
@@ -80,6 +81,8 @@ export default class ExtensionComponent implements OnInit{
 
   // bloqueamos el boton
   public BtnSpinner: boolean  = false;
+  
+  public _id: number  = -1;
     
   //==============================================================================================================
   // Listados:
@@ -93,8 +96,8 @@ export default class ExtensionComponent implements OnInit{
     id_estatus:      [null, [Validators.required, Validators.minLength(1)]],
     titulo:          ["", [Validators.required, Validators.minLength(5)]],
     objetivo:        ["", [Validators.required, Validators.minLength(5)]],
-    fecha_inicio:    [ new Date()],
-    fecha_fin:       [ new Date()],
+    fecha_inicio:    [ null ],
+    fecha_fin:       [ null ],
     observaciones:   [""],
     comentarios:     [""]
   });
@@ -102,6 +105,7 @@ export default class ExtensionComponent implements OnInit{
 
   constructor(
     private router: Router,
+    private DatePipe: DatePipe,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -114,9 +118,35 @@ export default class ExtensionComponent implements OnInit{
       this.servicio.lstEstatus().subscribe(resp => { this.lstestatus  = resp.Detalle; });
     }
 
+  
+  /**
+   * cargamos la data del proveedor una vez cargado todo los componentes
+   */
+  public ngAfterViewInit(): void {
+    this.route.params.subscribe(params => {
+      if (+params['id'] > -1) {
+        this._id = +params['id'];
+        // AGREGAMOS LA INFORMACION AL FORMULARIO
+        this.servicio.Datainfo(+params['id']).subscribe(resp => {
+         //this.frm.setValue(resp.Detalle);
+         // seteamos la informacion
+         this.frm.controls['id'].setValue(resp.Detalle.id);
+         this.frm.controls['id_pmi_proyecto'].setValue(resp.Detalle.id_pmi_proyecto);
+         this.frm.controls['id_estatus'].setValue(resp.Detalle.id_estatus.toString());
+         this.frm.controls['titulo'].setValue(resp.Detalle.titulo);
+         this.frm.controls['objetivo'].setValue(resp.Detalle.objetivo);
+         this.frm.controls['fecha_inicio'].setValue(  this.DatePipe.transform( new Date( resp.Detalle.fecha_inicio ), 'dd/MM/yyyy') )
+         this.frm.controls['fecha_fin'].setValue( this.DatePipe.transform( new Date( resp.Detalle.fecha_fin ) , 'dd/MM/yyyy'));
+         this.frm.controls['observaciones'].setValue(resp.Detalle.observaciones);
+         this.frm.controls['comentarios'].setValue(resp.Detalle.comentarios);
+        });
+      }
+    });
+  }
 
 
     public Nuevo(){
+        this._id = -1;
         // reiniciamos el formulario
         this.frm.setValue(this.MdlCronograma);
         // prime trabaja con String lo pasamos a String el valor numerico
@@ -125,7 +155,6 @@ export default class ExtensionComponent implements OnInit{
         //this._id = -1;
          // mensaje para verificar la captura de la direccion del sat
          this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue datos del Cronograma y guarde su información.'});
-       
     }
    
     public Almacenar(){
