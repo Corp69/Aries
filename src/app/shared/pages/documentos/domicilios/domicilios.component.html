@@ -27,7 +27,6 @@
           <div class="flex flex-column gap-2">
               <label>Numero Exterior</label>
               <input
-                  pKeyFilter="alphanum" maxlength="13"
                   pInputText
                   pTooltip="Ingrese numero exterior de la calle."
                   tooltipPosition="bottom"
@@ -44,7 +43,6 @@
           <div class="flex flex-column gap-2">
               <label>Numero Interior</label>
               <input
-                  pKeyFilter="alphanum"  maxlength="13"
                   pTooltip="Ingrese numero interior. (Opcional)"
                   tooltipPosition="bottom"
                   formControlName="num_int"
@@ -57,7 +55,6 @@
           <div class="flex flex-column gap-2">
               <label>Codigo Postal</label>
               <input
-                  pKeyFilter="alphanum"  maxlength="5"
                   pTooltip="Ingrese Codigo Postal"
                   tooltipPosition="bottom"
                   (ngModelChange)="onCp($event)"
