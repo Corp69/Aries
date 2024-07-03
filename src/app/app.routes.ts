@@ -59,7 +59,7 @@ export const routes: Routes = [
     children: [
       {
         path:  'principal',
-        title: 'principal',
+        title: 'Aries - Bienvenido',
         loadComponent: () => import('./aries/pages/principal/principal.component'),
       },
       {
