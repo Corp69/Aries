@@ -56,7 +56,6 @@ import {MessageService} from 'primeng/api';
     ButtonModule,
     RippleModule,
     BlockUIModule,
-    DividerModule,
     ToastModule,
 
   ],
