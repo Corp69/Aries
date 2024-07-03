@@ -11,7 +11,6 @@ import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { DialogModule } from 'primeng/dialog';
 
 
 @Component({
@@ -38,11 +37,8 @@ import { DialogModule } from 'primeng/dialog';
 })
 export default class ListcronogramaComponent implements OnInit {
   
-    
     public data: any = [];
-
     public dataCronogramas: any = [];
-
 
    constructor(
     private service: LstCronogramaService,
@@ -90,57 +86,8 @@ export default class ListcronogramaComponent implements OnInit {
         
     }
 
-    updateChartOptions() {
-        this.chartOptions = this.config && this.config.dark ? this.getDarkTheme() : this.getLightTheme();
-    }
-
-    getLightTheme() {
-        return {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#495057'
-                    }
-                }
-            }
-        }
-    }
-
-    getDarkTheme() {
-        return {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#ebedef'
-                    }
-                }
-            }
-        }
-    }
-
     public lstActividad ( id: number ){
         this.router.navigate([ `/ControlPMI/Activiadad/${id}`]);
     }
-  
-    
-
-    displayModal: boolean;
-
-    displayBasic: boolean;
-
-    displayBasic2: boolean;
-
-    displayMaximizable: boolean;
-
-    displayPosition: boolean;
-
-    position: string;
-
-
-    public lstVerActividad (){
-        this.position = 'top';
-        this.displayPosition = true;
-    }
-
   
 }

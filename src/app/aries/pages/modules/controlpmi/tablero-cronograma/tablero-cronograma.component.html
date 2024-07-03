@@ -1,38 +1,43 @@
 <hr>
 <p-card header="PMI - Tablero">
+    @if ( data != null) {
+    <span class="p-buttonset">
+        <p-button
+        icon="pi pi-chart-pie"
+        label="Pie"
+        (click)="chartForma('pie')"
+        pTooltip="Clic para cambiar forma."
+        tooltipPosition="bottom"
+        severity="primary"
+        >
+        </p-button> 
+        &nbsp;
+        <p-button
+            icon="pi pi-map-marker"
+            pTooltip="Clic para cambiar forma."
+            tooltipPosition="bottom"
+            (click)="chartForma('doughnut')"
+            label="dona"
+            severity="warning">
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-chart-bar"
+            pTooltip="Clic para cambiar forma."
+            tooltipPosition="bottom"
+            (click)="chartForma('bar')"
+            label="Barra"
+            severity="info"
+            >
+        </p-button>
+        &nbsp;
+    </span>
+    }
 </p-card>
 <hr>
-<!-- 
-    <div *ngFor="let dataCronogramas of data" class="cards-container">
-        <p-card header="Cronograma" subheader="{{dataCronogramas.titulo}}" [style]="{ width: '360px' }">
-             <ng-template pTemplate="header">
-                <br>
-                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 1" styleClass="mr-2" severity="success"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
-                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 2" styleClass="mr-2" severity="warning"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
-                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 3" styleClass="mr-2" severity="Danger"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
-                <br>
-                <p-chart type="pie" [data]="data2" [options]="chartOptions"></p-chart>
-             </ng-template>
-                <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ dataCronogramas.objetivo}} 
-                <br> <br>
-                <p-tag styleClass="mr-2" severity="info" value="Fecha:" [rounded]="true"></p-tag> {{ dataCronogramas.fecha }} 
-            <ng-template pTemplate="footer">
-                 <button
-                 pTooltip="Modificar: Registro."
-                 tooltipPosition="top"
-                 (click)="lstActividad( dataCronogramas.id)"
-                 pButton
-                 icon="pi pi-file-edit"
-                 type="button"
-                 class="p-button-Info">
-                    Modificar 
-               </button>
-             </ng-template>
-         </p-card>
-    </div>
- -->
 
 
+@if ( data != null) {
  <div  class="cards-container">
     <p-card *ngFor="let proyecto of data" header="{{ proyecto.proyecto }}" subheader="Información General" [style]="{ width: '360px' }">
          <ng-template pTemplate="header">
@@ -41,7 +46,30 @@
             &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus == 2" styleClass="mr-2" severity="warning"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
             &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus != 1 && proyecto.id_estatus != 2 " styleClass="mr-2" severity="danger"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
             <br>
-              <p-chart type="pie" [data]="data2" [options]="chartOptions"></p-chart>
+              @if (proyecto.totalcronogramas != 0 ) {
+                <p-chart type="{{tipo}}" [data]="proyecto.chart"></p-chart>
+              }@else{
+                <br><br>
+                <div class="row">
+                    <div class="col-sm-3">
+                      
+                    </div>
+                    <div class="col-sm-3">
+                        <p-button
+                        icon="pi pi-clock"
+                        label="Configurar"
+                        (click)="config( proyecto.id )"
+                        pTooltip="Agregar Un cronograma."
+                        tooltipPosition="bottom"
+                        severity="primary"
+                        >
+                    </p-button>
+                    </div>
+                    <div class="col-sm-3">
+                 
+                    </div>
+                </div>
+                }
          </ng-template>
        
          <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ proyecto.objetivo}} 
@@ -54,9 +82,15 @@
              (click)="lstActividad(proyecto.id)"
              label="Navegar " icon="pi pi-external-link"></p-button>
          </ng-template>
-     </p-card>
- 
+     </p-card> 
  </div>
+}
+@else{
+    <p-card header="PMI - Cargando...">
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+    </p-card>
+}
+
 
 
 <hr>

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 //prime
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { TableModule } from 'primeng/table';
 import { ChartModule } from 'primeng/chart';
-import { Subscription } from 'rxjs';
 import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { TabCrongramaService } from './services/TabCrongrama.service';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 
 @Component({
@@ -28,7 +28,8 @@ import { TabCrongramaService } from './services/TabCrongrama.service';
      ChartModule,
      TagModule,
      ButtonModule,
-     TooltipModule
+     TooltipModule,
+     ProgressBarModule
 
   ],
   templateUrl: './tablero-cronograma.component.html',
@@ -36,103 +37,55 @@ import { TabCrongramaService } from './services/TabCrongrama.service';
 })
 export  default class TableroCronogramaComponent implements OnInit {
   
-    
   public data: any = [];
-
-  public dataCronogramas: any = [];
-
+  
+  public tipo : String = "pie";
+  
 
  constructor(
   private service: TabCrongramaService,
-  private router: Router,
-  private route: ActivatedRoute,
+  private router: Router
  ){}
   
-  data2: any;
-  chartOptions: any;
-  subscription: Subscription;
-  config: any;
-
+  
   public id: number = -1;
 
-  public ngOnInit() {
-              this.service.getProyectos().subscribe( res => {
-                  this.data =  res.Detalle._app_lst_proyectos.lst;
-                  
-                  console.log(  this.data )
-          });
-  
-      this.data2 = {
-          labels: ['Pendientes','Terminadas'],
-          datasets: [
-              {
-                  data: [10, 5 ],
-                  backgroundColor: [
-                      "#42A5F5",
-                      "#66BB6A"
-                  ],
-                  hoverBackgroundColor: [
-                      "#64B5F6",
-                      "#81C784"
-                  ]
-              }
-          ]
-      };
-
-      
-  }
-
-  updateChartOptions() {
-      this.chartOptions = this.config && this.config.dark ? this.getDarkTheme() : this.getLightTheme();
-  }
-
-  getLightTheme() {
-      return {
-          plugins: {
-              legend: {
-                  labels: {
-                      color: '#495057'
-                  }
-              }
-          }
-      }
-  }
-
-  getDarkTheme() {
-      return {
-          plugins: {
-              legend: {
-                  labels: {
-                      color: '#ebedef'
-                  }
-              }
-          }
-      }
+  public ngOnInit() 
+  {
+      this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst; console.log( this.data)});
   }
 
   public lstActividad ( id: number ){
       this.router.navigate([ `/ControlPMI/lstCronograma/${id}`]);
   }
 
-  
+  public chartForma( valor: String ){
+    this.data = null;
+        switch (valor) {
+            case "pie":
+                this.tipo = valor;
+                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
+                break;
+            case "doughnut":
+                this.tipo = valor;
+                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
+                break;
+            case "bar":
+                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
+                this.tipo = valor;
+                break;
+            default:
+                this.tipo = "pie";
+                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
+                break;
+        }  
+    }
 
-  displayModal: boolean;
+    
+    public config( id: number ){
+        this.router.navigate([ `/ControlPMI/Cronograma/${id}`]);
+    }
 
-  displayBasic: boolean;
-
-  displayBasic2: boolean;
-
-  displayMaximizable: boolean;
-
-  displayPosition: boolean;
-
-  position: string;
-
-
-  public lstVerActividad (){
-      this.position = 'top';
-      this.displayPosition = true;
-  }
 
 
 }

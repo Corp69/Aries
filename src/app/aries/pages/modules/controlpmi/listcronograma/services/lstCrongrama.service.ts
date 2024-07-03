@@ -11,10 +11,6 @@ import { environment } from '../../../../../../../environments/environment';
 export class LstCronogramaService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
-
-  //data para recargar la busqueda
-  public data: any = {};
-
   public Lstestatus(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
