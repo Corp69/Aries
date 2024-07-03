@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 //prime
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
@@ -29,8 +29,7 @@ import { DialogModule } from 'primeng/dialog';
      ChartModule,
      TagModule,
      ButtonModule,
-     TooltipModule,
-     DialogModule
+     TooltipModule
      
 
   ],
@@ -48,28 +47,29 @@ export default class ListcronogramaComponent implements OnInit {
    constructor(
     private service: LstCronogramaService,
     private router: Router,
+    private route: ActivatedRoute,
    ){}
     
-
-
-
-
     data2: any;
-
     chartOptions: any;
-
     subscription: Subscription;
-
     config: any;
 
-    ngOnInit() {
-           //hacemos el consumo de los cronogramas 
-    this.service.getCronogramas(1).subscribe( res => {
-        this.data =  res.Detalle._app_lst_cronogramas.lst;
-        this.dataCronogramas =  res.Detalle._app_lst_cronogramas.lst[0].cronogramas;
-        
- })
+    public id: number = -1;
 
+    public ngOnInit() {
+        this.route.params.subscribe(params => {
+            if (+params['id'] > -1) {
+              this.id = +params['id']; 
+                this.service.getCronogramas(this.id).subscribe( res => {
+                    this.data =  res.Detalle._app_lst_cronogramas.lst;
+                    this.dataCronogramas =  res.Detalle._app_lst_cronogramas.lst[0].cronogramas;
+                 });
+            }else{
+            
+            }
+            });
+    
         this.data2 = {
             labels: ['Pendientes','Terminadas'],
             datasets: [

@@ -63,7 +63,7 @@
                 <br>
                 &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 1" styleClass="mr-2" severity="success"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
                 &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 2" styleClass="mr-2" severity="warning"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
-                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 3" styleClass="mr-2" severity="Danger"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus != 1 && dataCronogramas.id_estatus != 2 " styleClass="mr-2" severity="danger"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
                 <br>
                 <p-chart type="pie" [data]="data2" [options]="chartOptions"></p-chart>
              </ng-template>

@@ -478,6 +478,13 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       {
+        path:  'TabCronograma',
+        title: ' PMI- Tablero Cronograma ',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/tablero-cronograma/tablero-cronograma.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
         path:  'Cronograma/:id',
         title: ' PMI- Cronograma ',
         loadComponent: () => import('./aries/pages/modules/controlpmi/cronograma/cronograma.component'),

@@ -1,0 +1,63 @@
+<hr>
+<p-card header="PMI - Tablero">
+</p-card>
+<hr>
+<!-- 
+    <div *ngFor="let dataCronogramas of data" class="cards-container">
+        <p-card header="Cronograma" subheader="{{dataCronogramas.titulo}}" [style]="{ width: '360px' }">
+             <ng-template pTemplate="header">
+                <br>
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 1" styleClass="mr-2" severity="success"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 2" styleClass="mr-2" severity="warning"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 3" styleClass="mr-2" severity="Danger"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                <br>
+                <p-chart type="pie" [data]="data2" [options]="chartOptions"></p-chart>
+             </ng-template>
+                <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ dataCronogramas.objetivo}} 
+                <br> <br>
+                <p-tag styleClass="mr-2" severity="info" value="Fecha:" [rounded]="true"></p-tag> {{ dataCronogramas.fecha }} 
+            <ng-template pTemplate="footer">
+                 <button
+                 pTooltip="Modificar: Registro."
+                 tooltipPosition="top"
+                 (click)="lstActividad( dataCronogramas.id)"
+                 pButton
+                 icon="pi pi-file-edit"
+                 type="button"
+                 class="p-button-Info">
+                    Modificar 
+               </button>
+             </ng-template>
+         </p-card>
+    </div>
+ -->
+
+
+ <div  class="cards-container">
+    <p-card *ngFor="let proyecto of data" header="{{ proyecto.proyecto }}" subheader="Información General" [style]="{ width: '360px' }">
+         <ng-template pTemplate="header">
+            <br>
+            &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus == 1" styleClass="mr-2" severity="success"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
+            &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus == 2" styleClass="mr-2" severity="warning"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
+            &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus != 1 && proyecto.id_estatus != 2 " styleClass="mr-2" severity="danger"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
+            <br>
+              <p-chart type="pie" [data]="data2" [options]="chartOptions"></p-chart>
+         </ng-template>
+       
+         <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ proyecto.objetivo}} 
+         <br> <br>
+         <p-tag styleClass="mr-2" severity="info" value="Fecha Estimada:" [rounded]="true"></p-tag> {{ proyecto.fechas }} 
+         <ng-template pTemplate="footer">
+             <p-button 
+             pTooltip="Ver tablero de cronogramas."
+             tooltipPosition="top"
+             (click)="lstActividad(proyecto.id)"
+             label="Navegar " icon="pi pi-external-link"></p-button>
+         </ng-template>
+     </p-card>
+ 
+ </div>
+
+
+<hr>
+
