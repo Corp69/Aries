@@ -1,10 +1,136 @@
 <hr>
-<p-card header="PMI - Cronogramas">
-    {{ Proyecto }}
+<p-card header="PMI - Tablero Cronogramas">
+    <!-- Proyectos / -->
+    <p-table [value]="data" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Información General:</th>
+                <th>Avance</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Proyecto: &nbsp;</label>
+                             <p-tag styleClass="mr-2" icon="pi pi-flag-fill">
+                                {{data.proyecto }}   &nbsp;
+                             </p-tag>
+                        </div>
+                        <div class="col-sm-3">
+                            <p-tag styleClass="mr-2" severity="warning" value="Objetivo"></p-tag>
+                            <br>
+                            {{data.objetivo }}
+                        </div>
+                        <div class="col-sm-3">
+                            <h6> Fecha Registro: </h6> 
+                            <p-tag styleClass="mr-2" severity="info">
+                                {{ data.fecharegistro}} &nbsp;
+                            </p-tag>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <!-- /grafica del proyecto/ -->
+                    <p-tag styleClass="mr-2" icon="pi pi-info-circle" severity="info" value="Cronogramas"></p-tag>
+                    <br><br>
+                    <div style="width: 250px; height: 250px;">
+                        <p-chart type="doughnut" [data]="data2" [options]="chartOptions"></p-chart>
+                    </div>
+                    <br>
+                    <p-tag styleClass="mr-2" severity="info" [rounded]="true">
+                        Estimación  &nbsp; &nbsp;    
+                        {{ data.fechas }}
+                    </p-tag>
+                    <br>
+                    Estado: <p-tag styleClass="mr-2" [rounded]="true"> {{ data.estado }}</p-tag>  
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
 </p-card>
 <hr>
 <p-card>
-    {{ Proyecto }}
+
+
+        <!-- / Cronogramas / -->
+       <p-table [value]="dataCronogramas" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Cronograma:</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-dataCronogramas>
+            <tr>
+                <td>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Cronograma: &nbsp;</label>
+                             <p-tag styleClass="mr-2" icon="pi pi-clock">
+                                {{dataCronogramas.titulo }}   &nbsp;
+                             </p-tag>
+                        </div>
+                        <div class="col-sm-3">
+                           
+                            <p-tag styleClass="mr-2" severity="warning" value="Objetivo"></p-tag>
+                           <br>
+                           {{dataCronogramas.objetivo }}
+                        </div>
+                        <div class="col-sm-3">
+                            <h6> Fecha Estimada: </h6> 
+                            <p-tag styleClass="mr-2" severity="info">
+                                {{ dataCronogramas.fecha}} &nbsp;
+                            </p-tag>
+                        </div>
+                        <div class="col-sm-3">
+                            <h6> Actividades </h6>
+                            <div *ngFor="let act of dataCronogramas.actividades">
+                                <p> {{ act.nombre }}</p>
+                                <hr>
+                              </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <div style="width: 450px; height: 450px;">
+                     
+                        <p-chart type="bar" [options]="chartOptions" [data]="data2"></p-chart>
+                        <br>
+                        <p-button
+                        icon="pi pi-search"
+                        pTooltip="Clic para ver actividades."
+                        tooltipPosition="bottom"
+                        (click)="lstVerActividad()"
+                        label="ver actividades"
+                        severity="info"></p-button>
+                   
+                    </div>
+
+
+
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+    <p-dialog header="Godfather I" [(visible)]="displayPosition" position='top' [modal]="true" [style]="{width: '100vw'}"
+    [draggable]="false" [resizable]="false">
+    <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+        His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+        Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family,
+        kind and benevolent to those who give respect,
+        but given to ruthless violence whenever anything stands against the good of the family.</p>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+</p-dialog>
+
+
+
 </p-card> 
 <hr>
 
