@@ -63,15 +63,10 @@ export default class ListcronogramaComponent implements OnInit {
     config: any;
 
     ngOnInit() {
-
            //hacemos el consumo de los cronogramas 
     this.service.getCronogramas(1).subscribe( res => {
-
         this.data =  res.Detalle._app_lst_cronogramas.lst;
         this.dataCronogramas =  res.Detalle._app_lst_cronogramas.lst[0].cronogramas;
-
-        console.log( this.data );
-        console.log( this.dataCronogramas );
         
  })
 

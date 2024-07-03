@@ -1,5 +1,5 @@
 <hr>
-<p-card header="PMI - Tablero Cronogramas">
+<p-card header="PMI - Proyecto">
     <!-- Proyectos / -->
     <p-table [value]="data" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
@@ -52,50 +52,73 @@
 
 </p-card>
 <hr>
-<p-card>
-
-
-    <div class="cards-container">
-        <p-card header="Cheess Pizza." subheader=" Departamento TI." [style]="{ width: '360px' }">
+    <p-card header="PMI - Tablero Cronogramas">
+        <ng-template pTemplate="header">
+            
+        </ng-template>
+        
+    <div *ngFor="let dataCronogramas of dataCronogramas" class="cards-container">
+        <p-card header="Cronograma" subheader="{{dataCronogramas.titulo}}" [style]="{ width: '360px' }">
              <ng-template pTemplate="header">
-                 <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+                <br>
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 1" styleClass="mr-2" severity="success"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 2" styleClass="mr-2" severity="warning"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 3" styleClass="mr-2" severity="Danger"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                <br>
+                <p-chart type="pie" [data]="data2" [options]="chartOptions"></p-chart>
              </ng-template>
-             
-             <h4>
-                NUEVA FACTURA
-             </h4>
-             <ng-template pTemplate="footer">
-                 <p-button  label="Navegar " icon="pi pi-check"></p-button>
+                <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ dataCronogramas.objetivo}} 
+                <br> <br>
+                <p-tag styleClass="mr-2" severity="info" value="Fecha:" [rounded]="true"></p-tag> {{ dataCronogramas.fecha }} 
+            <ng-template pTemplate="footer">
+                 <button
+                 pTooltip="Modificar: Registro."
+                 tooltipPosition="top"
+                 (click)="lstActividad( dataCronogramas.id)"
+                 pButton
+                 icon="pi pi-file-edit"
+                 type="button"
+                 class="p-button-Info">
+                    Modificar 
+               </button>
              </ng-template>
          </p-card>
-     
-         <p-card header="Cheess Pizza." subheader=" Departamento TI." [style]="{ width: '360px' }">
+         <!-- /Actividades de cada cronograma / -->
+        <p-card header="Actividades" subheader="{{dataCronogramas.titulo}}"[style]="{ width: '360px' }">
              <ng-template pTemplate="header">
-                 <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+                <br>
+               
+                <br>
              </ng-template>
-             
-             <h4>
-                DESCARGAR XML
-             </h4>
-             <ng-template pTemplate="footer">
-                 <p-button  label="Navegar " icon="pi pi-check"></p-button>
-             </ng-template>
-         </p-card>
-         <p-card header="Cheess Pizza." subheader=" Departamento TI." [style]="{ width: '360px' }">
-             <ng-template pTemplate="header">
-                 <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
-             </ng-template>
-             
-             <h4>
-                RECUPERAR PDF
-             </h4>
-             <ng-template pTemplate="footer">
-                 <p-button  label="Navegar " icon="pi pi-check"></p-button>
-             </ng-template>
-         </p-card>
-     
-     </div>
+                <ul>
+                  <li *ngFor="let act of dataCronogramas.actividades">
+                  
+                    <p-tag (click)="lstActividad( act.id)"
+                            pTooltip="Modificar: Registro."
+                            tooltipPosition="top"
+                            styleClass="mr-2" 
+                            severity="info" 
+                            icon="pi pi-file-edit"
+                            [rounded]="true">                  
+                    </p-tag>
+                    {{ act.nombre }}   
 
-</p-card> 
+                  <br>
+                  <br>
+                  <br>
+                  </li>
+                </ul>
+              <div *ngIf="dataCronogramas.actividades == null ">
+                <p>No hay tareas disponibles.</p>
+              </div>
+            <ng-template pTemplate="footer">
+                
+             </ng-template>
+         </p-card>
+    </div>
+        <ng-template pTemplate="footer">
+        </ng-template>
+    </p-card>
+
 <hr>
 
