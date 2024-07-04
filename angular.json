@@ -36,7 +36,7 @@
               {
                 "input": "src/theme-luna-green.scss",
                 "bundleName": "luna-green",
-                "inject": true
+                "inject": false
               },
               {
                 "input": "src/assets/temas/theme-md-dark-indigo.scss",
