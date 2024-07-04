@@ -44,7 +44,7 @@
             >
         </p-dropdown>
             <p-message severity="error" text="Campo Es Obligatorio "
-                *ngIf="frm.controls['_fecha_inicio'].invalid">
+                *ngIf="frm.controls['_id_estatus'].invalid">
              </p-message>
         </div>
     </div>
@@ -79,6 +79,144 @@
 @if( ConfirmacionMdl == true  ) {
     <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
 }
-
-
 </p-card> 
+
+<p-divider></p-divider>
+
+<p-table
+[value]="DataSource" dataKey="id"
+[tableStyle]="{ 'min-width': '75rem' }"
+[paginator]="true"
+[rows]="10"
+[rowsPerPageOptions]="[5,10,25]"
+[paginator]="true">
+<ng-template pTemplate="header">
+  <tr>
+      <th></th>
+      <th></th>
+      <th 
+        pSortableColumn="decripcion">CRONOGRAMA<p-sortIcon field="decripcion"></p-sortIcon>
+      </th>
+      <th
+        pSortableColumn="obejtivo">OJETIVO<p-sortIcon field="obejtivo"></p-sortIcon>
+    </th>
+      <th  
+        pSortableColumn="fecha">FECHA<p-sortIcon field="fecha"></p-sortIcon>
+      </th>
+      <th  
+        pSortableColumn="estado">ESTATUS<p-sortIcon field="estado"></p-sortIcon>
+      </th>
+  </tr>
+</ng-template>
+<ng-template pTemplate="body" let-DataSource let-expanded="expanded">
+<tr>
+  <td>
+    <button 
+      type="button" 
+      pButton pRipple 
+      [pRowToggler]="DataSource" 
+      class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+  </td>
+  <td>
+    <button
+    pTooltip="Modificar: Registro."
+    tooltipPosition="top"
+    (click)="selectRowProyectos(DataSource.id)"
+    pButton
+    icon="pi pi-file-edit"
+    type="button"
+    class="p-button-Info">
+  </button>
+  <td>
+    <div [innerHTML]="DataSource.decripcion"></div>
+  </td>
+  <td>
+    <div [innerHTML]="DataSource.objetivo"></div>
+  </td>
+  <td>
+    <div [innerHTML]="DataSource.fecha"></div>
+  </td>
+  <td>
+    <div [innerHTML]="DataSource.estado"></div>
+  </td>
+</tr>
+</ng-template>
+<ng-template pTemplate="rowexpansion" let-DataSource>
+  <tr>
+      <td colspan="7">
+          <div class="p-3">
+              <p-table [value]="DataSource.actividades" dataKey="id">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th 
+                        pSortableColumn="act">ACTIVIDAD<p-sortIcon field="act"></p-sortIcon>
+                      </th>
+                      <th 
+                        pSortableColumn="hrsestimadas">Hrs. ESTIMADAS<p-sortIcon field="hrsestimadas"></p-sortIcon>
+                      </th>
+                      <th  
+                        pSortableColumn="hrsreales">Hrs. REALES<p-sortIcon field="hrsreales"></p-sortIcon>
+                      </th>
+                      <th  
+                        pSortableColumn="empleado">EMPLEADO<p-sortIcon field="empleado"></p-sortIcon>
+                      </th>
+                      <th 
+                        pSortableColumn="estatus">ESTADO<p-sortIcon field="estatus"></p-sortIcon>
+                      </th>
+                  </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-actividades
+                  >
+                    <tr>
+                      <td>
+                        <button
+                        pTooltip="Modificar: Registro."
+                        tooltipPosition="top"
+                        (click)="selectRowCronograma( actividades.id )"
+                        pButton
+                        icon="pi pi-file-edit"
+                        type="button"
+                        class="p-button-Info">
+                      </button>
+                      </td>
+                      <td>
+                        <button
+                        pTooltip="Eliminar: Registro."
+                        tooltipPosition="top"
+                        (click)="eliminarRow( actividades.id)"
+                        pButton
+                        icon="pi pi-trash"
+                        type="button"
+                        class="p-button-danger">
+                      </button>
+                      </td>
+                      <td>
+                        <div [innerHTML]="actividades.act"></div>
+                      </td>
+                      <td>
+                        <div [innerHTML]="actividades.hrsestimadas"></div>
+                      </td>
+                      <td>
+                        <div [innerHTML]="actividades.hrsreales"></div>
+                      </td>
+                      <td>
+                        <div [innerHTML]="actividades.empleado"></div>
+                      </td>
+                      <td>
+                        <div [innerHTML]="actividades.estatus"></div>
+                      </td>
+                  </tr>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage">
+                      <tr>
+                          <td colspan="6">No hay registros.</td>
+                      </tr>
+                  </ng-template>
+              </p-table>
+          </div>
+      </td>
+  </tr>
+</ng-template>
+</p-table>

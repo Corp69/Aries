@@ -41,7 +41,6 @@ import { CalendarModule } from 'primeng/calendar';
         //prime NG
         InputGroupModule,
         InputGroupAddonModule,
-        DividerModule,
         MessageModule,
         DropdownModule,
         CardModule,

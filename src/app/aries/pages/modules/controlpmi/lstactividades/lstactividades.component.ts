@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
 import { lstactividadService } from './service/lstactividad.service';
@@ -15,11 +15,16 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Mdllst } from './models/Mdllst';
 import { MdleliminarComponent } from '@shared/pages/modales/mdleliminar/mdleliminar.component';
 import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
+import { DividerModule } from 'primeng/divider';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lstactividades',
   standalone: true,
   imports: [
+    
+    CommonModule,
+    ReactiveFormsModule,
 
      //prime 
      CardModule,
@@ -30,7 +35,7 @@ import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confir
      BlockUIModule,
      ProgressSpinnerModule,
      MessageModule,
-
+     DividerModule,
     //shared
     MdleliminarComponent,
     ConfirmacionComponent,
@@ -86,15 +91,14 @@ export default class LstactividadesComponent implements  OnInit {
   
     public ngOnInit(): void {
       //listado 
-      this.servicio.Lstestatus().subscribe((resp) => { 
-        this.lstEstus    = resp.Detalle; 
+      this.servicio.Lstestatus().subscribe((resp) => {  this.lstEstus    = resp.Detalle; });
+      this.servicio.lstProyecto().subscribe(resp => {
         this.lstProyecto  = resp.Detalle.map(item => {
           return {
               id: item.id,
               nombre: item.nombre.trim() // Puedes usar trim() para eliminar espacios adicionales al inicio o final del nombre
           };
       });
-      
       });
     }
   
@@ -108,6 +112,8 @@ export default class LstactividadesComponent implements  OnInit {
     // bloqueamos pantalla
     this.Ariesblocked = true;
             this.servicio.Buscar( this.frm.value ).subscribe(resp => {
+
+              console.log( resp );
               switch ( resp.IdMensj ) {
                 case 3:
                   //============================================================
@@ -133,7 +139,7 @@ export default class LstactividadesComponent implements  OnInit {
                 default:
                   //============================================================
                   //validamos que no venga vacio
-                  if ( resp.Detalle._app_lst_persona._lst.length == 0 ) {
+                  if ( resp.Detalle._app_lst_cronograma_lst_actividades.lst.length == 0 ) {
                        // mensaje para verificar la captura de la direccion del sat
                     this.messageService.add(
                       {
@@ -148,7 +154,12 @@ export default class LstactividadesComponent implements  OnInit {
 
                   }
                   else{
-                    this.DataSource         = resp.Detalle._app_lst_persona._lst;
+                    this.DataSource  = resp.Detalle._app_lst_cronograma_lst_actividades.lst;
+                    
+                    
+                      console.log( this.DataSource );
+          
+
                     this.DataSourceColumnas = Object.keys(this.DataSource[0]);
                   }
                   // desbloqueamos la pantalla
@@ -158,6 +169,27 @@ export default class LstactividadesComponent implements  OnInit {
               this.BtnSpinner    = false;
             });
 
+
+            
+
+
+
     }
 
+
+    public selectRow ( args: any){
+
+    }
+
+    public eliminarRow ( args: any){
+
+    }
+    
+    public selectRowProyectos ( args: any){
+
+    }
+    public selectRowCronograma ( args: any){
+
+    }
+    
 }

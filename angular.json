@@ -35,13 +35,13 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               {
                 "input": "src/assets/temas/theme-luna-green.scss",
-                "bundleName": "md-dark-indigo",
-                "inject": false
+                "bundleName": "luna-green",
+                "inject": true
               },
               {
                 "input": "src/assets/temas/theme-md-dark-indigo.scss",
-                "bundleName": "luna-green",
-                "inject": true
+                "bundleName": "md-dark-indigo",
+                "inject": false
               },
               {
 
