@@ -136,7 +136,6 @@ export default class ProyectosComponent implements OnInit {
   public ngOnInit(): void {
     //listado 
     this.servicio.Lstestatus().subscribe((resp) => { this.lstEstus= resp.Detalle; });
-    this.servicio.getProductsWithOrdersSmall().then(data => this.products = data);
   
   }
 
@@ -150,7 +149,7 @@ export default class ProyectosComponent implements OnInit {
   }
 
 
-  //btn nuevo
+  //btn buscar
   public  buscar() {
     //=======================================================================================
     //conversion de fecha

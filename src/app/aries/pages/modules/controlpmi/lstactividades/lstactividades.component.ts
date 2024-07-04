@@ -17,6 +17,7 @@ import { MdleliminarComponent } from '@shared/pages/modales/mdleliminar/mdlelimi
 import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
 import { DividerModule } from 'primeng/divider';
 import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-lstactividades',
@@ -31,6 +32,7 @@ import { CommonModule } from '@angular/common';
      DropdownModule,
      TableModule,    
      TooltipModule,
+     ToastModule,
      ButtonModule,
      BlockUIModule,
      ProgressSpinnerModule,
@@ -111,9 +113,108 @@ export default class LstactividadesComponent implements  OnInit {
     this.BtnSpinner   = true;
     // bloqueamos pantalla
     this.Ariesblocked = true;
-            this.servicio.Buscar( this.frm.value ).subscribe(resp => {
+      this.servicio.Buscar( this.frm.value ).subscribe(resp => {
+        switch ( resp.IdMensj ) {
+          case 3:
+            //============================================================
+            this.ConfirmacionMsjMdl.msjTipo = 2; //resp.IdMensj;
+            this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
+            this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+            this.ConfirmacionMsjMdl.detalle = resp.Solucion;
+            this.ConfirmacionMdl = true;
+            // desbloqueamos la pantalla
+            this.Ariesblocked = false;
+            break;
+          case 2:
+            //============================================================
+            this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
+            this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
+            this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+            this.ConfirmacionMsjMdl.detalle = resp.Detalle;
+              // mostramos el resultado de la informacion
+              this.ConfirmacionMdl  = true;
+            // desbloqueamos la pantalla
+            this.Ariesblocked = false;
+            break;
+          default:
+            //============================================================
+            //validamos que no venga vacio
+            if ( resp.Detalle._app_lst_cronograma_lst_actividades.lst.length == 0 ) {
+                  // mensaje para verificar la captura de la direccion del sat
+              this.messageService.add(
+                {
+                  key: 'tc', 
+                  severity:'info', 
+                  summary: 'info',
+                  detail: 'Busqueda realizada, no hay registros.'
+                });
+                //registros dejamos en vacio 
+                this.DataSource         = [];
+                this.DataSourceColumnas = [];
 
-              console.log( resp );
+            }
+            else{
+              this.DataSource  = resp.Detalle._app_lst_cronograma_lst_actividades.lst;
+              this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+            }
+            // desbloqueamos la pantalla
+            this.Ariesblocked     = false;
+            break;
+        }
+        this.BtnSpinner    = false;
+      });
+    }
+
+    //============================================================
+    // Redireccion  Actividad 
+    public selectRowCronograma( id: number ){ this.router.navigate([ `/ControlPMI/Cronograma/${ id }`]);}
+    public selectRowActividad(  id: number ){ this.router.navigate([ `/ControlPMI/Actividad/${ id }`]);}
+    
+
+
+
+    //============================================================
+    // Eliminar Actividad 
+
+    //==============================================================================================================
+    // Modal: mensaje Confirmacion falso para no cargar la modal
+    public mdleliminar: boolean = false;
+    
+    public tabla: String ="pmi_actividades";
+    //el id del registro a eliminar
+    public _id: number = -1;
+    
+    public eliminarRow( id: number ){
+      this._id = id;
+      this.mdleliminar = true;
+      this.Ariesblocked = true;
+    }
+    
+      //=======================================
+     // metodo generico de busqueda...
+     public eliminacion( response: any) {
+      // cargamos al objeto a buscar
+      this.mdleliminar  = false;
+      // recargamos la data
+      switch ( response ) {
+        case false:
+          this.messageService.add(
+            {
+              key: 'tc', 
+              severity:'info', 
+              summary: 'info',
+              detail: 'Eliminación, Cancelada'
+            });
+          break;
+        default:
+          this.messageService.add(
+            {
+              key: 'tc', 
+              severity:'success', 
+              summary: 'Registro',
+              detail:  'Eliminado: Correctamente!'
+            });
+            this.servicio.RecargarBuscar().subscribe(resp => {
               switch ( resp.IdMensj ) {
                 case 3:
                   //============================================================
@@ -122,8 +223,6 @@ export default class LstactividadesComponent implements  OnInit {
                   this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
                   this.ConfirmacionMsjMdl.detalle = resp.Solucion;
                   this.ConfirmacionMdl = true;
-                  // desbloqueamos la pantalla
-                  this.Ariesblocked = false;
                   break;
                 case 2:
                   //============================================================
@@ -133,8 +232,6 @@ export default class LstactividadesComponent implements  OnInit {
                   this.ConfirmacionMsjMdl.detalle = resp.Detalle;
                    // mostramos el resultado de la informacion
                    this.ConfirmacionMdl  = true;
-                  // desbloqueamos la pantalla
-                  this.Ariesblocked = false;
                   break;
                 default:
                   //============================================================
@@ -148,48 +245,21 @@ export default class LstactividadesComponent implements  OnInit {
                         summary: 'info',
                         detail: 'Busqueda realizada, no hay registros.'
                       });
-                      //registros dejamos en vacio 
-                      this.DataSource         = [];
-                      this.DataSourceColumnas = [];
-
                   }
                   else{
-                    this.DataSource  = resp.Detalle._app_lst_cronograma_lst_actividades.lst;
-                    
-                    
-                      console.log( this.DataSource );
-          
-
-                    this.DataSourceColumnas = Object.keys(this.DataSource[0]);
+                    this.DataSource = resp.Detalle._app_lst_cronograma_lst_actividades.lst;
                   }
-                  // desbloqueamos la pantalla
-                  this.Ariesblocked     = false;
                   break;
               }
-              this.BtnSpinner    = false;
             });
-
-
-            
-
-
-
-    }
-
-
-    public selectRow ( args: any){
-
-    }
-
-    public eliminarRow ( args: any){
-
+        break;
+      }
+      // cancelamos el stop 
+      this.Ariesblocked = false;
+      // reiniciamos el id del registro que se elimino
+      this._id = -1;
     }
     
-    public selectRowProyectos ( args: any){
 
-    }
-    public selectRowCronograma ( args: any){
 
-    }
-    
 }

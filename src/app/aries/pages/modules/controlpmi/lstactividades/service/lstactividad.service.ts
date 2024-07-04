@@ -12,9 +12,6 @@ import { Mdllst } from '../models/Mdllst';
 export class lstactividadService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
-
-
-
   public Lstestatus(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -52,11 +49,13 @@ export class lstactividadService {
     );
   }
 
-
-
+    //data para recargar la busqueda
+    public data: any = {};
 
   public Buscar( data: Mdllst ): Observable<any> {
-
+      // data para recargar la info
+      this.data = data;
+  
     let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
      return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
       {
@@ -66,6 +65,21 @@ export class lstactividadService {
         {
         "_id_proyecto": data._id_proyecto,
         "_id_estatus":  data._id_estatus
+        }
+    },
+      { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
+  }
+
+  public RecargarBuscar(): Observable<any> {
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+     return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
+      {
+        "ExSchema": "pmi",
+        "funcion":  "_app_lst_cronograma_lst_actividades",
+        "data": 
+        {
+        "_id_proyecto": this.data._id_proyecto,
+        "_id_estatus":  this.data._id_estatus
         }
     },
       { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
