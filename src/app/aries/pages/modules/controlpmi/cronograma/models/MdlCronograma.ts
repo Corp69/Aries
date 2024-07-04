@@ -1,8 +1,8 @@
 export class MdlCronograma
 {
 public id:               number = -1;
-public id_pmi_proyecto:  number = 1;
-public id_estatus:       number = 1;
+public id_pmi_proyecto:  number = null;
+public id_estatus:       number = null;
 public titulo:           String = "";
 public objetivo:         String = "";
 public fecha_inicio:     Date = new Date();

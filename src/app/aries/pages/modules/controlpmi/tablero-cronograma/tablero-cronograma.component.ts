@@ -52,7 +52,7 @@ export  default class TableroCronogramaComponent implements OnInit {
 
   public ngOnInit() 
   {
-      this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst; console.log( this.data)});
+      this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
   }
 
   public lstActividad ( id: number ){
@@ -82,8 +82,16 @@ export  default class TableroCronogramaComponent implements OnInit {
     }
 
     
-    public config( id: number ){
-        this.router.navigate([ `/ControlPMI/Cronograma/${id}`]);
+    public config(){
+        this.router.navigate([ `/ControlPMI/Cronograma/-1`]);
+    }
+
+    public BtnBuscar(){
+        this.router.navigate([ `/ControlPMI/buscarCronograma`]);
+    }
+
+    public Nuevo(){
+        this.router.navigate([ `/ControlPMI/Cronograma/-1`]);
     }
 
 

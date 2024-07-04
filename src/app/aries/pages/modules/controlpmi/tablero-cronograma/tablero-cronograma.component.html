@@ -35,7 +35,33 @@
     }
 </p-card>
 <hr>
-
+@if ( data != null) {
+<p-card header="PMI - Cronograma">
+    <span class="p-buttonset">
+        <p-button
+            icon="pi pi-search"
+            pTooltip="Buscar: Un Cronograma."
+            tooltipPosition="bottom"
+            (click)="BtnBuscar()"
+            label="Buscar"
+            severity="info"
+        >
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-plus"
+            label="Nuevo"
+            (click)="Nuevo()"
+            pTooltip="Configurar un cronograma nuevo."
+            tooltipPosition="bottom"
+            severity="primary"
+        >
+        </p-button>
+        &nbsp;
+    </span>
+</p-card>
+<hr>
+}
 
 @if ( data != null) {
  <div  class="cards-container">
@@ -58,7 +84,7 @@
                         <p-button
                         icon="pi pi-clock"
                         label="Configurar"
-                        (click)="config( proyecto.id )"
+                        (click)="config()"
                         pTooltip="Agregar Un cronograma."
                         tooltipPosition="bottom"
                         severity="primary"
@@ -77,10 +103,10 @@
          <p-tag styleClass="mr-2" severity="info" value="Fecha Estimada:" [rounded]="true"></p-tag> {{ proyecto.fechas }} 
          <ng-template pTemplate="footer">
              <p-button 
-             pTooltip="Ver tablero de cronogramas."
+             pTooltip="Ver mas detalle."
              tooltipPosition="top"
              (click)="lstActividad(proyecto.id)"
-             label="Navegar " icon="pi pi-external-link"></p-button>
+             label="ver más" icon="pi pi-external-link"></p-button>
          </ng-template>
      </p-card> 
  </div>
@@ -90,8 +116,4 @@
         <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
     </p-card>
 }
-
-
-
 <hr>
-

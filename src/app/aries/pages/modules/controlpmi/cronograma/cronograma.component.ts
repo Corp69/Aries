@@ -14,8 +14,6 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { KeyFilterModule } from 'primeng/keyfilter';
-import { GenericaComponent } from '@shared/pages/busquedas/generica/generica.component';
 import { BlockUIModule } from 'primeng/blockui';
 import { DropdownModule } from 'primeng/dropdown';
 import {ToastModule} from 'primeng/toast';
@@ -41,7 +39,6 @@ import { CalendarModule } from 'primeng/calendar';
 
 
         //prime NG
-        KeyFilterModule,
         InputGroupModule,
         InputGroupAddonModule,
         DividerModule,
@@ -86,13 +83,14 @@ export default class ExtensionComponent implements OnInit{
     
   //==============================================================================================================
   // Listados:
-  public lstestatus: list[] = [];
+  public lstestatus:   list[] = [];
+  public lstProyecto:  list[] = [];
 
   //==============================================================================================================
   //Formularios del app:
   public frm: FormGroup = this.fb.group({
     id:              [-1],
-    id_pmi_proyecto: [1],
+    id_pmi_proyecto: [null,[Validators.required, Validators.minLength(1)]],
     id_estatus:      [null, [Validators.required, Validators.minLength(1)]],
     titulo:          ["", [Validators.required, Validators.minLength(5)]],
     objetivo:        ["", [Validators.required, Validators.minLength(5)]],
@@ -116,6 +114,18 @@ export default class ExtensionComponent implements OnInit{
       //=========================================================================================================================
       //carga listados
       this.servicio.lstEstatus().subscribe(resp => { this.lstestatus  = resp.Detalle; });
+      this.servicio.lstProyecto().subscribe(resp => {
+        
+        this.lstProyecto  = resp.Detalle.map(item => {
+          return {
+              id: item.id,
+              nombre: item.nombre.trim() // Puedes usar trim() para eliminar espacios adicionales al inicio o final del nombre
+          };
+      });
+
+        
+      
+      });
     }
 
   

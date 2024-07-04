@@ -92,8 +92,30 @@
                 </p-dropdown>
             </div>
         </div>
+        <hr>
+        <div class="flex flex-wrap gap-3">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon
+                    pTooltip="Seleccione un estado del Cronograma."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Proyecto:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    pTooltip="Seleccione un proyecto."
+                    tooltipPosition="bottom"
+                    formControlName="id_pmi_proyecto"
+                    placeholder="seleccione una opcion"
+                    value="id_pmi_proyecto"
+                    [options]="lstProyecto "
+                    optionValue="id" optionLabel="nombre"
+                    >
+                </p-dropdown>
+            </div>
+        </div>
         <p-message severity="error" text="Campo Es Obligatorio "
-             *ngIf="frm.controls['id_estatus'].invalid">
+             *ngIf="frm.controls['id_pmi_proyecto'].invalid">
         </p-message>
         <hr>
         <div class="row">
