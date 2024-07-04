@@ -8,6 +8,8 @@ import {ChartModule} from 'primeng/chart';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import { BlockUIModule } from 'primeng/blockui';
+import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
@@ -19,11 +21,14 @@ import { BlockUIModule } from 'primeng/blockui';
     ToastModule,
     DividerModule, 
     ChartModule,
+    TooltipModule,
+    ButtonModule,
     BlockUIModule
 
 ], 
 providers: [MessageService],
 templateUrl: './principal.component.html',
+styleUrl: './principal.component.scss',
 styles: ``
 })
 export default class PrincipalComponent  {
@@ -163,4 +168,12 @@ export default class PrincipalComponent  {
           }
       };
   }
+
+
+  public Navegar(){
+
+  }
+
+
+
 }

@@ -1,5 +1,138 @@
 <hr>
 <p-toast position="top-center" key="tc"></p-toast>
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
-<p-card header="Aries - Inicio ">
-</p-card>
+<div class="cards-container">
+    <p-card header="" subheader=" MODULO: CONTROL PMI " [style]="{ width: '360px' }">
+         <ng-template pTemplate="header">
+            <div style="border-radius: 50%; width: 130px; height: 130px; overflow: hidden;">
+                <img alt="Card" src="./assets/images/principal/PMI.png" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+         </ng-template>
+         <h4>
+            Proxima Actualización.
+         </h4>
+         <hr>
+         <ul>
+            <li>PMI - EQUIPOS </li>
+            <li>PMI - ACTIVIDADES </li>
+            <li>PMI - INVERSIÓN COSTO BENEFICIO  </li>
+          </ul>
+         <ng-template pTemplate="footer">
+            <hr>
+            <p-button 
+            pTooltip="Ver mas detalle."
+            tooltipPosition="top"
+            (click)="Navegar()"
+            label="ver más" icon="pi pi-external-link"></p-button>
+            <hr>
+         </ng-template>
+     </p-card>
+ 
+     <p-card header="" subheader=" MODULO: CONTROL CONTABLE " [style]="{ width: '360px' }">
+         <ng-template pTemplate="header">
+            <div style="width: 130px; height: 130px;">
+             <img alt="Card" src="./assets/images/principal/Contabilidd.png" />
+            </div>
+         </ng-template>
+         <h4>
+            Proxima Actualización.
+         </h4>
+         <hr>
+         <ul>
+            <li>FISCAL - REMISIÓN </li>
+            <li>FISCAL - DESCARGA MASIVA XML </li>
+            <li>FISCAL - ENVIO CORREO XML  </li>
+          </ul>
+         <ng-template pTemplate="footer">
+            <hr>
+            <p-button 
+            pTooltip="Ver mas detalle."
+            tooltipPosition="top"
+            (click)="Navegar()"
+            label="ver más" icon="pi pi-external-link"></p-button>
+            <hr>
+         </ng-template>
+     </p-card>
+     <p-card header="" subheader=" MODULO: CONTROL RH " [style]="{ width: '360px' }">
+         <ng-template pTemplate="header">
+            <div style="width: 130px; height: 130px;">
+               <img alt="Card" src="./assets/images/principal/RH.png" />
+            </div>
+         </ng-template>
+             <h4>
+                Proxima Actualización.
+             </h4>
+             <hr>
+             <ul>
+                <li>RH - DEMAPARTAMENTO </li>
+                <li>RH - PUESTO </li>
+              </ul>
+         <ng-template pTemplate="footer">
+            <hr>
+            <p-button 
+            pTooltip="Ver mas detalle."
+            tooltipPosition="top"
+            (click)="Navegar()"
+            label="ver más" icon="pi pi-external-link"></p-button>
+            <hr>
+         </ng-template>
+     </p-card>
+    <p-card header="" subheader="MODULO CONTROL: LOGISTICA" [style]="{ width: '360px' }">
+         <ng-template pTemplate="header">
+            <div style="border-radius: 50%; width: 130px; height: 130px; overflow: hidden;">
+                <img alt="Card" src="./assets/images/principal/LOG.png" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+         </ng-template>
+         <h4>
+            Proximamente...
+         </h4>
+         <ng-template pTemplate="footer">
+            <hr>
+            <p-button 
+            pTooltip="Ver mas detalle."
+            tooltipPosition="top"
+            (click)="Navegar()"
+            label="ver más" icon="pi pi-external-link"></p-button>
+            <hr>
+         </ng-template>
+     </p-card>
+ 
+     <p-card header="" subheader=" MODULO: CONTROL NOTIFICACIONES " [style]="{ width: '360px' }">
+         <ng-template pTemplate="header">
+            <div style="width: 130px; height: 130px;">
+             <img alt="Card" src="./assets/images/principal/notificacion.png" />
+             </div>
+            </ng-template>
+         <h4>
+            Proximamente...
+         </h4>
+         <ng-template pTemplate="footer">
+            <hr>
+            <p-button 
+            pTooltip="Ver mas detalle."
+            tooltipPosition="top"
+            (click)="Navegar()"
+            label="ver más" icon="pi pi-external-link"></p-button>
+            <hr>
+         </ng-template>
+     </p-card>
+     <p-card header="" subheader=" MODULO: CONTROL CRM " [style]="{ width: '360px' }">
+         <ng-template pTemplate="header">
+            <div style="border-radius: 50%; width: 130px; height: 130px; overflow: hidden;">
+                <img alt="Card" src="./assets/images/principal/crm.png" />
+             </div>
+         </ng-template>
+         <h4>
+            Proximamente...
+         </h4>
+         <ng-template pTemplate="footer">
+            <hr>
+            <p-button 
+            pTooltip="Ver mas detalle."
+            tooltipPosition="top"
+            (click)="Navegar()"
+            label="ver más" icon="pi pi-external-link"></p-button>
+            <hr>
+         </ng-template>
+     </p-card>
+ </div>
