@@ -1,0 +1,119 @@
+<hr>
+<p-card header="PMI - Tablero">
+    @if ( data != null) {
+    <span class="p-buttonset">
+        <p-button
+        icon="pi pi-chart-pie"
+        label="Pie"
+        (click)="chartForma('pie')"
+        pTooltip="Clic para cambiar forma."
+        tooltipPosition="bottom"
+        severity="primary"
+        >
+        </p-button> 
+        &nbsp;
+        <p-button
+            icon="pi pi-map-marker"
+            pTooltip="Clic para cambiar forma."
+            tooltipPosition="bottom"
+            (click)="chartForma('doughnut')"
+            label="dona"
+            severity="warning">
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-chart-bar"
+            pTooltip="Clic para cambiar forma."
+            tooltipPosition="bottom"
+            (click)="chartForma('bar')"
+            label="Barra"
+            severity="info"
+            >
+        </p-button>
+        &nbsp;
+    </span>
+    }
+</p-card>
+<hr>
+@if ( data != null) {
+<p-card header="PMI - Cronograma">
+    <span class="p-buttonset">
+        <p-button
+            icon="pi pi-search"
+            pTooltip="Buscar: Un Cronograma."
+            tooltipPosition="bottom"
+            (click)="BtnBuscar()"
+            label="Buscar"
+            severity="info"
+        >
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-plus"
+            label="Nuevo"
+            (click)="Nuevo()"
+            pTooltip="Configurar un cronograma nuevo."
+            tooltipPosition="bottom"
+            severity="primary"
+        >
+        </p-button>
+        &nbsp;
+    </span>
+</p-card>
+<hr>
+}
+
+@if ( data != null) {
+ <div  class="cards-container">
+    <p-card *ngFor="let proyecto of data" header="{{ proyecto.proyecto }}" subheader="Información General" [style]="{ width: '360px' }">
+         <ng-template pTemplate="header">
+            <br>
+            &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus == 1" styleClass="mr-2" severity="success"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
+            &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus == 2" styleClass="mr-2" severity="warning"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
+            &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus != 1 && proyecto.id_estatus != 2 " styleClass="mr-2" severity="danger"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
+            <br>
+              @if (proyecto.totalcronogramas != 0 ) {
+                <p-chart type="{{tipo}}" [data]="proyecto.chart"></p-chart>
+              }@else{
+                <br><br>
+                <div class="row">
+                    <div class="col-sm-3">
+                      
+                    </div>
+                    <div class="col-sm-3">
+                        <p-button
+                        icon="pi pi-clock"
+                        label="Configurar"
+                        (click)="config()"
+                        pTooltip="Agregar Un cronograma."
+                        tooltipPosition="bottom"
+                        severity="primary"
+                        >
+                    </p-button>
+                    </div>
+                    <div class="col-sm-3">
+                 
+                    </div>
+                </div>
+                }
+         </ng-template>
+       
+         <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ proyecto.objetivo}} 
+         <br> <br>
+         <p-tag styleClass="mr-2" severity="info" value="Fecha Estimada:" [rounded]="true"></p-tag> {{ proyecto.fechas }} 
+         <ng-template pTemplate="footer">
+             <p-button 
+             pTooltip="Ver mas detalle."
+             tooltipPosition="top"
+             (click)="lstActividad(proyecto.id)"
+             label="ver más" icon="pi pi-external-link"></p-button>
+         </ng-template>
+     </p-card> 
+ </div>
+}
+@else{
+    <p-card header="PMI - Cargando...">
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+    </p-card>
+}
+<hr>

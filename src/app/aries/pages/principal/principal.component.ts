@@ -4,18 +4,43 @@ import {CardModule} from 'primeng/card';
 import {DividerModule} from 'primeng/divider';
 import {ChartModule} from 'primeng/chart';
 
+
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import { BlockUIModule } from 'primeng/blockui';
+import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'primeng/button';
+
+
 @Component({
   standalone: true,
   imports: [
+
     CommonModule, 
     CardModule, 
+    ToastModule,
     DividerModule, 
-    ChartModule
-  ],
-  templateUrl: './principal.component.html',
-  styles: ``
+    ChartModule,
+    TooltipModule,
+    ButtonModule,
+    BlockUIModule
+
+], 
+providers: [MessageService],
+templateUrl: './principal.component.html',
+styleUrl: './principal.component.scss',
+styles: ``
 })
 export default class PrincipalComponent  {
+  
+    // variable que bloquea la vista
+  public Ariesblocked: boolean  = false;
+
+    constructor(
+        private messageService: MessageService,
+    ){}
+
+
 
   data: any;
   options: any;
@@ -143,4 +168,12 @@ export default class PrincipalComponent  {
           }
       };
   }
+
+
+  public Navegar(){
+
+  }
+
+
+
 }

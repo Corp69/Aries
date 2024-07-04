@@ -59,7 +59,7 @@ export const routes: Routes = [
     children: [
       {
         path:  'principal',
-        title: 'principal',
+        title: 'Aries - Bienvenido',
         loadComponent: () => import('./aries/pages/principal/principal.component'),
       },
       {
@@ -478,6 +478,20 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       {
+        path:  'TabCronograma',
+        title: ' PMI- Tablero Cronograma ',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/tablero-cronograma/tablero-cronograma.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'buscarCronograma',
+        title: ' PMI- Buscar Cronograma ',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/buscar-cronograma/buscar-cronograma.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
         path:  'Cronograma/:id',
         title: ' PMI- Cronograma ',
         loadComponent: () => import('./aries/pages/modules/controlpmi/cronograma/cronograma.component'),
@@ -488,6 +502,20 @@ export const routes: Routes = [
         path:  'lstCronograma/:id',
         title: ' PMI- Cronograma ',
         loadComponent: () => import('./aries/pages/modules/controlpmi/listcronograma/listcronograma.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'lstEquipos',
+        title: ' PMI - Equipos ',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/lstequipos/lstequipos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'lstActividades',
+        title: 'PMI - Actividades',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/lstactividades/lstactividades.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },

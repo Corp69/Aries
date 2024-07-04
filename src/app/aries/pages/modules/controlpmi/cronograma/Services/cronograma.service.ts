@@ -21,7 +21,7 @@ export class CronogramaService {
     });
     return this.http.post(`${environment.baseUrl}clientes/ctr/buscar/id/${id}`,
       {
-        Qtabla: 'pmi_cronograma',
+        Qtabla: 'pmi_cronograma'
       },
       { headers: headers }
     ).pipe(
@@ -53,12 +53,6 @@ export class CronogramaService {
       );
   }
 
-
-  
-  /**
-   * 
-   * @returns Json Array Estatus 
-   */
   public lstEstatus(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -66,6 +60,27 @@ export class CronogramaService {
     return this.http.post(`${environment.baseUrl}clientes/crt/list`,
       {
         Qtabla: 'app_estatus',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+
+  public lstProyecto(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/ctr/filtroIDs`,
+      {
+        "Qtabla":   "pmi_proyectos",
+        "_columna": "id_estatus",
+        "_orderBY": "nombre",
+        "Datos": {
+            "ids": [1]
+        }
       },
       { headers: headers }
     ).pipe(

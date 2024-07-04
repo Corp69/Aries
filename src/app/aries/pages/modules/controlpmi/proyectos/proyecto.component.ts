@@ -206,7 +206,7 @@ export default class ProyectoComponent implements OnInit {
     }
 
     public lst(){
-
+      this.router.navigate([ `/ControlPMI/Proyectos`]);
     }
 
 }

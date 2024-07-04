@@ -1,10 +1,124 @@
 <hr>
-<p-card header="PMI - Cronogramas">
-    {{ Proyecto }}
+<p-card header="PMI - Proyecto">
+    <!-- Proyectos / -->
+    <p-table [value]="data" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Información General:</th>
+                <th>Avance</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Proyecto: &nbsp;</label>
+                             <p-tag styleClass="mr-2" icon="pi pi-flag-fill">
+                                {{data.proyecto }}   &nbsp;
+                             </p-tag>
+                        </div>
+                        <div class="col-sm-3">
+                            <p-tag styleClass="mr-2" severity="warning" value="Objetivo"></p-tag>
+                            <br>
+                            {{data.objetivo }}
+                        </div>
+                        <div class="col-sm-3">
+                            <h6> Fecha Registro: </h6> 
+                            <p-tag styleClass="mr-2" severity="info">
+                                {{ data.fecharegistro}} &nbsp;
+                            </p-tag>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <!-- /grafica del proyecto/ -->
+                    <p-tag styleClass="mr-2" icon="pi pi-info-circle" severity="info" value="Cronogramas"></p-tag>
+                    <br><br>
+                    <div style="width: 250px; height: 250px;">
+                        <p-chart type="doughnut" [data]="data2" [options]="chartOptions"></p-chart>
+                    </div>
+                    <br>
+                    <p-tag styleClass="mr-2" severity="info" [rounded]="true">
+                        Estimación  &nbsp; &nbsp;    
+                        {{ data.fechas }}
+                    </p-tag>
+                    <br>
+                    Estado: <p-tag styleClass="mr-2" [rounded]="true"> {{ data.estado }}</p-tag>  
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
 </p-card>
 <hr>
-<p-card>
-    {{ Proyecto }}
-</p-card> 
+    <p-card header="PMI - Tablero Cronogramas">
+        <ng-template pTemplate="header">
+            
+        </ng-template>
+        
+    <div *ngFor="let dataCronogramas of dataCronogramas" class="cards-container">
+        <p-card header="Cronograma" subheader="{{dataCronogramas.titulo}}" [style]="{ width: '360px' }">
+             <ng-template pTemplate="header">
+                <br>
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 1" styleClass="mr-2" severity="success"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus == 2" styleClass="mr-2" severity="warning"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                &nbsp; &nbsp;<p-tag *ngIf=" dataCronogramas.id_estatus != 1 && dataCronogramas.id_estatus != 2 " styleClass="mr-2" severity="danger"  [rounded]="true"> {{ dataCronogramas.estado }}</p-tag> 
+                <br>
+                <p-chart type="pie" [data]="data2" [options]="chartOptions"></p-chart>
+             </ng-template>
+                <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ dataCronogramas.objetivo}} 
+                <br> <br>
+                <p-tag styleClass="mr-2" severity="info" value="Fecha:" [rounded]="true"></p-tag> {{ dataCronogramas.fecha }} 
+            <ng-template pTemplate="footer">
+                 <button
+                 pTooltip="Modificar: Registro."
+                 tooltipPosition="top"
+                 (click)="lstActividad( dataCronogramas.id)"
+                 pButton
+                 icon="pi pi-file-edit"
+                 type="button"
+                 class="p-button-Info">
+                    Modificar 
+               </button>
+             </ng-template>
+         </p-card>
+         <!-- /Actividades de cada cronograma / -->
+        <p-card header="Actividades" subheader="{{dataCronogramas.titulo}}"[style]="{ width: '360px' }">
+             <ng-template pTemplate="header">
+                <br>
+               
+                <br>
+             </ng-template>
+                <ul>
+                  <li *ngFor="let act of dataCronogramas.actividades">
+                  
+                    <p-tag (click)="lstActividad( act.id)"
+                            pTooltip="Modificar: Registro."
+                            tooltipPosition="top"
+                            styleClass="mr-2" 
+                            severity="info" 
+                            icon="pi pi-file-edit"
+                            [rounded]="true">                  
+                    </p-tag>
+                    {{ act.nombre }}   
+
+                  <br>
+                  <br>
+                  <br>
+                  </li>
+                </ul>
+              <div *ngIf="dataCronogramas.actividades == null ">
+                <p>No hay tareas disponibles.</p>
+              </div>
+            <ng-template pTemplate="footer">
+                
+             </ng-template>
+         </p-card>
+    </div>
+        <ng-template pTemplate="footer">
+        </ng-template>
+    </p-card>
+
 <hr>
 
