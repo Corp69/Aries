@@ -34,6 +34,8 @@ import { BlockUIModule } from 'primeng/blockui';
 import { DropdownModule } from 'primeng/dropdown';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
+import { ConfirmacionMensaje } from './interface/General';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -76,6 +78,15 @@ import {MessageService} from 'primeng/api';
 })
 export default class GeneralComponent  {
 
+  // variable para ver el id del proveedor
+  public _id: number = -1;
+
+  // Modal: mensaje Confirmacion falso para no cargar la modal
+  public ConfirmacionMdl: boolean = false;
+
+  // variables para mensaje actualizar guardar
+  public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
+
    //==============================================================================================================
   //modelos:
   public MdlGeneral: MdlGeneral = new MdlGeneral();
@@ -93,88 +104,104 @@ export default class GeneralComponent  {
     observaciones:    [, [Validators.required, Validators.minLength(3)]],
     nombrecomercial:    [, [Validators.required, Validators.minLength(3)]],
     aviso_privacidad:    [, [Validators.required, Validators.minLength(3)]],
-    id_sat_usocfdi: [1],
-    id_sat_regimenfiscal: [1]
   });
 
   constructor(
     private fb: FormBuilder,
     private servicio: GeneralService,
-    private messageService: MessageService, )
+    private messageService: MessageService, 
+    private route: ActivatedRoute,)
     {}
 
+
+    public ngAfterViewInit(): void {
+      this.route.params.subscribe(params => {
+        if (+params['id'] > -1) {
+          this._id = +params['id'];
+          // AGREGAMOS LA INFORMACION AL FORMULARIO
+          this.servicio.Datainfo(+params['id']).subscribe(resp => {
+           //this.frmGeneral.setValue(resp.Detalle);
+           // seteamos la informacion
+           this.frmGeneral.controls['id'].setValue(resp.Detalle.id);
+           this.frmGeneral.controls['rfc'].setValue(resp.Detalle.rfc);
+           this.frmGeneral.controls['observaciones'].setValue(resp.Detalle.observaciones);
+           this.frmGeneral.controls['nombrecomercial'].setValue(resp.Detalle.nombrecomercial);
+           this.frmGeneral.controls['aviso_privacidad'].setValue(resp.Detalle.aviso_privacidad);
+          });
+        }
+      });
+    }
+
+    
     //==============================================================================================================
   // Crud Para Proveedores:
  public Almacenar = () => {
   // ?=========================================================================
-  this.frmGeneral.controls['id_estatus'].setValue(parseInt(this.frmGeneral.value.id_estatus !== null ? this.frmGeneral.value.id_estatus : 1 ));
-  this.frmGeneral.controls['id_tipo'].setValue(parseInt( this.frmGeneral.value.id_tipo !== null ? this.frmGeneral.value.id_tipo : 1 ));
-  //validamos que no este el mensaje en pantalla
-  // this.ConfirmacionMdl  = false;
-  // bloqueamos el boton
-  // this.BtnSpinner   = true;
-  // bloqueamos pantalla
+  
+ // validamos que no este el mensaje en pantalla
+   this.ConfirmacionMdl  = false;
+//   bloqueamos el boton
+   this.BtnSpinner   = true;
+//   bloqueamos pantalla
    this.Ariesblocked = true;
-  //===============================
-  // this.servicio.AlmacenarProveedor(this.frmGeneral.value).subscribe(resp => {
-    // switch (resp.IdMensj) {
-    //   case 3:
-        //============================================================
-        // this.ConfirmacionMsjMdl.msjTipo = 2; //resp.IdMensj;
-        // this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
-        // this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
-        // this.ConfirmacionMsjMdl.detalle = resp.Solucion;
-        // this.ConfirmacionMdl = true;
-        // desbloqueamos la pantalla
+ // ===============================
+   this.servicio.Almacenar(this.frmGeneral.value).subscribe(resp => {
+     switch (resp.IdMensj) {
+       case 3:
+   //     ============================================================
+         this.ConfirmacionMsjMdl.msjTipo = 2; //resp.IdMensj;
+         this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
+         this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+         this.ConfirmacionMsjMdl.detalle = resp.Solucion;
+         this.ConfirmacionMdl = true;
+     //   desbloqueamos la pantalla
          this.Ariesblocked = false;
-      //   break;
-      // case 2:
-        //============================================================
-        // this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
-        // this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
-        // this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
-        // this.ConfirmacionMsjMdl.detalle = resp.Detalle;
-         // mostramos el resultado de la informacion
-        //  this.ConfirmacionMdl  = true;
-        // desbloqueamos la pantalla
+         break;
+       case 2:
+   //     ============================================================
+         this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
+         this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
+         this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+         this.ConfirmacionMsjMdl.detalle = resp.Detalle;
+     //     mostramos el resultado de la informacion
+        this.ConfirmacionMdl  = true;
+     //    desbloqueamos la pantalla
          this.Ariesblocked = false;
-      //   break;
-      // default:
-        //============================================================
-        // this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
-        // this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
-        // this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
-        // this.ConfirmacionMsjMdl.detalle = resp.Detalle;
-        //============================================================
-        // instanciamos elmismo formulario para actualizar
-        // this.frmGeneral.setValue(this.frmGeneral.value);
-        // // agregamos el ID para generar la actualizacion
-        // this.frmGeneral.controls['id'].setValue(parseInt(resp.Id));
-        // this._id = parseInt(resp.Id);
-        // // mostramos el resultado de la informacion
-        // this.ConfirmacionMdl  = true;
-        // // desbloqueamos la pantalla
+         break;
+       default:
+     //   ============================================================
+         this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
+         this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
+         this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+         this.ConfirmacionMsjMdl.detalle = resp.Detalle;
+     //   ============================================================
+    //     instanciamos elmismo formulario para actualizar
+         this.frmGeneral.setValue(this.frmGeneral.value);
+    //     agregamos el ID para generar la actualizacion
+         this.frmGeneral.controls['id'].setValue(parseInt(resp.Id));
+         this._id = parseInt(resp.Id);
+     //     mostramos el resultado de la informacion
+         this.ConfirmacionMdl  = true;
+      //   desbloqueamos la pantalla
          this.Ariesblocked     = false;
-        // break;
-  //   }
-  //   this.BtnSpinner = false;
-  // });
+         break;
+     }
+     this.BtnSpinner = false;
+   });
 }
 
-    // metodo para agregar un nuevo proveedor
+  //   metodo para agregar un nuevo proveedor
    public NuevoGeneral = () => {
-     // reiniciamos el formulario
+  //    reiniciamos el formulario
      this.frmGeneral.setValue(this.MdlGeneral);
-     // prime trabaja con String lo pasamos a String el valor numerico
-     this.frmGeneral.controls['id_estatus'].setValue("1");
-     this.frmGeneral.controls['id_tipo'].setValue("1");
-     // solo reiniciamos las variables visuales
-    //  this.usoCFDI = "";
-    //  this.RegimenCFDI = "";
-    //  this._id =-1;
-      // mensaje para verificar la captura de la direccion del sat
+    
+   //   solo reiniciamos las variables visuales
+   
+      this._id =-1;
+  //     mensaje para verificar la captura de la direccion del sat
       this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue información.'});
 
    }
 
 }
+
