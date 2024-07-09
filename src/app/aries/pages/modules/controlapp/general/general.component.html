@@ -1,1 +1,161 @@
-<p>general works!</p>
+<hr>
+<p-toast position="top-center" key="tc"></p-toast>
+<!-- <p-blockUI [blocked]="Ariesblocked"></p-blockUI> -->
+<p-card header="Proveedor">
+<!-- Agregar Informcion del formulario -->
+<form [formGroup]="frmGeneral" autocomplete="off">
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-spin pi-cog"></i>
+            &nbsp; Información General:
+        </div>
+    </p-divider>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="flex flex-column gap-2">
+                <label>rfc</label>
+                <input
+                    pInputText
+                    pTooltip="Ingrese rfc Completo Persona: Fisica o Moral "
+                    tooltipPosition="bottom"
+                    formControlName="rfc"
+                    pInputText
+                    placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmGeneral.controls['rfc'].invalid">
+                </p-message>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="flex flex-column gap-2">
+                <label>observaciones</label>
+                <input
+                    pKeyFilter="alphanum" maxlength="13"
+                    pInputText
+                    pTooltip="Ingrese observaciones Persona: Fisica o Moral "
+                    tooltipPosition="bottom"
+                    formControlName="observaciones"
+                    pInputText
+                    placeholder="Vacio" />
+            <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frmGeneral.controls['observaciones'].invalid">
+            </p-message>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="flex flex-column gap-2">
+                <label>nombrecomercial</label>
+                <input
+                    pInputText
+                    pTooltip="Ingrese nombrecomercial Completo Persona: Fisica o Moral "
+                    tooltipPosition="bottom"
+                    formControlName="nombrecomercial"
+                    pInputText
+                    placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmGeneral.controls['nombrecomercial'].invalid">
+                </p-message>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="flex flex-column gap-2">
+                <label>aviso_privacidad</label>
+                <input
+                    pInputText
+                    pTooltip="Ingrese aviso_privacidad Completo Persona: Fisica o Moral "
+                    tooltipPosition="bottom"
+                    formControlName="aviso_privacidad"
+                    pInputText
+                    placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmGeneral.controls['aviso_privacidad'].invalid">
+                </p-message>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-user"> Sat Uso CFDI:</i>
+                </span>
+                <!-- <textarea rows="1" cols="50" pInputText
+                    pTooltip="Seleccione Un Uso CFDI Fiscal: Para Timbrar Facturas." pInputTextarea
+                    [disabled]="true" [value]="usoCFDI" placeholder="Sin Informcion"></textarea> -->
+
+                <!-- <p-button
+                (click)="dlgUsocfdi()"
+                pTooltip="Abrir USO CFDI Fiscal."
+                severity="info"
+                icon="pi pi-plus"
+                label="Agregar"
+                tooltipPosition="bottom"
+                >
+                </p-button> -->
+
+
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-user">Sat Regimen Fiscal:</i>
+                </span>
+                <!-- <textarea rows="1" cols="50" pTooltip="Seleccione Un Regimen Fiscal: Para Timbrar Facturas."
+                    tooltipPosition="bottom" pInputTextarea [disabled]="true" [value]="RegimenCFDI"
+                    placeholder="Sin Informcion">
+                </textarea> -->
+
+                <!-- <p-button
+                (click)="dlgRegimen()"
+                pTooltip="Abrir Regimen Fiscal."
+                severity="info"
+                icon="pi pi-plus"
+                label="Agregar"
+                tooltipPosition="bottom"
+                >
+                </p-button> -->
+
+
+            </div>
+        </div>
+    </div>
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-user mr-2"></i>
+            <b>Funciones Usuario:</b>
+        </div>
+    </p-divider>
+
+    <p-button
+    icon="pi pi-plus"
+    label="Nuevo"
+    (click)="NuevoGeneral()"
+    pTooltip="Reinicia Formulario Del Proveedor."
+    tooltipPosition="bottom"
+    severity="primary"
+    >
+    </p-button>
+    &nbsp;
+    <p-button
+        icon="pi pi-pencil"
+        pTooltip="Almacenar: Proveedor Informcion."
+        tooltipPosition="bottom"
+        (click)="Almacenar()"
+        [disabled]="frmGeneral.invalid"
+        label="Guardar"
+        severity="success">
+        <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+            fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+    </p-button>
+    
+</form>
+
+
+</p-card>
+
+
+@if( ConfirmacionMdl == true  ) {
+    <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}
