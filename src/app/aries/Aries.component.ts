@@ -48,7 +48,8 @@ export default class AriesComponent {
   public sidebarVisible: boolean = false;
   public theme = localStorage.getItem("theme");
 
-  public items3: any ;
+  public items3: any;
+  public itemsURL: any;
 
   constructor( private servicio: HomeService, private router: Router) {
 
@@ -77,7 +78,19 @@ export default class AriesComponent {
       { label: 'md-dark-indigo', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('md-dark-indigo');  }},
       { label: 'bootstrap4-light-purple', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('bootstrap4-light-purple');  }},
       { label: 'bootstrap4-dark-purple', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('bootstrap4-dark-purple');  }},
+      { label: 'luna-green', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('luna-green');  }},
   ];
+
+  this.itemsURL = [
+    {label:'Categories'},
+    {label:'Sports'},
+    {label:'Football'},
+    {label:'Countries'},
+    {label:'Spain'},
+    {label:'F.C. Barcelona'},
+    {label:'Squad'},
+    {label:'Lionel Messi',}
+];
 
   }
 

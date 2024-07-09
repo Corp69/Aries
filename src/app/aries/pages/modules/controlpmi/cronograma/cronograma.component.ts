@@ -41,7 +41,6 @@ import { CalendarModule } from 'primeng/calendar';
         //prime NG
         InputGroupModule,
         InputGroupAddonModule,
-        DividerModule,
         MessageModule,
         DropdownModule,
         CardModule,
@@ -222,6 +221,6 @@ export default class ExtensionComponent implements OnInit{
     }
 
     public lst(){
-
+      this.router.navigate([ `/ControlPMI/Proyectos`]);
     }
 }

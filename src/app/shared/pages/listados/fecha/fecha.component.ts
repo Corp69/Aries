@@ -100,9 +100,6 @@ export default class FechaComponent implements OnInit {
   public BtnSpinner: boolean = false;
   // variable que bloquea la vista
   public Ariesblocked: boolean = false;
-  
-  public reloadTrigger: boolean = false;
-
   //==============================================================================================================
   // Modal: mensaje Confirmacion falso para no cargar la modal
   public ConfirmacionMdl: boolean = false;
@@ -123,6 +120,7 @@ export default class FechaComponent implements OnInit {
     private messageService: MessageService,
     private router: Router
   ) {}
+  
   public ngOnInit(): void {
     //listado 
     this.servicio.Lstestatus().subscribe((resp) => { this.lstEstus= resp.Detalle; });
@@ -173,7 +171,6 @@ export default class FechaComponent implements OnInit {
                   this.Ariesblocked = false;
                   break;
                 default:
-                  this.reloadTrigger = true;
                   //============================================================
                   //validamos que no venga vacio
                   if ( resp.Detalle._app_lst_persona._lst.length == 0 ) {
@@ -200,7 +197,6 @@ export default class FechaComponent implements OnInit {
               }
               this.BtnSpinner    = false;
             });
-       this.reloadTrigger   = false;
        //=============================
        // busqueda 
        this.busqueda = " Busqueda realizada: " +  this.frm.value._fecha_inicio + " al " +  this.frm.value._fecha_final;

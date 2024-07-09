@@ -8,31 +8,39 @@
 
 
         -->
-
-        <p-button
-            label="Menu"
-            (click)="sidebarVisible = true"
-            icon="pi pi-list"
-            badgeClass="p-badge-danger"
-            [outlined]="true">
-        </p-button>
-
-
+        <!-- <div class="row">
+            <div class="col-sm-6"> -->
+                <p-button
+                    label="Menu"
+                    (click)="sidebarVisible = true"
+                    icon="pi pi-microsoft"
+                    badgeClass="p-badge-danger"
+                    [outlined]="true">
+                </p-button>
+            <!-- </div> -->
+            <!-- <div class="col-sm-6">
+             
+            </div>
+        </div>
+         -->
+       
     </ng-template>
     <ng-template pTemplate="end">
-        <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
+        <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="0"></i>
         &nbsp;
-        <i class="pi pi-calendar mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="10+"
+        <i class="pi pi-calendar mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="0"
             severity="danger"></i>
         &nbsp;
-        <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger" value="2"></i>
+        <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger" value="0"></i>
         &nbsp;
-
-
+        <p-avatar image="./assets/images/principal/Aries.png" size="large" styleClass="mr-2" shape="circle"></p-avatar>
+     
     </ng-template>
 </p-menubar>
-<p-sidebar [(visible)]="sidebarVisible">
-
+<p-sidebar 
+ [transitionOptions]="'400ms'" 
+ [(visible)]="sidebarVisible">
+ 
     <h3>Menu</h3>
 
     <p-button
