@@ -221,6 +221,6 @@ export default class ExtensionComponent implements OnInit{
     }
 
     public lst(){
-
+      this.router.navigate([ `/ControlPMI/Proyectos`]);
     }
 }

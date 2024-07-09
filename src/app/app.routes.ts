@@ -519,6 +519,24 @@ export const routes: Routes = [
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
+
+      {
+        path:  'KpiActividades',
+        title: 'PMI - Usuario',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/kpipanel/kpipanel.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+
+      {
+        path:  'lstUserActividades',
+        title: 'PMI - Usuario',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/lst-user-actividades/lst-user-actividades.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+
+
       {
         path:  'Actividad/:id',
         title: 'PMI - Actividad',

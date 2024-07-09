@@ -87,7 +87,11 @@ export default class ListcronogramaComponent implements OnInit {
     }
 
     public lstActividad ( id: number ){
-        this.router.navigate([ `/ControlPMI/Activiadad/${id}`]);
+        this.router.navigate([ `/ControlPMI/Actividad/${id}`]);
+    }
+
+    public lstCronograma ( id: number ){
+        this.router.navigate([ `/ControlPMI/Cronograma/${id}`]);
     }
   
 }

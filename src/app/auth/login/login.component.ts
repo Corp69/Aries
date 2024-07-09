@@ -101,7 +101,21 @@ export default class LoginComponent implements OnInit {
           localStorage.setItem('Usuario', resp.data.user.usuario!);
           localStorage.setItem('token',   resp.data.token!);
           this.Ariesblocked = false;
-          this.router.navigate(['/aries/principal']);
+              //swicheamos el nivel
+            switch (resp.data.user.lv) {
+              case 1:
+                this.router.navigate(['/aries/principal']);
+                break;
+              case 2:
+                this.router.navigate(['/aries/principal']);
+                break;
+              case 3:
+                this.router.navigate(['/ControlPMI/KpiActividades']);
+                break;
+              default:
+                this.router.navigate(['/aries/principal']);
+                break;
+            }
           break;
       }
     });
