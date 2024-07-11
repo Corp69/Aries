@@ -413,7 +413,7 @@ export const routes: Routes = [
       },
       {
         path:  'Puesto/:id',
-        title: 'Puesto',
+        title: 'RH - PUESTO',
         loadComponent: () => import('./aries/pages/modules/controlrh/puesto/puesto.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
