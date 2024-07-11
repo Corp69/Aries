@@ -371,64 +371,64 @@ export const routes: Routes = [
       //modulo: Compras
       {
         path:  'Empleados',
-        title: 'Empleados',
+        title: 'RH - Empleados',
         loadComponent: () => import('./aries/pages/modules/controlrh/empleados/empleados.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
       {
         path:  'empleado/:id',
-        title: 'empleado',
+        title: 'RH - Empleado',
         loadComponent: () => import('./aries/pages/modules/controlrh/empleado/empleado.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
       {
         path:  'Departamentos',
-        title: 'Departamentos',
+        title: 'RH - Departamentos',
         loadComponent: () => import('./aries/pages/modules/controlrh/departamentos/departamentos.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
       {
         path:  'Domicilio/:id',
-        title: 'CH:Domicilio',
+        title: 'RH - Domicilio',
         loadComponent: () => import('./aries/pages/modules/controlrh/domicilios/domicilios.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
       {
         path:  'Departamento/:id',
-        title: 'Departamento',
+        title: 'RH - Departamento',
         loadComponent: () => import('./aries/pages/modules/controlrh/departamento/departamento.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
       {
         path:  'Puestos',
-        title: 'Puestos',
+        title: 'RH - Ppuestos',
         loadComponent: () => import('./aries/pages/modules/controlrh/puestos/puestos.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
       {
         path:  'Puesto/:id',
-        title: 'RH - PUESTO',
+        title: 'RH - Puesto',
         loadComponent: () => import('./aries/pages/modules/controlrh/puesto/puesto.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
       {
         path:  'Documentos',
-        title: 'Documentos',
-        loadComponent: () => import('./aries/pages/modules/controlrh/departamentos/departamentos.component'),
+        title: 'RH - Documentos',
+        loadComponent: () => import('./aries/pages/modules/controlrh/documentos/documentos.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
       {
         path:  'Documento/:id',
-        title: 'Puesto',
-        loadComponent: () => import('./aries/pages/modules/controlrh/departamento/departamento.component'),
+        title: 'RH - Documento',
+        loadComponent: () => import('./aries/pages/modules/controlrh/documento/documento.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
