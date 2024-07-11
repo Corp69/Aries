@@ -101,7 +101,7 @@ export default class PuestoComponent implements OnInit, AfterViewInit  {
   //Formularios del app:
   public frmPuesto: FormGroup = this.fb.group({
     id:            [-1],
-    id_hijo:       [null, [Validators.required, Validators.minLength(0)]],
+    id_hijo:       [null, [Validators.required, Validators.minLength(1)]],
     descripcion:   ["",   [Validators.required, Validators.minLength(3)]],
     observaciones: ["",   [Validators.required, Validators.minLength(3)]]
   });
@@ -115,7 +115,7 @@ export default class PuestoComponent implements OnInit, AfterViewInit  {
 
     
 
-  ngOnInit(): void {
+ public ngOnInit(): void {
      //=========================================================================================================================
     //carga listados
     this.servicio.lstdepartamento().subscribe(resp => { this.lstDep  = resp.Detalle._app_lst_departamentos; });
