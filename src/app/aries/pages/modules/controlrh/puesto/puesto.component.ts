@@ -1,5 +1,5 @@
 // angular 
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -28,6 +28,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -66,7 +67,7 @@ import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confir
 })
 
 
-export default class PuestoComponent implements OnInit {
+export default class PuestoComponent implements OnInit, AfterViewInit  {
   
   // variable que bloquea la vista
   public Ariesblocked: boolean  = false;
@@ -108,9 +109,11 @@ export default class PuestoComponent implements OnInit {
   constructor(
      private messageService: MessageService,
      private fb: FormBuilder,
+     private route: ActivatedRoute,
      private servicio: PuestoService
     ){}
 
+    
 
   ngOnInit(): void {
      //=========================================================================================================================
@@ -119,12 +122,24 @@ export default class PuestoComponent implements OnInit {
   
   }
 
-
-
-
-
-
-
+  /**
+   * cargamos la data del proveedor una vez cargado todo los componentes
+   */
+  public ngAfterViewInit(): void {
+    this.route.params.subscribe(params => {
+      if (+params['id'] > -1) {
+        this._id = +params['id'];
+        // AGREGAMOS LA INFORMACION AL FORMULARIO
+        this.servicio.Datainfo(+params['id']).subscribe(resp => {
+         // seteamos la informacion
+         this.frmPuesto.controls['id'].setValue(resp.Detalle.id);
+         this.frmPuesto.controls['id_hijo'].setValue(resp.Detalle.id_hijo);
+         this.frmPuesto.controls['descripcion'].setValue(resp.Detalle.descripcion);
+         this.frmPuesto.controls['observaciones'].setValue(resp.Detalle.observaciones);
+        });
+      }
+    });
+  }
 
    // metodo para agregar un nuevo
    public Nuevo = () => {
@@ -136,8 +151,6 @@ export default class PuestoComponent implements OnInit {
      this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue datos del puesto y guarde su información.'});
 
   }
-
-
   
   //==============================================================================================================
   // Crud Para Proveedores:
