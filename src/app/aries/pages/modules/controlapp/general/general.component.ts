@@ -14,7 +14,7 @@ import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confir
 import { NombresComponent } from '@shared/pages/busquedas/nombres/nombres.component';
 // servicios
 // import { ProveedorService } from './Services/Proveedor.service';
-// //Interface
+
 // import { ConfirmacionMensaje, listados } from './interface/proveedor';
 // prime NG
 import { DividerModule } from 'primeng/divider';
@@ -70,10 +70,9 @@ import { ActivatedRoute } from '@angular/router';
     ToastModule,
 
   ],
-  
   providers: [MessageService],
-  templateUrl: './General.component.html',
-  styleUrl: './General.component.scss',
+  templateUrl: './general.component.html',
+  styleUrl: './general.component.scss',
 
 })
 export default class GeneralComponent  {
