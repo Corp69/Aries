@@ -60,7 +60,11 @@ export default class ListcronogramaComponent implements OnInit {
                 this.service.getCronogramas(this.id).subscribe( res => {
                     this.data =  res.Detalle._app_lst_cronogramas.lst;
                     this.dataCronogramas =  res.Detalle._app_lst_cronogramas.lst[0].cronogramas;
-                 });
+                    
+                    console.log( this.dataCronogramas );
+                    
+                
+                });
             }else{
             
             }

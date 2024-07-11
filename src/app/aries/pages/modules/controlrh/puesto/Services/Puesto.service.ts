@@ -38,7 +38,7 @@ export class PuestoService {
       .post(
         `${environment.baseUrl}clientes/ctr/agregar`,
         {
-          Qtabla: 'rh_puesto',
+          Qtabla: 'rh_departamento_puesto',
           Datos: modelo,
         },
         { headers: headers }
@@ -50,29 +50,19 @@ export class PuestoService {
       );
   }
 
-  public listPuesto_riesgo(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
-      {
-        Qtabla: 'id_rh_puesto_riesgo',
-      },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
-  }
-
+  // listado
   public lstdepartamento(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
-    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+    return this.http.post(`${environment.baseUrl}clientes/ctr/filtroIDs`,
       {
-        Qtabla: 'id_rh_departamento',
+        "Qtabla":   "rh_departamento_puesto",
+        "_columna": "id_estatus",
+        "_orderBY": "descripcion",
+        "Datos": {
+            "ids": [1]
+        }
       },
       { headers: headers }
     ).pipe(
@@ -81,6 +71,5 @@ export class PuestoService {
       })
     );
   }
-
   
 }
