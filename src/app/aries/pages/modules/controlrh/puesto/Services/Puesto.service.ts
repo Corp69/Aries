@@ -13,13 +13,14 @@ import { environment } from '../../../../../../../environments/environment';
 export class PuestoService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
+  //obligatorio
   public Datainfo(id: number): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
     return this.http.post(`${environment.baseUrl}clientes/ctr/buscar/id/${id}`,
       {
-        Qtabla: 'rh_puesto',
+        Qtabla: 'rh_departamento_puesto',
       },
       { headers: headers }
     ).pipe(
@@ -52,24 +53,13 @@ export class PuestoService {
 
   // listado
   public lstdepartamento(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/ctr/filtroIDs`,
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+     return this.http.post(`${environment.baseUrl}clientes/conf/funciones`,
       {
-        "Qtabla":   "rh_departamento_puesto",
-        "_columna": "id_estatus",
-        "_orderBY": "descripcion",
-        "Datos": {
-            "ids": [1]
-        }
+        "ExSchema": "config",
+        "funcion":  "_app_lst_departamentos"
       },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
+      { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
   }
-  
+
 }

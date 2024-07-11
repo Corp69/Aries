@@ -3,17 +3,22 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-
 // shared 
 import { ConfirmacionMensaje, listados } from './interface/puesto';
+
+//modelos 
+import { MdlPuesto } from './models/MdlPuesto';
+
+//service 
+
+import { PuestoService } from './Services/Puesto.service';
+
 
 // prime ng 
 import {ToastModule} from 'primeng/toast';
 import { BlockUIModule } from 'primeng/blockui';
 import { CardModule } from 'primeng/card';
 import {MessageService} from 'primeng/api';
-import { MdlPuesto } from './models/MdlPuesto';
-import { PuestoService } from './Services/Puesto.service';
 import { DividerModule } from 'primeng/divider';
 import { MessageModule } from 'primeng/message';
 import { TooltipModule } from 'primeng/tooltip';
@@ -22,6 +27,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
 
 
 @Component({
@@ -33,7 +39,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
      CommonModule,
      ReactiveFormsModule,
      FormsModule,
-  
+    
+     //shared 
+     ConfirmacionComponent,
 
      //prime ng 
      ToastModule,
@@ -80,7 +88,7 @@ export default class PuestoComponent implements OnInit {
   //Config. de la app: Bloqueo de botones
   public BtnSpinner: boolean = false;
 
-    // variable para ver el id del proveedor
+    // variable para ver el id del puesto
     public _id: number = -1;
 
 
@@ -92,7 +100,7 @@ export default class PuestoComponent implements OnInit {
   //Formularios del app:
   public frmPuesto: FormGroup = this.fb.group({
     id:            [-1],
-    id_hijo:       [1, [Validators.required, Validators.min(1)]],
+    id_hijo:       [null, [Validators.required, Validators.minLength(0)]],
     descripcion:   ["",   [Validators.required, Validators.minLength(3)]],
     observaciones: ["",   [Validators.required, Validators.minLength(3)]]
   });
@@ -107,10 +115,8 @@ export default class PuestoComponent implements OnInit {
   ngOnInit(): void {
      //=========================================================================================================================
     //carga listados
-    this.servicio.lstdepartamento().subscribe(resp => { 
- 
-      this.lstDep  = resp.Detalle; });
- 
+    this.servicio.lstdepartamento().subscribe(resp => { this.lstDep  = resp.Detalle._app_lst_departamentos; });
+  
   }
 
 
