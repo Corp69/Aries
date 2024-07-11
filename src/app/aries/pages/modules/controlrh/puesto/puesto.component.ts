@@ -1,117 +1,197 @@
-import { Component } from '@angular/core';
+// angular 
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
+
+// shared 
+import { ConfirmacionMensaje, listados } from './interface/puesto';
+
+// prime ng 
+import {ToastModule} from 'primeng/toast';
 import { BlockUIModule } from 'primeng/blockui';
-import { MessageService } from 'primeng/api';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { CardModule } from 'primeng/card';
+import {MessageService} from 'primeng/api';
+import { MdlPuesto } from './models/MdlPuesto';
+import { PuestoService } from './Services/Puesto.service';
 import { DividerModule } from 'primeng/divider';
 import { MessageModule } from 'primeng/message';
-import { DropdownModule } from 'primeng/dropdown';
+import { TooltipModule } from 'primeng/tooltip';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { PuestoService } from './Services/Puesto.service';
-import { listados } from './interface/puesto';
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 
 @Component({
   selector: 'app-puesto',
   standalone: true,
   imports: [
+   
+     //angular
+     CommonModule,
+     ReactiveFormsModule,
+     FormsModule,
+  
 
-    ProgressBarModule,
-    ProgressSpinnerModule,
-    CardModule,
-    ButtonModule,
-    ToastModule,
-    BlockUIModule,
-    DividerModule,
-    MessageModule,
+     //prime ng 
+     ToastModule,
+     BlockUIModule,
+     CardModule,
+     DividerModule,
+     MessageModule,
+     TooltipModule,
+     //--
+     InputGroupModule,
+     InputGroupAddonModule,
+    //--
     DropdownModule,
-    InputGroupModule,
-    InputGroupAddonModule
-
-  ],
-  providers: [MessageService],
+    ButtonModule,
+    ProgressSpinnerModule
+  
+    ],
+  providers: [ MessageService ],
   templateUrl: './puesto.component.html',
   styleUrl: './puesto.component.scss'
   
 })
-export default class PuestoComponent {
 
-  // Listados:
-  public listPuesto_riesgo: listados[] = [];
-  public lstdepartamento:   listados[] = [];
+
+export default class PuestoComponent implements OnInit {
   
-  //id Puesto:
-  public _id: number = -1;
+  // variable que bloquea la vista
+  public Ariesblocked: boolean  = false;
 
-   // variable que bloquea la vista
-   public Ariesblocked: boolean  = false;
+  // listados 
+  public lstDep:  listados[] = [];
 
-   //Formularios del app:
+  //==============================================================================================================
+  //modelos:
+  public MdlPuesto: MdlPuesto = new MdlPuesto();
+
+
+
+  //==============================================================================================================
+  // Modal: mensaje Confirmacion falso para no cargar la modal
+  public ConfirmacionMdl: boolean = false;
+
+  //==============================================================================================================
+  //Config. de la app: Bloqueo de botones
+  public BtnSpinner: boolean = false;
+
+    // variable para ver el id del proveedor
+    public _id: number = -1;
+
+
+    // variables para mensaje actualizar guardar
+    public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
+
+  
+  //==============================================================================================================
+  //Formularios del app:
   public frmPuesto: FormGroup = this.fb.group({
-    id:     [-1],
-    descripcion: [],
-    puesto_unico: [ null ],
-    costo: [ null ],
-    codigo: [],
-    encargado: [],
-    activo: [],
-    
-    id_rh_puesto_riesgo: [null],
-    id_rh_departamento: [ null],
-  
+    id:            [-1],
+    id_hijo:       [1, [Validators.required, Validators.min(1)]],
+    descripcion:   ["",   [Validators.required, Validators.minLength(3)]],
+    observaciones: ["",   [Validators.required, Validators.minLength(3)]]
   });
 
+  constructor(
+     private messageService: MessageService,
+     private fb: FormBuilder,
+     private servicio: PuestoService
+    ){}
 
-   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private servicio: PuestoService,
-    private messageService: MessageService )
-    {}
-    
-     /**
-   * cargamos la data del proveedor una vez cargado todo los componentes
-   */
 
-      // una vez carga el componente
   ngOnInit(): void {
-    //=========================================================================================================================
+     //=========================================================================================================================
     //carga listados
-    this.servicio.listPuesto_riesgo().subscribe(resp => { this.listPuesto_riesgo  = resp.Detalle; });
-    this.servicio.lstdepartamento().subscribe(resp =>    { this.lstdepartamento    = resp.Detalle; });
+    this.servicio.lstdepartamento().subscribe(resp => { 
+ 
+      this.lstDep  = resp.Detalle; });
+ 
   }
 
 
-  public ngAfterViewInit(): void {
-    this.route.params.subscribe(params => {
-      if (+params['id'] > -1) {
-        //agregamos valor del id persona
-        this._id = +params['id'];
-        // AGREGAMOS LA INFORMACION AL FORMULARIO
-        this.servicio.Datainfo(+params['id']).subscribe(resp => {
-         //this.frmPuesto.setValue(resp.Detalle);
-         // seteamos la informacion
-         this.frmPuesto.controls['id'].setValue(resp.Detalle.id);
-         this.frmPuesto.controls['descripcion'].setValue(resp.Detalle.descripcion);
-         this.frmPuesto.controls['puesto_unico'].setValue(resp.Detalle.puesto_unico);
-         this.frmPuesto.controls['costo'].setValue(resp.Detalle.costo);
-         this.frmPuesto.controls['codigo'].setValue(resp.Detalle.codigo);
-         this.frmPuesto.controls['encargado'].setValue(resp.Detalle.encargado);
-         this.frmPuesto.controls['activo'].setValue(resp.Detalle.activo);
-         // asignamos el valor String debido a que no es int los parsearemos a String
-         this.frmPuesto.controls['id_rh_puesto_riesgo'].setValue(resp.Detalle.id_rh_puesto_riesgo.toString());
-         this.frmPuesto.controls['id_rh_departamento'].setValue(resp.Detalle.id_rh_departamento);
-        });
-      }
-    });
+
+
+
+
+
+
+   // metodo para agregar un nuevo
+   public Nuevo = () => {
+    // reiniciamos el formulario
+    this.frmPuesto.setValue(this.MdlPuesto);
+    // prime trabaja con String lo pasamos a String el valor numerico
+    this.frmPuesto.controls['id_hijo'].setValue(null);
+     // mensaje para verificar la captura de la direccion del sat
+     this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue datos del puesto y guarde su información.'});
+
   }
+
+
+  
+  //==============================================================================================================
+  // Crud Para Proveedores:
+ public Almacenar = () => {
+  // ?=========================================================================
+  this.frmPuesto.controls['id_hijo'].setValue(parseInt( this.frmPuesto.value.id_hijo !== null ? this.frmPuesto.value.id_hijo : 1 ));
+  //validamos que no este el mensaje en pantalla
+  this.ConfirmacionMdl  = false;
+  // bloqueamos el boton
+  this.BtnSpinner   = true;
+  // bloqueamos pantalla
+  this.Ariesblocked = true;
+  //===============================
+  this.servicio.Almacenar(this.frmPuesto.value).subscribe(resp => {
+    switch (resp.IdMensj) {
+      case 3:
+        //============================================================
+        this.ConfirmacionMsjMdl.msjTipo = 2; //resp.IdMensj;
+        this.ConfirmacionMsjMdl.titulo  = "Aries: Info"; //resp.Titulo;
+        this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+        this.ConfirmacionMsjMdl.detalle = resp.Solucion;
+        this.ConfirmacionMdl = true;
+        // desbloqueamos la pantalla
+        this.Ariesblocked = false;
+        break;
+      case 2:
+        //============================================================
+        this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
+        this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
+        this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+        this.ConfirmacionMsjMdl.detalle = resp.Detalle;
+         // mostramos el resultado de la informacion
+         this.ConfirmacionMdl  = true;
+        // desbloqueamos la pantalla
+        this.Ariesblocked = false;
+        break;
+      default:
+        //============================================================
+        this.ConfirmacionMsjMdl.msjTipo = resp.IdMensj;
+        this.ConfirmacionMsjMdl.titulo  = 'Aries: Info'; //resp.Titulo;
+        this.ConfirmacionMsjMdl.mensaje = resp.Mensaje;
+        this.ConfirmacionMsjMdl.detalle = resp.Detalle;
+        //============================================================
+        // instanciamos elmismo formulario para actualizar
+        this.frmPuesto.setValue(this.frmPuesto.value);
+        // agregamos el ID para generar la actualizacion
+        this.frmPuesto.controls['id'].setValue(parseInt(resp.Id));
+        this._id = parseInt(resp.Id);
+        // mostramos el resultado de la informacion
+        this.ConfirmacionMdl  = true;
+        // desbloqueamos la pantalla
+        this.Ariesblocked     = false;
+        break;
+    }
+    this.BtnSpinner = false;
+  });
+}
+
+
+
 
 
 }
