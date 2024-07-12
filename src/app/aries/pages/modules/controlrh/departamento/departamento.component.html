@@ -1,18 +1,85 @@
-<div style="text-align: center; max-width: 500px; margin: 0 auto;">
-    <p-card header="Aries Info." subheader=" Departamento TI." [style]="{ width: '360px' }">
-        <ng-template pTemplate="header">
-            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
-        </ng-template>
-        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
-        <p>
-            En este Momento Nos Encontramos dando unos latigasos a nuestro desarrollador,
-            debido a que se encuentran desarrollando muy lento cada clic es un latigaso.
+<hr>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<p-card header="RH - DEPARTAMENTO">
+    
+    <!--  formulario  -->
+    <form [formGroup]="frmDepartamento" autocomplete="off">
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"></i>
+                &nbsp; Información General:
+            </div>
+        </p-divider>
 
-        </p>
-        <ng-template pTemplate="footer">
-            <p-button label="Dar Latigaso + 1 " icon="pi pi-check"></p-button>
-        </ng-template>
-    </p-card>
-</div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="flex flex-column gap-2">
+                    <label>Descripcion:</label>
+                    <input
+                        pTooltip="Ingrese descripción del Departamento"
+                        tooltipPosition="bottom"
+                        formControlName="descripcion"
+                        pInputText
+                        placeholder="Vacio" />
+                    <p-message severity="error" text="Campo Es Obligatorio "
+                        *ngIf="frmDepartamento.controls['descripcion'].invalid">
+                    </p-message>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="flex flex-column gap-2">
+                    <label>Observaciones:</label>
+                    <input
+                        pTooltip="Ingrese observaciones del Departamento"
+                        tooltipPosition="bottom"
+                        formControlName="observaciones"
+                        pInputText
+                        placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmDepartamento.controls['observaciones'].invalid">
+                </p-message>
+                </div>
+            </div>
 
-<p-progressBar mode="indeterminate" [style]="{ height: '30px' }"></p-progressBar>
+        </div>
+        
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"> </i>
+                &nbsp; configuraciones:
+            </div>
+        </p-divider>
+
+        <div class="flex flex-wrap gap-3">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento: con ello se asignará al departamento."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Departamento:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    pTooltip="Seleccione un departamento: con ello se asignará al departamento."
+                    tooltipPosition="bottom"
+                    formControlName="id_padre"
+                    placeholder="seleccione una opcion"
+                    value="id_padre"
+                    [options]="lstDep"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frmDepartamento.controls['id_padre'].invalid">
+            </p-message>
+            </div>
+        </div>
+
+    </form>
+
+</p-card>
+
+
+@if( ConfirmacionMdl == true  ) {
+    <confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}
