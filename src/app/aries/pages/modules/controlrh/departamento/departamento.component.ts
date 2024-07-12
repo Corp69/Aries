@@ -22,10 +22,12 @@ import { DividerModule } from 'primeng/divider';
 import { MessageModule } from 'primeng/message';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confirmacion.component';
+
 //--
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 //--
+
 import { DropdownModule } from 'primeng/dropdown';
 
 
