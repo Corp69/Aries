@@ -11,12 +11,17 @@ import { environment } from '../../../../../../../environments/environment';
 export class UsuarioService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
-  public getProyectos(): Observable<any> {
+  public lstActividades(): Observable<any> 
+  {
     let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
-     return this.http.post(`${environment.baseUrl}clientes/conf/funciones`,
+     return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
       {
-        "ExSchema": "pmi",
-        "funcion":  "_app_lst_proyectos"
+        "ExSchema":"pmi",
+        "funcion":"_app_lst_actividades_empledado",
+        "data": 
+        {
+          "_idEmpleado": 1
+        }
     },
       { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
   }

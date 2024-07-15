@@ -1,6 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 //prime
 import { CardModule } from 'primeng/card';
@@ -12,8 +14,9 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { UsuarioService } from './services/usuario.service';
-import { Router } from '@angular/router';
-
+import { ToastModule} from 'primeng/toast';
+import { MessageService} from 'primeng/api';
+import { BlockUIModule } from 'primeng/blockui';
 
 @Component({
   selector: 'app-lst-user-actividades',
@@ -31,24 +34,32 @@ import { Router } from '@angular/router';
     TagModule,
     ButtonModule,
     TooltipModule,
+    ToastModule,
+    BlockUIModule,
     ProgressBarModule
-  
 
 
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './lst-user-actividades.component.html',
   styleUrl: './lst-user-actividades.component.scss'
 })
 export default class LstUserActividadesComponent implements OnInit {
   
-  public data: any = [];
+  public data:        any = [];
+  public actividades: any = [];
   
   public tipo : String = "doughnut";
-  
+
+// variable que bloquea la vista
+ public Ariesblocked: boolean  = false;
 
  constructor(
   private service: UsuarioService,
-  private router: Router
+  private router: Router,
+  private messageService: MessageService,
  ){}
   
   
@@ -56,34 +67,25 @@ export default class LstUserActividadesComponent implements OnInit {
 
   public ngOnInit() 
   {
-      this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
-  }
+    this.service.lstActividades().subscribe( res => { 
+    
+        console.log( res.Detalle._app_lst_actividades_empledado.lst[0] );
+        
+        this.data         =  res.Detalle._app_lst_actividades_empledado.lst[0];
+
+        
+    
+    });
+  
+  
+  
+    }
 
   public lstActividad ( id: number ){
       this.router.navigate([ `/ControlPMI/lstCronograma/${id}`]);
   }
 
-  public chartForma( valor: String ){
-    this.data = null;
-        switch (valor) {
-            case "pie":
-                this.tipo = valor;
-                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
-                break;
-            case "doughnut":
-                this.tipo = valor;
-                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
-                break;
-            case "bar":
-                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
-                this.tipo = valor;
-                break;
-            default:
-                this.tipo = "pie";
-                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
-                break;
-        }  
-    }
+
 
     
     public config(){
