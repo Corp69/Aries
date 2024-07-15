@@ -52,14 +52,13 @@ export class DepartamentoService {
   }
 
   // listado
-  public lstdepartamento(): Observable<any> {
+  public listEstatus(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
-    return this.http.post(`${environment.baseUrl}clientes/ctr/filtroIDs`,
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
       {
-        "ExSchema": "config",
-        "funcion":  "_app_lst_departamentos"
+        Qtabla: 'app_estatus',
       },
       { headers: headers }
     ).pipe(
@@ -68,22 +67,16 @@ export class DepartamentoService {
       })
     );
   }
+
   
-  public verifyIDS(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/ctr/filtroIDs`,
+  public getverifyIDS(): Observable<any> {
+    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+     return this.http.post(`${environment.baseUrl}clientes/conf/funciones`,
       {
         "ExSchema": "config",
-        "funcion":  "_app_lst_departamentos"
-      },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
+        "funcion":  "_app_verifi_ids"
+    },
+      { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
   }
-  
+
 }

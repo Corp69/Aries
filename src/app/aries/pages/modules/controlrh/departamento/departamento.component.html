@@ -27,20 +27,6 @@
                     </p-message>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="flex flex-column gap-2">
-                    <label>Observaciones:</label>
-                    <input
-                        pTooltip="Ingrese observaciones del Departamento"
-                        tooltipPosition="bottom"
-                        formControlName="observaciones"
-                        pInputText
-                        placeholder="Vacio" />
-                <p-message severity="error" text="Campo Es Obligatorio "
-                    *ngIf="frmDepartamento.controls['observaciones'].invalid">
-                </p-message>
-                </div>
-            </div>
 
         </div>
         
@@ -54,26 +40,49 @@
         <div class="flex flex-wrap gap-3">
             <div class="flex align-items-center">
                 <p-inputGroup>
-                    <p-inputGroupAddon pTooltip="Seleccione un departamento: con ello se asignará al departamento."
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
                     tooltipPosition="bottom" >
-                        <i class="pi pi-wrench">&nbsp; Departamento:</i>
+                        <i class="pi pi-wrench">&nbsp; Status:</i>
                     </p-inputGroupAddon>
                 </p-inputGroup>
                 <p-dropdown
-                    pTooltip="Seleccione un departamento: con ello se asignará al departamento."
-                    tooltipPosition="bottom"
-                    formControlName="id_padre"
+                    formControlName="id_estatus"
                     placeholder="seleccione una opcion"
-                    value="id_padre"
-                    [options]="lstDep"
+                    value="id_estatus"
+                    [options]="lstestatus"
                     optionValue="id" optionLabel="descripcion"
                     >
                 </p-dropdown>
-                <p-message severity="error" text="Campo Es Obligatorio "
-                *ngIf="frmDepartamento.controls['id_padre'].invalid">
-            </p-message>
             </div>
+            <p-message severity="error" text="Campo Es Obligatorio "
+            *ngIf="frmDepartamento.controls['id_estatus'].invalid">
+        </p-message>
         </div>
+        <br>
+        <span class="p-buttonset">
+            <p-button
+            icon="pi pi-plus"
+            label="Nuevo"
+            (click)="Nuevo()"
+            pTooltip="Reinicia Formulario Del Departamento."
+            tooltipPosition="bottom"
+            severity="primary"
+            >
+            </p-button>
+            &nbsp;
+            <p-button
+                icon="pi pi-pencil"
+                pTooltip="Almacenar: Proveedor Informcion."
+                tooltipPosition="bottom"
+                (click)="Almacenar()"
+                [disabled]="frmDepartamento.invalid"
+                label="Guardar"
+                severity="success">
+                <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+                    fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </p-button>
+            &nbsp;
+        </span>
 
     </form>
 

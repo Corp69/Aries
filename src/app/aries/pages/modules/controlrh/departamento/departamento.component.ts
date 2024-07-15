@@ -29,6 +29,8 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 //--
 
 import { DropdownModule } from 'primeng/dropdown';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
@@ -55,7 +57,9 @@ import { DropdownModule } from 'primeng/dropdown';
      InputGroupModule,
      InputGroupAddonModule,
      //--
-     DropdownModule
+     DropdownModule,
+     ProgressSpinnerModule,
+     ButtonModule
 
   ],
   
@@ -75,7 +79,7 @@ export default class DepartamentoComponent implements OnInit, AfterViewInit {
   public MdlDepartamento: MdlDepartamento = new MdlDepartamento();
 
   // listados 
-  public lstDep:  listados[] = [];
+  public lstestatus:  listados[] = [];
 
   
   //==============================================================================================================
@@ -99,8 +103,8 @@ export default class DepartamentoComponent implements OnInit, AfterViewInit {
   public frmDepartamento: FormGroup = this.fb.group({
     id:            [-1],
     id_padre:       [null, [Validators.required, Validators.minLength(0)]],
-    descripcion:   ["",   [Validators.required, Validators.minLength(3)]],
-    observaciones: ["",   [Validators.required, Validators.minLength(3)]]
+    id_estatus:       [null, [Validators.required, Validators.minLength(0)]],
+    descripcion:   ["",   [Validators.required, Validators.minLength(3)]]
   
   });
 
@@ -115,15 +119,16 @@ export default class DepartamentoComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //=========================================================================================================================
     //carga listados
-    this.servicio.lstdepartamento().subscribe(resp => { 
+    this.servicio.listEstatus().subscribe(resp => { 
  
-      this.lstDep  = resp.Detalle; });
+      this.lstestatus  = resp.Detalle; });
 
         // == ================================= 
-    this.servicio.verifyIDS().subscribe(resp => { 
-      console.log( resp.Detalle._app_verifi_ids._rh_departamento.id);
+    this.servicio.getverifyIDS().subscribe(resp => { 
+      this.frmDepartamento.controls['id_padre'].setValue(resp.Detalle._app_verifi_ids._id.id);
 
     });
+    
       
  }
 
@@ -139,8 +144,8 @@ public ngAfterViewInit(): void {
        // seteamos la informacion
        this.frmDepartamento.controls['id'].setValue(resp.Detalle.id);
        this.frmDepartamento.controls['id_padre'].setValue(resp.Detalle.id_padre);
+       this.frmDepartamento.controls['id_estatus'].setValue(resp.Detalle.id_estatus.toString());
        this.frmDepartamento.controls['descripcion'].setValue(resp.Detalle.descripcion);
-       this.frmDepartamento.controls['observaciones'].setValue(resp.Detalle.observaciones);
       });
     }
   });
@@ -151,7 +156,12 @@ public ngAfterViewInit(): void {
     // reiniciamos el formulario
     this.frmDepartamento.setValue(this.MdlDepartamento);
     // prime trabaja con String lo pasamos a String el valor numerico
-    this.frmDepartamento.controls['id_padre'].setValue(null);
+    this.frmDepartamento.controls['id_estatus'].setValue(null);
+    this.servicio.getverifyIDS().subscribe(resp => { 
+      this.frmDepartamento.controls['id_padre'].setValue(resp.Detalle._app_verifi_ids._id.id);
+
+    });
+   // this.frmDepartamento.controls['id_estatus'].setValue(null);
      // mensaje para verificar la captura de la direccion del sat
      this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue datos del Departamento y guarde su información.'});
 
