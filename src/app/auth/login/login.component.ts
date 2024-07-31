@@ -110,7 +110,7 @@ export default class LoginComponent implements OnInit {
                 this.router.navigate(['/aries/principal']);
                 break;
               case 3:
-                this.router.navigate(['/ControlPMI/KpiActividades']);
+                this.router.navigate(['/ControlPMI/Usuario']);
                 break;
               default:
                 this.router.navigate(['/aries/principal']);
