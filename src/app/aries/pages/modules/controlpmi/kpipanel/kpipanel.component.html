@@ -1,63 +1,92 @@
-<div class="cards-container">
+<hr>
+<p-card header="PMI - PROYECTOS">
+    @if ( data != null) {
+    <span class="p-buttonset">
+        <p-button
+        icon="pi pi-chart-pie"
+        label="Pie"
+        (click)="chartForma('pie')"
+        pTooltip="Clic para cambiar forma."
+        tooltipPosition="bottom"
+        severity="primary"
+        >
+        </p-button> 
+        &nbsp;
+        <p-button
+            icon="pi pi-map-marker"
+            pTooltip="Clic para cambiar forma."
+            tooltipPosition="bottom"
+            (click)="chartForma('doughnut')"
+            label="dona"
+            severity="warning">
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-chart-bar"
+            pTooltip="Clic para cambiar forma."
+            tooltipPosition="bottom"
+            (click)="chartForma('bar')"
+            label="Barra"
+            severity="info"
+            >
+        </p-button>
+        &nbsp;
+    </span>
+    }
+</p-card>
+<hr>
 
-     <p-card header="Ricardo Sepulveda Garcia." subheader=" Departamento TI CEO." [style]="{ width: '360px' }">
-        <hr>
-        <div style="border-radius: 50%; width: 130px; height: 130px; overflow: hidden;">
-            <img alt="Card" src="./assets/images/principal/PMI.png" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <hr>
-        <h6>
-        RFC RFCSo947
-           <br>
-        CURP: SEGR970120
-           <br>
-        CORREO: INGrisega.com 
-           <br>
-        TELEFONO - 4581103828
-        </h6>
-        <ng-template pTemplate="footer">
-            <p-button (click)="Editar()" label="Editar " icon="pi pi-check"></p-button>
-        </ng-template>
+@if ( data != null) {
+ <div  class="cards-container">
+    <p-card *ngFor="let proyecto of data" header="{{ proyecto.proyecto }}" subheader="Información General" [style]="{ width: '360px' }">
+         <ng-template pTemplate="header">
+            <br>
+            &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus == 1" styleClass="mr-2" severity="success"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
+            &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus == 2" styleClass="mr-2" severity="warning"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
+            &nbsp; &nbsp;<p-tag *ngIf=" proyecto.id_estatus != 1 && proyecto.id_estatus != 2 " styleClass="mr-2" severity="danger"  [rounded]="true"> {{ proyecto.estado }}</p-tag> 
+            <br>
+              @if (proyecto.totalcronogramas != 0 ) {
+                <p-chart type="{{tipo}}" [data]="proyecto.chart"></p-chart>
+              }@else{
+                <br><br>
+                <div class="row">
+                    <div class="col-sm-3">
+                      
+                    </div>
+                    <div class="col-sm-3">
+                        <p-button
+                        icon="pi pi-clock"
+                        label="Configurar"
+                        (click)="config()"
+                        pTooltip="Agregar Un cronograma."
+                        tooltipPosition="bottom"
+                        severity="primary"
+                        >
+                    </p-button>
+                    </div>
+                    <div class="col-sm-3">
+                 
+                    </div>
+                </div>
+                }
+         </ng-template>
+       
+         <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ proyecto.objetivo}} 
+         <br> <br>
+         <p-tag styleClass="mr-2" severity="info" value="Fecha Estimada:" [rounded]="true"></p-tag> {{ proyecto.fechas }} 
+         <ng-template pTemplate="footer">
+             <p-button 
+             pTooltip="Ver actividades."
+             tooltipPosition="top"
+             (click)="lstActividad(proyecto.id)"
+             label="ver Actividades" icon="pi pi-external-link"></p-button>
+         </ng-template>
+     </p-card> 
+ </div>
+}
+@else{
+    <p-card header="PMI - Cargando...">
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
     </p-card>
-
-    <p-card header="CONTROL RH" subheader=" CEO DEVELOPER" [style]="{ width: '360px' }">
-        <hr>
-        <div style="border-radius: 50%; width: 130px; height: 130px; overflow: hidden;">
-            <img alt="Card" src="./assets/images/principal/PMI.png" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <hr>
-        <h6>
-            JORNADA DE TRABAJO: COMPLETO
-            <br>
-            HORAS DE TRABAJO - 10
-            <br>
-            ESTATUS ACTIVO 
-        </h6>
-        <ng-template pTemplate="footer">
-            <p-button (click)="Editar()" label="Editar " icon="pi pi-check"></p-button>
-        </ng-template>
-    </p-card>
-
-    <p-card header="CONTROL CONTABLE" subheader=" DATOS FISCALES" [style]="{ width: '360px' }">
-        <hr>
-        <div style="border-radius: 50%; width: 130px; height: 130px; overflow: hidden;">
-            <img alt="Card" src="./assets/images/principal/PMI.png" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-        <hr>
-        <h6>
-            NOMBRE: RICARDO SEPULVEDA GARCIA 
-            <br>
-            RFC RFCSo947
-            <br>
-            CODIGO POSTAL 98770
-            <br>
-            BANCO: BBVA
-            <br>
-            CLABE: 45612387954
-        </h6>
-        <ng-template pTemplate="footer">
-            <p-button (click)="Editar()" label="Editar " icon="pi pi-check"></p-button>
-        </ng-template>
-    </p-card>
-
-</div>
+}
+<hr>
