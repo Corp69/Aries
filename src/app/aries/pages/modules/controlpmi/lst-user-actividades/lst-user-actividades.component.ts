@@ -1,8 +1,6 @@
-
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
 
 //prime
 import { CardModule } from 'primeng/card';
@@ -17,6 +15,16 @@ import { UsuarioService } from './services/usuario.service';
 import { ToastModule} from 'primeng/toast';
 import { MessageService} from 'primeng/api';
 import { BlockUIModule } from 'primeng/blockui';
+import {DialogModule} from 'primeng/dialog';
+import {CheckboxModule} from 'primeng/checkbox';
+
+
+interface JsActividad {
+  id: number;
+  id_estatus: number;
+}
+
+
 
 @Component({
   selector: 'app-lst-user-actividades',
@@ -27,6 +35,7 @@ import { BlockUIModule } from 'primeng/blockui';
     CommonModule,
 
     //prime 
+    DialogModule,
     CardModule,
     DividerModule,
     TableModule,
@@ -36,7 +45,8 @@ import { BlockUIModule } from 'primeng/blockui';
     TooltipModule,
     ToastModule,
     BlockUIModule,
-    ProgressBarModule
+    ProgressBarModule,
+    CheckboxModule
 
 
   ],
@@ -46,7 +56,7 @@ import { BlockUIModule } from 'primeng/blockui';
   templateUrl: './lst-user-actividades.component.html',
   styleUrl: './lst-user-actividades.component.scss'
 })
-export default class LstUserActividadesComponent implements OnInit {
+export default class LstUserActividadesComponent implements OnInit, AfterViewInit {
   
   public data:        any = [];
   public actividades: any = [];
@@ -55,51 +65,54 @@ export default class LstUserActividadesComponent implements OnInit {
 
 // variable que bloquea la vista
  public Ariesblocked: boolean  = false;
-
+  
  constructor(
   private service: UsuarioService,
   private router: Router,
   private messageService: MessageService,
  ){}
+
+
+  public ngAfterViewInit(): void {
+  this.service.lstActividades( 1 ).subscribe( res => { 
+      console.log( res.Detalle._app_lst_actividades_empledado.lst[0] );
+      this.data         =  res.Detalle._app_lst_actividades_empledado.lst[0];
+      this.actividades  =  this.data.actividades;
+  });
+
+  }
   
   
   public id: number = -1;
 
-  public ngOnInit() 
-  {
-    this.service.lstActividades().subscribe( res => { 
+  public ngOnInit() {}
+
+   //=============================================================================
+   // cerrar actividad
+    public mdlCerrar: boolean = false;
+    public JSactiviad: JsActividad = { id: -1, id_estatus: 6 };
+
+    public ModificarRow( _id: number ){
+      this.mdlCerrar = true; 
+      this.JSactiviad = { "id": _id, "id_estatus": 6 }
+    }
     
-        console.log( res.Detalle._app_lst_actividades_empledado.lst[0] );
-        
-        this.data         =  res.Detalle._app_lst_actividades_empledado.lst[0];
-
-        
-    
-    });
-  
-  
-  
-    }
-
-  public lstActividad ( id: number ){
-      this.router.navigate([ `/ControlPMI/lstCronograma/${id}`]);
-  }
-
-
-
-    
-    public config(){
-        this.router.navigate([ `/ControlPMI/Cronograma/-1`]);
-    }
-
-    public BtnBuscar(){
-        this.router.navigate([ `/ControlPMI/buscarCronograma`]);
-    }
-
-    public Nuevo(){
-        this.router.navigate([ `/ControlPMI/Cronograma/-1`]);
+    public confirmar(){
+      this.mdlCerrar = false;
+      this.service.Almacenar( this.JSactiviad ).subscribe( res => { 
+        console.log( res );
+        switch (res.IdMensj) {
+          case 3:
+            break;
+          case 2:
+            break;
+          default:
+            this.messageService.add({key: 'tc', severity:'success', summary: 'info', detail: res.Detalle });
+          break;
+        }
+      });
     }
 
 
-
+  //============================================================================= 
 }
