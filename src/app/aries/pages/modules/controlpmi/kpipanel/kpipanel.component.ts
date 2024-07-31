@@ -4,6 +4,7 @@ import { BlockUIModule } from 'primeng/blockui';
 import {CardModule} from 'primeng/card';
 import { TooltipModule } from 'primeng/tooltip';
 import {MessageService} from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-kpipanel',
@@ -12,7 +13,8 @@ import {MessageService} from 'primeng/api';
     ToastModule,
     BlockUIModule,
     CardModule,
-    TooltipModule
+    TooltipModule,
+    ButtonModule
   ],
   providers: [MessageService],
   templateUrl: './kpipanel.component.html',
@@ -22,11 +24,7 @@ import {MessageService} from 'primeng/api';
 
 export default class KpipanelComponent {
 
-      // variable que bloquea la vista
-      public Ariesblocked: boolean  = false;
-
-
-public Navegar(){
+public Editar(){
 
 }
 
