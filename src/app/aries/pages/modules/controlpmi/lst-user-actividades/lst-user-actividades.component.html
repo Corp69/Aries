@@ -1,1 +1,144 @@
-<p>lst-user-actividades works!</p>
+<hr>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+
+@if( data != []  ) {
+    <p-card header="PMI - PROYECTO">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                <h3> {{ data.PROYECTO}} </h3>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label>Estado:</label>
+                    {{ data.estado}}
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label > Fecha Establecida:</label>
+                    {{ data.fecha}}
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                    <label >Objetivo:</label>
+                    {{ data.objetivo}}  
+                </div>
+            </div>
+        </div>
+    </p-card>
+}
+@else {
+    <p-card header="PMI - Cargando...">
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+    </p-card>
+}
+<p-divider></p-divider>
+
+@if( actividades != []  ) {
+<p-card header="PMI - Actividades">
+    <p-table
+    [value]="actividades"
+    dataKey="id"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[5,10,25]"
+    [paginator]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 4rem">
+            </th>
+            <th pSortableColumn="id">
+              <p-sortIcon field="id"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nombre">ACTIVIDAD
+              <p-sortIcon field="nombre"></p-sortIcon>
+            </th>
+            <th pSortableColumn="objetivo">OBJETIVO
+              <p-sortIcon field="objetivo"></p-sortIcon>
+            </th>
+            <th pSortableColumn="detalle">DETALLE
+              <p-sortIcon field="detalle"></p-sortIcon>
+            </th>
+            <th pSortableColumn="actividadestado">ESTADO
+              <p-sortIcon field="actividadestado"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-actividades>
+        <tr>
+            <td>
+                <button
+                    pTooltip="Cerrar Actividad."
+                    tooltipPosition="top"
+                    (click)="ModificarRow(actividades.id)"
+                    pButton
+                    icon="pi pi-pencil"
+                    type="button"
+                    class="p-button-Info">
+                </button>
+            </td> 
+            <td> {{actividades.id}} </td>
+            <td> {{actividades.nombre}} </td>
+            <td> {{actividades.objetivo}} </td>
+            <td> {{actividades.detalle}} </td>
+            <td [innerHTML]="actividades.actividadestado"></td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">No se encontraron registros.</td>
+        </tr>
+    </ng-template>
+</p-table>
+</p-card>
+}
+@else{
+    <p-card header="PMI - Cargando...">
+        <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
+    </p-card>
+}
+
+
+<!-- Modal de actualizar las actividades -->
+
+<div class="card flex flex-column align-items-center gap-2">
+    <p-dialog 
+        [draggable]="false"
+        [modal]="true" 
+        [resizable]="true"
+        header="{{ data.PROYECTO}}"
+        [(visible)]="mdlCerrar" position="center">
+    <p-divider></p-divider>
+    <P>¿ Cerrar actividad ? <i class="pi pi-exclamation-triangle" style=" color: orange;"></i></P>
+        <ng-template pTemplate="footer">
+            <p-button 
+                
+                pTooltip="Presiona para Cancelar Operacion."
+                tooltipPosition="top"
+            
+                icon="pi pi-times" 
+                (click)="mdlCerrar = false " 
+                label="Cancelar" 
+                styleClass="p-button-text">
+            </p-button>
+            <p-button 
+                pTooltip="Presiona para Confirmar Operacion."
+                tooltipPosition="top"
+        
+                icon="pi pi-check-square" 
+                (click)="confirmar()" 
+                label="Confirmar" 
+                styleClass="p-button-text">
+            </p-button>
+        </ng-template>
+    </p-dialog>
+</div>
+
+

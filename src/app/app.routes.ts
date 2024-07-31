@@ -470,13 +470,13 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       //modulo: Compras
-      {
-        path:  'EquiposRHempleado/:id',
-        title: 'PMI - Equipos - Empleados',
-        loadComponent: () => import('./aries/pages/modules/controlpmi/equipoRhempleado/equiposRh.component'),
-        canActivate:[ AuthGuard ],
-        canMatch:[ AuthGuard]
-      },
+      // {
+      //   path:  'EquiposRHempleado/:id',
+      //   title: 'PMI - Equipos - Empleados',
+      //   loadComponent: () => import('./aries/pages/modules/controlpmi/equipoRhempleado/equiposRh.component'),
+      //   canActivate:[ AuthGuard ],
+      //   canMatch:[ AuthGuard]
+      // },
       {
         path:  'TabCronograma',
         title: ' PMI- Tablero Cronograma ',
@@ -513,6 +513,20 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       {
+        path:  'Usuario',
+        title: ' PMI - Info. Usuario ',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/usuario/usuario.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'admin/:id',
+        title: ' PMI - Info. Gestor ',
+        loadComponent: () => import('./aries/pages/modules/controlpmi/admin/admin.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
         path:  'lstActividades',
         title: 'PMI - Actividades',
         loadComponent: () => import('./aries/pages/modules/controlpmi/lstactividades/lstactividades.component'),
@@ -529,7 +543,7 @@ export const routes: Routes = [
       },
 
       {
-        path:  'lstUserActividades',
+        path:  'lstUserActividades/:id',
         title: 'PMI - Usuario',
         loadComponent: () => import('./aries/pages/modules/controlpmi/lst-user-actividades/lst-user-actividades.component'),
         canActivate:[ AuthGuard ],

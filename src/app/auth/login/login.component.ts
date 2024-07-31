@@ -92,10 +92,10 @@ export default class LoginComponent implements OnInit {
           this.ConfirmacionMdl = true;
           break;
         default:
-          let sond = new Audio();
-          sond.src = '../assets/login/AriesIntro.mp4'
-          sond.load();
-          sond.play();
+          // let sond = new Audio();
+          // sond.src = '../assets/login/AriesIntro.mp4'
+          // sond.load();
+          // sond.play();
           // cargamos la informacion del usuario a localstorage
           localStorage.setItem('id',      resp.data.user.id!);
           localStorage.setItem('Usuario', resp.data.user.usuario!);
