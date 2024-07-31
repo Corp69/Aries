@@ -76,19 +76,19 @@ export default class KpipanelComponent implements OnInit {
         switch (valor) {
             case "pie":
                 this.tipo = valor;
-                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
+                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos_usuario.lst;});
                 break;
             case "doughnut":
                 this.tipo = valor;
-                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
+                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos_usuario.lst;});
                 break;
             case "bar":
-                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
+                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos_usuario.lst;});
                 this.tipo = valor;
                 break;
             default:
                 this.tipo = "pie";
-                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos.lst;});
+                this.service.getProyectos().subscribe( res => { this.data  =  res.Detalle._app_lst_proyectos_usuario.lst;});
                 break;
         }  
     }

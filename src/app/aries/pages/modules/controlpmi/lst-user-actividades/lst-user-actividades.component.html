@@ -68,11 +68,11 @@
                 <th pSortableColumn="id">
                 <p-sortIcon field="id"></p-sortIcon>
                 </th>
-                <th pSortableColumn="titulo">CRONOGRAMA
-                <p-sortIcon field="titulo"></p-sortIcon>
-                </th>
                 <th pSortableColumn="nombre">ACTIVIDAD
                 <p-sortIcon field="nombre"></p-sortIcon>
+                </th>
+                <th pSortableColumn="titulo">CRONOGRAMA
+                    <p-sortIcon field="titulo"></p-sortIcon>
                 </th>
                 <th pSortableColumn="objetivo">OBJETIVO
                 <p-sortIcon field="objetivo"></p-sortIcon>
@@ -99,10 +99,10 @@
                     </button>
                 </td> 
                 <td> {{actividades.id}} </td>
+                <td> {{actividades.nombre}} </td>
                 <td> 
                     <p-tag styleClass="mr-2"  severity="success" [rounded]="true"> {{ actividades.titulo }} </p-tag>
                 </td>
-                <td> {{actividades.nombre}} </td>
                 <td> {{actividades.objetivo}} </td>
                 <td> {{actividades.detalle}} </td>
                 <!-- <td [innerHTML]="actividades.actividadestado"></td> -->

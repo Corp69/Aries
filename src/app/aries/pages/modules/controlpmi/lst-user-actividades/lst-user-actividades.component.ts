@@ -125,9 +125,11 @@ export default class LstUserActividadesComponent {
             this.messageService.add({key: 'tc', 
                 severity:'success', 
                 summary: 'info', 
-                detail: res.Detalle });
+                detail: 'Actividad Cerrada' });
 
-            this.service.lstActividades(this._id).subscribe(resp => {  
+            this.service.lstActividades(this._id).subscribe(resp => {
+              console.log(resp);
+               
               //============================================================
               //validamos que no venga vacio
               if ( resp.Detalle._app_lst_actividades_empledado.act.length == 0 ) {
@@ -137,13 +139,15 @@ export default class LstUserActividadesComponent {
                      key: 'tc', 
                      severity:'info', 
                      summary: 'info',
-                     detail: 'no hay registros.'
+                     detail: 'Sin Actividades.'
                    });
                    //registros dejamos en vacio 
-                   this.actividades = resp.Detalle._app_lst_actividades_empledado.act;
+                   this.actividades = [];
+                   console.log( this.actividades );
+                   
                }
                else{
-                this.actividades  = [];
+                this.actividades  = resp.Detalle._app_lst_actividades_empledado.act;
                }
            });          
           break;

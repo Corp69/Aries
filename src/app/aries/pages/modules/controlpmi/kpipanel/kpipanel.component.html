@@ -71,7 +71,12 @@
                 }
          </ng-template>
        
-         <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ proyecto.objetivo}} 
+         <p-tag styleClass="mr-2" severity="info" value="Objetivo" [rounded]="true"></p-tag> {{ proyecto.objetivo}}
+         <br> 
+         <br> 
+         &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<p-tag styleClass="mr-2" severity="info"  [rounded]="true">
+            <h4 (click)="lstActividad(proyecto.id)" > Act. Pendientes: {{ proyecto.activas }} </h4> 
+         </p-tag>
          <br> <br>
          <p-tag styleClass="mr-2" severity="info" value="Fecha Estimada:" [rounded]="true"></p-tag> {{ proyecto.fechas }} 
          <ng-template pTemplate="footer">
