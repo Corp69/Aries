@@ -17,9 +17,10 @@ interface JsActividad {
 export class UsuarioService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
+
   public lstActividades(  _id: number ): Observable<any> 
   {
-    let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+     let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
      return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
       {
         "ExSchema":"pmi",
@@ -27,7 +28,7 @@ export class UsuarioService {
         "data": 
         {
           "_idproyecto": _id,
-          "_idEmpleado": 1,
+          "_idEmpleado": localStorage.getItem('id')
         }
     },
       { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
