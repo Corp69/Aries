@@ -49,15 +49,6 @@
         </div>
     </div>
     <br>
-    <p-button
-    icon="pi pi-plus"
-    label="Nuevo"
-    (click)="Nuevo()"
-    pTooltip="Generar una busqueda nueva."
-    tooltipPosition="bottom"
-    severity="success"
-    >
-    </p-button>
     &nbsp;
     <p-button
         icon="pi pi-search"
@@ -70,6 +61,15 @@
         <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
             fill="var(--surface-ground)" animationDuration=".5s">
         </p-progressSpinner>
+    </p-button>
+    &nbsp;
+    <p-button
+        icon="pi pi-plus"
+        pTooltip="Crear Una Actividad Nueva."
+        tooltipPosition="bottom"
+        (click)="Agregar()"
+        label="Crear"
+        severity="success">
     </p-button>
     &nbsp;
     </form>

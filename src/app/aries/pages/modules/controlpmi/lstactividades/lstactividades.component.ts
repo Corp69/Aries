@@ -169,7 +169,11 @@ export default class LstactividadesComponent implements  OnInit {
     // Redireccion  Actividad 
     public selectRowCronograma( id: number ){ this.router.navigate([ `/ControlPMI/Cronograma/${ id }`]);}
     public selectRowActividad(  id: number ){ this.router.navigate([ `/ControlPMI/Actividad/${ id }`]);}
+    ////============================================================
+   //A gregar una nueva Actibvidad
+    public Agregar(){ this.router.navigate([ `/ControlPMI/Actividad/-1`]);}
     
+
 
 
 
