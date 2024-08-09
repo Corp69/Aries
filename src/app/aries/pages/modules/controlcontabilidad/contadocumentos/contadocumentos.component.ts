@@ -74,6 +74,8 @@ export default class ContadocumentosComponent implements OnInit  {
   // variables para mensaje actualizar guardar
   public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
 
+  //el id del registro a eliminar
+  public _id: number = -1;
 
   // variables de tabla
   //tabla
@@ -82,6 +84,9 @@ export default class ContadocumentosComponent implements OnInit  {
 
   // busqueda
   public busqueda: string = "";
+
+  // Modal: mensaje Confirmacion falso para no cargar la modal
+  public mdleliminar: boolean = false;
 
   public frm: FormGroup = this.fb.group({
     _fechainicial: [ null,[Validators.required, Validators.minLength(1)]],
@@ -194,14 +199,52 @@ export default class ContadocumentosComponent implements OnInit  {
 
   public selectRowActividad(  id: number ){ this.router.navigate([ `/ControlPMI/Actividad/${ id }`]);}
   
-// public  selectRow( args: any ){
-//   this.router.navigate([ `{ args.Numero }`]);
-// }
+ public  selectRow( args: any ){
+   this.router.navigate([ `{ args.Numero }`]);
+ }
  
-//  public eliminarRow( args: any ){
-//   this._id = args.Numero;
-//   this.mdleliminar = true;
-//   this.Ariesblocked = true;
-// }
+  public eliminarRow( args: any ){
+   this._id = args.Numero;
+   this.mdleliminar = true;
+   this.Ariesblocked = true;
+ }
+
+ public exportExcel() {
+  if ( this.DataSource.length == 0 ) {
+    // mensaje para verificar la captura de la direccion del sat
+     this.messageService.add(
+       {
+         key: 'tc', 
+         severity:'info', 
+         summary: 'Advertencia:',
+         detail: 'No se pudo generar un excel, no hay registros'
+       });
+    }
+else
+   {  
+      import("xlsx").then(xlsx => {
+        const worksheet = xlsx.utils.json_to_sheet( this.DataSource );
+        const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "products");
+      });
+    }
+}
+
+public saveAsExcelFile(buffer: any, fileName: string): void {
+  import("file-saver").then(FileSaver => {
+    let EXCEL_TYPE =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    let EXCEL_EXTENSION = ".xlsx";
+    const data: Blob = new Blob([buffer], {
+      type: EXCEL_TYPE
+    });
+    FileSaver.saveAs(
+      data,
+      fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+    );
+  });
+}
+
 
 }
