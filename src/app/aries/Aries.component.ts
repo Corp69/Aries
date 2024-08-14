@@ -100,7 +100,6 @@ export default class AriesComponent {
    */
   public CerrraSesion = () =>{
     localStorage.clear();
-    debugger;
     this.router.navigate(['/auth/login']);
   }
 

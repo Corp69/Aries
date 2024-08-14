@@ -112,10 +112,12 @@ export default class ContadocumentosComponent implements OnInit  {
   
   //btn nuevo
   public Nuevo() {
-   
-    this.frm.controls['_fechainicial'].setValue( new Date() );
-    this.frm.controls['_fechafinal'].setValue(  new Date());
-    this.frm.controls['_idestatus'].setValue(null);
+
+  // this.frm.controls['_fechainicial'].setValue( new Date() );
+  // this.frm.controls['_fechafinal'].setValue(  new Date());
+  // this.frm.controls['_idestatus'].setValue(null);
+  
+  this.router.navigate([ `/ControlContable/Documento/-1`]);
 
   }
 

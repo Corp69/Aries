@@ -105,9 +105,11 @@ export default class DocumentocomprasComponent implements OnInit {
 //btn nuevo
 public Nuevo() {
  
-  this.frm.controls['_fechainicial'].setValue( new Date() );
-  this.frm.controls['_fechafinal'].setValue(  new Date());
-  this.frm.controls['_idestatus'].setValue(null);
+  // this.frm.controls['_fechainicial'].setValue( new Date() );
+  // this.frm.controls['_fechafinal'].setValue(  new Date());
+  // this.frm.controls['_idestatus'].setValue(null);
+
+  this.router.navigate([ `/ControlCompras/Documento/-1`]);
 
 }
 

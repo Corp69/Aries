@@ -92,7 +92,6 @@ export default class PrincipalComponent {
    */
   public CerrraSesion = () =>{
     localStorage.clear();
-    debugger;
     // this.router.navigate(['/auth/login']);
   }
 
