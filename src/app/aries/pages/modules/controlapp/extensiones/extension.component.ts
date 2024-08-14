@@ -58,6 +58,7 @@ import { ExtensionService } from './Services/Extension.service';
 
 
   ],
+  providers: [MessageService],
   templateUrl: './extension.component.html',
   styleUrl: './extension.component.scss'
 

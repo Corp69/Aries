@@ -36,13 +36,13 @@ import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import { ConfirmacionMensaje } from './interface/General';
 import { ActivatedRoute } from '@angular/router';
+import MdlbuscarclienteComponent from "../../../../../shared/pages/modales/mdlbuscarcliente/mdlbuscarcliente.component";
 
 
 @Component({
   selector: 'app-general',
   standalone: true,
   imports: [
-    
     //angular
     CommonModule,
     ReactiveFormsModule,
@@ -69,7 +69,10 @@ import { ActivatedRoute } from '@angular/router';
     BlockUIModule,
     ToastModule,
 
-  ],
+
+    // componente compartido 
+    MdlbuscarclienteComponent
+],
   providers: [MessageService],
   templateUrl: './general.component.html',
   styleUrl: './general.component.scss',
