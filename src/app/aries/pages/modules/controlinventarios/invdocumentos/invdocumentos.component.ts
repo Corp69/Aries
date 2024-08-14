@@ -111,7 +111,11 @@ public Nuevo() {
 
 }
 
+public CrearDocumento (){
 
+  this.router.navigate([ `/ControlInventarios/Documento/-1`]);
+  
+}
 //btn nuevo
 public  buscar() {
      //=======================================================================================
