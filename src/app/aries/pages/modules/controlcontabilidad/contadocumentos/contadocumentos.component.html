@@ -1,18 +1,195 @@
-<div style="text-align: center; max-width: 500px; margin: 0 auto;">
-    <p-card header="Aries Info." subheader=" Departamento TI." [style]="{ width: '360px' }">
+<hr>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<p-card header="CONTA - Documentos">
+    <form [formGroup]="frm" autocomplete="off">
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-spin pi-cog"></i>
+                &nbsp; Información General:
+            </div>
+        </p-divider>
+        <div class="row">
+          <div class="col-sm-4">
+              <div class="flex flex-column gap-2">
+                  <i class="pi pi-exclamation-circle"
+                  >&nbsp; Estado:</i>
+                  <p-dropdown
+                    pTooltip="Selecciona: estatus a filtrar."
+                    tooltipPosition="top"
+                    formControlName="_idestatus"
+                    placeholder="Seleccione Estatus"
+                    value="id_estado"
+                    [options]="lstEstus"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+                  <p-message severity="error" text="Campo Es Obligatorio "
+                      *ngIf="frm.controls['_idestatus'].invalid">
+                   </p-message>
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="flex flex-column gap-2">
+                  <i class="pi pi-exclamation-circle">&nbsp; Fecha Inicial:</i>
+                  <p-calendar 
+                  pTooltip="selecciona fecha a filtrar."
+                  tooltipPosition="top"
+                  formControlName="_fechainicial"
+                  [showIcon]="true" 
+                  dateFormat="dd/mm/yy"
+                  [readonlyInput]="true" 
+                  [showOnFocus]="false" 
+                  inputId="buttondisplay" />
+                  <p-message severity="error" text="Campo Es Obligatorio "
+                      *ngIf="frm.controls['_fechainicial'].invalid">
+                   </p-message>
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <div class="flex flex-column gap-2">
+                  <i class="pi pi-exclamation-circle">&nbsp; Fecha Final:</i>
+                  <p-calendar 
+                  pTooltip="selecciona una fecha a filtrar."
+                  tooltipPosition="top"
+                  formControlName="_fechafinal"
+                  [showIcon]="true" 
+                  dateFormat="dd/mm/yy"
+                  [readonlyInput]="true" 
+                  [showOnFocus]="false" 
+                  inputId="buttondisplay" />
+                  <p-message severity="error" text="Campo Es Obligatorio "
+                      *ngIf="frm.controls['_fechafinal'].invalid">
+                   </p-message>
+              </div>
+          </div>
+      </div>
+        <br>
+        <p-button
+        icon="pi pi-plus"
+        label="Nuevo"
+        (click)="Nuevo()"
+        pTooltip="Generar una busqueda nueva."
+        tooltipPosition="bottom"
+        severity="success"
+        >
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-search"
+            pTooltip="Realizar busqueda."
+            tooltipPosition="bottom"
+            (click)="buscar()"
+            [disabled]="frm.invalid"
+            label="Buscar"
+            severity="info">
+            <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+                fill="var(--surface-ground)" animationDuration=".5s">
+            </p-progressSpinner>
+        </p-button>
+        &nbsp;
+      </form>
+
+      <p-divider></p-divider>
+
+      @if( busqueda != ""  ) {
+        <div class="row">
+          <div class="col-sm-4">
+           
+          </div>
+          <div class="col-sm-4">
+            <h6>{{ busqueda }} </h6> 
+          </div>
+          <div class="col-sm-4">
+            <p-button
+            icon="pi pi-file-excel"
+            label="Excel"
+            (click)="exportExcel()"
+            pTooltip="Exportar Excel."
+            tooltipPosition="bottom"
+            severity="success"
+            >
+            </p-button>
+          </div>
+        </div>
+        }
+
+        <p-divider></p-divider>
+        
+      <p-table [value]="DataSource" dataKey="id">
         <ng-template pTemplate="header">
-            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+          <tr>
+            <th></th>
+            <th></th>
+            <th 
+                pSortableColumn="folio">FOLIO<p-sortIcon field="folio"></p-sortIcon>
+            </th>
+            <th  
+              pSortableColumn="fecha">FECHA<p-sortIcon field="fecha"></p-sortIcon>
+            </th>
+            <th  
+                pSortableColumn="cliente">CLIENTE<p-sortIcon field="cliente"></p-sortIcon>
+            </th>
+            <th 
+              pSortableColumn="prefijo">PREFIJO<p-sortIcon field="prefijo"></p-sortIcon>
+            </th>
+            <th 
+              pSortableColumn="codigo">CODIGO<p-sortIcon field="codigo"></p-sortIcon>
+            </th>
+            <th 
+              pSortableColumn="sucursal">SUCURSAL<p-sortIcon field="sucursal"></p-sortIcon>
+            </th>
+        </tr>
         </ng-template>
-        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
-        <p>
-            En este Momento Nos Encontramos dando unos latigasos a nuestro desarrollador,
-            debido a que se encuentran desarrollando muy lento cada clic es un latigaso.
-
-        </p>
-        <ng-template pTemplate="footer">
-            <p-button label="Dar Latigaso + 1 " icon="pi pi-check"></p-button>
+        <ng-template pTemplate="body" let-DataSource
+        >
+          <tr>
+            <td>
+              <button
+              pTooltip="Modificar: Registro."
+              tooltipPosition="top"
+              (click)="selectRowActividad( DataSource.id )"
+              pButton
+              icon="pi pi-file-edit"
+              type="button"
+              class="p-button-Info">
+            </button>
+            </td>
+            <td>
+              <!-- <button
+              pTooltip="Eliminar: Registro."
+              tooltipPosition="top"
+              (click)="eliminarRow( DataSource.id)"
+              pButton
+              icon="pi pi-trash"
+              type="button"
+              class="p-button-danger">
+            </button> -->
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.folio"></div>
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.fecha"></div>
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.cliente"></div>
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.prefijo"></div>
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.codigo"></div>
+            </td>
+            <td>
+                <div [innerHTML]="DataSource.sucursal"></div>
+            </td>
+        </tr>
         </ng-template>
-    </p-card>
-</div>
-
-<p-progressBar mode="indeterminate" [style]="{ height: '30px' }"></p-progressBar>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">No hay registros.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
