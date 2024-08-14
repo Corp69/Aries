@@ -71,7 +71,88 @@
             </div>
         </p-divider>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-4" >
+                <div class="flex flex-wrap gap-3">
+                    <div class="flex align-items-center">
+                        <p-inputGroup>
+                            <p-inputGroupAddon
+                            pTooltip="Seleccione un estado del proyecto."
+                            tooltipPosition="bottom" >
+                                <i class="pi pi-wrench">&nbsp; Estado:</i>
+                            </p-inputGroupAddon>
+                        </p-inputGroup>
+                        <p-dropdown
+                            pTooltip="Seleccione un estado del proyecto."
+                            tooltipPosition="bottom"
+                            formControlName="id_estatus"
+                            placeholder="seleccione una opcion"
+                            value="id_estatus"
+                            [options]="lstestatus"
+                            optionValue="id" optionLabel="descripcion"
+                            >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                     *ngIf="frm.controls['id_estatus'].invalid">
+                </p-message>
+            </div>
+
+
+            <div class="col-sm-4" >
+                <div class="flex flex-wrap gap-3">
+                    <div class="flex align-items-center">
+                        <p-inputGroup>
+                            <p-inputGroupAddon
+                            pTooltip="Seleccione un proyecto."
+                            tooltipPosition="bottom" >
+                                <i class="pi pi-wrench">&nbsp; Proyecto:</i>
+                            </p-inputGroupAddon>
+                        </p-inputGroup>
+                        <p-dropdown
+                            formControlName="id_estatus"
+                            placeholder="seleccione una opcion"
+                            value="id_estatus"
+                            [options]="lstestatus"
+                            optionValue="id" optionLabel="descripcion"
+                            >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                     *ngIf="frm.controls['id_estatus'].invalid">
+                </p-message>
+            </div>
+
+            <div class="col-sm-4" >
+                <div class="flex flex-wrap gap-3">
+                    <div class="flex align-items-center">
+                        <p-inputGroup>
+                            <p-inputGroupAddon
+                            pTooltip="Asigne Un Cronograma."
+                            tooltipPosition="bottom" >
+                                <i class="pi pi-wrench">&nbsp; Cronograma:</i>
+                            </p-inputGroupAddon>
+                        </p-inputGroup>
+                        <p-dropdown
+                            formControlName="id_estatus"
+                            placeholder="seleccione una opcion"
+                            value="id_estatus"
+                            [options]="lstestatus"
+                            optionValue="id" optionLabel="descripcion"
+                            >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                     *ngIf="frm.controls['id_estatus'].invalid">
+                </p-message>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-3">
                 <div class="flex flex-column gap-2">
                     <label>Tiempo Estimado:</label>
                         <p-inputNumber  
@@ -93,55 +174,11 @@
                 </p-message>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="flex flex-column gap-2">
-                    <label>Tiempo Real:</label>
-                    <p-inputNumber  
-                    pTooltip="Ingrese Horas reales a la actividad."
-                    tooltipPosition="bottom"
-                    formControlName="tiempo_real"
-                    pInputText placeholder="Vacio" 
-                    [showButtons]="true" 
-                    buttonLayout="vertical" 
-                    spinnerMode="vertical" 
-                    inputId="vertical"
-                    decrementButtonClass="p-button-secondary"
-                     incrementButtonClass="p-button-secondary" 
-                     incrementButtonIcon="pi pi-plus"
-                      decrementButtonIcon="pi pi-minus">
-                    </p-inputNumber>
-                    <p-message severity="error" text="Campo Es Obligatorio "
-                        *ngIf="frm.controls['tiempo_real'].invalid">
-                    </p-message>
-                </div>
             </div>
-        </div>
-        <br>
-        <div class="flex flex-wrap gap-3">
-            <div class="flex align-items-center">
-                <p-inputGroup>
-                    <p-inputGroupAddon
-                    pTooltip="Seleccione un estado del proyecto."
-                    tooltipPosition="bottom" >
-                        <i class="pi pi-wrench">&nbsp; Estado:</i>
-                    </p-inputGroupAddon>
-                </p-inputGroup>
-                <p-dropdown
-                    pTooltip="Seleccione un estado del proyecto."
-                    tooltipPosition="bottom"
-                    formControlName="id_estatus"
-                    placeholder="seleccione una opcion"
-                    value="id_estatus"
-                    [options]="lstestatus"
-                    optionValue="id" optionLabel="descripcion"
-                    >
-                </p-dropdown>
-            </div>
-        </div>
-        <p-message severity="error" text="Campo Es Obligatorio "
-             *ngIf="frm.controls['id_estatus'].invalid">
-        </p-message>
 
+
+
+        <br>
         <p-divider align="left">
             <div class="inline-flex align-items-center">
                 <i class="pi pi-user mr-2"></i>

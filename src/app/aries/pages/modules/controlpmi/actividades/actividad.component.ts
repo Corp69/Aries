@@ -98,7 +98,7 @@ export default class ActividadComponent implements OnInit {
     objetivo:          [null, [Validators.required, Validators.minLength(5)]],
     detalle:           [""],
     tiempo_estimado:   [null, [Validators.required, Validators.min(0)]],
-    tiempo_real:       [null, [Validators.required, Validators.min(0)]],
+    tiempo_real:       [0],
     comentarios:       [""]
   });
 
