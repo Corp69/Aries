@@ -43,7 +43,7 @@ export class HomeService {
   switchTheme(theme: any) {
 
     if (theme == null ) {
-      theme =  'vela-blue';
+      theme =  'bootstrap4-light-purple';
     }
 
     let themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
