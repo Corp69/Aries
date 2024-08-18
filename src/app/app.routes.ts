@@ -92,6 +92,45 @@ export const routes: Routes = [
       }
     ]
   },
+  //!=======================
+  //? MEMBRESIAS  
+  {
+    path: 'ControlMembresias',
+    loadComponent: () => import('./aries/Aries.component'),
+    canActivate:[ AuthGuard ],
+    canMatch:[ AuthGuard],
+    children: [
+      //modulo: Compras
+      {
+        path:  'calendario',
+        title: 'MEM - Calendario',
+        loadComponent: () => import('./aries/pages/modules/controlmembresias/calendario/calendario.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'catalogo',
+        title: 'MEM - Catalogo Membresias',
+        loadComponent: () => import('./aries/pages/modules/controlmembresias/catalogo/catalogo.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'citas/:id',
+        title: 'MEM - Generar Cita',
+        loadComponent: () => import('./aries/pages/modules/controlmembresias/cita/cita.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'membresias/:id',
+        title: 'MEM - Generar Membresia',
+        loadComponent: () => import('./aries/pages/modules/controlmembresias/membresia/membresia.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      }
+    ]
+  },
   //contabilidad
   {
     path: 'ControlContable',
