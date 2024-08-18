@@ -1,0 +1,20 @@
+<div class="cards-container">
+    <p-card 
+    
+        header="Consultorio Dental." 
+        subheader=" Departamento TI." 
+        [style]="{ width: '360px' }"
+        
+    >
+         <ng-template pTemplate="header">
+             <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+         </ng-template>
+         <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+         <h4>
+            Generar Cita
+         </h4>
+         <ng-template pTemplate="footer">
+             <p-button (click)="irNueva()" label="Agregar Cita" icon="pi pi-plus"></p-button>
+         </ng-template>
+     </p-card>
+</div>

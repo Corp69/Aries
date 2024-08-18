@@ -19,7 +19,8 @@ export const routes: Routes = [
       }
     ]
   },
-  //Publico
+  //====================================================================================================
+  //Publico FACTURA
   {
     path: 'publico',
     loadComponent: () => import('./public/principal.component'),
@@ -46,6 +47,33 @@ export const routes: Routes = [
       },
       {
         path: '**', redirectTo: 'factura', pathMatch: 'full',
+        //path: '**',redirectTo: 'publico'
+      }
+    ]
+  },  
+  //? ==============================================
+  //?Publico Membresias -  CITAS 
+  {
+    path: 'consultorio',
+    loadComponent: () => import('./public/principal.component'),
+    children: [
+      {
+        path:  'inicio',
+        title: 'MEM - Inicio',
+        loadComponent: () => import('./public/membresias/citas/index/index.component'),
+      },
+      {
+        path:  'cita',
+        title: 'MEM - Generar Cita',
+        loadComponent: () => import('./public/membresias/citas/dentista/dentista.component'),
+      },
+      // {
+      //   path:  'calendario',
+      //   title: 'MEM - Calendario Citas ',
+      //   loadComponent: () => import('./public/'),
+      // },
+      {
+        path: '**', redirectTo: 'inicio', pathMatch: 'full',
         //path: '**',redirectTo: 'publico'
       }
     ]

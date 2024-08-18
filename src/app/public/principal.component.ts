@@ -54,15 +54,9 @@ export default class PrincipalComponent {
 
   }
 
-
  public navigateToUrl(url: any) { this.router.navigate([url]);}
 
  ngOnInit() {
-
-
-  console.log( " hola ");
-
-
     // this.servicio.lstOpciones().subscribe(resp => {
 
     //   this.items   = resp.Detalle._app_menu_x_empleado;

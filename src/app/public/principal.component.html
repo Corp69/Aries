@@ -16,6 +16,7 @@
             badgeClass="p-badge-danger"
             [outlined]="true">
         </p-button>
+        
 
 
     </ng-template>
@@ -34,23 +35,24 @@
 <p-sidebar [(visible)]="sidebarVisible">
 
     <h3>Menu</h3>
+    <p-splitButton icon="pi pi-moon" label="Temas" [model]="this.items3" styleClass="p-button-outlined p-button-info mr-2 mb-2" ></p-splitButton>
 
-    <p-button
+    <!-- <p-button
         (click)="CerrraSesion()"
         label="Cerrar Session"
         icon="pi pi-power-off"
         badgeClass="p-badge-danger"
         [outlined]="true"
     >
-    </p-button>
+    </p-button> -->
 
-    <p-divider align="left">
+    <!-- <p-divider align="left">
         <div class="inline-flex align-items-center">
             <i class="pi pi-user mr-2"></i>
             <b>Accesos</b>
         </div>
-    </p-divider>
-    <p-accordion [multiple]="true" [activeIndex]="[0]" *ngFor="let grupo of items">
+    </p-divider> -->
+    <!-- <p-accordion [multiple]="true" [activeIndex]="[0]" *ngFor="let grupo of items">
         <p-accordionTab header="{{ grupo[0].label }}">
             <ul>
                 <li *ngFor="let item of grupo[0].items">
@@ -62,13 +64,20 @@
                 </li>
             </ul>
         </p-accordionTab>
-    </p-accordion>
+    </p-accordion> -->
 
-    <p-splitButton icon="pi pi-moon" label="Temas" [model]="this.items3" styleClass="p-button-outlined p-button-info mr-2 mb-2" ></p-splitButton>
+    <!-- <p-splitButton icon="pi pi-moon" label="Temas" [model]="this.items3" styleClass="p-button-outlined p-button-info mr-2 mb-2" ></p-splitButton> -->
 
 
 </p-sidebar>
 
 <router-outlet />
 
-<app-firma />
+<div class="container-fluid">
+    <div class="row pt-4">
+        <div class="col-md-12 text-center mb-2" style="text-align: center;">
+            <label class="text-secondary font-weight-bold"> ©2024 CopyRight Aries ERP.</label>
+        </div>
+    </div>
+</div>
+<!-- <app-firma /> -->
