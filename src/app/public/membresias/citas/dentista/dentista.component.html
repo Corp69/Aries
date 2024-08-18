@@ -1,1 +1,113 @@
-<p>dentista works!</p>
+<hr>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<p-card header="Mem - Citas">
+
+        <!-- Agregar Informcion del formulario -->
+        <form [formGroup]="frm" autocomplete="off">
+            <p-divider align="left">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-spin pi-cog"></i>
+                    &nbsp; Información General:
+                </div>
+            </p-divider>
+    
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <label>Descripcion:</label>
+                        <textarea formControlName="descripcion" [rows]="5" [cols]="30" pInputTextarea [autoResize]="true"></textarea>
+                        <p-message severity="error" text="Campo Es Obligatorio "
+                            *ngIf="frm.controls['descripcion'].invalid">
+                        </p-message>
+                    </div>
+                </div>
+            </div>
+    
+            <p-divider align="left">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-spin pi-cog"> </i>
+                    &nbsp; configuraciones:
+                </div>
+            </p-divider>
+
+            
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="flex flex-column gap-2">
+                        <p-inputGroupAddon 
+                        pTooltip="Selecciona una fecha en que inicia la cita."
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-calendar">&nbsp; Fecha-Hora Inicia:</i>
+                        </p-inputGroupAddon>
+                        <p-calendar 
+                            (onSelect)="Fecha_inicia( $event )" 
+                            dateFormat="dd/mm/yy"
+                            hourFormat="24"
+                            [showTime]="true" 
+                            [showSeconds]="true" 
+                            inputId="time"
+                        >
+                        </p-calendar>
+                        <p-message severity="error" text="Campo Es Obligatorio "
+                             *ngIf="frm.controls['fecha_inicio'].invalid">
+                         </p-message>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="flex flex-column gap-2">
+                        <p-inputGroupAddon 
+                        pTooltip="Selecciona una fecha en que termina la cita."
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-calendar">&nbsp; Fecha-Hora Termina:</i>
+                        </p-inputGroupAddon>
+                        <p-calendar 
+                            (onSelect)="Fecha_termina( $event )" 
+                            dateFormat="dd/mm/yy"
+                            hourFormat="24"
+                            [showTime]="true" 
+                            [showSeconds]="true" 
+                            inputId="time"
+                        >
+                        </p-calendar>
+                        <p-message severity="error" text="Campo Es Obligatorio "
+                            *ngIf="frm.controls['fecha_final'].invalid">
+                        </p-message>
+                    </div>
+                </div>
+            </div>
+            
+            <p-divider align="left">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-user mr-2"></i>
+                    <b>Funciones Usuario:</b>
+                </div>
+            </p-divider>
+            <span class="p-buttonset">
+                <p-button
+                    icon="pi pi-plus"
+                    pTooltip="Clic: para  Crear la cita y la agrega al calendario."
+                    tooltipPosition="bottom"
+                    (click)="crearCita()"
+                    [disabled]="frm.invalid"
+                    label="Guardar"
+                    severity="success">
+                    <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+                        fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+                </p-button>
+                &nbsp;
+                <p-button
+                    icon="pi pi-calendar-times"
+                    pTooltip="clic para visualizar el calendario semanal ."
+                    tooltipPosition="bottom"
+                    (click)="irCalendario()"
+                    label="Calendario"
+                    severity="info"
+                >
+                 </p-button>
+            </span>
+    
+        </form>
+</p-card>
+
+
