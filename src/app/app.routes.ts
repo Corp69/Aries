@@ -679,7 +679,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'space',
+    redirectTo: 'space/principal',
     pathMatch: 'full'
   }
 
