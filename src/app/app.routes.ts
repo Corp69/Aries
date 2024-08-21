@@ -27,7 +27,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'principal',
-        title: 'EC - Space',
+        title: 'EC - Principal.',
         loadComponent: () => import('./space/pages/principal/principal.component'),
       },
 
