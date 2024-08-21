@@ -76,13 +76,14 @@
 <!-- Modal de informacion adicional  -->
 @if ( displayModal == true ) { 
     <p-dialog 
-        header="Departamento TI: EC" 
+        header="Dtp. TI: EC" 
         [(visible)]="displayModal" 
         [modal]="true" 
-        [style]="{ 'min-width': '75rem' }"
+        [style]="{ 'min-width': 'auto' }"
         [draggable]="false" 
         [resizable]="false"
     >
+    <hr>
     <p class="m-0">
         EC- Estabilidad Contable.
         <br>
@@ -91,6 +92,7 @@
         <br>
         envia un correo a: {{ correo }} 
      </p>
+     <hr>
         <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
         </ng-template>
