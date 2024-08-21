@@ -2,7 +2,14 @@
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
 <hr>    
 <p-card header=" EC- AriesERP"> 
-    <p-carousel [value]="products" styleClass="custom-carousel" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
+    <p-carousel 
+    [value]="products"
+     styleClass="custom-carousel" 
+     [numVisible]="2" 
+     [numScroll]="1" 
+     [circular]="true" 
+     [autoplayInterval]="3000" 
+     [responsiveOptions]="responsiveOptions">
         <ng-template pTemplate="header">
             <p-divider align="center">
                 <span class="p-tag">Servicios</span>
@@ -72,7 +79,7 @@
         header="Departamento TI: EC" 
         [(visible)]="displayModal" 
         [modal]="true" 
-        [style]="{width: '50vw'}"
+        [style]="{ 'min-width': '75rem' }"
         [draggable]="false" 
         [resizable]="false"
     >
