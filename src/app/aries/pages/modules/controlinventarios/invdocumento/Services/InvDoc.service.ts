@@ -39,7 +39,52 @@ export class InvDocService {
    * 
    * @returns  Json Array clasificacion de proveedor
    */
-  public listMoneda(): Observable<any> {
+  public lstEmpleado(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'rh_empleado',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+  public lstCliente(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'cliente',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+  public lstProveedor(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'proveedor',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+  public lstmoneda(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
@@ -54,13 +99,13 @@ export class InvDocService {
       })
     );
   }
-  public listStatus(): Observable<any> {
+  public lstSatExport(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
     return this.http.post(`${environment.baseUrl}clientes/crt/list`,
       {
-        Qtabla: 'app_estatus',
+        Qtabla: 'sat_exportacion',
       },
       { headers: headers }
     ).pipe(
@@ -69,7 +114,24 @@ export class InvDocService {
       })
     );
   }
-  public listCobro(): Observable<any> {
+
+  public lstMetodoPago(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'metodopago',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+
+  public lstCobro(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
@@ -84,28 +146,14 @@ export class InvDocService {
       })
     );
   }
-  public listEmpleado(): Observable<any> {
+
+  public lstComprobante(): Observable<any> {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
     return this.http.post(`${environment.baseUrl}clientes/crt/list`,
       {
-        Qtabla: 'app_moneda',
-      },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
-  }
-  public listCliente(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
-      {
-        Qtabla: 'app_moneda',
+        Qtabla: 'sat_comprobante',
       },
       { headers: headers }
     ).pipe(
@@ -115,5 +163,52 @@ export class InvDocService {
     );
   }
 
+  public lstSucDom(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'sucursal_domicilio',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+
+  public lstNomTipo(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'sat_nomina_tipo',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+
+  public lstStatus(): Observable<any> {
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
+      {
+        Qtabla: 'app_estatus',
+      },
+      { headers: headers }
+    ).pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
 
 }

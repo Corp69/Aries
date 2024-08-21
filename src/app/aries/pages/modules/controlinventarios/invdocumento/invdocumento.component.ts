@@ -56,12 +56,19 @@ export default class InvdocumentoComponent implements OnInit{
 //Config. de la app: Bloqueo de botones
 public BtnSpinner: boolean = false;
 
-public lstmoneda: listados[] = [];
 
+//listados
+
+public lstEmpleado: listados[] = [];
 public lstCliente: listados[] = [];
-
-public lstDocumento: listados[] = [];
-
+public lstProveedor: listados[] = [];
+public lstmoneda: listados[] = [];
+public lstSatExport: listados[] = [];
+public lstMetodoPago: listados[] = [];
+public lstCobro: listados[] = [];
+public lstComprobante: listados[] = [];
+public lstSucDom: listados[] = [];
+public lstNomTipo: listados[] = [];
 public lstStatus: listados[] = [];
 
 
@@ -85,7 +92,7 @@ public selectRowActividad(  id: number ){ this.router.navigate([ `/ControlPMI/Ac
 //modelos:
 public MdlFiscal: MdlFiscal = new MdlFiscal();
 
-public frm: FormGroup = this.fb.group({
+public frminvdoc: FormGroup = this.fb.group({
   id: [ null,[Validators.required, Validators.minLength(1)]],
   ver: [ null,[Validators.required, Validators.minLength(1)]],
   serie: [ null,[Validators.required, Validators.minLength(1)]],
@@ -126,9 +133,19 @@ ngOnInit(): void {
 
 //=========================================================================================================================
   //carga listados
-  this.servicio.listMoneda().subscribe(resp => { this.lstmoneda       = resp.Detalle; });
-  this.servicio.listStatus().subscribe(resp =>    { this.lstStatus = resp.Detalle; });
+  this.servicio.lstEmpleado().subscribe(resp =>    { this.lstEmpleado = resp.Detalle; });
+  this.servicio.lstCliente().subscribe(resp =>    { this.lstCliente = resp.Detalle; });
+  this.servicio.lstProveedor().subscribe(resp =>    { this.lstProveedor = resp.Detalle; });
+  this.servicio.lstmoneda().subscribe(resp =>    { this.lstmoneda = resp.Detalle; });
+  this.servicio.lstSatExport().subscribe(resp =>    { this.lstSatExport = resp.Detalle; });
+  this.servicio.lstMetodoPago().subscribe(resp =>    { this.lstMetodoPago = resp.Detalle; });
+  this.servicio.lstCobro().subscribe(resp =>    { this.lstCobro = resp.Detalle; });
+  this.servicio.lstComprobante().subscribe(resp =>    { this.lstComprobante = resp.Detalle; });
+  this.servicio.lstSucDom().subscribe(resp =>    { this.lstSucDom = resp.Detalle; });
+  this.servicio.lstNomTipo().subscribe(resp =>    { this.lstNomTipo = resp.Detalle; });
+  this.servicio.lstStatus().subscribe(resp =>    { this.lstStatus = resp.Detalle; });
 }
+
 
 
 }
