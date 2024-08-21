@@ -73,12 +73,6 @@ export default class CitaComponent {
   public ConfirmacionMsjMdl: ConfirmacionMensaje = { msjTipo: 1, titulo: "", mensaje: "", detalle: "" };
 
 
-
-
-
-
-
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,

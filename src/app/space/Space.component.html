@@ -1,0 +1,62 @@
+<p-menubar>
+    <ng-template pTemplate="start">
+         <p-button
+            label="Menu"
+            (click)="sidebarVisible = true"
+            icon="pi pi-microsoft"
+            badgeClass="p-badge-danger"
+            [outlined]="true">
+        </p-button>
+    </ng-template>   
+    <ng-template pTemplate="end">
+        <p-splitButton icon="pi pi-moon" [model]="this.items3" styleClass="p-button-outlined p-button-info mr-2 mb-2" ></p-splitButton>
+    </ng-template>   
+</p-menubar>
+<p-sidebar 
+ [transitionOptions]="'200ms'" 
+ [(visible)]="sidebarVisible">
+    <h3>Menu</h3>
+    <hr>
+    <p-button
+    label="Contacto"
+    (click)="navigateToUrl('contacto')"
+    icon="pi pi-whatsapp"
+    badgeClass="p-badge-danger"
+    [outlined]="true">
+</p-button>
+<hr>
+<p-button
+    label="Referencias"
+    (click)="navigateToUrl('referencias')"
+    icon="pi pi-user"
+    badgeClass="p-badge-danger"
+    [outlined]="true">
+</p-button> 
+<hr>
+<p-button
+    label="Nosotros"
+    (click)="navigateToUrl('nosotros')"
+    icon="pi pi-question-circle"
+    badgeClass="p-badge-danger"
+    [outlined]="true">
+</p-button>
+<hr>
+<p-button
+    label="Servicios"
+    (click)="navigateToUrl('productos')"
+    icon="pi pi-tag"
+    badgeClass="p-badge-danger"
+    [outlined]="true">
+</p-button>
+<hr>
+<p-button
+    label="terminos y condiciones"
+    (click)="navigateToUrl('terminos')"
+    icon="pi pi-thumbs-up-fill"
+    badgeClass="p-badge-danger"
+    [outlined]="true">
+</p-button>
+<hr>
+</p-sidebar>
+<router-outlet />
+<app-firma />

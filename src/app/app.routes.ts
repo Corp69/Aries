@@ -19,6 +19,51 @@ export const routes: Routes = [
       }
     ]
   },
+  //======================================================
+  //SPACE 
+  {
+    path: 'space',
+    loadComponent: () => import('./space/Space.component'),
+    children: [
+      {
+        path: 'principal',
+        title: 'EC - Space',
+        loadComponent: () => import('./space/pages/principal/principal.component'),
+      },
+
+      //======================
+      //? terminos y condiciones
+      {
+        path: 'contacto',
+        title: 'EC - Contacto',
+        loadComponent: () => import('./space/pages/modules/contactanos/contacto/contacto.component'),
+      },
+      {
+        path: 'referencias',
+        title: 'EC - Referencias',
+        loadComponent: () => import('./space/pages/modules/contactanos/referencias/referencias.component'),
+      },
+      {
+        path: 'nosotros',
+        title: 'EC - Nosotros',
+        loadComponent: () => import('./space/pages/modules/nosotros/informacion/informacion.component'),
+      },
+      {
+        path: 'productos',
+        title: 'EC - Productos',
+        loadComponent: () => import('./space/pages/modules/nosotros/productos/productos.component'),
+      },
+      {
+        path: 'terminos',
+        title: 'EC - Terminos y Condiciones',
+        loadComponent: () => import('./space/pages/modules/terminoscondiciones/terminos/terminos.component'),
+      },
+      {
+        //path: '', redirectTo: 'login', pathMatch: 'full',
+        path: '**',redirectTo: 'principal'
+      }
+    ]
+  },
   //====================================================================================================
   //Publico FACTURA
   {
@@ -634,7 +679,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'auth/login',
+    redirectTo: 'space',
     pathMatch: 'full'
   }
 
