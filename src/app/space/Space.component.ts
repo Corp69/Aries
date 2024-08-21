@@ -57,19 +57,19 @@ export default class SpaceComponent implements OnInit {
   this.servicio.switchTheme(localStorage.getItem("theme"));
   //cambio de colores
   this.items3 = [
-      { label: 'Azul', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('saga-blue');  }},
-      { label: 'Azul-Vela', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('vela-blue');  }},
-      { label: 'Azul-arya', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('arya-blue');  }},
-      { label: 'Blanco-indigo', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('md-light-indigo');  }},
-      { label: 'Negro-Indigo', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('md-dark-indigo');  }},
-      { label: 'Morado-blanco', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('bootstrap4-light-purple');  }},
-      { label: 'Morado-obsucuro', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('bootstrap4-dark-purple');  }},
-      { label: 'Verde-oscuro', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('luna-green');  }},
+      { label: 'Default', icon: 'pi pi-sun', command: () => {  this.changeTheme('saga-blue');  }},
+      { label: 'Azul-Marino', icon: 'pi pi-sun', command: () => {  this.changeTheme('vela-blue');  }},
+      { label: 'Azul-noche', icon: 'pi pi-moon', command: () => {  this.changeTheme('arya-blue');  }},
+      { label: 'Azul-dia', icon: 'pi pi-sun', command: () => {  this.changeTheme('md-light-indigo');  }},
+      { label: 'Negro-noche', icon: 'pi pi-moon',  command: () => {  this.changeTheme('md-dark-indigo');  }},
+      { label: 'Morado-dia', icon: 'pi pi-sun', command: () => {  this.changeTheme('bootstrap4-light-purple');  }},
+      { label: 'Morado-noche', icon: 'pi pi-moon',  command: () => {  this.changeTheme('bootstrap4-dark-purple');  }},
+      { label: 'Verde-noche', icon: 'pi pi-moon',  command: () => {  this.changeTheme('luna-green');  }},
   ];
   }
   
   //navegacion
- public navigateToUrl(url: String) { this.router.navigate([ `space/${url}`]);}
+ public navigateToUrl(url: String) { this.router.navigate([ `space/${url}`]); this.sidebarVisible = false;}
   //cambio de color o paletas de colores
  public changeTheme(theme: string) { localStorage.setItem('theme', theme); this.servicio.switchTheme(theme);}
 

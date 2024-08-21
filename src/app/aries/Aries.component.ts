@@ -58,7 +58,7 @@ export default class AriesComponent {
  public changeTheme(theme: string) { localStorage.setItem('theme', theme); this.servicio.switchTheme(theme);}
 
 
- public navigateToUrl(url: any) { this.router.navigate([url]);}
+ public navigateToUrl(url: any) { this.router.navigate([url]); this.sidebarVisible = false;}
 
  ngOnInit() {
     this.servicio.lstOpciones().subscribe(resp => {
@@ -68,28 +68,16 @@ export default class AriesComponent {
       this.items = items2;
     });
     this.servicio.switchTheme(localStorage.getItem("theme"));
-
   //cambio de colores
   this.items3 = [
-      { label: 'saga-blue', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('saga-blue');  }},
-      { label: 'vela-blue', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('vela-blue');  }},
-      { label: 'arya-blue', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('arya-blue');  }},
-      { label: 'md-light-indigo', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('md-light-indigo');  }},
-      { label: 'md-dark-indigo', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('md-dark-indigo');  }},
-      { label: 'bootstrap4-light-purple', icon: 'pi pi-arrow-right-arrow-left', command: () => {  this.changeTheme('bootstrap4-light-purple');  }},
-      { label: 'bootstrap4-dark-purple', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('bootstrap4-dark-purple');  }},
-      { label: 'luna-green', icon: 'pi pi-arrow-right-arrow-left',  command: () => {  this.changeTheme('luna-green');  }},
-  ];
-
-  this.itemsURL = [
-    {label:'Categories'},
-    {label:'Sports'},
-    {label:'Football'},
-    {label:'Countries'},
-    {label:'Spain'},
-    {label:'F.C. Barcelona'},
-    {label:'Squad'},
-    {label:'Lionel Messi',}
+    { label: 'Default', icon: 'pi pi-sun', command: () => {  this.changeTheme('saga-blue');  }},
+    { label: 'Azul-Marino', icon: 'pi pi-sun', command: () => {  this.changeTheme('vela-blue');  }},
+    { label: 'Azul-noche', icon: 'pi pi-moon', command: () => {  this.changeTheme('arya-blue');  }},
+    { label: 'Azul-dia', icon: 'pi pi-sun', command: () => {  this.changeTheme('md-light-indigo');  }},
+    { label: 'Negro-noche', icon: 'pi pi-moon',  command: () => {  this.changeTheme('md-dark-indigo');  }},
+    { label: 'Morado-dia', icon: 'pi pi-sun', command: () => {  this.changeTheme('bootstrap4-light-purple');  }},
+    { label: 'Morado-noche', icon: 'pi pi-moon',  command: () => {  this.changeTheme('bootstrap4-dark-purple');  }},
+    { label: 'Verde-noche', icon: 'pi pi-moon',  command: () => {  this.changeTheme('luna-green');  }},
 ];
 
   }

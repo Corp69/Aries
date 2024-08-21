@@ -9,7 +9,12 @@
         </p-button>
     </ng-template>   
     <ng-template pTemplate="end">
-        <p-splitButton icon="pi pi-moon" [model]="this.items3" styleClass="p-button-outlined p-button-info mr-2 mb-2" ></p-splitButton>
+        <p-splitButton
+            icon="pi pi-moon" 
+            [model]="this.items3" 
+            styleClass="p-button-outlined p-button-info mr-2 mb-2" >
+        </p-splitButton>
+        &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;
     </ng-template>   
 </p-menubar>
 <p-sidebar 
@@ -18,6 +23,18 @@
     <h3>Menu</h3>
     <hr>
     <p-button
+    pTooltip="Navegar a la pagina principal"
+    tooltipPosition="bottom"
+    label="Menu"
+    (click)="navigateToUrl('principal')"
+    icon="pi pi-microsoft"
+    badgeClass="p-badge-danger"
+    [outlined]="true">
+</p-button>
+    <hr>
+    <p-button
+    pTooltip="Navegar a la pagina contacto"
+    tooltipPosition="bottom"
     label="Contacto"
     (click)="navigateToUrl('contacto')"
     icon="pi pi-whatsapp"
@@ -26,6 +43,8 @@
 </p-button>
 <hr>
 <p-button
+    pTooltip="Navegar a la pagina referencias"
+    tooltipPosition="bottom"
     label="Referencias"
     (click)="navigateToUrl('referencias')"
     icon="pi pi-user"
@@ -34,6 +53,8 @@
 </p-button> 
 <hr>
 <p-button
+    pTooltip="Navegar a la pagina nosotros"
+    tooltipPosition="bottom"
     label="Nosotros"
     (click)="navigateToUrl('nosotros')"
     icon="pi pi-question-circle"
@@ -42,6 +63,8 @@
 </p-button>
 <hr>
 <p-button
+    pTooltip="Navegar a la pagina catalogo de servicios"
+    tooltipPosition="bottom"
     label="Servicios"
     (click)="navigateToUrl('productos')"
     icon="pi pi-tag"
@@ -50,6 +73,8 @@
 </p-button>
 <hr>
 <p-button
+    pTooltip="Navegar a terminos y condiciones"
+    tooltipPosition="bottom"
     label="terminos y condiciones"
     (click)="navigateToUrl('terminos')"
     icon="pi pi-thumbs-up-fill"
@@ -57,6 +82,17 @@
     [outlined]="true">
 </p-button>
 <hr>
+<ng-template pTemplate="content">
+    <p-button
+    icon="pi pi-power-off"
+    pTooltip="Inicia session en el portal principal: https://ec.arieserp.com.mx/auth/login"
+    tooltipPosition="bottom"
+    (click)="CerrraSesion()"
+    label="Iniciar Sessión"
+    severity="success">
+</p-button>
+
+</ng-template>
 </p-sidebar>
 <router-outlet />
 <app-firma />
