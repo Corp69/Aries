@@ -14,7 +14,7 @@ export class AuthGuard implements CanMatch, CanActivate {
         .pipe(
           tap( isAuthenticated => {
             if ( !isAuthenticated ) {
-              this.router.navigate(['./auth/login'])
+              this.router.navigate(['./space/principal'])
             }
           }),
   
