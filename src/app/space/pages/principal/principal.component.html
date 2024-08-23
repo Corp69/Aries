@@ -1,0 +1,101 @@
+<p-toast position="top-center" key="tc"></p-toast>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<hr>    
+<p-card header=" EC- AriesERP"> 
+    <p-carousel 
+    [value]="products"
+     styleClass="custom-carousel" 
+     [numVisible]="2" 
+     [numScroll]="1" 
+     [circular]="true" 
+     [autoplayInterval]="3000" 
+     [responsiveOptions]="responsiveOptions">
+        <ng-template pTemplate="header">
+            <p-divider align="center">
+                <span class="p-tag">Servicios</span>
+            </p-divider>
+        </ng-template>
+        <ng-template let-product pTemplate="item">
+            <div class="product-item">
+                <div class="product-item-content">
+                    <div class="mb-3">
+                        <img src="assets/images/fondo/{{product.image}}" [alt]="product.name" class="product-image" />
+                    </div>
+                    <div>
+                        <h4 class="mb-1">{{product.name}}</h4>
+                        <h6 class="mt-0 mb-3">${{product.price}}</h6>
+                        <span [class]="'product-badge status-'+product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+                        <div class="car-buttons mt-5">
+                            <p-button
+                                (click)="displayModal = true"
+                                type="button" 
+                                styleClass="p-button p-button-rounded mr-2" 
+                                icon="pi pi-search">
+                            </p-button>
+                            <p-button 
+                                (click)="displayModal = true"
+                                type="button" 
+                                styleClass="p-button-success p-button-rounded mr-2" 
+                                icon="pi pi-star-fill">
+                            </p-button>
+                            <p-button 
+                                (click)="displayModal = true"
+                                type="button" 
+                                styleClass="p-button-help p-button-rounded" 
+                                icon="pi pi-cog">
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>    
+</p-card>
+<p-divider align="center">
+    <span class="p-tag">Organización: 
+    </span>
+</p-divider>
+
+<p-card header=" EC- AriesERP">
+    <div class="grid">
+        <div class="col-5 flex align-items-center justify-content-center">
+            <div class="p-fluid">
+               Elizandro Carballo Casillas.
+            </div>
+        </div>
+        <div class="col-2">
+            <p-divider layout="vertical">
+                <b>Devs</b>
+            </p-divider>
+        </div>
+        <div class="col-5 flex align-items-center justify-content-center">
+            Ricardo Sepulpeda
+        </div>
+    </div>
+</p-card>
+<!-- Modal de informacion adicional  -->
+@if ( displayModal == true ) { 
+    <p-dialog 
+        header="Dtp. TI: EC" 
+        [(visible)]="displayModal" 
+        [modal]="true" 
+        [style]="{ 'min-width': 'auto' }"
+        [draggable]="false" 
+        [resizable]="false"
+    >
+    <hr>
+    <p class="m-0">
+        EC- Estabilidad Contable.
+        <br>
+        Te damos la bienvenida para ver mas informacion. 
+        <br>
+        <br>
+        envia un correo a: {{ correo }} 
+     </p>
+     <hr>
+        <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayModal=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-dialog>
+
+}
