@@ -55,7 +55,7 @@ export default class PrincipalComponent implements OnInit {
           "price": 1000,
           "category": "Medico",
           "quantity": 1,
-          "inventoryStatus": "Desarrollo",
+          "inventoryStatus": "En Desarrollo",
           "rating": 5
         },
         {
@@ -66,7 +66,7 @@ export default class PrincipalComponent implements OnInit {
           "price": 1000,
           "category": "Fiscal",
           "quantity": 1,
-          "inventoryStatus": "Desarrollo",
+          "inventoryStatus": "En Desarrollo",
           "rating": 5
         },
         {
@@ -77,7 +77,7 @@ export default class PrincipalComponent implements OnInit {
           "price": 1000,
           "category": "Organizacional",
           "quantity": 1,
-          "inventoryStatus": "Desarrollo",
+          "inventoryStatus": "En Desarrollo",
           "rating": 5
         },
         {
@@ -88,7 +88,7 @@ export default class PrincipalComponent implements OnInit {
           "price": 1000,
           "category": "Organizacional",
           "quantity": 1,
-          "inventoryStatus": "Desarrollo",
+          "inventoryStatus": "En Desarrollo",
           "rating": 5
         },
         {
@@ -99,7 +99,7 @@ export default class PrincipalComponent implements OnInit {
           "price": 1000,
           "category": "Organizacional",
           "quantity": 1,
-          "inventoryStatus": "Desarrollo",
+          "inventoryStatus": "En Desarrollo",
           "rating": 5
         },
         {
@@ -110,7 +110,7 @@ export default class PrincipalComponent implements OnInit {
           "price": 1000,
           "category": "compras",
           "quantity": 1,
-          "inventoryStatus": "Desarrollo",
+          "inventoryStatus": "En Desarrollo",
           "rating": 5
         },
         {
@@ -121,7 +121,7 @@ export default class PrincipalComponent implements OnInit {
           "price": 1000,
           "category": "ventas",
           "quantity": 1,
-          "inventoryStatus": "Desarrollo",
+          "inventoryStatus": "En Desarrollo",
           "rating": 5
         },
         {
@@ -132,7 +132,7 @@ export default class PrincipalComponent implements OnInit {
           "price": 1000,
           "category": "ventas",
           "quantity": 1,
-          "inventoryStatus": "Desarrollo",
+          "inventoryStatus": "En Desarrollo",
           "rating": 5
         },
       ]
