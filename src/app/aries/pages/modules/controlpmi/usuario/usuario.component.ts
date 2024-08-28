@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {ToastModule} from 'primeng/toast';
 import { BlockUIModule } from 'primeng/blockui';
 import {CardModule} from 'primeng/card';
@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { CommonModule } from '@angular/common';
 import { TagModule } from 'primeng/tag';
+import { UserServService } from './Services/userServ.service';
 
 @Component({
   selector: 'app-usuario',
@@ -15,8 +16,6 @@ import { TagModule } from 'primeng/tag';
   imports: [
   
     CommonModule,
-
-
     ToastModule,
     BlockUIModule,
     CardModule,
@@ -31,16 +30,36 @@ import { TagModule } from 'primeng/tag';
 })
 
 
-export default class UsuarioComponent {
+export default class UsuarioComponent implements OnInit, AfterViewInit{
 
-  
-  public data: any = {
+  // variables de tabla
+  //tabla
+  public DataSource: any;
 
+
+  constructor(
+    private servicio: UserServService
+  ) { 
+    
+}
+  ngAfterViewInit(): void {
+    this.servicio.FisUser().subscribe(resp => { 
+    
+      this.DataSource       = resp.Detalle._aries_usuario.data; 
+    
+    });
+  }
+
+  public ngOnInit(): void {
+   
   }
 
 
-public Editar(){
+
+  public Editar(){
+
+  }
 
 }
 
-}
+

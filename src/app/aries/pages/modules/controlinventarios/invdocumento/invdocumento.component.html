@@ -2,210 +2,321 @@
 <p-toast position="top-center" key="tc"></p-toast>
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
 
-<!-- <p-card header="CONTA - Documento">
+<p-card header="INVENTARIO - Comprobante">
 
-    
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-spin pi-cog"> </i>
+            &nbsp; configuraciones:
+        </div>
+    </p-divider>
 
-    <form [formGroup]="frm" autocomplete="off">
-
-        <p-divider align="left">
-            <div class="inline-flex align-items-center">
-                <i class="pi pi-spin pi-cog"></i>
-                &nbsp; Información General:
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="flex flex-column gap-2">
+                <label>Descripcion:</label>
+                <input
+                    pTooltip="Ingrese descripción del Departamento"
+                    tooltipPosition="bottom"
+                    formControlName="descripcion"
+                    pInputText
+                    placeholder="Vacio" />
+                <!-- <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmDepartamento.controls['descripcion'].invalid">
+                </p-message> -->
             </div>
-        </p-divider>
+        </div>
+    </div>
 
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>Nombre</label>
-                    <input
-                        pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
-                        tooltipPosition="bottom"
-                        formControlName="ver"
-                        pInputText
-                        placeholder="Vacio" />
-                    <p-message severity="error" text="Campo Es Obligatorio "
-                        *ngIf="frm.controls['ver'].invalid">
-                    </p-message>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>RFC</label>
-                    <input
-                        pTooltip="Ingrese RFC Persona: Fisica o Moral "
-                        tooltipPosition="bottom"
-                        formControlName="serie"
-                        pInputText
-                        placeholder="Vacio" />
-                    <p-message severity="error" text="Campo Es Obligatorio "
-                        *ngIf="frm.controls['serie'].invalid">
-                    </p-message>
-                </div>
-            </div>
+    <br>
 
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>CURP</label>
-                    <input
-                        pTooltip="Ingrese CURP Persona: Fisica"
-                        tooltipPosition="bottom"
-                        formControlName="fecha"
-                        pInputText
-                        placeholder="Vacio" />
-                </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="flex flex-column gap-2">
+                <label>Empleado:</label>
+                <input
+                    pTooltip="Ingrese descripción del Departamento"
+                    tooltipPosition="bottom"
+                    formControlName="descripcion"
+                    pInputText
+                    placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frminvdoc.controls['descripcion'].invalid">
+                </p-message>
             </div>
-
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>CODIGO</label>
-                    <input
-                        pTooltip="Ingrese Codigo Para Identificar Al Proveedor"
-                        tooltipPosition="bottom"
-                        formControlName="folio"
-                        pInputText placeholder="Vacio" />
-                </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="flex flex-column gap-2">
+                <label>Version:</label>
+                <input
+                    pTooltip="Ingrese descripción del Departamento"
+                    tooltipPosition="bottom"
+                    formControlName="ver"
+                    pInputText
+                    placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frminvdoc.controls['descripcion'].invalid">
+                </p-message>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>CORREO</label>
-                    <input
-                        pTooltip="Ingrese Correo Para Contactar Al Proveedor"
-                        tooltipPosition="bottom"
-                        formControlName="fecha_creacion"
-                        pInputText
-                        placeholder="Vacio" />
-                </div>
-            </div>
+    </div>
+
+
+        <div class="flex flex-wrap gap-2">
+        <div class="flex align-items-center">
+            <p-inputGroup>
+                <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                tooltipPosition="bottom" >
+                    <i class="pi pi-wrench">&nbsp; Empleado:</i>
+                </p-inputGroupAddon>
+            </p-inputGroup>
+            <p-dropdown
+                formControlName="id_rh_empleado"
+                placeholder="seleccione una opcion"
+                value="id_rh_empleado"
+                [options]="lstEmpleado"
+                optionValue="id" optionLabel="descripcion"
+                >
+            </p-dropdown>
+        </div>
+            <p-message severity="error" text="Campo Es Obligatorio "
+            *ngIf="frminvdoc.controls['id_rh_empleado'].invalid">
+            </p-message>
         </div>
 
-        <p-divider align="left">
-            <div class="inline-flex align-items-center">
-                <i class="pi pi-spin pi-cog"> </i>
-                &nbsp; configuraciones:
-            </div>
-        </p-divider>
-
-        <div class="flex flex-wrap gap-3">
-            
+        <div class="flex flex-wrap gap-2">
             <div class="flex align-items-center">
                 <p-inputGroup>
-                    <p-inputGroupAddon
-                    pTooltip="Seleccione Un Estatus De Proveedor: con ello haremos haras visible en busquedas, documentos etc. "
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Cliente:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    formControlName="id_cliente"
+                    placeholder="seleccione una opcion"
+                    value="id_cliente"
+                    [options]="lstCliente"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_cliente'].invalid">
+                </p-message>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Proveedor:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    formControlName="id_proveedor"
+                    placeholder="seleccione una opcion"
+                    value="id_proveedor"
+                    [options]="lstProveedor"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_proveedor'].invalid">
+                </p-message>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Moneda:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    formControlName="id_moneda"
+                    placeholder="seleccione una opcion"
+                    value="id_moneda"
+                    [options]="lstmoneda"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_moneda'].invalid">
+                </p-message>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Sat Exportación:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    formControlName="id_sat_exportacion"
+                    placeholder="seleccione una opcion"
+                    value="id_sat_exportacion"
+                    [options]="lstSatExport"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_sat_exportacion'].invalid">
+                </p-message>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Metodo Pago:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    formControlName="id_metodopago"
+                    placeholder="seleccione una opcion"
+                    value="id_metodopago"
+                    [options]="lstMetodoPago"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_metodopago'].invalid">
+                </p-message>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Sat Cobro:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    formControlName="id_sat_cobro"
+                    placeholder="seleccione una opcion"
+                    value="id_sat_cobro"
+                    [options]="lstCobro"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_sat_cobro'].invalid">
+                </p-message>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Comprobante:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    formControlName="id_sat_comprobante"
+                    placeholder="seleccione una opcion"
+                    value="id_sat_comprobante"
+                    [options]="lstComprobante"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_sat_comprobante'].invalid">
+                </p-message>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Sucursal Domicilio:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    formControlName="id_sucursal_domicilio"
+                    placeholder="seleccione una opcion"
+                    value="id_sucursal_domicilio"
+                    [options]="lstSucDom"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_sucursal_domicilio'].invalid">
+                </p-message>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
+                    tooltipPosition="bottom" >
+                        <i class="pi pi-wrench">&nbsp; Nomina Tipo:</i>
+                    </p-inputGroupAddon>
+                </p-inputGroup>
+                <p-dropdown
+                    formControlName="id_sat_nomina_tipo"
+                    placeholder="seleccione una opcion"
+                    value="id_sat_nomina_tipo"
+                    [options]="lstNomTipo"
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
+            </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_sat_nomina_tipo'].invalid">
+                </p-message>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+            <div class="flex align-items-center">
+                <p-inputGroup>
+                    <p-inputGroupAddon pTooltip="Seleccione un departamento disponible."
                     tooltipPosition="bottom" >
                         <i class="pi pi-wrench">&nbsp; Estatus:</i>
                     </p-inputGroupAddon>
                 </p-inputGroup>
                 <p-dropdown
-                    pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
-                    tooltipPosition="bottom"
-                    value="id_estatus"
-                    placeholder="seleccione una opcion"
                     formControlName="id_estatus"
+                    placeholder="seleccione una opcion"
+                    value="id_estatus"
                     [options]="lstStatus"
-                    optionValue="id"
-                    optionLabel="descripcion"
-                >
-            </p-dropdown>
+                    optionValue="id" optionLabel="descripcion"
+                    >
+                </p-dropdown>
             </div>
+                <p-message severity="error" text="Campo Es Obligatorio "
+                *ngIf="frminvdoc.controls['id_estatus'].invalid">
+                </p-message>
         </div>
-        
-    </form>
-    &nbsp;
 
-    <div class="row">
-        <div class="col-sm-6">
-        <div class="flex flex-column gap-2">
-            <i class="pi pi-exclamation-circle">&nbsp; Fecha Inicial:</i>
-            <p-calendar 
-            pTooltip="selecciona fecha a filtrar."
-            tooltipPosition="top"
-            [showIcon]="true" 
-            dateFormat="dd/mm/yy"
-            [readonlyInput]="true" 
-            [showOnFocus]="false" 
-            inputId="buttondisplay" />
-        </div>
-        </div>
-        <div class="col-sm-6">
-        <div class="flex flex-column gap-2">
-            <i class="pi pi-exclamation-circle">&nbsp; Fecha Final:</i>
-            <p-calendar 
-            pTooltip="selecciona una fecha a filtrar."
-            tooltipPosition="top"
-            [showIcon]="true" 
-            dateFormat="dd/mm/yy"
-            [readonlyInput]="true" 
-            [showOnFocus]="false" 
-            inputId="buttondisplay" />
-        </div>
-        </div>
-    </div>
 
-    
-</p-card> -->
+
+
+</p-card>
 
 <hr>
-<!-- 
-<p-card header="BOTONES - Compra">
-
-    <p-divider align="left">
-        <div class="inline-flex align-items-center">
-            <i class="pi pi-user mr-2"></i>
-            <b>Funciones Usuario:</b>
-        </div>
-</p-divider>
-
-<span class="p-buttonset">
-
-  
-    
-    <p-button
-    icon="pi pi-plus"
-    label="Nuevo"
-    (click)="NuevoProvedor()"
-    pTooltip="Reinicia Formulario Del Proveedor."
-    tooltipPosition="bottom"
-    severity="primary"
-    >
-    </p-button>
-
-    &nbsp;
-
-    <p-button
-        icon="pi pi-pencil"
-        pTooltip="Almacenar: Proveedor Informcion."
-        tooltipPosition="bottom"
-        (click)="Almacenar()"
-        label="Guardar"
-        severity="success">
-        <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
-            fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-    </p-button>
-
-    &nbsp;
-
-    <p-button
-        icon="pi pi-search"
-        pTooltip="Buscar: Un Proveedor."
-        tooltipPosition="bottom"
-        (click)="lstProveedores()"
-        label="Buscar"
-        severity="info"
-    >
-    </p-button>
-
-</span>
-
-</p-card> -->
+<p-card header="FUNCIONES - Usuario">
+</p-card>
 
 <hr>
 
-<p-card header="TABLA - Inventario">
+<p-card header="ITEMS">
 
     <p-table [value]="DataSource" dataKey="id">
         <ng-template pTemplate="header">
