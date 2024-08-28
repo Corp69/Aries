@@ -1,7 +1,7 @@
 <hr>
 <div class="cards-container">
     <p-card 
-            header="Ricardo Sepulveda Garcia." 
+            header={{data.nombre}} 
             subheader="Departamento TI - CEO." 
             [style]="{ width: '360px' }">
         <ng-template pTemplate="header">
@@ -11,7 +11,7 @@
         </ng-template>
         <hr>
         <ul>
-            <li>RFC      - {{ DataSource.rfc }}       </li>
+            <li>RFC      - {{ data.rfc }}       </li>
             <li>CURP     - SEGR970120     </li>
             <li>CORREO   - INGrisega.com  </li>
             <li>TELEFONO - 4581103828    </li>

@@ -8,10 +8,13 @@ import { ErroresService } from '@shared/errores.service';
 @Injectable({
     providedIn: 'root',
   })
-  export class UserServService {
+  export class UsuarioService {
     constructor(private http: HttpClient, private errores: ErroresService) { }
 
-    public FisUser(): Observable<any> {
+
+
+
+    public getUser(): Observable<any> {
     let headers = new HttpHeaders({
         Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
