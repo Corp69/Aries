@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { CommonModule } from '@angular/common';
 import { TagModule } from 'primeng/tag';
-import { UserServService } from './Services/userServ.service';
+import { UsuarioService } from './Services/Usuario.service';
 
 @Component({
   selector: 'app-usuario',
@@ -30,36 +30,32 @@ import { UserServService } from './Services/userServ.service';
 })
 
 
-export default class UsuarioComponent implements OnInit, AfterViewInit{
+export default class UsuarioComponent implements OnInit{
 
-  // variables de tabla
-  //tabla
-  public DataSource: any;
-
-
-  constructor(
-    private servicio: UserServService
-  ) { 
-    
-}
-  ngAfterViewInit(): void {
-    this.servicio.FisUser().subscribe(resp => { 
-    
-      this.DataSource       = resp.Detalle._aries_usuario.data; 
-    
-      console.log(this.DataSource);
-        });
-  }
-
-  public ngOnInit(): void {
+  ///data 
+  public data: any = [];
    
-  }
+  public nombre: String = " riuchiar"
+
+
+  constructor( 
+    private servicio: UsuarioService
+  ){}
+ 
+ 
+  public ngOnInit(): void {
+    this.servicio.getUser().subscribe((resp) => { 
+      
+      this.data    = resp.Detalle._aries_usuario.data; 
+      console.log( this.data );
+      
+    });
+
+
+}
 
 
 
-  public Editar(){
-
-  }
 
 }
 
