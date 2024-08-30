@@ -47,7 +47,8 @@ export default class UsuarioComponent implements OnInit, AfterViewInit{
     
       this.DataSource       = resp.Detalle._aries_usuario.data; 
     
-    });
+      console.log(this.DataSource);
+        });
   }
 
   public ngOnInit(): void {
