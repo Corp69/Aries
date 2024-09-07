@@ -1,153 +1,234 @@
 <hr>
 <p-toast position="top-center" key="tc"></p-toast>
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<p-card header="Fiscal - Comprobante">
 
-<!-- <p-card header="CONTA - Documento">
+    <!-- Formulario de la vista -->
+        <!-- Agregar Informcion del formulario -->
+        <form [formGroup]="frm" autocomplete="off">
+            <p-divider align="center">
+                <span class="p-tag">Comprobante: 
+                </span>
+            </p-divider>
 
-    
-
-    <form [formGroup]="frm" autocomplete="off">
-
-        <p-divider align="left">
-            <div class="inline-flex align-items-center">
-                <i class="pi pi-spin pi-cog"></i>
-                &nbsp; Información General:
-            </div>
-        </p-divider>
-
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>Nombre</label>
-                    <input
-                        pTooltip="Ingrese Nombre Completo Persona: Fisica o Moral "
-                        tooltipPosition="bottom"
-                        formControlName="ver"
-                        pInputText
-                        placeholder="Vacio" />
-                    <p-message severity="error" text="Campo Es Obligatorio "
-                        *ngIf="frm.controls['ver'].invalid">
-                    </p-message>
+            <!-- Card para hacer la division entre cliente y sucursal  -->
+            <div class="grid">
+                <div class="col-5 flex align-items-center justify-content-center">
+                    <div class="p-fluid">
+                        <i class="pi pi-user"></i>
+                        &nbsp;Cliente:
+                    </div>
+                </div>
+                <div class="col-2">
+                    <p-divider layout="vertical">
+                    </p-divider>
+                </div>
+                <div class="col-5 flex align-items-center justify-content-center">
+                    <i class="pi pi-home"></i>
+                    &nbsp;Sucursal:
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>RFC</label>
-                    <input
-                        pTooltip="Ingrese RFC Persona: Fisica o Moral "
-                        tooltipPosition="bottom"
-                        formControlName="serie"
-                        pInputText
-                        placeholder="Vacio" />
+            
+            <!-- Configuracion  data de cliente y sucursal -->
+            <div class="row">
+                <div class="col-sm-6">
+                   
+                </div>
+                <div class="col-sm-6">
+                    
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">
+                            <p-button
+                            pTooltip="Buscar un cliente."
+                            severity="info"
+                            icon="pi pi-search"
+                            label="Cliente"
+                            tooltipPosition="bottom"
+                        >
+                        </p-button>
+                        </span>
+                        <textarea 
+                            rows="1" 
+                            cols="50" 
+                            pInputText
+                            pTooltip="Cliente receptor el comprobante"
+                            pInputTextarea
+                            [disabled]="true" 
+                            placeholder="Seleccione un cliente.">
+                        </textarea>
+                    </div>
+                    <p-message severity="error" text="Campo es obligatorio: se debe seleccionar un cliente."
+                            *ngIf="frm.controls['ver'].invalid">
+                        </p-message>
+                </div>
+            </div>
+
+            <p-divider align="left">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-spin pi-cog"></i>
+                    &nbsp; Información General:
+                </div>
+            </p-divider>
+    
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <label>ver:</label>
+                        <input
+                            pTooltip="version de timbrado"
+                            tooltipPosition="bottom"
+                            formControlName="ver"
+                            pInputText
+                            placeholder="Vacio" />
+                        <p-message severity="error" text="Campo Es Obligatorio "
+                            *ngIf="frm.controls['ver'].invalid">
+                        </p-message>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <label>serie:</label>
+                        <input
+                            pTooltip="serie"
+                            tooltipPosition="bottom"
+                            formControlName="serie"
+                            pInputText
+                            placeholder="Vacio" />
                     <p-message severity="error" text="Campo Es Obligatorio "
                         *ngIf="frm.controls['serie'].invalid">
                     </p-message>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>CURP</label>
-                    <input
-                        pTooltip="Ingrese CURP Persona: Fisica"
-                        tooltipPosition="bottom"
-                        formControlName="fecha"
-                        pInputText
-                        placeholder="Vacio" />
-                </div>
-            </div>
-
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>CODIGO</label>
-                    <input
-                        pTooltip="Ingrese Codigo Para Identificar Al Proveedor"
-                        tooltipPosition="bottom"
-                        formControlName="folio"
-                        pInputText placeholder="Vacio" />
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="flex flex-column gap-2">
-                    <label>CORREO</label>
-                    <input
-                        pTooltip="Ingrese Correo Para Contactar Al Proveedor"
-                        tooltipPosition="bottom"
-                        formControlName="fecha_creacion"
-                        pInputText
-                        placeholder="Vacio" />
-                </div>
-            </div>
-        </div>
-
-        <p-divider align="left">
-            <div class="inline-flex align-items-center">
-                <i class="pi pi-spin pi-cog"> </i>
-                &nbsp; configuraciones:
-            </div>
-        </p-divider>
-
-        <div class="flex flex-wrap gap-3">
-            
-            <div class="flex align-items-center">
-                <p-inputGroup>
-                    <p-inputGroupAddon
-                    pTooltip="Seleccione Un Estatus De Proveedor: con ello haremos haras visible en busquedas, documentos etc. "
-                    tooltipPosition="bottom" >
-                        <i class="pi pi-wrench">&nbsp; Estatus:</i>
-                    </p-inputGroupAddon>
-                </p-inputGroup>
-                <p-dropdown
-                    pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
-                    tooltipPosition="bottom"
-                    value="id_estatus"
-                    placeholder="seleccione una opcion"
-                    formControlName="id_estatus"
-                    [options]="lstStatus"
-                    optionValue="id"
-                    optionLabel="descripcion"
-                >
-            </p-dropdown>
-            </div>
-        </div>
-        
-    </form>
-    &nbsp;
-
-    <div class="row">
-        <div class="col-sm-6">
-        <div class="flex flex-column gap-2">
-            <i class="pi pi-exclamation-circle">&nbsp; Fecha Inicial:</i>
-            <p-calendar 
-            pTooltip="selecciona fecha a filtrar."
-            tooltipPosition="top"
-            [showIcon]="true" 
-            dateFormat="dd/mm/yy"
-            [readonlyInput]="true" 
-            [showOnFocus]="false" 
-            inputId="buttondisplay" />
-        </div>
-        </div>
-        <div class="col-sm-6">
-        <div class="flex flex-column gap-2">
-            <i class="pi pi-exclamation-circle">&nbsp; Fecha Final:</i>
-            <p-calendar 
-            pTooltip="selecciona una fecha a filtrar."
-            tooltipPosition="top"
-            [showIcon]="true" 
-            dateFormat="dd/mm/yy"
-            [readonlyInput]="true" 
-            [showOnFocus]="false" 
-            inputId="buttondisplay" />
-        </div>
-        </div>
-    </div>
-
     
-</p-card> -->
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <label>Folio:</label>
+                        <input
+                            pTooltip="folio"
+                            tooltipPosition="bottom"
+                            formControlName="folio"
+                            pInputText
+                            placeholder="Vacio" />
+                    </div>
+                </div>
+    
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <label>Fecha Creacion:</label>
+                        <input
+                            pTooltip="fecha_creacion"
+                            tooltipPosition="bottom"
+                            formControlName="fecha_creacion"
+                            pInputText placeholder="Vacio" />
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <label>Fecha:</label>
+                        <input
+                            pTooltip="fecha"
+                            tooltipPosition="bottom"
+                            formControlName="fecha"
+                            pInputText
+                            placeholder="Vacio" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <label>Empleado:</label>
+                        <input
+                            pTooltip="id_rh_empleado"
+                            tooltipPosition="bottom"
+                            formControlName="id_rh_empleado"
+                            pInputText
+                            placeholder="Vacio" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <label>id_cliente:</label>
+                        <input
+                            pTooltip="id_cliente"
+                            tooltipPosition="bottom"
+                            formControlName="id_cliente"
+                            pInputText
+                            placeholder="Vacio" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <label>Fecha:</label>
+                        <input
+                            pTooltip="fecha"
+                            tooltipPosition="bottom"
+                            formControlName="fecha"
+                            pInputText
+                            placeholder="Vacio" />
+                    </div>
+                </div>
+            </div>
+            <p-divider align="left">
+                <div class="inline-flex align-items-center">
+                    <i class="pi pi-spin pi-cog"> </i>
+                    &nbsp; configuraciones:
+                </div>
+            </p-divider>
+    
+            <div class="flex flex-wrap gap-3">
+                <div class="flex align-items-center">
+                    <p-inputGroup>
+                        <p-inputGroupAddon pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Tipo:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+                    <p-dropdown
+                        pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom"
+                        formControlName="serie"
+                        placeholder="seleccione una opcion"
+                        value="id_tipo"
+                        optionValue="id" optionLabel="descripcion"
+                        >
+                    </p-dropdown>
+                    <!-- [options]="lstProveedorTipo" -->
+                    
+                </div>
+                <div class="flex align-items-center">
+                    <p-inputGroup>
+                        <p-inputGroupAddon
+                        pTooltip="Seleccione Un Estatus De Proveedor: con ello haremos haras visible en busquedas, documentos etc. "
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Estatus:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+                    <p-dropdown
+                        pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
+                        tooltipPosition="bottom"
+                        value="id_estatus"
+                        placeholder="seleccione una opcion"
+                        formControlName="serie"
+                        optionValue="id"
+                        optionLabel="descripcion"
+                    >
+                </p-dropdown>
+                <!-- [options]="lstestatus" -->
+                      
+                </div>
+            </div>
+        </form>
+
+
+
+</p-card>
 
 <hr>
 <!-- 
@@ -205,7 +286,7 @@
 
 <hr>
 
-<p-card header="VENTA - Documento">
+<p-card header="CONTA - Documento">
 
     <p-table [value]="DataSource" dataKey="id">
         <ng-template pTemplate="header">

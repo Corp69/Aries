@@ -12,9 +12,9 @@
         <hr>
         <ul>
             <li>RFC      - {{ data.rfc }}       </li>
-            <li>CURP     - SEGR970120     </li>
-            <li>CORREO   - INGrisega.com  </li>
-            <li>TELEFONO - 4581103828    </li>
+            <li>CURP     - {{ data.curp }}     </li>
+            <li>CORREO   - {{ data.correo }}  </li>
+            <li>TELEFONO - {{ data.telefono }}    </li>
           </ul>
         <ng-template pTemplate="footer">
             <p-button 
@@ -35,13 +35,13 @@
         </ng-template> -->
         <hr>
         <ul>
-            <li> JORNADA DE TRABAJO COMPLETA</li>
+            <li> {{ data.tipocontrato }}</li>
             <li>  HORAS DE TRABAJO 8 HRS</li>
             <li> 
                 <p-tag 
                     styleClass="mr-2" 
                     severity="success" 
-                    [rounded]="true">ACTIVO</p-tag></li>
+                    [rounded]="true">{{ data.estatus }}</p-tag></li>
           </ul>
         <!-- <ng-template pTemplate="footer">
             <p-button 
@@ -62,10 +62,10 @@
         </ng-template> -->
         <hr>
         <ul>
-            <li> RICARDO SEPULVEDA GARCIA </li>
-            <li> RFC 0X0X0X0X0X0X </li>
-            <li> REGIMEN FISICA ACTIVIDAD EMPRESARIAL </li>
-            <li> CODIGO POSTAL 98772 </li>
+            <li> {{ data.nombre }} </li>
+            <li> RFC {{ data.rfc }} </li>
+            <li> REGIMEN FISICAL {{ data.regimen }} </li>
+            <li> CODIGO POSTAL {{ data.codigo }} </li>
             <li> 
                 <p-tag 
                     styleClass="mr-2" 

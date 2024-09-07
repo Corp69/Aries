@@ -1,1 +1,171 @@
-<p>impuestos works!</p>
+<hr>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<p-card header="IMPUESTOS - Estatales">
+
+   <!--  formulario  -->
+   <form [formGroup]="frmImpuestoE" autocomplete="off">
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-spin pi-cog"></i>
+            &nbsp; Información General:
+        </div>
+    </p-divider>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="flex flex-column gap-2">
+                <label>Descripcion:</label>
+                <input
+                    pTooltip="Ingrese descripción del Impuesto"
+                    tooltipPosition="bottom"
+                    formControlName="descripcion"
+                    pInputText
+                    placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmImpuestoE.controls['descripcion'].invalid">
+                </p-message>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="flex flex-column gap-2">
+                <label>Importe:</label>
+                <input
+                    pTooltip="Ingrese descripción del Impuesto"
+                    tooltipPosition="bottom"
+                    formControlName="importe"
+                    pInputText
+                    placeholder="Vacio" />
+                <p-message severity="error" text="Campo Es Obligatorio "
+                    *ngIf="frmImpuestoE.controls['importe'].invalid">
+                </p-message>
+            </div>
+        </div>
+
+    </div>
+
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-user mr-2"></i>
+            <b>Funciones Usuario:</b>
+        </div>
+    </p-divider>
+
+    <span class="p-buttonset">
+        <p-button
+        icon="pi pi-plus"
+        label="Nuevo"
+        (click)="NuevoEstatal()"
+        pTooltip="Reinicia Formulario Del Impuesto."
+        tooltipPosition="bottom"
+        severity="primary"
+        >
+        </p-button>
+        &nbsp;
+        <p-button
+            icon="pi pi-pencil"
+            pTooltip="Almacenar: Impuesto."
+            tooltipPosition="bottom"
+            (click)="AlmacenarEstatal()"
+            [disabled]="frmImpuestoE.invalid"
+            label="Guardar"
+            severity="success">
+            <p-progressSpinner *ngIf="BtnSpinnerEstatal" styleClass="w-4rem h-4rem" strokeWidth="8"
+                fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+        </p-button>
+        &nbsp;
+    </span>
+
+</form>
+
+</p-card>
+
+<div></div>
+
+<p-card header="IMPUESTOS - Federales">
+
+    <!--  formulario  -->
+    <form [formGroup]="frmImpuestoF" autocomplete="off">
+
+     <p-divider align="left">
+         <div class="inline-flex align-items-center">
+             <i class="pi pi-spin pi-cog"></i>
+             &nbsp; Información General:
+         </div>
+     </p-divider>
+ 
+     <div class="row">
+ 
+         <div class="col-sm-6">
+             <div class="flex flex-column gap-2">
+                 <label>Descripcion:</label>
+                 <input
+                     pTooltip="Ingrese descripción del Impuesto"
+                     tooltipPosition="bottom"
+                     formControlName="descripcion"
+                     pInputText
+                     placeholder="Vacio" />
+                 <p-message severity="error" text="Campo Es Obligatorio "
+                     *ngIf="frmImpuestoF.controls['descripcion'].invalid">
+                 </p-message>
+             </div>
+         </div>
+ 
+         <div class="col-sm-6">
+             <div class="flex flex-column gap-2">
+                 <label>Importe:</label>
+                 <input
+                     pTooltip="Ingrese descripción del Impuesto"
+                     tooltipPosition="bottom"
+                     formControlName="importe"
+                     pInputText
+                     placeholder="Vacio" />
+                 <p-message severity="error" text="Campo Es Obligatorio "
+                     *ngIf="frmImpuestoF.controls['importe'].invalid">
+                 </p-message>
+             </div>
+         </div>
+ 
+     </div>
+ 
+     <p-divider align="left">
+         <div class="inline-flex align-items-center">
+             <i class="pi pi-user mr-2"></i>
+             <b>Funciones Usuario:</b>
+         </div>
+     </p-divider>
+ 
+     <span class="p-buttonset">
+         <p-button
+         icon="pi pi-plus"
+         label="Nuevo"
+         (click)="NuevoFederal()"
+         pTooltip="Reinicia Formulario Del Impuesto."
+         tooltipPosition="bottom"
+         severity="primary"
+         >
+         </p-button>
+         &nbsp;
+         <p-button
+             icon="pi pi-pencil"
+             pTooltip="Almacenar: Impuesto."
+             tooltipPosition="bottom"
+             (click)="AlmacenarFederal()"
+             [disabled]="frmImpuestoF.invalid"
+             label="Guardar"
+             severity="success">
+             <p-progressSpinner *ngIf="BtnSpinnerFederal" styleClass="w-4rem h-4rem" strokeWidth="8"
+                 fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+         </p-button>
+         &nbsp;
+     </span>
+ 
+ </form>
+ 
+ </p-card>
+
+@if( ConfirmacionMdl == true  ) {
+<confirmacion-mdl [ConfirmacionMdl]="ConfirmacionMdl" [ConfirmacionMsjMdl]="ConfirmacionMsjMdl" ></confirmacion-mdl>
+}

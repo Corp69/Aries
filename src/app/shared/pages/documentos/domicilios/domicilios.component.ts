@@ -111,10 +111,10 @@ export default class AppDomiciliosComponent implements OnInit {
     num_int: [, ],
     cp:      [, [Validators.required, Validators.minLength(5)]],
 
-    id_estado:                  [null,[Validators.required, Validators.minLength(1)]],
-    id_municipio:               [null,[Validators.required, Validators.minLength(1)]],
-    id_localidad:               [null,[Validators.required, Validators.minLength(1)]],
-    id_colonia:                 [null,[Validators.required, Validators.minLength(1)]],
+    id_estado:                  [null],
+    id_municipio:               [null],
+    id_localidad:               [null],
+    id_colonia:                 [null],
     activo:                     [true],
   });
 
