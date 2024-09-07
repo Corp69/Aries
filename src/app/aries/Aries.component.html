@@ -33,9 +33,10 @@
         &nbsp;
         <!-- <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger" value="0"></i> -->
         &nbsp;
-        <p-avatar image="./assets/images/principal/Aries.png" size="large" styleClass="mr-2" shape="circle"></p-avatar>
+        <p-avatar (click)="AriesC()" image="./assets/images/principal/Aries.png" size="large" styleClass="mr-2" shape="circle"></p-avatar>
     </ng-template>
 </p-menubar>
+<!-- Prime side bar  -->
 <p-sidebar 
  [transitionOptions]="'200ms'" 
  [(visible)]="sidebarVisible">
@@ -43,9 +44,10 @@
     <h3>Menu</h3>
 
     <p-button
-        (click)="CerrraSesion()"
-        label="Cerrar Session"
-        icon="pi pi-power-off"
+        (click)="ExpandirSide()"
+        label="Expandir"
+        pTooltip="Ver vista completa"
+        icon="pi pi-external-link"
         badgeClass="p-badge-danger"
         [outlined]="true"
     >
@@ -70,11 +72,92 @@
             </ul>
         </p-accordionTab>
     </p-accordion>
+</p-sidebar>
 
-    <p-splitButton icon="pi pi-moon" label="Temas" [model]="this.items3" styleClass="p-button-outlined p-button-info mr-2 mb-2" ></p-splitButton>
 
+
+<!-- Segundo SideBAar -->
+<p-sidebar 
+        [transitionOptions]="'300ms'" 
+        [(visible)]="SideF"
+        [fullScreen]="true"
+ >
+    <h3>Menu</h3>
+    <p-divider align="left">
+        <div class="inline-flex align-items-center">
+            <i class="pi pi-user mr-2"></i>
+            <b>Accesos</b>
+        </div>
+    </p-divider>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="flex flex-column gap-2">
+                <p-splitButton icon="pi pi-moon" label="Temas" [model]="this.items3" styleClass="p-button-outlined p-button-info mr-2 mb-2" ></p-splitButton>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="flex flex-column gap-2">
+                <p-accordion [multiple]="true" [activeIndex]="[0]" *ngFor="let grupo of items">
+                    <p-accordionTab header="{{ grupo[0].label }}">
+                        <ul>
+                            <li *ngFor="let item of grupo[0].items">
+                                <button pButton pRipple type="button" class="p-button-raised p-button-text"
+                                    (click)="navigateToUrl(item.url)">
+                                    <i [class]="item.icon"></i> &nbsp; {{ item.label }}
+                                </button>
+                                <p-divider></p-divider>
+                            </li>
+                        </ul>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+        </div>
+    </div>
 
 </p-sidebar>
+
+
+
+<!--  Aries Configuracion  -->
+<p-sidebar 
+[transitionOptions]="'400ms'" 
+[(visible)]="AriesConfig"
+[fullScreen]="true"
+>
+
+   <h3>Aries ERP. </h3>
+
+   <p-divider align="left">
+    <div class="inline-flex align-items-center">
+        <i class="pi pi-user mr-2"></i>
+        Licencia: Activa: <b>Valida hasta 01/01/2025</b>
+    </div>
+</p-divider>
+
+    <div class="row">
+                <div class="col-sm-3">
+                    <div class="flex flex-column gap-2">
+                        <p-splitButton icon="pi pi-moon" label="Temas" [model]="this.items3" styleClass="p-button-outlined p-button-info mr-2 mb-2" ></p-splitButton>
+                    </div>
+                </div>
+            <div class="col-sm-3">
+                <div class="flex flex-column gap-2">
+                <p-button
+                    (click)="CerrraSesion()"
+                    label="Cerrar Session"
+                    icon="pi pi-power-off"
+                    badgeClass="p-badge-danger"
+                    [outlined]="true"
+                >
+                </p-button>
+            </div>
+        </div>
+    </div>
+</p-sidebar>
+
+
+
 
 <router-outlet />
 
