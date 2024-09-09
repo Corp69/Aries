@@ -248,6 +248,13 @@ export const routes: Routes = [
         canMatch:[ AuthGuard]
       },
       {
+        path:  'Cuentas',
+        title: 'Contabilidad: Cuentas',
+        loadComponent: () => import('./aries/pages/modules/controlcontabilidad/cuentas/cuentas.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
         path:  'Nominas',
         title: 'Nominas',
         loadComponent: () => import('./aries/pages/modules/controlcontabilidad/nominas/nominas.component'),
