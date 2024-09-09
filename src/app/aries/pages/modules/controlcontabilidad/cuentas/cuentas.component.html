@@ -1,1 +1,82 @@
-<p>cuentas works!</p>
+<hr>
+<p-toast position="top-center" key="tc"></p-toast>
+<p-blockUI [blocked]="Ariesblocked"></p-blockUI>
+<p-card header="Cuentas">
+    <div class="flex flex-wrap gap-3">
+        <div class="flex align-items-center">
+            <p-inputGroup>
+                <p-inputGroupAddon
+                pTooltip="Seleccione una cuenta para Hacer un filtro a la tabla. "
+                tooltipPosition="bottom" >
+                <i class="pi pi-wallet">&nbsp; Cuenta:</i>
+                </p-inputGroupAddon>
+            </p-inputGroup>
+            <p-dropdown
+                (onChange)="getCuentasNv2($event.value)"
+                placeholder="seleccione una cuenta"
+                [options]="lstCuentas"
+                optionValue="codigo"
+                optionLabel="descripcion"
+            >
+            </p-dropdown>
+           
+        </div>
+        <!-- <p-message severity="error" text="Campo Es Obligatorio ">
+        </p-message> -->
+    </div>
+</p-card>
+<hr>
+<p-card header="Catalogo -  Completo">
+    <p-table [value]="DataSource" dataKey="id">
+        <ng-template pTemplate="header">
+          <tr>
+            <th></th>
+            <th></th>
+            <th 
+                pSortableColumn="codigo">CODIGO<p-sortIcon field="codigo"></p-sortIcon>
+            </th>
+            <th  
+              pSortableColumn="descripcion">CUENTA<p-sortIcon field="descripcion"></p-sortIcon>
+            </th>
+        </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-DataSource
+        >
+          <tr>
+            <td>
+              <button
+              pTooltip="Modificar: Registro."
+              tooltipPosition="top"
+              (click)="Modificarow( DataSource )"
+              pButton
+              icon="pi pi-file-edit"
+              type="button"
+              class="p-button-Info">
+            </button>
+            </td>
+            <td>
+              <!-- <button
+              pTooltip="Eliminar: Registro."
+              tooltipPosition="top"
+              (click)="eliminarRow( DataSource.id)"
+              pButton
+              icon="pi pi-trash"
+              type="button"
+              class="p-button-danger">
+            </button> -->
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.codigo"></div>
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.descripcion"></div>
+            </td>
+        </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">No hay registros.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>

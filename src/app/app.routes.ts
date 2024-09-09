@@ -221,7 +221,7 @@ export const routes: Routes = [
       },
       {
         path:  'Documento/:id',
-        title: 'Documento',
+        title: 'Contabilidad: Comprobante Fiscal',
         loadComponent: () => import('./aries/pages/modules/controlcontabilidad/contadocumento/contadocumento.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
