@@ -2,7 +2,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 // shared 
 import { ConfirmacionMensaje } from '@shared/interfaces/Aries';
@@ -14,6 +14,7 @@ import { CardModule } from 'primeng/card';
 import {MessageService} from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
 import { MessageModule } from 'primeng/message';
+import { TableModule } from 'primeng/table';
 
 //--
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -26,6 +27,8 @@ import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confir
 import { ImpuestoService } from './Services/Impuesto.service';
 import { listados } from './interface/impuesto';
 import { MdlImpuesto } from './models/MdlImpuesto';
+
+
 
 
 @Component({
@@ -46,6 +49,7 @@ import { MdlImpuesto } from './models/MdlImpuesto';
    CardModule,
    DividerModule,
    MessageModule,
+   TableModule,
 
    //shared 
    ConfirmacionComponent,
@@ -82,7 +86,13 @@ export default class ImpuestosComponent implements OnInit, AfterViewInit {
 
   public BtnSpinnerEstatal: boolean = false;
 
+  // variables de tabla
+  //tabla
+  public DataSource: any;
+  public DataSourceColumnas: any;
 
+  public selectRowActividad(  id: number ){ this.router.navigate([ `/ControlPMI/Actividad/${ id }`]);}
+  
    // listados 
   public lstestatus:  listados[] = [];
   
@@ -109,7 +119,7 @@ export default class ImpuestosComponent implements OnInit, AfterViewInit {
   constructor( 
     private messageService: MessageService, 
     private fb: FormBuilder,
-    private route: ActivatedRoute,
+    private router: Router,
     private servicio: ImpuestoService
   ){}
   
