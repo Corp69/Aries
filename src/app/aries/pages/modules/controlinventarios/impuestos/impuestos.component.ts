@@ -88,8 +88,8 @@ export default class ImpuestosComponent implements OnInit, AfterViewInit {
 
   // variables de tabla
   //tabla
-  public DataSource: any;
-  public DataSourceColumnas: any;
+  public DataEstatal: any;
+  public DataFederal: any;
 
   public selectRowActividad(  id: number ){ this.router.navigate([ `/ControlPMI/Actividad/${ id }`]);}
   
@@ -126,9 +126,11 @@ export default class ImpuestosComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //=========================================================================================================================
     //carga listados
-    this.servicio.listEstatus().subscribe(resp => { 
- 
-      this.lstestatus  = resp.Detalle; });
+    this.servicio.getImpuestos().subscribe( resp =>{
+       this.DataEstatal = resp.Detalle.fis_impuestos.estatal;
+       this.DataFederal = resp.Detalle.fis_impuestos.federal;
+       console.log(resp.Detalle.fis_impuestos);
+    });
 
         // == ================================= 
  }

@@ -14,7 +14,6 @@ import { MdlImpuesto } from '../models/MdlImpuesto';
 export class ImpuestoService {
   constructor(private http: HttpClient, private errores: ErroresService) { }
 
-  
   //guardar
   public AlmacenarEstatal( modelo: MdlImpuesto ): Observable<any> {
     let headers = new HttpHeaders({
@@ -35,7 +34,6 @@ export class ImpuestoService {
         })
       );
   }
-
 
   //guardar
   public AlmacenarFederal( modelo: MdlImpuesto ): Observable<any> {
@@ -58,30 +56,12 @@ export class ImpuestoService {
       );
   }
 
-  // listado
-  public listEstatus(): Observable<any> {
-    let headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.baseUrl}clientes/crt/list`,
-      {
-        Qtabla: 'app_estatus',
-      },
-      { headers: headers }
-    ).pipe(
-      catchError((error) => {
-        return throwError(this.errores.getErrores(error));
-      })
-    );
-  }
-
-  
-  public getverifyIDS(): Observable<any> {
+  public getImpuestos(): Observable<any> {
     let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
      return this.http.post(`${environment.baseUrl}clientes/conf/funciones`,
       {
-        "ExSchema": "config",
-        "funcion":  "_app_verifi_ids"
+        "ExSchema": "contabilidad",
+        "funcion":  "fis_impuestos"
     },
       { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));
   }

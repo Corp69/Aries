@@ -80,7 +80,7 @@
 
      <p-card header="COMPROBANTE - Impuestos">
 
-        <p-table [value]="DataSource" dataKey="id">
+        <p-table [value]="DataEstatal" dataKey="id">
             <ng-template pTemplate="header">
               <tr>
                 <th></th>
@@ -91,19 +91,16 @@
                 <th 
                   pSortableColumn="importe">Importe<p-sortIcon field="importe"></p-sortIcon>
                 </th>
-                <th 
-                  pSortableColumn="activa">Activa<p-sortIcon field="activa"></p-sortIcon>
-                </th>
             </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-DataSource
+            <ng-template pTemplate="body" let-DataEstatal
             >
               <tr>
                 <td>
                   <button
                   pTooltip="Modificar: Registro."
                   tooltipPosition="top"
-                  (click)="selectRowActividad( DataSource.id )"
+                  (click)="selectRowActividad( DataEstatal.id )"
                   pButton
                   icon="pi pi-file-edit"
                   type="button"
@@ -121,22 +118,10 @@
                 </button>
                 </td>
                 <td>
-                  <div [innerHTML]="DataSource.cantidad"></div>
+                  <div [innerHTML]="DataEstatal.descripcion"></div>
                 </td>
                 <td>
-                  <div [innerHTML]="DataSource.prefijo"></div>
-                </td>
-                <td>
-                  <div [innerHTML]="DataSource.descripcion"></div>
-                </td>
-                <td>
-                  <div [innerHTML]="DataSource.valor_unitario"></div>
-                </td>
-                <td>
-                  <div [innerHTML]="DataSource.importe"></div>
-                </td>
-                <td>
-                    <div [innerHTML]="DataSource.descuento"></div>
+                  <div [innerHTML]="DataEstatal.importe"></div>
                 </td>
             </tr>
             </ng-template>
@@ -237,7 +222,7 @@
 
      <p-card header="COMPROBANTE - Impuestos">
 
-        <p-table [value]="DataSource" dataKey="id">
+        <p-table [value]="DataFederal" dataKey="id">
             <ng-template pTemplate="header">
               <tr>
                 <th></th>
@@ -248,19 +233,16 @@
                 <th 
                   pSortableColumn="importe">Importe<p-sortIcon field="importe"></p-sortIcon>
                 </th>
-                <th 
-                  pSortableColumn="activa">Activa<p-sortIcon field="activa"></p-sortIcon>
-                </th>
             </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-DataSource
+            <ng-template pTemplate="body" let-DataFederal
             >
               <tr>
                 <td>
                   <button
                   pTooltip="Modificar: Registro."
                   tooltipPosition="top"
-                  (click)="selectRowActividad( DataSource.id )"
+                  (click)="selectRowActividad( DataFederal.id )"
                   pButton
                   icon="pi pi-file-edit"
                   type="button"
@@ -278,22 +260,10 @@
                 </button>
                 </td>
                 <td>
-                  <div [innerHTML]="DataSource.cantidad"></div>
+                  <div [innerHTML]="DataFederal.descripcion"></div>
                 </td>
                 <td>
-                  <div [innerHTML]="DataSource.prefijo"></div>
-                </td>
-                <td>
-                  <div [innerHTML]="DataSource.descripcion"></div>
-                </td>
-                <td>
-                  <div [innerHTML]="DataSource.valor_unitario"></div>
-                </td>
-                <td>
-                  <div [innerHTML]="DataSource.importe"></div>
-                </td>
-                <td>
-                    <div [innerHTML]="DataSource.descuento"></div>
+                  <div [innerHTML]="DataFederal.importe"></div>
                 </td>
             </tr>
             </ng-template>
