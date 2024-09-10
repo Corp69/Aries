@@ -8,11 +8,8 @@
       <b>Cuenta:</b>
   </div>
   <p-divider></p-divider>
-     
-  
     <div class="flex flex-wrap gap-3">
         <div class="flex align-items-center">
-         
                 <button
                   pTooltip="Modificar: Registro."
                   tooltipPosition="top"
@@ -23,7 +20,6 @@
                   class="p-button-Info">
                 </button>
                 &nbsp;
-              
             <p-dropdown
                 (onChange)="getCuentasNv2($event.value)"
                 placeholder="seleccione una cuenta"
@@ -36,21 +32,16 @@
         <!-- <p-message severity="error" text="Campo Es Obligatorio ">
         </p-message> -->
     </div>
-
-
   </p-card>
 <hr>
 @if ( DataSourceRespaldo == null ) {
 }@else {
   <p-card>
-
     <div class="inline-flex align-items-center">
         <i class="pi pi-file-edit" style="font-size: 2rem"></i>
         &nbsp;<b>Sub-Cuentas:</b>
     </div>
     <p-divider></p-divider>
-
-
     <div class="row">
         <div class="col-sm-3">
             <div class="flex flex-column gap-2">
@@ -93,7 +84,7 @@
               <button
               pTooltip="Modificar: Registro."
               tooltipPosition="top"
-              (click)="Modificarow( DataSource )"
+              (click)="ModificaNv2( DataSource )"
               pButton
               icon="pi pi-file-edit"
               type="button"
@@ -127,9 +118,15 @@
 
 <hr>
 
-<p-card header="">
-  <!-- Agregar Informcion del formulario -->
-  <div class="inline-flex align-items-center">
+<p-dialog 
+    [visible]="CuentaNv1" 
+    [modal]="true" 
+    [style]="{width: '90vw'}"
+    [draggable]="false" 
+    [resizable]="false"
+  >
+    <!-- Agregar Informcion del formulario -->
+    <div class="inline-flex align-items-center">
       <i class="pi pi-file-edit" style="font-size: 2rem"></i>
       &nbsp;<b>Cuenta:</b>
   </div>
@@ -142,16 +139,11 @@
               <label>Codigo:</label>
               <input 
                   pInputText
-                  pTooltip="Escribe un codigo de la cuenta." 
+                  pTooltip="Escribe para modificar." 
                   tooltipPosition="bottom"
                   formControlName="codigo" 
                   type="text"  
                   pInputText placeholder="Vacio" />
-              <p-message 
-                   severity="error" 
-                   text="Campo Es Obligatorio | Escrbire 3 Caracteres."
-                  *ngIf="frm.controls['codigo'].invalid">
-              </p-message>
           </div>
       </div>
       <div class="col-sm-3">
@@ -159,39 +151,36 @@
               <label>Cuenta:</label>
               <input 
                   pInputText
-                  pTooltip="Escribe una descripción." 
+                  pTooltip="Escribe para modificar" 
                   tooltipPosition="bottom"
                   formControlName="descripcion" 
                   type="text"  
                   pInputText placeholder="Vacio" />
-              <p-message 
-                   severity="error" 
-                   text="Campo Es Obligatorio | Escrbire 3 Caracteres."
-                  *ngIf="frm.controls['descripcion'].invalid">
-              </p-message>
           </div>
-      </div>
-      <div class="col-sm-3">
-          <label>Realizar Busqueda</label>
-          <br>
-          <p-button 
-          [disabled]="frm.invalid" 
-         
-          pTooltip="Realizar Busqueda." 
-          severity="info"
-          icon="pi pi-save" 
-          label="Buscar" 
-          tooltipPosition="bottom">
-      </p-button>
       </div>
   </div>
   </form>
   <p-divider></p-divider>
-  </p-card>
+  <ng-template pTemplate="footer">
+    <p-button 
+    pTooltip="Realizar Modificacion." 
+    severity="info"
+    icon="pi pi-file-edit" 
+    label="Guardar" 
+    tooltipPosition="bottom">
+</p-button>
+  </ng-template>
+</p-dialog>
 
-<hr>
 
-<p-card header="">
+<p-dialog 
+    [visible]="CuentaNv2" 
+    [modal]="true" 
+    [style]="{width: '90vw'}"
+    [draggable]="false" 
+    [resizable]="false"
+  >
+  <!-- Frm Cuenta Nlv 2 -->
   <!-- Agregar Informcion del formulario -->
   <div class="inline-flex align-items-center">
       <i class="pi pi-file-edit" style="font-size: 2rem"></i>
@@ -211,11 +200,6 @@
                   formControlName="codigo" 
                   type="text"  
                   pInputText placeholder="Vacio" />
-              <p-message 
-                   severity="error" 
-                   text="Campo Es Obligatorio | Escrbire 3 Caracteres."
-                  *ngIf="frmnlv2.controls['codigo'].invalid">
-              </p-message>
           </div>
       </div>
       <div class="col-sm-3">
@@ -228,29 +212,24 @@
                   formControlName="descripcion" 
                   type="text"  
                   pInputText placeholder="Vacio" />
-              <p-message 
-                   severity="error" 
-                   text="Campo Es Obligatorio | Escrbire 3 Caracteres."
-                  *ngIf="frmnlv2.controls['descripcion'].invalid">
-              </p-message>
           </div>
-      </div>
-      <div class="col-sm-3">
-          <label>Realizar Busqueda</label>
-          <br>
-          <p-button 
-          [disabled]="frmnlv2.invalid" 
-         
-          pTooltip="Realizar Busqueda." 
-          severity="info"
-          icon="pi pi-save" 
-          label="Buscar" 
-          tooltipPosition="bottom">
-      </p-button>
       </div>
   </div>
   </form>
   <p-divider></p-divider>
-</p-card>
-  
+  <ng-template pTemplate="footer">
+    <p-button 
+        pTooltip="Realizar Modificacion." 
+        severity="info"
+        (click)="ActualizarNV2()"
+        icon="pi pi-file-edit" 
+        label="Guardar" 
+        tooltipPosition="bottom">
+    </p-button>
+  </ng-template>
+</p-dialog>
+
+
+
+
 

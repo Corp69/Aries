@@ -19,6 +19,8 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
+
+import {DialogModule} from 'primeng/dialog';
 //---------------------------------
 
 //servicios
@@ -45,6 +47,7 @@ import { listados } from '../impuestos/interface/impuesto';
     DividerModule,
     MessageModule,
     TableModule,
+    DialogModule,
     //--
       InputGroupModule,
       InputGroupAddonModule,
@@ -75,12 +78,18 @@ export default class CuentasComponent implements OnInit {
   public DataSourceRespaldo: any = null;
   
   public lstCuentas: listados[] = [];
+    
+  //?=============================
+  //Modales
+  public CuentaNv1: boolean = false;
+  public CuentaNv2: boolean = false;
   
+  //id de la cuenta NLV1
+  public _id: Number = -1;
 
-
-   
   // formulario Cuenta nvl1 
   public frm: FormGroup = this.fb.group({ 
+    id: [null], 
     codigo: [, [Validators.required, Validators.minLength(3)]], 
     descripcion: [, [Validators.required, Validators.minLength(3)]], 
   });
@@ -88,6 +97,7 @@ export default class CuentasComponent implements OnInit {
 
   // formulario CUENTA nvl2 
   public frmnlv2: FormGroup = this.fb.group({ 
+    id: [null], 
     codigo: [, [Validators.required, Validators.minLength(3)]], 
     descripcion: [, [Validators.required, Validators.minLength(3)]], 
   });
@@ -105,13 +115,6 @@ export default class CuentasComponent implements OnInit {
      */
     this.servicio.getCuentas().subscribe( resp =>{
       this.lstCuentas = resp.Detalle.fis_sat_cuentas.lst;
-
-      console.log(
-        this.lstCuentas
-      );
-      
-
-
     });
   }
   
@@ -119,6 +122,9 @@ export default class CuentasComponent implements OnInit {
    * obtenemos las cuentas del nivel 2
    */
   public getCuentasNv2( id: Number){
+  
+    this._id = id;
+
      this.servicio.getTablaCuentas( id ).subscribe( resp =>{
        this.DataSource = resp.Detalle.fis_tabla_sat_cuentas.data;       
        this.DataSourceRespaldo = resp.Detalle.fis_tabla_sat_cuentas.data;       
@@ -142,12 +148,44 @@ export default class CuentasComponent implements OnInit {
   //? ========================================================
   // modificar btn Modificarow
     
-  public Modificarow( args: any ){
-    
-   
+  public ModificaNv2( args: any ){
+    //seteamos los valores al formulario 
+    this.CuentaNv2 = true;
+    this.frmnlv2.controls['id'].setValue(args.id);
+    this.frmnlv2.controls['codigo'].setValue(args.codigo);
+    this.frmnlv2.controls['descripcion'].setValue(args.descripcion);
 
   }
   
+  //modificar la cuenta 
+  public ActualizarNV2(){
+     this.CuentaNv2 = false;
+    //SERVICIO ACTUALIZACION 
+    this.servicio.ActualizarNV2(this.frmnlv2.value).subscribe(resp => {
+      switch (resp.IdMensj) {
+        case 3:
+          break;
+        case 2:
+          // mensaje para verificar la captura de la direccion del sat
+          this.messageService.add({key: 'tc', severity:'info', summary: 'warning', detail: 'Cuenta No fue Actualizada.'});
+          break;
+        default:
+            // mensaje para verificar la captura de la direccion del sat
+            this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Cuenta Actualizada.'});
+            this.servicio.getTablaCuentas(  this._id ).subscribe( resp =>{
+              this.DataSource = resp.Detalle.fis_tabla_sat_cuentas.data;       
+              this.DataSourceRespaldo = resp.Detalle.fis_tabla_sat_cuentas.data;       
+             });  
+          break;
+      }    
+    });
+  }
+  
+
+
+
+
+
   public ModificarCuentaNLV1(){
 
   }
