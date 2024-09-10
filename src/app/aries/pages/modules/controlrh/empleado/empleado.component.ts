@@ -30,6 +30,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 //proveedors prime ng 
 import {MessageService} from 'primeng/api';
+import { InputTextModule } from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 @Component({
   selector: 'app-empleado',
@@ -48,6 +50,8 @@ import {MessageService} from 'primeng/api';
     KeyFilterModule,
     InputGroupModule,
     InputGroupAddonModule,
+    InputTextareaModule,
+    InputTextModule,
     DividerModule,
     MessageModule,
     DropdownModule,
@@ -263,10 +267,10 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
     this.frmEmpleado.setValue(this.MdlEmpleado);
     // prime trabaja con String lo pasamos a String el valor numerico
     this.frmEmpleado.controls['id_estatus'].setValue("1");
-    this.frmEmpleado.controls['id_estatus'].setValue("1");
     // solo reiniciamos las variables visuales
     this.usoCFDI = "";
     this.RegimenCFDI = "";
+    this._id =-1;
     // mensaje para decir que esta OK el formulario
     this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue datos del empleado y guarde su información.'});
 
@@ -275,7 +279,7 @@ export default class EmpleadoComponent implements OnInit, AfterViewInit  {
   public Domicilios = () => {
     switch (this._id) {
      case -1:
-      this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No hay un proveedor, seleccionado.'});
+      this.messageService.add({key: 'tc', severity:'warn', summary: 'Warn', detail: 'No hay un Empleado, seleccionado.'});
        break;
      default:
        this.router.navigate([ `/ControlRh/Domicilio/${this._id}`]);

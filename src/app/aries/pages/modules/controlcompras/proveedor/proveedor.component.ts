@@ -28,6 +28,8 @@ import { BlockUIModule } from 'primeng/blockui';
 import { DropdownModule } from 'primeng/dropdown';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-proveedor',
@@ -46,6 +48,8 @@ import {MessageService} from 'primeng/api';
     KeyFilterModule,
     InputGroupModule,
     InputGroupAddonModule,
+    InputTextareaModule,
+    InputTextModule,
     DividerModule,
     MessageModule,
     DropdownModule,
