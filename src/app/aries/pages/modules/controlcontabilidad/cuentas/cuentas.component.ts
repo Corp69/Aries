@@ -17,12 +17,16 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'primeng/inputtext';
 //---------------------------------
 
 //servicios
 import { CuentasService } from './services/cuentas.service';
 //interfaces
 import { listados } from '../impuestos/interface/impuesto';
+
+
 
 @Component({
   selector: 'app-cuentas',
@@ -44,10 +48,12 @@ import { listados } from '../impuestos/interface/impuesto';
     //--
       InputGroupModule,
       InputGroupAddonModule,
+      InputTextModule,
     //--
       DropdownModule,
       ProgressSpinnerModule,
-      ButtonModule
+      ButtonModule,
+      TooltipModule,
     //--
 
 
@@ -66,6 +72,7 @@ export default class CuentasComponent implements OnInit {
 
   // variables de tabla
   public DataSource: any = [];
+  public DataSourceRespaldo: any = null;
   
   public lstCuentas: listados[] = [];
 
@@ -92,9 +99,21 @@ export default class CuentasComponent implements OnInit {
   public getCuentasNv2( codigo: String){
      this.servicio.getTablaCuentas( codigo +"." ).subscribe( resp =>{
        this.DataSource = resp.Detalle.fis_tabla_sat_cuentas.data;       
+       this.DataSourceRespaldo = resp.Detalle.fis_tabla_sat_cuentas.data;       
+  
+       console.log( this.DataSource  );
+       
+
       });
   }
 
+  public onfilter( filtro: any ){
+    if (filtro.value == "") {
+      this.DataSource = this.DataSourceRespaldo;
+    } else {
+      this.DataSource = this.DataSource.filter(item => item.descripcion.toLowerCase().includes(filtro.value.toLowerCase()));
+    }
+  }
 
 
 
