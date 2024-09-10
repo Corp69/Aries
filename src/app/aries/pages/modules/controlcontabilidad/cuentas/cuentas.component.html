@@ -1,16 +1,29 @@
 <hr>
 <p-toast position="top-center" key="tc"></p-toast>
 <p-blockUI [blocked]="Ariesblocked"></p-blockUI>
-<p-card header="Cuentas">
+<p-card header="">
+    <!-- Agregar Informcion del formulario -->
+    <div class="inline-flex align-items-center">
+      <i class="pi pi-search" style="font-size: 2rem"></i>
+      <b>Cuenta:</b>
+  </div>
+  <p-divider></p-divider>
+     
+  
     <div class="flex flex-wrap gap-3">
         <div class="flex align-items-center">
-            <p-inputGroup>
-                <p-inputGroupAddon
-                pTooltip="Seleccione una cuenta para Hacer un filtro a la tabla. "
-                tooltipPosition="bottom" >
-                <i class="pi pi-wallet">&nbsp; Cuenta:</i>
-                </p-inputGroupAddon>
-            </p-inputGroup>
+         
+                <button
+                  pTooltip="Modificar: Registro."
+                  tooltipPosition="top"
+                  (click)="ModificarCuentaNLV1()"
+                  pButton
+                  icon="pi pi-file-edit"
+                  type="button"
+                  class="p-button-Info">
+                </button>
+                &nbsp;
+              
             <p-dropdown
                 (onChange)="getCuentasNv2($event.value)"
                 placeholder="seleccione una cuenta"
@@ -19,15 +32,25 @@
                 optionLabel="descripcion"
             >
             </p-dropdown>
-           
         </div>
         <!-- <p-message severity="error" text="Campo Es Obligatorio ">
         </p-message> -->
     </div>
-</p-card>
+
+
+  </p-card>
+<hr>
 @if ( DataSourceRespaldo == null ) {
 }@else {
-  <p-card   header="Subcuentas">
+  <p-card>
+
+    <div class="inline-flex align-items-center">
+        <i class="pi pi-file-edit" style="font-size: 2rem"></i>
+        &nbsp;<b>Sub-Cuentas:</b>
+    </div>
+    <p-divider></p-divider>
+
+
     <div class="row">
         <div class="col-sm-3">
             <div class="flex flex-column gap-2">
@@ -48,53 +71,186 @@
         </div>
       </div>
       <p-table
-        [value]="DataSource" 
-        dataKey="id"
+           [rows]="10"
+          [rowsPerPageOptions]="[5,10,25]"
+          [paginator]="true"
+          [value]="DataSource" 
+          dataKey="id"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th></th>
+            <th></th>
+            <th 
+                pSortableColumn="cuenta">cuenta<p-sortIcon field="cuenta"></p-sortIcon>
+            </th>
+        </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-DataSource
         >
-          <ng-template pTemplate="header">
+          <tr>
+            <td>
+              <button
+              pTooltip="Modificar: Registro."
+              tooltipPosition="top"
+              (click)="Modificarow( DataSource )"
+              pButton
+              icon="pi pi-file-edit"
+              type="button"
+              class="p-button-Info">
+            </button>
+            </td>
+            <td>
+             <button
+              pTooltip="Eliminar: Registro."
+              tooltipPosition="top"
+              (click)="eliminarRow( DataSource.id)"
+              pButton
+              icon="pi pi-trash"
+              type="button"
+              class="p-button-danger">
+            </button>
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.cuenta"></div>
+            </td>
+        </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
             <tr>
-              <th></th>
-              <th></th>
-              <th 
-                  pSortableColumn="cuenta">cuenta<p-sortIcon field="cuenta"></p-sortIcon>
-              </th>
-          </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-DataSource
-          >
-            <tr>
-              <td>
-                <button
-                pTooltip="Modificar: Registro."
-                tooltipPosition="top"
-                (click)="Modificarow( DataSource )"
-                pButton
-                icon="pi pi-file-edit"
-                type="button"
-                class="p-button-Info">
-              </button>
-              </td>
-              <td>
-                <!-- <button
-                pTooltip="Eliminar: Registro."
-                tooltipPosition="top"
-                (click)="eliminarRow( DataSource.id)"
-                pButton
-                icon="pi pi-trash"
-                type="button"
-                class="p-button-danger">
-              </button> -->
-              </td>
-              <td>
-                <div [innerHTML]="DataSource.cuenta"></div>
-              </td>
-          </tr>
-          </ng-template>
-          <ng-template pTemplate="emptymessage">
-              <tr>
-                  <td colspan="6">No hay registros.</td>
-              </tr>
-          </ng-template>
-      </p-table>
+                <td colspan="6">No hay registros.</td>
+            </tr>
+        </ng-template>
+    </p-table>
   </p-card>
 } 
+
+<hr>
+
+<p-card header="">
+  <!-- Agregar Informcion del formulario -->
+  <div class="inline-flex align-items-center">
+      <i class="pi pi-file-edit" style="font-size: 2rem"></i>
+      &nbsp;<b>Cuenta:</b>
+  </div>
+  <p-divider></p-divider>
+  <!-- Agregar Informcion del formulario -->
+  <form [formGroup]="frm" autocomplete="off">
+  <div class="row">
+      <div class="col-sm-3">
+          <div class="flex flex-column gap-2">
+              <label>Codigo:</label>
+              <input 
+                  pInputText
+                  pTooltip="Escribe un codigo de la cuenta." 
+                  tooltipPosition="bottom"
+                  formControlName="codigo" 
+                  type="text"  
+                  pInputText placeholder="Vacio" />
+              <p-message 
+                   severity="error" 
+                   text="Campo Es Obligatorio | Escrbire 3 Caracteres."
+                  *ngIf="frm.controls['codigo'].invalid">
+              </p-message>
+          </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="flex flex-column gap-2">
+              <label>Cuenta:</label>
+              <input 
+                  pInputText
+                  pTooltip="Escribe una descripción." 
+                  tooltipPosition="bottom"
+                  formControlName="descripcion" 
+                  type="text"  
+                  pInputText placeholder="Vacio" />
+              <p-message 
+                   severity="error" 
+                   text="Campo Es Obligatorio | Escrbire 3 Caracteres."
+                  *ngIf="frm.controls['descripcion'].invalid">
+              </p-message>
+          </div>
+      </div>
+      <div class="col-sm-3">
+          <label>Realizar Busqueda</label>
+          <br>
+          <p-button 
+          [disabled]="frm.invalid" 
+         
+          pTooltip="Realizar Busqueda." 
+          severity="info"
+          icon="pi pi-save" 
+          label="Buscar" 
+          tooltipPosition="bottom">
+      </p-button>
+      </div>
+  </div>
+  </form>
+  <p-divider></p-divider>
+  </p-card>
+
+<hr>
+
+<p-card header="">
+  <!-- Agregar Informcion del formulario -->
+  <div class="inline-flex align-items-center">
+      <i class="pi pi-file-edit" style="font-size: 2rem"></i>
+      &nbsp;<b>Sub- Cuenta:</b>
+  </div>
+  <p-divider></p-divider>
+  <!-- Agregar Informcion del formulario -->
+  <form [formGroup]="frmnlv2" autocomplete="off">
+  <div class="row">
+      <div class="col-sm-3">
+          <div class="flex flex-column gap-2">
+              <label>Codigo:</label>
+              <input 
+                  pInputText
+                  pTooltip="Escribe un codigo de la cuenta." 
+                  tooltipPosition="bottom"
+                  formControlName="codigo" 
+                  type="text"  
+                  pInputText placeholder="Vacio" />
+              <p-message 
+                   severity="error" 
+                   text="Campo Es Obligatorio | Escrbire 3 Caracteres."
+                  *ngIf="frmnlv2.controls['codigo'].invalid">
+              </p-message>
+          </div>
+      </div>
+      <div class="col-sm-3">
+          <div class="flex flex-column gap-2">
+              <label>Cuenta:</label>
+              <input 
+                  pInputText
+                  pTooltip="Escribe una descripción." 
+                  tooltipPosition="bottom"
+                  formControlName="descripcion" 
+                  type="text"  
+                  pInputText placeholder="Vacio" />
+              <p-message 
+                   severity="error" 
+                   text="Campo Es Obligatorio | Escrbire 3 Caracteres."
+                  *ngIf="frmnlv2.controls['descripcion'].invalid">
+              </p-message>
+          </div>
+      </div>
+      <div class="col-sm-3">
+          <label>Realizar Busqueda</label>
+          <br>
+          <p-button 
+          [disabled]="frmnlv2.invalid" 
+         
+          pTooltip="Realizar Busqueda." 
+          severity="info"
+          icon="pi pi-save" 
+          label="Buscar" 
+          tooltipPosition="bottom">
+      </p-button>
+      </div>
+  </div>
+  </form>
+  <p-divider></p-divider>
+</p-card>
+  
+

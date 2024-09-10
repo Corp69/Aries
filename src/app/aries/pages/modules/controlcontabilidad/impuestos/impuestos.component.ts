@@ -26,6 +26,7 @@ import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confir
 import { listados } from './interface/impuesto';
 import { MdlImpuesto } from './models/MdlImpuesto';
 import { ImpuestoService } from './Services/Impuesto.service';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 
@@ -53,7 +54,7 @@ import { ImpuestoService } from './Services/Impuesto.service';
     //--
     InputGroupModule,
     InputGroupAddonModule,
- 
+    InputTextModule,
     //--
     DropdownModule,
     ProgressSpinnerModule,

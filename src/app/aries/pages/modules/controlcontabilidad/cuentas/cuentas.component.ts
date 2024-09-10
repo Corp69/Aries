@@ -75,7 +75,22 @@ export default class CuentasComponent implements OnInit {
   public DataSourceRespaldo: any = null;
   
   public lstCuentas: listados[] = [];
+  
 
+
+   
+  // formulario Cuenta nvl1 
+  public frm: FormGroup = this.fb.group({ 
+    codigo: [, [Validators.required, Validators.minLength(3)]], 
+    descripcion: [, [Validators.required, Validators.minLength(3)]], 
+  });
+
+
+  // formulario CUENTA nvl2 
+  public frmnlv2: FormGroup = this.fb.group({ 
+    codigo: [, [Validators.required, Validators.minLength(3)]], 
+    descripcion: [, [Validators.required, Validators.minLength(3)]], 
+  });
 
   constructor( 
     private messageService: MessageService, 
@@ -90,6 +105,13 @@ export default class CuentasComponent implements OnInit {
      */
     this.servicio.getCuentas().subscribe( resp =>{
       this.lstCuentas = resp.Detalle.fis_sat_cuentas.lst;
+
+      console.log(
+        this.lstCuentas
+      );
+      
+
+
     });
   }
   
@@ -112,6 +134,10 @@ export default class CuentasComponent implements OnInit {
   }
 
 
+  // eliminar subcuenta 
+  public eliminarRow( args: any ){}
+
+
 
   //? ========================================================
   // modificar btn Modificarow
@@ -121,5 +147,12 @@ export default class CuentasComponent implements OnInit {
    
 
   }
+  
+  public ModificarCuentaNLV1(){
+
+  }
+
+
+
 
 }

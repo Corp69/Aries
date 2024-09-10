@@ -1,9 +1,9 @@
-export class Mdllst
+export class MdlCuenta
 
 {
 
-public _fechainicial:  Date = new Date();
-public _fechafinal:   Date = new Date();
-public _idestatus:           number = 1;
-
+    public id:  Number = -1;
+    public codigo:   String = null;
+    public descipcion:   String = null;
+    
 }
