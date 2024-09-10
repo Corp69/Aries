@@ -15,7 +15,7 @@
                 (onChange)="getCuentasNv2($event.value)"
                 placeholder="seleccione una cuenta"
                 [options]="lstCuentas"
-                optionValue="codigo"
+                optionValue="id"
                 optionLabel="descripcion"
             >
             </p-dropdown>
@@ -25,11 +25,9 @@
         </p-message> -->
     </div>
 </p-card>
-<hr>
-
 @if ( DataSourceRespaldo == null ) {
 }@else {
-  <p-card   header="Catalogo -  Completo">
+  <p-card   header="Subcuentas">
     <div class="row">
         <div class="col-sm-3">
             <div class="flex flex-column gap-2">
@@ -58,10 +56,7 @@
               <th></th>
               <th></th>
               <th 
-                  pSortableColumn="codigo">CODIGO<p-sortIcon field="codigo"></p-sortIcon>
-              </th>
-              <th  
-                pSortableColumn="descripcion">CUENTA<p-sortIcon field="descripcion"></p-sortIcon>
+                  pSortableColumn="cuenta">cuenta<p-sortIcon field="cuenta"></p-sortIcon>
               </th>
           </tr>
           </ng-template>
@@ -91,10 +86,7 @@
               </button> -->
               </td>
               <td>
-                <div [innerHTML]="DataSource.codigo"></div>
-              </td>
-              <td>
-                <div [innerHTML]="DataSource.descripcion"></div>
+                <div [innerHTML]="DataSource.cuenta"></div>
               </td>
           </tr>
           </ng-template>

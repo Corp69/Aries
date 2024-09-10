@@ -36,7 +36,7 @@ export class CuentasService {
    * @param data: cuentas de segundo nivel catalogo del sat.
    * @returns 
    */
-  public getTablaCuentas( _codigo: String ): Observable<any> {
+  public getTablaCuentas( _id: Number ): Observable<any> {
     let headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
      return this.http.post(`${environment.baseUrl}clientes/ctr/schema`,
       {
@@ -44,7 +44,7 @@ export class CuentasService {
         "funcion":  "fis_tabla_sat_cuentas",
         "data": 
         {
-        "_codigo": _codigo
+        "_id": _id
         }
     },
       { headers: headers }).pipe(catchError(error => { return throwError(this.errores.getErrores(error)); }));

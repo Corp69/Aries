@@ -96,14 +96,10 @@ export default class CuentasComponent implements OnInit {
   /**
    * obtenemos las cuentas del nivel 2
    */
-  public getCuentasNv2( codigo: String){
-     this.servicio.getTablaCuentas( codigo +"." ).subscribe( resp =>{
+  public getCuentasNv2( id: Number){
+     this.servicio.getTablaCuentas( id ).subscribe( resp =>{
        this.DataSource = resp.Detalle.fis_tabla_sat_cuentas.data;       
        this.DataSourceRespaldo = resp.Detalle.fis_tabla_sat_cuentas.data;       
-  
-       console.log( this.DataSource  );
-       
-
       });
   }
 
