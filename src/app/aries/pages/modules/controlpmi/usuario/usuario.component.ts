@@ -35,8 +35,9 @@ export default class UsuarioComponent implements OnInit{
   ///data 
   public data: any = [];
    
-  public nombre: String = " riuchiar"
-
+  //imagen del usuario 
+  public imagen: String = ""
+  
 
   constructor( 
     private servicio: UsuarioService
@@ -48,13 +49,13 @@ export default class UsuarioComponent implements OnInit{
       
       this.data    = resp.Detalle._aries_usuario.data; 
       console.log( this.data );
+      this.imagen = `<img alt="Card" src="${this.data.imagen}">`;
+      console.log(  this.imagen  );
       
     });
 
 
 }
-
-
 
 
 }

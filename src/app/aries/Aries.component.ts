@@ -46,6 +46,8 @@ export default class AriesComponent {
 
   public items:   any | undefined;
   public sidebarVisible: boolean = false;
+  public SideF: boolean = false;
+  public AriesConfig: boolean = false;
   public theme = localStorage.getItem("theme");
 
   public items3: any;
@@ -71,7 +73,7 @@ export default class AriesComponent {
   //cambio de colores
   this.items3 = [
     { label: 'Default', icon: 'pi pi-sun', command: () => {  this.changeTheme('saga-blue');  }},
-    { label: 'Azul-Marino', icon: 'pi pi-sun', command: () => {  this.changeTheme('vela-blue');  }},
+    { label: 'Azul-Marino', icon: 'pi pi-moon', command: () => {  this.changeTheme('vela-blue');  }},
     { label: 'Azul-noche', icon: 'pi pi-moon', command: () => {  this.changeTheme('arya-blue');  }},
     { label: 'Azul-dia', icon: 'pi pi-sun', command: () => {  this.changeTheme('md-light-indigo');  }},
     { label: 'Negro-noche', icon: 'pi pi-moon',  command: () => {  this.changeTheme('md-dark-indigo');  }},
@@ -83,10 +85,37 @@ export default class AriesComponent {
   }
 
 
+
+
+  /**
+   * 
+   */
+
+  
+  public ExpandirSide(){
+    this.sidebarVisible = false;
+    
+    
+
+    this.SideF  = true;
+  }
+
+
+
+  /**
+   * VER configuraciones de Aries / Licencias 
+   */
+
+  public AriesC(){
+
+    this.AriesConfig = true;
+  }
+
   /**
    * cerrar session
    */
   public CerrraSesion = () =>{
+    this.AriesConfig = false;
     localStorage.clear();
     this.router.navigate(['/auth/login']);
   }

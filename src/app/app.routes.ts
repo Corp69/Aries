@@ -221,7 +221,7 @@ export const routes: Routes = [
       },
       {
         path:  'Documento/:id',
-        title: 'Documento',
+        title: 'Contabilidad: Comprobante Fiscal',
         loadComponent: () => import('./aries/pages/modules/controlcontabilidad/contadocumento/contadocumento.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
@@ -244,6 +244,13 @@ export const routes: Routes = [
         path:  'Impuestos',
         title: 'Impuestos',
         loadComponent: () => import('./aries/pages/modules/controlcontabilidad/impuestos/impuestos.component'),
+        canActivate:[ AuthGuard ],
+        canMatch:[ AuthGuard]
+      },
+      {
+        path:  'Cuentas',
+        title: 'Contabilidad: Cuentas',
+        loadComponent: () => import('./aries/pages/modules/controlcontabilidad/cuentas/cuentas.component'),
         canActivate:[ AuthGuard ],
         canMatch:[ AuthGuard]
       },
