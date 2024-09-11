@@ -164,7 +164,7 @@ export default class CuentasComponent implements OnInit {
     public ActualizarNV1(){
       this.CuentaNv1 = false;
      //SERVICIO ACTUALIZACION 
-     this.servicio.ActualizarNV2(this.frm.value).subscribe(resp => {
+     this.servicio.ActualizarNV1(this.frm.value).subscribe(resp => {
        switch (resp.IdMensj) {
          case 3:
            break;
@@ -175,10 +175,14 @@ export default class CuentasComponent implements OnInit {
          default:
              // mensaje para verificar la captura de la direccion del sat
              this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Cuenta Actualizada.'});
-             this.servicio.getTablaCuentas(  this._idNVL1 ).subscribe( resp =>{
-               this.DataSource = resp.Detalle.fis_tabla_sat_cuentas.data;       
-               this.DataSourceRespaldo = resp.Detalle.fis_tabla_sat_cuentas.data;       
-              });  
+             this.servicio.getCuentas().subscribe( resp =>{
+
+              this.lstCuentas = null;
+              this.lstCuentas = resp.Detalle.fis_sat_cuentas.lst;
+              
+
+            
+            });
            break;
        }    
      });
@@ -207,15 +211,6 @@ export default class CuentasComponent implements OnInit {
       }    
     });
   }
-  
-
-  
-
-
-
-
-
-
 
   //? ==============================================================================================================================================
   //configuracion eliminar 

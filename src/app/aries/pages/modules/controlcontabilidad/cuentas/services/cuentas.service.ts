@@ -53,7 +53,27 @@ export class CuentasService {
 
   
 //Actualizar Cuenta
-public ActualizarNV2(modelo: MdlCuenta): Observable<any> {
+public ActualizarNV1(modelo: MdlCuenta): Observable<any> {
+  let headers = new HttpHeaders({
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+  });
+  return this.http
+    .post(
+      `${environment.baseUrl}clientes/ctr/agregar`,
+      {
+        Qtabla: 'sat_cuenta_nv1',
+        Datos: modelo,
+      },
+      { headers: headers }
+    )
+    .pipe(
+      catchError((error) => {
+        return throwError(this.errores.getErrores(error));
+      })
+    );
+  }
+
+  public ActualizarNV2(modelo: MdlCuenta): Observable<any> {
   let headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   });
