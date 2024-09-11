@@ -43,7 +43,20 @@
         &nbsp;<b>Sub-Cuentas:</b>
     </div>
     <p-divider></p-divider>
-    <div class="row">
+      <div class="row">
+        <div class="col-sm-3">
+          <button
+          label="Nueva"
+          pTooltip="Agregar Cuenta."
+          tooltipPosition="top"
+          (click)="btnNuevaCuenta()"
+          pButton
+          icon="pi pi-plus"
+          type="button"
+          class="p-button-Info">
+          </button>
+        </div>
+    <p-divider></p-divider>
         <div class="col-sm-3">
             <div class="flex flex-column gap-2">
                     <span class="p-input-icon-left">
@@ -74,7 +87,7 @@
             <th></th>
             <th></th>
             <th 
-                pSortableColumn="cuenta">cuenta<p-sortIcon field="cuenta"></p-sortIcon>
+                pSortableColumn="cuenta">CUENTAS<p-sortIcon field="cuenta"></p-sortIcon>
             </th>
         </tr>
         </ng-template>
@@ -120,7 +133,7 @@
 <hr>
 
 <p-dialog 
-    [visible]="CuentaNv1" 
+    [(visible)]="CuentaNv1" 
     [modal]="true" 
     [style]="{width: '90vw'}"
   >
@@ -161,16 +174,18 @@
   </form>
   <p-divider></p-divider>
   <ng-template pTemplate="footer">
+    <button
+    pTooltip="Cancelar Modificacion." 
+    (click)="CuentaNv1 = false" 
+    pButton 
+    pRipple 
+    type="button" 
+    label="cancelar" 
+    class="p-button-danger p-button-text">
+  </button>
+      &nbsp;
     <p-button 
-        class="p-button-danger"
-        pTooltip="Cancelar Modificacion." 
-        (click)="CuentaNv1 = false"
-        icon="pi pi-chevron-left" 
-        label="cancelar" 
-        tooltipPosition="bottom">
-    </p-button>
-    &nbsp;
-    <p-button 
+    [disabled]="frm.invalid"
     pTooltip="Realizar Modificacion." 
     severity="info"
     (click)="ActualizarNV1()"
@@ -183,8 +198,7 @@
 
 
 <p-dialog 
-    
-    [visible]="CuentaNv2" 
+    [(visible)]="CuentaNv2" 
     [modal]="true" 
     [style]="{width: '90vw'}"
   >
@@ -202,6 +216,7 @@
           <div class="flex flex-column gap-2">
               <label>Codigo:</label>
               <input 
+                  class="ng-invalid ng-dirty"
                   pInputText
                   pTooltip="Escribe un codigo de la cuenta." 
                   tooltipPosition="bottom"
@@ -214,6 +229,7 @@
           <div class="flex flex-column gap-2">
               <label>Cuenta:</label>
               <input 
+                  class="ng-invalid ng-dirty"
                   pInputText
                   pTooltip="Escribe una descripción." 
                   tooltipPosition="bottom"
@@ -225,17 +241,19 @@
   </div>
   </form>
   <p-divider></p-divider>
-  <ng-template pTemplate="footer">
-    <p-button 
-        pTooltip="Cancelar Modificacion." 
-        class="p-button-danger"
-        (click)="CuentaNv2 = false"
-        icon="pi pi-chevron-left" 
-        label="cancelar" 
-        tooltipPosition="bottom">
-    </p-button>
+  <ng-template pTemplate="footer">    
+    <button
+    pTooltip="Cancelar Modificacion." 
+    (click)="CuentaNv2 = false" 
+    pButton 
+    pRipple 
+    type="button" 
+    label="cancelar" 
+    class="p-button-danger p-button-text">
+  </button>
     &nbsp;
     <p-button 
+        [disabled]="frmnlv2.invalid"
         pTooltip="Realizar Modificacion." 
         severity="info"
         (click)="ActualizarNV2()"

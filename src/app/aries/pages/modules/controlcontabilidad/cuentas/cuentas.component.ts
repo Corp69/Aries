@@ -101,6 +101,7 @@ export default class CuentasComponent implements OnInit {
   // formulario CUENTA nvl2 
   public frmnlv2: FormGroup = this.fb.group({ 
     id: [null], 
+    id_sat_cuenta_nv1: [null], 
     codigo: [, [Validators.required, Validators.minLength(3)]], 
     descripcion: [, [Validators.required, Validators.minLength(3)]], 
   });
@@ -179,9 +180,6 @@ export default class CuentasComponent implements OnInit {
 
               this.lstCuentas = null;
               this.lstCuentas = resp.Detalle.fis_sat_cuentas.lst;
-              
-
-            
             });
            break;
        }    
@@ -212,24 +210,31 @@ export default class CuentasComponent implements OnInit {
     });
   }
 
+  // nueva cuenta agregar una nuevaNlv2
+  public btnNuevaCuenta (){
+    this.CuentaNv2 = true;
+    this.frmnlv2.controls['id'].setValue(-1);
+    this.frmnlv2.controls['id_sat_cuenta_nv1'].setValue(this._idNVL1);
+    this.frmnlv2.controls['codigo'].setValue("");
+    this.frmnlv2.controls['descripcion'].setValue("");
+  }
+
+
+
   //? ==============================================================================================================================================
   //configuracion eliminar 
   
       //==============================================================================================================
     // Modal: mensaje Confirmacion falso para no cargar la modal
     public mdleliminar: boolean = false;
-    
     public tabla: String ="sat_cuenta_nv2";
     //el id del registro a eliminar
     public _id: number = -1;
-    
     public eliminarRow( id: number ){
       this._id = id;
       this.mdleliminar = true;
       this.Ariesblocked = true;
     }
-
-    
     //! confirmamos la eliminacion 
     // metodo generico de busqueda...
      public eliminacion( response: any) {
@@ -264,8 +269,6 @@ export default class CuentasComponent implements OnInit {
       // cancelamos el stop 
       this.Ariesblocked = false;
     }
-
-
   //? ============================================================================================================================
 
 
