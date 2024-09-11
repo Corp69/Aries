@@ -11,9 +11,10 @@
     <div class="flex flex-wrap gap-3">
         <div class="flex align-items-center">
                 <button
+                  *ngIf=" _idNVL1 != -1"
                   pTooltip="Modificar: Registro."
                   tooltipPosition="top"
-                  (click)="ModificarCuentaNLV1()"
+                  (click)="CuentaNv1 = true"
                   pButton
                   icon="pi pi-file-edit"
                   type="button"
@@ -25,7 +26,7 @@
                 placeholder="seleccione una cuenta"
                 [options]="lstCuentas"
                 optionValue="id"
-                optionLabel="descripcion"
+                optionLabel="cuenta"
             >
             </p-dropdown>
         </div>
@@ -122,8 +123,6 @@
     [visible]="CuentaNv1" 
     [modal]="true" 
     [style]="{width: '90vw'}"
-    [draggable]="false" 
-    [resizable]="false"
   >
     <!-- Agregar Informcion del formulario -->
     <div class="inline-flex align-items-center">
@@ -163,8 +162,18 @@
   <p-divider></p-divider>
   <ng-template pTemplate="footer">
     <p-button 
+        class="p-button-danger"
+        pTooltip="Cancelar Modificacion." 
+        (click)="CuentaNv1 = false"
+        icon="pi pi-chevron-left" 
+        label="cancelar" 
+        tooltipPosition="bottom">
+    </p-button>
+    &nbsp;
+    <p-button 
     pTooltip="Realizar Modificacion." 
     severity="info"
+    (click)="ActualizarNV1()"
     icon="pi pi-file-edit" 
     label="Guardar" 
     tooltipPosition="bottom">
@@ -174,11 +183,10 @@
 
 
 <p-dialog 
+    
     [visible]="CuentaNv2" 
     [modal]="true" 
     [style]="{width: '90vw'}"
-    [draggable]="false" 
-    [resizable]="false"
   >
   <!-- Frm Cuenta Nlv 2 -->
   <!-- Agregar Informcion del formulario -->
@@ -219,6 +227,15 @@
   <p-divider></p-divider>
   <ng-template pTemplate="footer">
     <p-button 
+        pTooltip="Cancelar Modificacion." 
+        class="p-button-danger"
+        (click)="CuentaNv2 = false"
+        icon="pi pi-chevron-left" 
+        label="cancelar" 
+        tooltipPosition="bottom">
+    </p-button>
+    &nbsp;
+    <p-button 
         pTooltip="Realizar Modificacion." 
         severity="info"
         (click)="ActualizarNV2()"
@@ -230,6 +247,16 @@
 </p-dialog>
 
 
+
+
+@if( mdleliminar == true  ) {
+  <app-mdleliminar
+    [mdleliminar]="mdleliminar"
+    [_tabla]="tabla"
+    [_id]="_id"
+    (_rowconfirmacion)="eliminacion($event)"
+    />
+}
 
 
 

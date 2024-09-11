@@ -27,6 +27,7 @@ import {DialogModule} from 'primeng/dialog';
 import { CuentasService } from './services/cuentas.service';
 //interfaces
 import { listados } from '../impuestos/interface/impuesto';
+import { MdleliminarComponent } from '@shared/pages/modales/mdleliminar/mdleliminar.component';
 
 
 
@@ -58,7 +59,9 @@ import { listados } from '../impuestos/interface/impuesto';
       ButtonModule,
       TooltipModule,
     //--
-
+    
+        //shared
+        MdleliminarComponent,
 
   ],
   providers: [
@@ -85,7 +88,7 @@ export default class CuentasComponent implements OnInit {
   public CuentaNv2: boolean = false;
   
   //id de la cuenta NLV1
-  public _id: Number = -1;
+  public _idNVL1: Number = -1;
 
   // formulario Cuenta nvl1 
   public frm: FormGroup = this.fb.group({ 
@@ -122,8 +125,15 @@ export default class CuentasComponent implements OnInit {
    * obtenemos las cuentas del nivel 2
    */
   public getCuentasNv2( id: Number){
-  
-    this._id = id;
+    this._idNVL1 = id;
+    let data = this.lstCuentas.filter(item => item.id === id);
+    
+    //?  Seteamos los valores de la cuenta
+
+    this.frm.controls['id'].setValue(data[0].id);
+    this.frm.controls['codigo'].setValue(data[0].codigo);
+    this.frm.controls['descripcion'].setValue(data[0].descripcion);
+
 
      this.servicio.getTablaCuentas( id ).subscribe( resp =>{
        this.DataSource = resp.Detalle.fis_tabla_sat_cuentas.data;       
@@ -138,16 +148,9 @@ export default class CuentasComponent implements OnInit {
       this.DataSource = this.DataSource.filter(item => item.descripcion.toLowerCase().includes(filtro.value.toLowerCase()));
     }
   }
-
-
-  // eliminar subcuenta 
-  public eliminarRow( args: any ){}
-
-
-
+  
   //? ========================================================
   // modificar btn Modificarow
-    
   public ModificaNv2( args: any ){
     //seteamos los valores al formulario 
     this.CuentaNv2 = true;
@@ -156,6 +159,30 @@ export default class CuentasComponent implements OnInit {
     this.frmnlv2.controls['descripcion'].setValue(args.descripcion);
 
   }
+
+    //modificar la cuenta 
+    public ActualizarNV1(){
+      this.CuentaNv1 = false;
+     //SERVICIO ACTUALIZACION 
+     this.servicio.ActualizarNV2(this.frm.value).subscribe(resp => {
+       switch (resp.IdMensj) {
+         case 3:
+           break;
+         case 2:
+           // mensaje para verificar la captura de la direccion del sat
+           this.messageService.add({key: 'tc', severity:'info', summary: 'warning', detail: 'Cuenta No fue Actualizada.'});
+           break;
+         default:
+             // mensaje para verificar la captura de la direccion del sat
+             this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Cuenta Actualizada.'});
+             this.servicio.getTablaCuentas(  this._idNVL1 ).subscribe( resp =>{
+               this.DataSource = resp.Detalle.fis_tabla_sat_cuentas.data;       
+               this.DataSourceRespaldo = resp.Detalle.fis_tabla_sat_cuentas.data;       
+              });  
+           break;
+       }    
+     });
+   }
   
   //modificar la cuenta 
   public ActualizarNV2(){
@@ -172,7 +199,7 @@ export default class CuentasComponent implements OnInit {
         default:
             // mensaje para verificar la captura de la direccion del sat
             this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Cuenta Actualizada.'});
-            this.servicio.getTablaCuentas(  this._id ).subscribe( resp =>{
+            this.servicio.getTablaCuentas(  this._idNVL1 ).subscribe( resp =>{
               this.DataSource = resp.Detalle.fis_tabla_sat_cuentas.data;       
               this.DataSourceRespaldo = resp.Detalle.fis_tabla_sat_cuentas.data;       
              });  
@@ -182,15 +209,69 @@ export default class CuentasComponent implements OnInit {
   }
   
 
+  
 
 
 
 
-  public ModificarCuentaNLV1(){
-
-  }
 
 
+
+  //? ==============================================================================================================================================
+  //configuracion eliminar 
+  
+      //==============================================================================================================
+    // Modal: mensaje Confirmacion falso para no cargar la modal
+    public mdleliminar: boolean = false;
+    
+    public tabla: String ="sat_cuenta_nv2";
+    //el id del registro a eliminar
+    public _id: number = -1;
+    
+    public eliminarRow( id: number ){
+      this._id = id;
+      this.mdleliminar = true;
+      this.Ariesblocked = true;
+    }
+
+    
+    //! confirmamos la eliminacion 
+    // metodo generico de busqueda...
+     public eliminacion( response: any) {
+      // cargamos al objeto a buscar
+      this.mdleliminar  = false;
+      // recargamos la data
+      switch ( response ) {
+        case false:
+          this.messageService.add(
+            {
+              key: 'tc', 
+              severity:'info', 
+              summary: 'info',
+              detail: 'Eliminación, Cancelada'
+            });
+          break;
+        default:
+          this.messageService.add(
+            {
+              key: 'tc', 
+              severity:'success', 
+              summary: 'Registro',
+              detail:  'Eliminado: Correctamente!'
+            });
+            //? recarga de cuentas nl2 
+            this.servicio.getTablaCuentas(  this._idNVL1 ).subscribe( resp =>{
+              this.DataSource = resp.Detalle.fis_tabla_sat_cuentas.data;       
+              this.DataSourceRespaldo = resp.Detalle.fis_tabla_sat_cuentas.data;       
+             });
+        break;
+      }
+      // cancelamos el stop 
+      this.Ariesblocked = false;
+    }
+
+
+  //? ============================================================================================================================
 
 
 }

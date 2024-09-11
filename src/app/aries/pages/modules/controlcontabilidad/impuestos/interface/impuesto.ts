@@ -17,5 +17,6 @@ export interface bcImpuesto {
 export interface listados {
   id:          Number;
   descripcion: String;
+  codigo: String;
 }
 
