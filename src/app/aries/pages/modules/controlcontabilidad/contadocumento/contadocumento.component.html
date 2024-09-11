@@ -165,14 +165,14 @@
                 <div class="flex align-items-center">
 
                     <p-inputGroup>
-                        <p-inputGroupAddon pTooltip="Seleccione Un Empleado De Documento: con ello haremos futuras configuraciones"
+                        <p-inputGroupAddon pTooltip="Seleccione Un Empleado: con ello haremos futuras configuraciones"
                         tooltipPosition="bottom" >
                             <i class="pi pi-wrench">&nbsp; Empleado:</i>
                         </p-inputGroupAddon>
                     </p-inputGroup>
 
                     <p-dropdown
-                        pTooltip="Seleccione Un Tipo De Documento: con ello haremos futuras configuraciones"
+                        pTooltip="Seleccione Un Tipo De Empleado: con ello haremos futuras configuraciones"
                         tooltipPosition="bottom"
                         formControlName="serie"
                         placeholder="seleccione una opcion"
@@ -430,67 +430,65 @@
             
         </form>
 
-
-
-</p-card>
-
-<hr>
+    <hr>
  
-<p-card header="BOTONES - Comprobante">
+    <p-card header="Botones - Comprobante">
 
-    <p-divider align="left">
-        <div class="inline-flex align-items-center">
-            <i class="pi pi-user mr-2"></i>
-            <b>Funciones Usuario:</b>
-        </div>
-</p-divider>
+        <p-divider align="left">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-user mr-2"></i>
+                <b>Funciones Usuario:</b>
+            </div>
+    </p-divider>
 
-<span class="p-buttonset">
+    <span class="p-buttonset">
 
-  
     
-    <p-button
-    icon="pi pi-plus"
-    label="Nuevo"
-    (click)="NuevoProvedor()"
-    pTooltip="Reinicia Formulario Del Documento."
-    tooltipPosition="bottom"
-    severity="primary"
-    >
-    </p-button>
-
-    &nbsp;
-
-    <p-button
-        icon="pi pi-pencil"
-        pTooltip="Almacenar: Documento Informcion."
+        
+        <p-button
+        icon="pi pi-plus"
+        label="Nuevo"
+        (click)="NuevoProvedor()"
+        pTooltip="Reinicia Formulario Del Documento."
         tooltipPosition="bottom"
-        (click)="Almacenar()"
-        label="Guardar"
-        severity="success">
-        <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
-            fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
-    </p-button>
+        severity="primary"
+        >
+        </p-button>
 
-    &nbsp;
+        &nbsp;
 
-    <p-button
-        icon="pi pi-search"
-        pTooltip="Buscar: Un Documento."
-        tooltipPosition="bottom"
-        (click)="lstProveedores()"
-        label="Buscar"
-        severity="info"
-    >
-    </p-button>
+        <p-button
+            icon="pi pi-pencil"
+            pTooltip="Almacenar: Documento Informcion."
+            tooltipPosition="bottom"
+            (click)="Almacenar()"
+            label="Guardar"
+            severity="success">
+            <p-progressSpinner *ngIf="BtnSpinner" styleClass="w-4rem h-4rem" strokeWidth="8"
+                fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+        </p-button>
 
-</span>
+        &nbsp;
+
+        <p-button
+            icon="pi pi-search"
+            pTooltip="Buscar: Un Documento."
+            tooltipPosition="bottom"
+            (click)="lstProveedores()"
+            label="Buscar"
+            severity="info"
+        >
+        </p-button>
+
+    </span>
+
+    </p-card>
 
 </p-card> 
 
 <hr>
 
-<p-card header="CONTA - Documento">
+<p-card header="Conta - Documento">
 
     <p-table [value]="DataSource" dataKey="id">
         <ng-template pTemplate="header">

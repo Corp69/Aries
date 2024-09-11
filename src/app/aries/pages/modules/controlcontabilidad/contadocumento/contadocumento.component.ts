@@ -59,8 +59,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 })
 export default class ContadocumentoComponent implements OnInit {
  
-//Config. de la app: Bloqueo de botones
-public BtnSpinner: boolean = false;
+  //Config. de la app: Bloqueo de botones
+  public BtnSpinner: boolean = false;
 
   public lstEmpleado: listados[] = [];
   public lstCliente: listados[] = [];
@@ -74,6 +74,7 @@ public BtnSpinner: boolean = false;
   public lstNominaTipo: listados[] = [];
   public lstEstatus: listados[] = [];
 
+  public _id: number = -1;
 
   // variable que bloquea la vista
   public Ariesblocked: boolean  = false;
@@ -87,9 +88,17 @@ public BtnSpinner: boolean = false;
   throw new Error('Method not implemented.');
   }
 
-  public lstProveedores(){}
+  public lstProveedores(){
+    this.router.navigate([ `/ControlContabilidad/contadocumento/${this._id}`]);
+  }
   // public Domicilios(){}
-  public NuevoProvedor(){}
+  public NuevoProvedor(){
+    // reiniciamos el formulario
+    this.DataSource.setValue(this.MdlFiscal);
+
+     this.messageService.add({key: 'tc', severity:'info', summary: 'info', detail: 'Formulario listo: Agregue datos del comprobante y guarde su información.'});
+
+  }
   public selectRowActividad(  id: number ){ this.router.navigate([ `/ControlPMI/Actividad/${ id }`]);}
 
   //modelos:
@@ -118,6 +127,7 @@ public BtnSpinner: boolean = false;
   });
   
   constructor(
+    private messageService: MessageService, 
     private fb: FormBuilder,
     private router: Router,
     private servicio: ContaDocService
