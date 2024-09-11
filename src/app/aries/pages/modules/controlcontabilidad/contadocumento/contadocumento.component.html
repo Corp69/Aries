@@ -104,7 +104,6 @@
                     </p-message>
                     </div>
                 </div>
-    
                 <div class="col-sm-3">
                     <div class="flex flex-column gap-2">
                         <label>Folio:</label>
@@ -116,21 +115,20 @@
                             placeholder="Vacio" />
                     </div>
                 </div>
-    
                 <div class="col-sm-3">
                     <div class="flex flex-column gap-2">
                         <label>Fecha Creacion:</label>
                         <input
-                            pTooltip="fecha_creacion"
+                            pTooltip="fecha creacion"
                             tooltipPosition="bottom"
                             formControlName="fecha_creacion"
                             pInputText placeholder="Vacio" />
                     </div>
                 </div>
             </div>
-    
+
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                     <div class="flex flex-column gap-2">
                         <label>Fecha:</label>
                         <input
@@ -141,40 +139,19 @@
                             placeholder="Vacio" />
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-6">
                     <div class="flex flex-column gap-2">
-                        <label>Empleado:</label>
+                        <label>Tipo De Cambio:</label>
                         <input
-                            pTooltip="id_rh_empleado"
+                            pTooltip="tipo de cambio"
                             tooltipPosition="bottom"
-                            formControlName="id_rh_empleado"
-                            pInputText
-                            placeholder="Vacio" />
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="flex flex-column gap-2">
-                        <label>id_cliente:</label>
-                        <input
-                            pTooltip="id_cliente"
-                            tooltipPosition="bottom"
-                            formControlName="id_cliente"
-                            pInputText
-                            placeholder="Vacio" />
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="flex flex-column gap-2">
-                        <label>Fecha:</label>
-                        <input
-                            pTooltip="fecha"
-                            tooltipPosition="bottom"
-                            formControlName="fecha"
+                            formControlName="tipo_cambio"
                             pInputText
                             placeholder="Vacio" />
                     </div>
                 </div>
             </div>
+
             <p-divider align="left">
                 <div class="inline-flex align-items-center">
                     <i class="pi pi-spin pi-cog"> </i>
@@ -182,48 +159,275 @@
                 </div>
             </p-divider>
     
+            
             <div class="flex flex-wrap gap-3">
+            
                 <div class="flex align-items-center">
+
                     <p-inputGroup>
-                        <p-inputGroupAddon pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                        <p-inputGroupAddon pTooltip="Seleccione Un Empleado De Documento: con ello haremos futuras configuraciones"
                         tooltipPosition="bottom" >
-                            <i class="pi pi-wrench">&nbsp; Tipo:</i>
+                            <i class="pi pi-wrench">&nbsp; Empleado:</i>
                         </p-inputGroupAddon>
                     </p-inputGroup>
+
                     <p-dropdown
-                        pTooltip="Seleccione Un Tipo De Proveedor: con ello haremos futuras configuraciones"
+                        pTooltip="Seleccione Un Tipo De Documento: con ello haremos futuras configuraciones"
                         tooltipPosition="bottom"
                         formControlName="serie"
                         placeholder="seleccione una opcion"
-                        value="id_tipo"
+                        value="id_rh_empleado"
                         optionValue="id" optionLabel="descripcion"
                         >
                     </p-dropdown>
                     <!-- [options]="lstProveedorTipo" -->
-                    
+                
                 </div>
+
                 <div class="flex align-items-center">
+
                     <p-inputGroup>
                         <p-inputGroupAddon
-                        pTooltip="Seleccione Un Estatus De Proveedor: con ello haremos haras visible en busquedas, documentos etc. "
+                        pTooltip="Seleccione Un Cliente De Documento: con ello haremos haras visible en busquedas, documentos etc. "
                         tooltipPosition="bottom" >
-                            <i class="pi pi-wrench">&nbsp; Estatus:</i>
+                            <i class="pi pi-wrench">&nbsp; Cliente:</i>
                         </p-inputGroupAddon>
                     </p-inputGroup>
+
                     <p-dropdown
-                        pTooltip="Seleccione Un Tipo Estatus: Se Habilita o Deshabilita Visualmente."
+                        pTooltip="Seleccione Un Cliente: Se Habilita o Deshabilita Visualmente."
                         tooltipPosition="bottom"
-                        value="id_estatus"
+                        value="id_cliente"
                         placeholder="seleccione una opcion"
                         formControlName="serie"
                         optionValue="id"
                         optionLabel="descripcion"
                     >
-                </p-dropdown>
+                    </p-dropdown>
                 <!-- [options]="lstestatus" -->
                       
                 </div>
+
+                <div class="flex align-items-center">
+
+                    <p-inputGroup>
+                        <p-inputGroupAddon pTooltip="Seleccione Un Proveedor De Documento: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Proveedor:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+
+                    <p-dropdown
+                        pTooltip="Seleccione Un Proveedor: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom"
+                        formControlName="serie"
+                        placeholder="seleccione una opcion"
+                        value="id_proveedor"
+                        optionValue="id" optionLabel="descripcion"
+                        >
+                    </p-dropdown>
+                    <!-- [options]="lstProveedorTipo" -->
+                
+                </div>
+
             </div>
+            <br>
+            <div class="flex flex-wrap gap-3">
+                <div class="flex align-items-center">
+
+                    <p-inputGroup>
+                        <p-inputGroupAddon
+                        pTooltip="Seleccione Una Moneda De Documento: con ello haremos haras visible en busquedas, documentos etc. "
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Moneda:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+
+                    <p-dropdown
+                        pTooltip="Seleccione Un Tipo de Moneda: Se Habilita o Deshabilita Visualmente."
+                        tooltipPosition="bottom"
+                        value="id_moneda"
+                        placeholder="seleccione una opcion"
+                        formControlName="serie"
+                        optionValue="id"
+                        optionLabel="descripcion"
+                    >
+                    </p-dropdown>
+                <!-- [options]="lstestatus" -->
+                      
+                </div>
+
+                <div class="flex align-items-center">
+
+                    <p-inputGroup>
+                        <p-inputGroupAddon pTooltip="Seleccione Una Exportacion Sat De Documento: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Exportacion Sat:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+
+                    <p-dropdown
+                        pTooltip="Seleccione Una Exportacion Sat De Documento: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom"
+                        formControlName="serie"
+                        placeholder="seleccione una opcion"
+                        value="id_sat_exportacion"
+                        optionValue="id" optionLabel="descripcion"
+                        >
+                    </p-dropdown>
+                    <!-- [options]="lstProveedorTipo" -->
+                
+                </div>
+
+                <div class="flex align-items-center">
+
+                    <p-inputGroup>
+                        <p-inputGroupAddon
+                        pTooltip="Seleccione Un Metodo De Pago: con ello haremos haras visible en busquedas, documentos etc. "
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Metodo De Pago:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+
+                    <p-dropdown
+                        pTooltip="Seleccione Un Metodo De Pago: Se Habilita o Deshabilita Visualmente."
+                        tooltipPosition="bottom"
+                        value="id_metodopago"
+                        placeholder="seleccione una opcion"
+                        formControlName="serie"
+                        optionValue="id"
+                        optionLabel="descripcion"
+                    >
+                    </p-dropdown>
+                <!-- [options]="lstestatus" -->
+                      
+                </div>
+
+            </div>
+            <br>
+            <div class="flex flex-wrap gap-3">
+                <div class="flex align-items-center">
+
+                    <p-inputGroup>
+                        <p-inputGroupAddon
+                        pTooltip="Seleccione Un Cobro Del Sat De Documento: con ello haremos haras visible en busquedas, documentos etc. "
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Cobro Del Sat:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+
+                    <p-dropdown
+                        pTooltip="Seleccione Un Cobro Del Sat: Se Habilita o Deshabilita Visualmente."
+                        tooltipPosition="bottom"
+                        value="id_sat_cobro"
+                        placeholder="seleccione una opcion"
+                        formControlName="serie"
+                        optionValue="id"
+                        optionLabel="descripcion"
+                    >
+                    </p-dropdown>
+                <!-- [options]="lstestatus" -->
+                      
+                </div>
+
+                <div class="flex align-items-center">
+
+                    <p-inputGroup>
+                        <p-inputGroupAddon pTooltip="Seleccione Un Comprobante Sat De Documento: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Comprobante Sat:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+
+                    <p-dropdown
+                        pTooltip="Seleccione Un Comprobante Sat De Documento: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom"
+                        formControlName="serie"
+                        placeholder="seleccione una opcion"
+                        value="id_sat_comprobante"
+                        optionValue="id" optionLabel="descripcion"
+                        >
+                    </p-dropdown>
+                    <!-- [options]="lstProveedorTipo" -->
+                
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="flex flex-wrap gap-3">
+
+                <div class="flex align-items-center">
+
+                    <p-inputGroup>
+                        <p-inputGroupAddon pTooltip="Seleccione Un Domicilio De Sucursal De Documento: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Domicilio De Sucursal:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+
+                    <p-dropdown
+                        pTooltip="Seleccione Un Domicilio De Sucursal: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom"
+                        formControlName="serie"
+                        placeholder="seleccione una opcion"
+                        value="id_sucursal_domicilio"
+                        optionValue="id" optionLabel="descripcion"
+                        >
+                    </p-dropdown>
+                    <!-- [options]="lstProveedorTipo" -->
+                
+                </div>
+
+                <div class="flex align-items-center">
+
+                    <p-inputGroup>
+                        <p-inputGroupAddon
+                        pTooltip="Seleccione Un Tipo Nomina Del Sat: con ello haremos haras visible en busquedas, documentos etc. "
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Tipo Nomina Del Sat:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+
+                    <p-dropdown
+                        pTooltip="Seleccione Un Tipo Nomina Del Sat: Se Habilita o Deshabilita Visualmente."
+                        tooltipPosition="bottom"
+                        value="id_sat_nomina_tipo"
+                        placeholder="seleccione una opcion"
+                        formControlName="serie"
+                        optionValue="id"
+                        optionLabel="descripcion"
+                    >
+                    </p-dropdown>
+                <!-- [options]="lstestatus" -->
+                      
+                </div>
+
+                <div class="flex align-items-center">
+
+                    <p-inputGroup>
+                        <p-inputGroupAddon pTooltip="Seleccione Un Estatus De Documento: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom" >
+                            <i class="pi pi-wrench">&nbsp; Estatus:</i>
+                        </p-inputGroupAddon>
+                    </p-inputGroup>
+
+                    <p-dropdown
+                        pTooltip="Seleccione Un Estatus De Documento: con ello haremos futuras configuraciones"
+                        tooltipPosition="bottom"
+                        formControlName="serie"
+                        placeholder="seleccione una opcion"
+                        value="id_estatus"
+                        optionValue="id" optionLabel="descripcion"
+                        >
+                    </p-dropdown>
+                    <!-- [options]="lstProveedorTipo" -->
+                
+                </div>
+
+            </div>    
+            
         </form>
 
 
@@ -231,8 +435,8 @@
 </p-card>
 
 <hr>
-<!-- 
-<p-card header="BOTONES - Compra">
+ 
+<p-card header="BOTONES - Comprobante">
 
     <p-divider align="left">
         <div class="inline-flex align-items-center">
@@ -249,7 +453,7 @@
     icon="pi pi-plus"
     label="Nuevo"
     (click)="NuevoProvedor()"
-    pTooltip="Reinicia Formulario Del Proveedor."
+    pTooltip="Reinicia Formulario Del Documento."
     tooltipPosition="bottom"
     severity="primary"
     >
@@ -259,7 +463,7 @@
 
     <p-button
         icon="pi pi-pencil"
-        pTooltip="Almacenar: Proveedor Informcion."
+        pTooltip="Almacenar: Documento Informcion."
         tooltipPosition="bottom"
         (click)="Almacenar()"
         label="Guardar"
@@ -272,7 +476,7 @@
 
     <p-button
         icon="pi pi-search"
-        pTooltip="Buscar: Un Proveedor."
+        pTooltip="Buscar: Un Documento."
         tooltipPosition="bottom"
         (click)="lstProveedores()"
         label="Buscar"
@@ -282,7 +486,7 @@
 
 </span>
 
-</p-card> -->
+</p-card> 
 
 <hr>
 

@@ -19,6 +19,8 @@ import { TableModule } from 'primeng/table';
 //--
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -57,6 +59,8 @@ import { MdlImpuesto } from './models/MdlImpuesto';
    //--
    InputGroupModule,
    InputGroupAddonModule,
+   InputTextareaModule,
+   InputTextModule,
 
    //--
    DropdownModule,
