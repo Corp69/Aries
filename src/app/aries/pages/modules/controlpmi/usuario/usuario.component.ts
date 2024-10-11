@@ -10,6 +10,9 @@ import { CommonModule } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { UsuarioService } from './Services/Usuario.service';
 
+import {FileUploadModule} from 'primeng/fileupload';
+
+
 @Component({
   selector: 'app-usuario',
   standalone: true,
@@ -22,6 +25,9 @@ import { UsuarioService } from './Services/Usuario.service';
     TagModule,
     TooltipModule,
     ButtonModule,
+
+    FileUploadModule,
+
     DividerModule
   ],
   providers: [MessageService],
@@ -49,13 +55,27 @@ export default class UsuarioComponent implements OnInit{
       
       this.data    = resp.Detalle._aries_usuario.data; 
       console.log( this.data );
-      this.imagen = `<img alt="Card" src="${this.data.imagen}">`;
-      console.log(  this.imagen  );
+      //this.imagen = `<img alt="Card" src="${this.data.imagen}">`;
+      console.log(  this.data.imagen  );
       
     });
 
 
 }
+
+
+
+myUploader(event) {
+  //event.files == files to upload
+  console.log( event.files[0]);
+  
+}
+
+
+
+
+
+
 
 
 }

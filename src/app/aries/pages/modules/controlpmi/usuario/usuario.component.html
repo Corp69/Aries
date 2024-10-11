@@ -1,5 +1,11 @@
 <hr>
 <div class="cards-container">
+    
+    
+    <p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="myUploader($event)"></p-fileUpload>
+
+    
+    
     <p-card 
             header={{data.nombre}} 
             subheader="Departamento TI - CEO." 
