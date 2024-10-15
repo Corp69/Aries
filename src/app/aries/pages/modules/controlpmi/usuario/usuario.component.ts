@@ -14,7 +14,6 @@ import { UsuarioService } from './Services/Usuario.service';
   selector: 'app-usuario',
   standalone: true,
   imports: [
-  
     CommonModule,
     ToastModule,
     BlockUIModule,
@@ -46,18 +45,11 @@ export default class UsuarioComponent implements OnInit{
  
   public ngOnInit(): void {
     this.servicio.getUser().subscribe((resp) => { 
-      
       this.data    = resp.Detalle._aries_usuario.data; 
-      console.log( this.data );
-      this.imagen = `<img alt="Card" src="${this.data.imagen}">`;
-      console.log(  this.imagen  );
-      
+      //console.log( this.data );
+      //this.imagen = `<img alt="Card" src="${this.data.imagen}">`;
+      //console.log(  Base64.decode(this.data.imagen)  );
     });
-
-
 }
 
-
 }
-
-
