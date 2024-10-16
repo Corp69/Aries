@@ -1,7 +1,7 @@
 <hr>
 <p-toast position="top-center" key="tc"></p-toast>
 <!-- <p-blockUI [blocked]="Ariesblocked"></p-blockUI> -->
-<p-card header="Proveedor">
+<p-card header="Sucursales">
 <!-- Agregar Informcion del formulario -->
 <form [formGroup]="frmExtension" autocomplete="off">
     <p-divider align="left">
@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="flex flex-column gap-2">
-                <label>descripcion</label>
+                <label>Descripcion</label>
                 <input
                     pInputText
                     pTooltip="Ingrese descripcion Completo Persona: Fisica o Moral "
@@ -27,22 +27,7 @@
                 </p-message>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="flex flex-column gap-2">
-                <label>activo</label>
-                <input
-                    pKeyFilter="alphanum" maxlength="13"
-                    pInputText
-                    pTooltip="Ingrese activo Persona: Fisica o Moral "
-                    tooltipPosition="bottom"
-                    formControlName="activo"
-                    pInputText
-                    placeholder="Vacio" />
-            <p-message severity="error" text="Campo Es Obligatorio "
-                *ngIf="frmExtension.controls['activo'].invalid">
-            </p-message>
-            </div>
-        </div>
+        
 
     </div>
     
@@ -76,5 +61,93 @@
     </p-button>
     
 </form>
+
+</p-card>
+
+
+<hr>
+
+
+<p-card header="Sucursales">
+
+
+    <p-divider></p-divider>
+        <div class="col-sm-3">
+            <div class="flex flex-column gap-2">
+                    <span class="p-input-icon-left">
+                      <i class="pi pi-search"></i>
+                      <input 
+                            pTooltip="Escriba una palabra calve y presione ENTER dejar vacio para restaurar."
+                            tooltipPosition="bottom" 
+                            type="text" 
+                            pInputText 
+                            value=""
+                            (change)="onfilter($event.target )"
+                            placeholder="..." 
+                            placeholder="Search"
+                      >         
+                  </span>
+            </div>
+        </div>
+
+
+        
+    <p-table
+    [rows]="10"
+   [rowsPerPageOptions]="[5,10,25]"
+   [paginator]="true"
+   [value]="DataSource" 
+   dataKey="id">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th></th>
+            <th></th>
+            <th 
+                pSortableColumn="descripcion">Sucursal<p-sortIcon field="descripcion"></p-sortIcon>
+            </th> 
+            <th 
+                pSortableColumn="icon">Estatus<p-sortIcon field="icon"></p-sortIcon>
+            </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-DataSource>
+          <tr>
+            <td>
+              <button
+              pTooltip="Modificar: Registro."
+              tooltipPosition="top"
+              (click)="selectRowActividad( DataSource.id )"
+              pButton
+              icon="pi pi-file-edit"
+              type="button"
+              class="p-button-Info">
+            </button>
+            </td>
+            <td>
+             <button
+              pTooltip="Eliminar: Registro."
+              tooltipPosition="top"
+              pButton
+              icon="pi pi-trash"
+              type="button"
+              class="p-button-danger">
+            </button>
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.descripcion"></div>
+            </td>
+            <td>
+              <div [innerHTML]="DataSource.icon"></div>
+            </td>
+        </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">No hay registros.</td>
+            </tr>
+        </ng-template>
+
+    </p-table>
 
 </p-card>
