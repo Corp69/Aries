@@ -18,6 +18,8 @@ import { MessageModule } from 'primeng/message';
 //--
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -26,7 +28,7 @@ import { ConfirmacionComponent } from '@shared/pages/modales/confirmacion/confir
 import { listados } from './interface/impuesto';
 import { MdlImpuesto } from './models/MdlImpuesto';
 import { ImpuestoService } from './Services/Impuesto.service';
-import { InputTextModule } from 'primeng/inputtext';
+
 
 
 
@@ -55,6 +57,8 @@ import { InputTextModule } from 'primeng/inputtext';
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,
+
+    InputTextareaModule,
     //--
     DropdownModule,
     ProgressSpinnerModule,

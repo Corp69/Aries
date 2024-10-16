@@ -19,6 +19,8 @@ import { TableModule } from 'primeng/table';
 //--
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { DropdownModule } from 'primeng/dropdown';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -57,6 +59,8 @@ import { MdlImpuesto } from './models/MdlImpuesto';
    //--
    InputGroupModule,
    InputGroupAddonModule,
+   InputTextareaModule,
+   InputTextModule,
 
    //--
    DropdownModule,
@@ -88,8 +92,8 @@ export default class ImpuestosComponent implements OnInit, AfterViewInit {
 
   // variables de tabla
   //tabla
-  public DataSource: any;
-  public DataSourceColumnas: any;
+  public DataEstatal: any;
+  public DataFederal: any;
 
   public selectRowActividad(  id: number ){ this.router.navigate([ `/ControlPMI/Actividad/${ id }`]);}
   
@@ -126,9 +130,11 @@ export default class ImpuestosComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //=========================================================================================================================
     //carga listados
-    this.servicio.listEstatus().subscribe(resp => { 
- 
-      this.lstestatus  = resp.Detalle; });
+    this.servicio.getImpuestos().subscribe( resp =>{
+       this.DataEstatal = resp.Detalle.fis_impuestos.estatal;
+       this.DataFederal = resp.Detalle.fis_impuestos.federal;
+       console.log(resp.Detalle.fis_impuestos);
+    });
 
         // == ================================= 
  }

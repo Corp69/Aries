@@ -30,6 +30,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import { ToastModule } from 'primeng/toast';
 import {MessageService} from 'primeng/api';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-cliente',
@@ -49,6 +51,8 @@ import {MessageService} from 'primeng/api';
     KeyFilterModule,
     InputGroupModule,
     InputGroupAddonModule,
+    InputTextareaModule,
+    InputTextModule,
     DividerModule,
     MessageModule,
     DropdownModule, 
@@ -267,6 +271,7 @@ export default class ClienteComponent implements OnInit, AfterViewInit  {
     this.frmCliente.controls['id_estatus'].setValue("1");
     this.frmCliente.controls['id_tipo'].setValue("1");
     this.frmCliente.controls['id_moneda'].setValue("1");
+    this._id =-1;
     // solo reiniciamos las variables visuales
     this.usoCFDI = ''
     this.RegimenCFDI = ''

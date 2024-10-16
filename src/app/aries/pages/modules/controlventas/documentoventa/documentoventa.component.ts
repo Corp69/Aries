@@ -7,7 +7,13 @@ import { MessageModule} from 'primeng/message';
 import { TooltipModule} from 'primeng/tooltip';
 import { ProgressSpinnerModule} from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
+
+//
 import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+
 import { DropdownModule } from 'primeng/dropdown';
 import {AccordionModule} from 'primeng/accordion';
 import { MessageService } from 'primeng/api';
@@ -29,7 +35,13 @@ import { MdlVenta } from './models/MdlVenta';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+
+    //
     InputGroupModule,
+    InputTextareaModule,
+    InputTextModule,
+    InputGroupAddonModule,
+
     BlockUIModule,
     CardModule,
     ToastModule,
@@ -42,6 +54,7 @@ import { MdlVenta } from './models/MdlVenta';
     AccordionModule,
     TableModule,
     CalendarModule
+    
 
   ],
   providers: [ MessageService],

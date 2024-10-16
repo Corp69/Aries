@@ -20,8 +20,13 @@ import { DialogModule} from 'primeng/dialog';
 import { TooltipModule} from 'primeng/tooltip';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+
+//--
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputTextModule } from 'primeng/inputtext';
+
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { GenericaComponent } from '@shared/pages/busquedas/generica/generica.component';
 import { BlockUIModule } from 'primeng/blockui';
@@ -44,8 +49,12 @@ import {MessageService} from 'primeng/api';
     ConfirmacionComponent,
     //prime NG
     KeyFilterModule,
+    //
     InputGroupModule,
     InputGroupAddonModule,
+    InputTextareaModule,
+    InputTextModule,
+    
     DividerModule,
     MessageModule,
     DropdownModule,
